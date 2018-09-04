@@ -1,0 +1,388 @@
+\documentclass[11pt,letterpaper]{article}
+% === graphic packages ===
+\usepackage{epsf,graphicx,psfrag}
+% === bibliography package ===
+\usepackage{natbib}
+% === margin and formatting ===
+\usepackage{setspace}
+%\usepackage{palatino}[1]
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\renewcommand{\familydefault}{cmss}
+%\usepackage{cmbright}
+%\usepackage[T1]{fontenc}
+%\usepackage{arev}
+%\usepackage[LGR,T1]{fontenc} %% LGR encoding is needed for loading the package gfsneohellenic
+%\usepackage[default]{gfsneohellenic}
+%\usepackage{times}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{endnotes}
+% === math packages ===
+\usepackage[reqno]{amsmath}
+%\usepackage[pdftex]{hyperref}
+\usepackage{amsthm}
+\usepackage{amssymb,enumerate}
+\usepackage[all]{xy}
+\usepackage{lscape}
+\usepackage[compact]{titlesec}
+%\newtheorem{lem} {Lemma}
+%\newtheorem{prop}{Proposition}
+%\newtheorem{thm}{Theorem}
+%\newtheorem{defn}{Definition}
+%\newtheorem{cor}{Corollary}
+%\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+% === dcolumn package ===
+\usepackage{dcolumn}
+\newcolumntype{.}{D{.}{.}{-1}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+% === additional packages ===
+\usepackage{url}
+\newcommand{\makebrace}[1]{\left\{#1 \right \} }
+\newcommand{\determinant}[1]{\left | #1 \right | }
+
+
+\begin{document}
+\begin{center}
+\textbf{Math Camp} \\
+September 4th- September 21st\\
+GSL. Encina West rm 400\\
+Morning Sessions: 9am-12pm\\
+Afternoon Sessions/Labs: 130pm-430pm.  
+\end{center}
+
+%\baselineskip0.125\baselineskip
+\begin{itemize}
+\item[]\textbf{Instructors}: Avi Acharya and Justin Grimmer, Political Science Department
+\item[]Office: Avi:  Encina West 406, Justin: Encina West 416
+\item[]Contact: Avi: avidit@stanford.edu, Justin: jgrimmer@stanford.edu
+\end{itemize}
+
+
+\begin{itemize}
+\item[] \textbf{Teaching Assistants}: Zuhad Hai and Jesse Yoder
+\item[] TA Office hours to be announced soon
+%\item[] Office: Herbert Hoover Memorial Building, Room 346
+%\item[] Contact:  cmccubbi@stanford.edu, 858-354-3561
+%\item[] Office Hours: Wednesday, 2-4; and by appointment.
+\end{itemize}
+
+%\baselineskip2\baselineskip
+%\paragraph{Objectives}
+
+
+\noindent This course is a mathematics boot camp to prepare you for graduate social science methods courses.  Our task is to begin developing skills that social scientists use for the systematic analysis of society, politics, and people.  In service of this ultimate goal, this course will provide students with an introduction to the mathematical foundations that form the basis of many methods used in the social sciences. By the end of the course students should have an understanding of basic mathematical operations, a familiarity with core mathematical concepts used in the social sciences, a working knowledge of basic probability theory, an understanding of basic ideas used in formal modeling in the social sciences, and an initial competence with the {\tt R} programming language.
+
+
+
+\section*{Prerequisites}
+This course has no formal prerequisites. The most successful students will have previously taken courses in differential and integral calculus.  But if you haven't taken these courses, we can help you catch up and develop your math skills---indeed, the first two weeks of math camp are intended to do this.  And these skills are essential as you proceed with your graduate school training.  The social sciences are an increasingly mathematical group of disciplines. Empirical social scientists will need to regularly draw on ideas from differential and integral calculus (and probably linear algebra as well).  Social scientists who do formal theory will also some exposure to proof based math.  There is no secret to mathematical training and \emph{everyone} in this class is capable of learning all the math you need to be a successful social scientist.  We're happy to talk with students at any point about their mathematical preparation, how they can catch up, or how to develop their skill sets further.
+
+
+
+\section*{Evaluation}
+
+
+\paragraph{Homework} During math camp students will be asked to complete brief nightly homework assignments and more in depth lab assignments.  All of the derivations/mathematics in the homeworks can be handwritten.  We will ask you to email us your {\tt R} code from the more indepth assignments.  You are encouraged to work together in groups, but you'll get the most out of the math camp if you produce your own work.     %During the quarter, students will be asked to complete 7 homework assignments.  You are encouraged to work in groups to complete the assignments, though each student must write their own code and write up the assignment themselves.
+
+%As detailed in the computing section below, all coding assignments are to be completed in the {\tt R} programming language and all homework write ups during the quarter should be completed in \LaTeX.
+
+
+\paragraph{Math Camp Assessment} At the end of math camp there will be an assessment about the concepts covered.  This will be closed book, in class, and will take an hour.  Obviously, math camp is offered without a grade.  I encourage you to take this exam seriously to both assess yourself and to provide a second opportunity to engage the course material.
+
+
+%\paragraph{Midterm} There will be an in class midterm exam to assess students' understanding of probability theory.  This will be closed book.
+
+%\paragraph{Final Exam} There will be a take home final exam that will be open notes/book, but you will be restricted from discussing problems with classmates.
+
+\paragraph{Participation} Students are strongly encouraged to participate in the class.  This includes regularly attending class and section, regularly asking questions while in class, and posting questions/responding to questions on the course listserve.
+
+%\section*{Computing} During the quarter, all homework coding assignments should be completed in the {\tt R} statistical programming language.  {\tt R} is a very powerful language, with many great tools for visualization.  It is increasingly becoming the default programming language for statisticians and methodologically sophisticated political scientists.  It requires more time investment than {\tt STATA}, but we believe that the flexibility of {\tt R} will provide dividends later in your career.  Further, if you decide to move to {\tt STATA}, you'll find that your experience in {\tt R} has prepared you well for using other software.    \\
+
+%\noindent During the quarter, students will write all homework and the final exam using \LaTeX .  \LaTeX\ is a document preparation system for the \TeX \ typesetting language.  \LaTeX \ makes writing mathematical formulas much easier than in Word or other similar word processors.  During our first week the teaching assistants are happy to help students configure \LaTeX\ on their computers.
+
+
+%\section*{Section}
+%Section will supplement and expand upon topics covered in the lectures, as well as provide another forum for discussing questions. Regular attendance is expected. Sections will include applications of course material in R, and students are therefore encouraged to bring their laptops to section.
+
+
+\section*{Required Readings}
+%I strongly recommend ordering the following books from Amazon or some other online retailer, but they are available from the campus book store.
+\begin{itemize}
+\item[1)]  Simon, Carl and Blume, Lawrence (SB).  Mathematics for Economists. (Order online, please).
+\item[2)]  Bertsekas, Dimitri P. and Tsitsiklis, John (BT) Introduction to Probability Theory (second edition) (order online please)
+%\item[2)] Ross, Sheldon.  First Course in Probability Theory (8th Edition).  ISBN: 013603313X  (Please note that older editions are acceptable, but may have different page numbers).
+%\item[3)] Degroot, Morris and Mark Schervish.  Probability and Statistics (4th Edition).
+%\item[4)] Cleveland, William.  Visualizing Data.
+\item[3)] Online {\tt R} Tutorials:
+\begin{itemize}
+\item[-] http://thomasleeper.com/Rcourse/CourseOutline.html
+\item[-] https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
+\end{itemize}
+\end{itemize}
+
+\paragraph{Students with documented disabilities} Students who may need an academic accommodation based on the impact of a disability must initiate the request with the Student Disability Resource Center (SDRC) located within the Office of Accessible Education (OAE). SDRC staff will evaluate the request with required documentation, recommend reasonable accommodations, and prepare an Accommodation Letter for faculty dated in the current quarter in which the request is being made. Students should contact the SDRC as soon as possible since timely notice is needed to coordinate accommodations. The OAE is located at 563 Salvatierra Walk (phone: 723-1066, 723-1067 TTY).
+
+\section*{Class Schedule}
+
+\subsection*{Class Pace} We understand that students come from diverse mathematical backgrounds.  The class has an aggressive schedule, but we'll move to the next topic only if \emph{every} student understands the material.  The only way we'll know if students don't understand the material is if they ask questions.  So questions are \emph{strongly} encouraged.  There are three ways to ask questions.  First, students should always feel free to interrupt lectures with questions. These are the most important questions--they'll indicate that we need to slow down the course.  Second, we've set up a class list serve on piazza.com.  Posting to this listserve provides students the opportunity to discuss conceptual issues from homework assignments, points of misunderstanding from lectures, or interesting insights that are closely related to the course.  Because posting questions and responding to the listserve are part of your participation grades the instructors will let everyone in the class have 12-24 hours to respond to any posted questions (unless they require more immediate attention).  After letting participants in the class respond, the instructors will respond to the post.  Third, you can come to our offices or send us emails to ask questions.       \\
+
+
+\subsection*{Class Sessions}
+Math camp will three types of sessions:
+
+\begin{enumerate}
+\item 14 Morning sessions.  During the mornings, Justin will provide lectures and exercises to introduce basic mathematical and probabilistic ideas. 
+\item 5 Afternoon Sessions. During five afternoon sessions, Avi will provide foundations of formal theory and introduce areas of debate, new research areas, and highlight recent innovations. 
+\item 5 Afternoon Lab Sessions. During five afternoon lab sessions the TAs will help you get acquainted with {\tt R}
+\end{enumerate}	
+
+
+
+\subsection*{Readings} Students should plan on reading the material \emph{before} each class meeting.  The books are mathematically challenging texts.  The best way to read math text books is to work through the derivations with a pencil and paper close by.  Working through the derivations will be very useful.  %The Ross book also has many examples, drawn from many fields.  You are not expected to read all of these examples.  That said, the examples can often illuminate important concepts from the course, so we encourage you to work through some of the examples.  In lecture, my goal will be to give the intuition behind the readings and to clarify points that Ross' use of calculus may have obscured.
+
+
+\subsection*{Feedback for Us} 
+We think our math camp is among the best in the country.  We want to make it better.  At the end of math camp we will send an anonymous survey and ask you to give us feedback on what worked and what didn't in the camp.  We're also receptive to feedback throughout the camp.  
+
+
+\newpage
+
+
+\subsection*{Scheduled Meetings}
+
+
+
+\subsubsection*{9/4: Notation, Logic, Functions, and {\tt R} (Morning, Justin)}
+\begin{itemize}
+\item[-] SB 2.1-2.2, 5.1-5.4, Appendix 1
+\end{itemize}
+
+\subsubsection*{9/4: Rational Choice and Social Choice (Afternoon, Avi)}
+
+
+\subsubsection*{9/5: Sequences, Limit, Continuity, Derivatives (Morning)}
+
+\begin{itemize}
+\item[-] SB 2.4, 3.1-3.4, 4
+\end{itemize}
+
+
+\subsubsection*{Lab 1: An Introduction to {\tt R} (Afternoon, TAs)}
+
+
+
+
+\subsubsection*{9/6: Optimization (Morning, Justin)}
+\begin{itemize}
+\item[-] SB 3.5
+\end{itemize}
+
+\subsubsection*{Lab 2: Functions, Optimization, and Simulation in {\tt R} (Afternoon, TAs)}
+
+
+
+\subsubsection*{9/7: Integration and Infinite Series (without Probability) (Morning, Justin)}
+\begin{itemize}
+\item[-] Appendix A-4
+\end{itemize}
+%Great slides on monte carlo methods from Jackman
+
+
+\subsubsection*{9/7: PhD Program Orientation (1230 pm )}
+
+
+
+\subsubsection*{9/10: Matrix Algebra (Morning, Justin)}
+\begin{itemize}
+\item[-] SB Chapters 7-8, 10.1-10.5
+\item[-] Handout on Linear Algebra rules
+\end{itemize}
+
+
+
+
+
+\subsubsection*{9/11: Multivariable Calculus (Morning, Justin)}
+
+
+\begin{itemize}
+\item[-] SB Chapters 13-14, 15.1
+\end{itemize}
+
+
+
+
+
+\subsubsection*{9/12: Multivariate Optimization (Morning, Justin)}
+
+
+\begin{itemize}
+\item[-] SB Chapters 16-17
+\item[-] Handout on Numerical Optimization
+\end{itemize}
+
+\subsubsection*{9/12: Constrained Optimization (Afternoon, Avi)}
+
+
+%%then probability theory.  do sampling, etc.
+
+\subsubsection*{Lab 3: Matrix Algebra in {\tt R} (Afternoon, TAs)}
+
+
+\subsubsection*{9/13: A Rigorous Model of Probability (Morning, Justin))}
+\begin{itemize}
+\item[-] BT Chapter 1
+\end{itemize}
+
+
+
+\subsubsection*{9/14: Properties of Probability (Morning, Justin)}
+
+\begin{itemize}
+\item[-] BT Chapter 1
+\end{itemize}
+
+
+\subsubsection*{Lab 4: Optimization and Simulation in {\tt R} (Afternoon, TAs)}
+
+
+
+
+\subsubsection*{9/17: Discrete Random Variables (Morning, Justin)}
+
+\begin{itemize}
+\item[-] BT Chapter 2
+\end{itemize}
+
+\subsubsection*{9/17: Expected Utility (Afternoon, Avi)}
+
+
+
+\subsubsection*{9/18: Continuous Random Variables (Morning, Justin)}
+
+\begin{itemize}
+\item[-] BT Chapter 3
+\end{itemize}
+
+
+\subsubsection*{Lab 5: Working with Random Variables in {\tt R} (Afternoon, TAs)}
+
+\subsubsection*{9/18: Equilibrium (Afternoon, Avi)}
+
+
+\subsubsection*{9/19: Properties of Expectation, Moment Generating Functions, and Transformations (Morning, Justin)}
+
+\begin{itemize}
+\item[-] BT Chapter 4
+\end{itemize}
+
+
+\subsubsection*{9/19: Dynamic Programming (Afternoon, Avi)} 
+
+\subsubsection*{9/20: Joint Distributions and  Convergence, Limit Theorems, and Inequalities (Morning, Justin)}
+
+\begin{itemize}
+\item[-] Handout (Chapter 6, Ross)
+\item[-] BT Chapter 5
+\end{itemize}
+
+
+\subsubsection*{9/21: Review, Math Camp Assessment, and Planning Your Schedule }
+
+
+
+
+
+
+
+
+
+
+
+%\subsection*{Probability Theory}
+%
+%\subsubsection*{September 26: A Rigorous Model of Probability}
+%\begin{itemize}
+%\item[-] Ross: 2.1 - 2.4, 2.7
+%\end{itemize}
+%
+%\subsubsection*{October 1: Some properties of probabilities}
+%\begin{itemize}
+%\item[-] Ross: 3.1 - 3.5.
+%\end{itemize}
+%
+%\subsubsection*{October 3: Random Variables: Discrete}
+%\begin{itemize}
+%\item[-] Discrete Ross: 4.1-4.5
+%\end{itemize}
+%
+%\subsubsection*{October 8: Random Variables: Continuous}
+%\begin{itemize}
+%\item[-] Ross: 5.1-5.2
+%\end{itemize}
+%
+%\subsubsection*{October 10: Named distributions and Political Science Applications}
+%\begin{itemize}
+%\item[-] Ross: 4.6-4.8, 5.3-5.5
+%\end{itemize}
+%
+%\subsubsection*{October 15: Multivariate Distributions, Correlation, and Covariance}
+%\begin{itemize}
+%\item[-] Ross: 6.1, 6.2, 6.4, 6.5
+%\end{itemize}
+%
+%\subsubsection*{October 17: Limit Theorems}
+%\begin{itemize}
+%\item[-]Ross: 8.1-8.4
+%\end{itemize}
+%
+%\subsubsection*{October 22: The Midterm Exam}
+%
+%\subsection*{Statistical Inference}
+%\subsubsection*{October 24: Effective and Ineffective Visualization}
+%\begin{itemize}
+%\item[-] Tufte Part I, Selections from Cleveland, and the USA Today.
+%\end{itemize}
+%\subsection*{October 29: Guidance for Effective Graphics}
+%\begin{itemize}
+%\item[-] Selections from Cleveland
+%\end{itemize}
+%
+%\subsubsection*{October 31: Theories of Statistical Inference--Likelihood, Bayesian, and Neyman-Pearson}
+%\begin{itemize}
+%\item[-] DS--6.1-6.5
+%\end{itemize}
+%
+%\subsubsection*{November 5: Point Estimation: Part 1}
+%\begin{itemize}
+%\item[-] DS-- Selections from Chapter 6
+%\end{itemize}
+%
+%\subsubsection*{November 7: Point Estimation: Part 2}
+%
+%\subsubsection*{November 12: Interval Estimation (Sampling Distributions) Part 1}
+%\begin{itemize}
+%\item[-] DS--Chapter 7
+%\end{itemize}
+%
+%\subsubsection*{November 14: Interval Estimation (Sampling Distributions) Part 2}
+%
+%\subsubsection*{November 26: Hypothesis Testing Part I}
+%\begin{itemize}
+%\item[-] DS --Chapter 8
+%\end{itemize}
+%
+%\subsubsection*{November 28: Hypothesis Testing Part 2}
+%
+%\subsubsection*{December 3, 5: Introduction to Regression, Causal Inference, and Review}
+%\begin{itemize}
+%\item[-] Professor Grimmer will introduce Regression techniques, ideas of Causal inference, and apply ideas from the course to political science readings
+%\end{itemize}
+
+
+
+\end{document}
+
+
