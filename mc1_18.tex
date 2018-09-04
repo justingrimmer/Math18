@@ -1,0 +1,1157 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Math Camp] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\  Stanford University}
+\vspace{0.3in}
+
+\date{September 4th, 2018}
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}
+
+\Large
+$<$ Course $>$
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The Systematic Analysis of Politics}
+
+\alert{Social Science}: systematic analysis of society\pause \invisible<1>{ (Political Science: who gets what, when, and how).  }\\
+\pause
+\invisible<1-2>{\alert{Methodology}: Develop and disseminate tools to make inferences about society}\pause
+\begin{itemize}
+\item[-] \invisible<1-3>{Mathematical models of social world} \pause
+\item[-] \invisible<1-4>{Probability and Statistics used across sciences} \pause
+\end{itemize}
+
+\invisible<1-5>{This class (introduction):} \pause
+\begin{itemize}
+\item[-] \invisible<1-6>{Math Camp: Develop Tools for Analysis} \pause
+\item[-] \invisible<1-7>{Probability theory: systematic model of randomness}
+%\item[-] \invisible<1-8>{Statistical inference: learning from data}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Course Goals}
+
+First stop in methodology sequence\\
+\invisible<1>{\alert{Big Goal}: prepare you to make \alert{discoveries} about social world} \pause \\
+\invisible<1-2>{\alert{Proximate Goals}} \pause
+\begin{itemize}
+\invisible<1-3>{\item[1)] Mathematical tools to comprehend and use statistical methods} \pause
+\invisible<1-3>{\item[2)] Foundation in probability theory/analytic reasoning} \pause
+%\invisible<1-4>{\item[3)] Deep understanding of basic concepts in statistical inference } \pause
+\invisible<1-4>{\item[3)] Practical Computing Tools: {\tt R} } \pause 
+\invisible<1-5>{\item[4)] Introduction to Logic of Formal Modeling}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Course Staff}
+
+Me: Justin Grimmer and Avidit Acharya \pause
+\begin{itemize}
+\invisible<1>{\item[-] Justin: 416 ; Avi 406 } \pause
+\invisible<1-2>{\item[-] Email: jgrimmer@stanford.edu ; avidit@stanford.edu} \pause
+\invisible<1-3>{\item[-] Cell: 617-710-6803} \pause
+\invisible<1-4>{\item[-] Office Hours: I'm generally here all the time (9am to 5pm), just stop by [but if you need to see me with 100\% probability, schedule a visit]; } \pause
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Extra Info}
+
+
+\begin{itemize}
+     \item  Zuhad Hai and Jesse Yoder \\
+     \item Github for class:
+\url{github/justingrimmer/Math18} \\
+
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Prerequisites}
+
+\alert{No Formal Prerequisites} \pause \\
+\invisible<1>{\large BUT } \pause \\
+\normalsize
+\begin{itemize}
+\invisible<1-2>{\item[-] Successful students will know differential and integral calculus} \pause
+\begin{itemize}
+\invisible<1-3>{\item[1)] Limits (intuitive)} \pause
+\invisible<1-4>{\item[2)] Derivatives (tangent lines, differentiation rules)} \pause
+\invisible<1-5>{\item[3)] Integrals (fundamental theorem of calculus/antidifferentiation rules} \pause
+\end{itemize}
+\invisible<1-6>{\item[-] \alert{We are here to help}} \pause
+\begin{itemize}
+\invisible<1-7>{\item[-] No mystery to learning math: just hard work} \pause
+\invisible<1-8>{\item[-] Political science increasingly requires math} \pause
+\invisible<1-9>{\item[-] Empirical: calculus and linear algebra} \pause
+\invisible<1-10>{\item[-] Quantitative Methodologist: Real Analysis and
+  Grad level statistics} \pause
+\invisible<1-11>{\item[-] Formal Theory: Real Analysis (through measure theory),
+  Topology}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Evaluation}
+You're not taking this class for a grade\pause \invisible<1>{ $\leadsto$ that shouldn't matter: }\pause
+\begin{itemize}
+\invisible<1-2>{\item[-]  Math Camp Exam}
+%\invisible<1-2>{\item[-] 40\%: Homework assignments} \pause
+%\invisible<1-3>{\item[-] 15\%: Midterm} \pause
+%\invisible<1-4>{\item[-] 25\% Final Exam} \pause
+%\invisible<1-5>{\item[-] 10\%: Participation} \pause
+\end{itemize}
+
+\invisible<1-3>{\alert{Grad School Irony}} \pause \invisible<1-4>{ Or: \alert{How I Learned to Stop Worrying and Love C's} } \pause
+\begin{itemize}
+\invisible<1-5>{\item[-] Grades no longer matter} \pause
+\invisible<1-6>{\item[-] Learn as much material as possible} \pause
+\invisible<1-7>{\item[-] \alert{If you truly only care about learning material, you'll get
+    amazing grades}} \pause
+\end{itemize}
+
+\invisible<1-8>{\Large \alert{No incompletes in this class}}
+
+
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Math Camp Exam}
+
+%September 24th. 11 am.  Closed book, closed notes\\
+
+%Excuses: only acts of God/official Stanford excuses.
+
+%\end{frame}
+
+
+\begin{frame}
+\frametitle{Homework}
+Math camp: assigned daily $\leadsto$ Mechanics of solving problems\\
+Lab Assignment: Twice weekly assignments, help you develop computational and mathematical skills.
+
+
+%During quarter: assigned each Friday (at Section) \pause \\
+%\invisible<1>{To be turned in each Friday (next Section)} \pause \\
+%\begin{itemize}
+%\invisible<1-2>{\item[-] Computing: \alert{R} and \LaTeX (to be discussed below)} \pause
+%\invisible<1-3>{\item[-] Collaboration: encouraged, but write up your own code +
+%  answers} \pause
+%\end{itemize}
+%\invisible<1-4>{\large Challenging: this class is an investment--work hard, will pay
+%  dividends}
+%
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Computing/Homeworks}
+
+Greatest scientific discovery of 20th Century: \pause \\
+\invisible<1>{Powerful personal computer (standardize science)} \pause \\
+\invisible<1-2>{1956: \$10,000 megabyte}\\ \pause \invisible<1-3>{2015:
+  $<<<$ \$ 0.0001 per megabyte } \pause \\
+\invisible<1-4>{Statistical Computing: \alert{R}} \pause
+\begin{itemize}
+\invisible<1-5>{\item[-] {\tt R}: Scripting language} \pause
+\invisible<1-6>{\item[-] Flexible}\pause\invisible<1-7>{, Cutting Edge Software}\pause\invisible<1-8>{, great visualization tools}\pause\invisible<1-9>{
+  and makes learning other programs easier}\pause
+\item[-] \invisible<1-10>{More start up costs than STATA, but more
+    payoff}\pause
+\end{itemize}
+\invisible<1-11>{Paper writeup: \LaTeX }\pause
+\begin{itemize}
+\invisible<1-12>{\item[-] Hard to write equations in Word: } \pause
+\invisible<1-13>{\item[-] Relatively easy in \LaTeX \\} \pause
+\invisible<1-14>{$f(x) = \frac{\exp(-\frac{(x - \mu)^2}{2\sigma^2} )}{ \sqrt{2\pi \sigma^2}} $}\pause
+\invisible<1-15>{\item[-] Tables/Figures/General type/Nice Presentations setting: easier in \LaTeX} \pause
+\invisible<1-16>{\item[-] \alert{If you use start using \LaTeX, you'll soon love it} }
+\end{itemize}
+\end{frame}
+
+%
+%\begin{frame}
+%\frametitle{Midterm}
+%
+%Closed book, in class exam.
+%\large
+%October 22.
+%
+%\normalsize
+%Excuses: act of God/official Stanford excuses only
+%
+%
+%
+%\end{frame}
+%
+%
+%
+%\begin{frame}
+%\frametitle{Final Exam}
+%
+%Open book, take home exam.  (no collaboration)
+%
+%\end{frame}
+
+%\begin{frame}
+%\frametitle{Participation}
+%
+%Participation in class/section is \alert{essential}\\
+%Questions most important component of participation
+%\begin{itemize}
+%\item[-] In Class (slow down pace, which is good)
+%\item[-] Class Listserve (www.piazza.com) ask/answer questions
+%\item[-] Office Hours
+%\end{itemize}
+%
+%\end{frame}
+
+
+\begin{frame}
+\frametitle{Course Books}
+
+
+\begin{itemize}
+\item[1)] Simon, Carl and Blume, Lawrence (SB).  Mathematics for Economists.
+\item[2)] Bertsekas, Dimitri P. and Tsitsiklis, John (BT) Introduction to Probability Theory (second edition)
+%\item[2)] Probability Theory (Mathematical model of uncertainty), Ross
+%\begin{itemize}
+%\item[-] Mathematically sophisticated (assumes solid calculus
+%  background)
+%\item[-] Read carefully, talk to us with questions [before class!]
+%\item[-] Examples: work through as many as you can
+%\end{itemize}
+%\item[3)] Probability and Statistics Degroot and Schervish
+%\begin{itemize}
+%\item[-] Inference: how to learn about stuff from data
+%\end{itemize}
+%\item[4)] Visualizing Data, Cleveland
+%\begin{itemize}
+%\item[-] Inference: not just from statistical models
+%\item[-] Visualization: not just from presentation, vital for learning
+%\item[-] Introduction to what \alert{works} and doesn't in visualization
+%\end{itemize}
+%\item[5)] R programming: Teetor
+%\begin{itemize}
+%\item[-] Help you learn to program
+%\item[-] Teach you how to fish (learn new code yourself)
+%\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Life in Graduate School/Academy}
+
+Three part mixture: \pause
+
+
+\begin{tikzpicture}
+
+
+\invisible<1>{\node (george) at (-6,4) [] {\scalebox{0.5}{\includegraphics{Strait.jpg} }} ;
+\node (gtext) at (-6, 1) [] {George Strait} ; }\pause
+
+
+\invisible<1-2>{\node (kayne) at (-3, 3.5) [] {\scalebox{0.5}{\includegraphics{kanye.jpg}} } ;
+\node (kayne) at (-3, 0.5) [] {Kanye West}; } \pause
+
+
+\invisible<1-3>{\node (steve) at (-1, 3) [] {\scalebox{0.25}{\includegraphics{Radcliffe.jpg}}} ;
+\node (stevet) at (-1, 0) [] {\alert{Paula Radcliffe}}; }
+
+\end{tikzpicture}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{$\frac{1}{3}$ George Strait}
+
+\begin{columns}[]
+\column{0.5\textwidth}
+
+\scalebox{0.75}{\includegraphics{Strait.jpg}}
+
+
+\column{0.5\textwidth}
+\pause
+\begin{itemize}
+\invisible<1>{\item[-] Amarillo By Morning [Terry Stafford 1973, George Strait 1982]} \pause
+\invisible<1-2>{\item[-] Ostensibly: song about rodeo cowboys} \pause
+\invisible<1-3>{\item[-] Really: song about being academic } \pause
+\invisible<1-4>{\item[-] ``I ain't got a dime/but what I got is mine/I ain't rich/ but lord I'm free"} \pause
+\invisible<1-5>{\item[-] Academics ain't rich (counterfactually)} \pause
+\invisible<1-6>{\item[-] But (lord) we're free}\pause
+\invisible<1-7>{\item[-] If you're good at methods, you'll be more
+  rich [in expectation] and equally free}
+\end{itemize}
+
+
+
+\end{columns}
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{$\frac{1}{3}$ Kayne West}
+
+
+\begin{columns}[]
+
+\column{0.5\textwidth}
+\scalebox{0.5}{\includegraphics{kanye.jpg}}
+
+
+\column{0.5\textwidth}
+\pause
+\begin{itemize}
+\invisible<1>{\item[-] Deal with explicit criticism (part of Hip/Hop
+  culture) } \pause
+\invisible<1-2>{\item[-] On masterpiece album \alert{My Beautiful Dark Twisted Fantasy}} \pause
+\invisible<1-3>{\item[-] ``Screams from the haters, got a nice ring to it/I guess
+  every superhero needs his theme music'' } \pause
+\invisible<1-4>{\item[-] Kid Cudi: ``These motherf**kers can't fathom the wizadry'' } \pause
+\invisible<1-5>{\item[-] Academics: intense criticism of ideas } \pause
+\invisible<1-6>{\item[-] \alert{Very rarely will you be told you're doing a great job}} \pause
+\invisible<1-7>{\item[-] Self confidence: believe in work}
+\end{itemize}
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{$\frac{1}{3}$ Steve Prefontaine}
+
+``It's not a sprint, it's a marathon".
+
+
+\only<1>{\scalebox{0.5}{\includegraphics{Radcliffe.jpg}}}
+\pause
+\only<2->{
+\begin{itemize}
+\invisible<1>{\item[-] World class distance running: it is
+  \alert{hard}} \pause
+\invisible<1-2>{\item[-] But not for the obvious reasons } \pause
+\invisible<1-3>{\item[-] Marathon: 5:10 minute mile, for 26.2 miles.} \pause
+\invisible<1-4>{\item[-] How to train?} \pause
+\begin{itemize}
+\invisible<1-5>{\item[-] Old way: get in shape (run far) rely on adrenaline in race } \pause
+\invisible<1-6>{\item[-] Now: races more tactical \alert{and agonizing} } \pause
+\invisible<1-7>{\item[-] Need to prepare for agony } \pause
+\end{itemize}
+\invisible<1-8>{\item[-] Mantra: \alert{sustained agony}} \pause
+\invisible<1-9>{\item[-] Graduate School/Academics: \alert{Sustained Agony}} \pause
+ \end{itemize}
+}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{$\frac{1}{3}$ Paula Radcliffe}
+
+\pause
+\invisible<1>{{\huge Not crazy to work \alert{30}-\alert{40} hours on methods \alert{alone}}}
+
+\pause
+
+\begin{itemize}
+\invisible<1-2>{\item[-] Methods $\leadsto$ skills use for rest of career} \pause
+\invisible<1-3>{\item[-] Methods $\leadsto$ often takes deep thinking, practice} \pause
+\end{itemize}
+
+\invisible<1-4>{{\huge \alert{TAKE BREAKS!}}} \pause
+
+\begin{itemize}
+\invisible<1-5>{\item[-] Regular physical activity $\leadsto$ improve focus} \pause
+\invisible<1-6>{\item[-] Time away from lab $\leadsto$ more productive when back}
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{$\frac{1}{3}$ Paula Radcliffe}
+
+Why work so hard?\pause
+\begin{itemize}
+\invisible<1>{\item[-] \alert{You are all smart}} \pause
+\invisible<1-2>{Really Smart} \pause \invisible<1-3>{Mother-in-law
+  brags about you smart} \pause
+\invisible<1-4>{\item[-] Everyone entering graduate school at top programs this fall} \pause
+\invisible<1-5>{\item[-] Success: \alert{work}}\pause
+\invisible<1-6>{\item[-] Treat grad school like a job}\pause
+\invisible<1-7>{\item[-]Who gets ahead? who gets the most work done on the smartest ideas}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Preliminaries}
+
+What can you learn in a math camp?\pause
+\begin{itemize}
+\invisible<1>{\item[1)] Introduction to more sophisticated mathematics (notation)}\pause
+\invisible<1-2>{\item[2)] Getting acquainted with proof techniques and proofs} \pause
+\invisible<1-3>{\item[3)] I'm going to introduce ideas/example problems common in research that will help with your seminar} \pause
+\invisible<1-4>{\item[4)] \alert{This will not substitute for a richer math background} and \alert{we won't expect it to}} \pause
+\end{itemize}
+\large
+\invisible<1-5>{\alert{Do not let yourself get lost}.} \pause  \\
+\invisible<1-6>{If \alert{at.}}\pause \invisible<1-7>{ \alert{any.} }\pause\invisible<1-8>{\alert{point.} } \pause \invisible<1-9>{you have a question} \pause
+\Large
+\invisible<1-10>{\alert{please ask !}} \pause \\
+\invisible<1-11>{Smartest people ask the most questions!}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\Huge
+Let's get to work
+\end{frame}
+
+
+\begin{frame}
+
+\Huge
+Simple Logical Statements
+
+\end{frame}
+
+
+\begin{frame}
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Sets}
+
+A \alert{set} is a collection of objects.
+
+\begin{eqnarray}
+A & = & \{1, 2, 3\} \nonumber  \\
+B  & = & \{4, 5, 6\}\nonumber  \\
+C  & = & \{ \text{First year cohort} \}\nonumber  \\
+D & = & \{ \text{Stanford University Faculty} \}\nonumber
+\end{eqnarray}
+
+
+
+
+
+\end{frame}
+
+\begin{frame}
+
+
+
+\begin{defn} If $A$ is a set, we say that $x$ is an element of $A$ by writing, $x \in A$.  If $x$ is not an element of $A$ then, we write $x \notin A$.
+\end{defn}
+
+\pause
+\begin{itemize}
+\invisible<1>{\item[-] $ 1 \in \{ 1, 2, 3\}$}\pause
+\invisible<1-2>{\item[-] $4 \in \{4, 5, 6\} $}\pause
+\invisible<1-3>{\item[-] $\text{Jesse } \notin \{ \text{First year cohort} \} $}\pause
+\invisible<1-4>{\item[-] $\text{Justin} \in \{ \text{Stanford Faculty} \}$}\pause
+\end{itemize}
+
+\invisible<1-5>{Why Care?} \pause
+\begin{itemize}
+\invisible<1-6>{\item[-] Sets are necessary for probability theory} \pause
+\invisible<1-7>{\item[-] Defining \alert{set} is equivalent ot choosing population of interest (usually)}
+\end{itemize}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+\begin{defn} If $A$ and $B$ are sets, then we say that $A = B$ if, for all $x \in A$ then $x \in B$ and for all $y \in B$ then $y \in A$.
+\end{defn}
+
+\pause
+\begin{itemize}
+\invisible<1>{\item[-] Test to determine equality:} \pause
+\begin{itemize}
+\invisible<1-2>{\item[-] Take all elements of $A$, see if in $B$} \pause
+\invisible<1-3>{\item[-] Take all elements of $B$, see if in $A$} \pause
+\end{itemize}
+\end{itemize}
+
+\invisible<1-4>{\begin{defn} If $A$ and $B$ are sets, then we say that $A \subset B$ is, for all $x \in A$, then $x \in B$.
+\end{defn}} \pause
+
+\invisible<1-5>{\alert{Difference between definitions? }}
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{thm} Let $A$ and $B$ be sets.  If $A$ = $B$ then $A \subset B$ and $B \subset A$ \end{thm}
+\pause
+\invisible<1>{ \begin{proof}  Suppose $A = B$.  By definition, if $x \in A$ then $x \in B$.  So $A \subset B$.  Again, by definition, if $y \in B$ then $y \in A$.  So $B \subset A$. \end{proof}} \pause
+\invisible<1-2>{
+\begin{thm}
+Let $A$ and $B$ be sets. If $A \subset B$ and $B \subset A$ then $A = B$ \end{thm} } \pause
+\invisible<1-3>{ \begin{proof} Suppose $A \subset B$  and that $B \subset A$.  For all $x \in A$, then $x \in B$.  And for all $y \in B$, $y \in A$.  Or, every element in $A$ is in $B$ and each element of $B$ is in $A$.  $A = B$. \end{proof} }
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+\begin{thm} Let $A$ and $B$ be sets.  Then $A$ = $B$ \alert{if and only if} $A \subset B$ and $B \subset A$. \end{thm}
+\pause
+\invisible<1>{\begin{proof} $\Rightarrow$ Suppose $A = B$.  By definition, if $x \in A$, $x \in B$.  So $A \subset B$.  Again, by definition, if $y \in B$ then $y \in A$.  So $B \subset A$.  \\} \pause
+\invisible<1-2>{$\Leftarrow$ Suppose $A \subset B$  and that $B \subset A$.  For all $x \in A$, then $x \in B$.  And for all $y \in B$, $y \in A$.  Or, every element in $A$ is in $B$ and each element of $B$ is in $A$.  $A = B$.  } \pause
+\end{proof}
+
+\invisible<1-3>{When a proof says \text{if and only if} it is showing two things.  } \pause
+\begin{itemize}
+\invisible<1-4>{\item[-] \alert{If} or that a condition is \alert{sufficient} } \pause
+\invisible<1-5>{\item[-] \alert{Only If} or that a condition is necessary } \pause
+\end{itemize}
+
+\invisible<1-6>{Example of sufficient, but not necessary} \pause
+\begin{itemize}
+\invisible<1-7>{\item[-] If candidate wins the electoral college, then president (can be president through vote of House too)} \pause
+\end{itemize}
+\invisible<1-8>{Example of necessary, but not sufficient} \pause
+\begin{itemize}
+\invisible<1-9>{\item[-] Only if a candidate is older than 35 can s/he be president (but clearly not sufficient)} \pause
+\end{itemize}
+
+
+\invisible<1-10>{\alert{Proofs} : we're going to work hard on proofs. The only way to get better is to practice.  }
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Contradiction}
+
+\pause
+\begin{itemize}
+\invisible<1>{\item[-] Many ways to prove the same theorem.  } \pause
+\invisible<1-2>{\item[-] \alert{Contradiction}: assume theorem is false, show that this leads to logical contradiction} \pause
+\invisible<1-3>{\item[-] \alert{Indirect proof}: setting up proof hardest part } \pause
+\end{itemize}
+
+\invisible<1-4>{\begin{thm} Let $A$ and $B$ be sets.  Then $A$ = $B$ \alert{if and only if} $A \subset B$ and $B \subset A$. \end{thm} } \pause
+\invisible<1-5>{\begin{proof} $\Rightarrow$ Suppose $A = B$.  By definition, if $x \in A$, $x \in B$.  So $A \subset B$.  Again, by definition, if $y \in B$ then $y \in A$.  So $B \subset A$. } \pause  \\
+\invisible<1-6>{$\Leftarrow$ Suppose $A \subset B$  and that $B \subset A$. Now, by way of contradiction, suppose that $A \ne B$.  $A \ne B$ only if there is $x \in A $ and $x \notin B$ or if $y \in B$ and $y \notin A$.  But then, either $A \not\subset B$ or $B \not\subset A$, contradicting our initial assumption.  }
+\end{proof}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Set Builder Notation}
+
+\begin{itemize}
+\item[-] Some famous sets
+\begin{itemize}
+\item[-] $J$ = $\{1, 2, 3, \hdots \}$
+\item[-] $Z$ = $\{\hdots, -2, -1, 0, 1, 2, \hdots, \}$
+\item[-] $\Re$ = \alert{real numbers} (more to come about this)
+\end{itemize}
+\item[-] Use \alert{set builder notation} to identify subsets
+\begin{itemize}
+\item[-] $[a, b]  = \{x: x \in \Re \text{ and } a \leq x \leq b \}$
+\item[-] $(a, b]  = \{x: x \in \Re \text{ and } a < x \leq b \}$
+\item[-] $[a, b)  = \{x: x \in \Re \text{ and } a \leq x <  b \}$
+\item[-] $(a, b)  = \{x: x \in \Re \text{ and } a < x < b \}$
+\item[-] $\emptyset$
+\end{itemize}
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Set Operations}
+
+We can build new sets with \alert{set operations}.  \pause
+
+
+\invisible<1>{\begin{defn}  Suppose $A$ and $B$ are sets.  Define the \alert{Union} of sets $A$ and $B$ as the new set that contains all elements in set $A$ \alert{or} in set $B$.  In notation,
+\begin{eqnarray}
+C & = & A \cup B \nonumber \\
+   & = &\{x: x \in A \text{ or } x \in B \} \nonumber
+ \end{eqnarray}
+\end{defn}} \pause
+
+\begin{itemize}
+\invisible<1-2>{\item[-] $A = \{1, 2, 3\}, B = \{3, 4, 5\}$, then $C = A \cup B  = \{ 1, 2, 3, 4, 5\}$} \pause
+\invisible<1-3>{\item[-] $D  = \{\text{First Year Cohort} \}, E = \{\text{Me} \}$, then $F = D \cup E = \{ \text{First Year Cohort, ME} \} $}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Set Operations}
+
+\begin{defn} Suppose $A$ and $B$ are sets.  Define the \alert{Intersection} of sets $A$ and $B$ as the new that contains all elements in set $A$ \alert{and} set $B$.  In notation,
+\begin{eqnarray}
+C  & = & A \cap B \nonumber \\
+  & = & \{x: x \in A \text{ and } x \in B \} \nonumber
+  \end{eqnarray}
+\end{defn}
+\pause
+\begin{itemize}
+\invisible<1>{\item[-] $A =\{1, 2, 3\}, B = \{3, 4, 5\}$, then, $C = A \cap B = \{3\} $ } \pause
+\invisible<1-2>{\item[-] $D = \{\text{First Year Cohort} \}, E = \{\text{Me} \}$, then $F = D \cap E = \emptyset $}
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Some Facts about Sets (No Venn Diagrams!!!)}
+
+\begin{itemize}
+\item[1)] $A \cap B = B \cap A$
+\invisible<1-4>{\item[2)] $A \cup B = B \cup A$}
+\invisible<1-4>{\item[3)] $(A \cap B) \cap C = A \cap (B \cap C)$}
+\invisible<1-4>{\item[4)] $(A \cup B) \cup C = A \cup (B \cup C) $}
+\invisible<1-2>{\item[5)] $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$}
+\invisible<1-4>{\item[6)] $A \cup (B \cap C) = (A \cup B) \cap (A \cup C) $}
+\end{itemize}
+
+
+\only<2>{\begin{proof}
+This fact (theorem) says that the \alert{set} $A \cap B$ is equal to the set $B \cap A$.  We can use the definition of equal sets to test this.  Suppose $x \in A \cap B$.  Then $x \in A$ and $x \in B$.  By definition, then, $x \in B \cap A$.  Now, suppose $y \in B \cap A$. Then $y \in B$ and $y \in A$.  So, by definition of intersection $y \in A \cap B$.  This implies $ A \cap B = B \cap A$ \end{proof}}
+
+\only<4>{\begin{proof}
+Suppose $x \in A \cap (B \cup C)$.  Then $x\in B$ or $x \in C$ \alert{and} $x \in A$.  This implies that $x \in (A \cap B)$ or $ x \in (A \cap C)$.  Or, $ x \in (A \cap B) \cup (A \cap C)$.  Now, suppose $y \in (A \cap B) \cup (A \cap C) $.  Then, $ y \in A$ and $y \in B$ or $y \in C$.  Well, this implies $y \in A \cap (B \cup C)$.  And we have established equality
+\end{proof} }
+
+\only<5>{Break into groups, derive for the remaining facts }
+
+
+
+\pause \pause \pause \pause
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Ordered Pair}
+You've seen an \alert{ordered pair} before,
+\begin{equation}
+(a, b)  \nonumber
+\end{equation}
+
+
+\begin{defn}
+Suppose we have two sets, $A$ and $B$.  Define the \alert{Cartesian product} of $A$ and $B$, $A \times B$ as the set of all ordered pairs $(a, b)$, where $a \in A$ and $b \in B$.  In other words,
+\begin{eqnarray}
+A \times B & = & \{(a, b): a \in A \text{ and } b \in B \} \nonumber
+\end{eqnarray}
+\end{defn}
+
+
+Example: \\
+$A = \{1, 2\}$ and $B = \{3, 4\}$, then, \\
+$A \times B = \{ (1, 3); (1, 4); (2, 3); (2, 4) \} $
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Function}
+Start with general and move to specific--- (abstract just takes time to get acquainted) \pause
+
+\invisible<1>{\begin{defn} A \alert{relation} is a set of ordered pairs.  A \alert{function} \alert{F} is a relation such that,
+\begin{eqnarray}
+(x, y) \in F & ; & (x, z) \in F \Rightarrow y = z \nonumber
+\end{eqnarray}
+
+We will commonly write a function as $F(x) $, where $x \in $ Domain $F$ and $F(x) \in $ Codomain $F$.  It is common to see people write,
+\begin{equation}
+F:A \rightarrow B \nonumber
+\end{equation}
+where $A$ is domain and $B$ is codomain
+\end{defn}} \pause
+
+\invisible<1-2>{Examples} \pause
+\begin{itemize}
+\invisible<1-3>{\item[-] $F(x) = x$ } \pause
+\invisible<1-4>{\item[-] $F(x) = x^2$} \pause
+\invisible<1-5>{\item[-] $F(x) = \sqrt{x}$}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{{\tt R} Computing Language}
+\begin{itemize}
+\item[-] We're going to use {\tt R} throughout the course
+\item[-] {\tt R} as calculator :
+\begin{itemize}
+\item[] {\tt > 1 + 1}
+\item[] {\tt [1] 2 }
+\item[] {\tt > `Hello World' }
+\item[] {\tt [1] ``Hello World"}
+\end{itemize}
+\item[-] {\tt object<- 2 \#\# assign numbers to objects}
+\item[-] R has functions defined, we can define them to objects as well
+\begin{itemize}
+\item[] {\tt first.func<- function(x) \{ }
+\item[] {\tt 	out<- 2*x }
+\item[] {\tt return(out) \} }
+\end{itemize}
+\item[] {\tt first.func(2)  }
+\item[] {\tt [1] 4 }
+\end{itemize}
+
+
+
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Plotting Functions}
+
+\begin{columns}[]
+
+\column{0.7\textwidth}
+\only<1>{\scalebox{0.6}{\includegraphics{f1.pdf}}}
+\only<2>{\scalebox{0.6}{\includegraphics{f2.pdf}}}
+\only<3>{\scalebox{0.6}{\includegraphics{f3.pdf}}}
+\only<4>{\scalebox{0.6}{\includegraphics{f4.pdf}}}
+
+\column{0.3\textwidth}
+{\tt x<- seq(-2, 2, len=1000)}\\
+\only<1>{{\tt plot(x$\sim$x) \#\# Results may vary}\\}
+
+\only<2>{{\tt x.2<- x$*$x } \\}
+\only<2>{{\tt plot(x.2$\sim$x) }\\}
+
+ \only<3>{{\tt sin.2x<- sin(2$*$x)} \\}
+\only<3>{{\tt plot(sin.2x$\sim$x) }\\}
+
+ \only<4>{{\tt tanhx<- tanh(x)} \\}
+\only<4>{{\tt plot(tanhx$\sim $x) }\\}
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Exponents, Logarithms, and All That}
+
+\pause
+\begin{eqnarray}
+\invisible<1>{f(x) & = &  2^{x} \nonumber \\ } \pause
+\invisible<1-2>{g(x)  & = & e^{x}     \nonumber } \pause
+\end{eqnarray}
+
+\invisible<1-3>{Some rules of exponents remember $a$ could equal $e$} \pause
+\begin{eqnarray}
+\invisible<1-4>{a^{x}\times a^{y} & = & a^{x + y} \nonumber \\} \pause
+\invisible<1-5>{\left(a^{x}\right)^{y} & = & a^{x\times y} \nonumber \\} \pause
+\invisible<1-6>{\frac{a^{x}}{a^{y}} & = & a^{x - y} \nonumber \\} \pause
+\invisible<1-7>{\frac{1}{a^{x} } & = & a^{-x} \nonumber \\} \pause
+\invisible<1-8>{a^{x}\times b^{x} & = & (a \times b)^{x} \nonumber \\} \pause
+\invisible<1-9>{a^{0} & = & 1 \nonumber \\} \pause
+\invisible<1-10>{a^{1} & = & a \nonumber \\} \pause
+\invisible<1-11>{1^{x} & = & 1 \nonumber }
+\end{eqnarray}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Exponents, Logarithms, and All That}
+
+Logaritm $\log$ is a \alert{class} of functions.  \pause
+\begin{itemize}
+\invisible<1>{\item[-] $\log_{e} z  = $ what number $x$ solves $e^{x} = z$. } \pause
+\invisible<1-2>{\item[-] We'll call $\log_{e}$ \alert{natural logarithm}.  And we'll assume $\log_{e} = \log$ } \pause
+\invisible<1-3>{\item[-] $\log e  = 1$ (because $e^{1} = e$) } \pause
+\invisible<1-4>{\item[-] $\log_{10} 1000 = 3$ (because $10^{3} = 1000$) } \pause
+\end{itemize}
+
+\invisible<1-5>{Some rules of logarithms } \pause
+\begin{itemize}
+\invisible<1-6>{\item[-] $\log(a \times b)  = \log(a) + \log (b) $ (\alert{!!!!!!}) } \pause
+\invisible<1-7>{\item[-] $\log(\frac{a}{b}) = \log(a) - \log(b) $  } \pause
+\invisible<1-8>{\item[-] $\log(a^{b} )  = b \log (a) $ } \pause
+\invisible<1-9>{\item[-] $\log(1) = 0$ } \pause
+\invisible<1-10>{\item[-] $\log(e) = 1$ }
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Properties of Functions}
+
+Two important properties of functions \pause
+\invisible<1>{\begin{defn}
+A function $f:A \rightarrow B$ is 1-1 (one-to-one, or injective) if for all $y \in A$ and $z \in A$ in Domain, $f(y) = f(z)$ implies $y=z$.  In other words, preserves distinctiveness.
+\end{defn}} \pause
+
+\begin{itemize}
+\invisible<1-2>{\item[-] $f(x) = x$} \pause
+\invisible<1-3>{\item[-] $f(x) = x^2$} \pause
+\end{itemize}
+
+\invisible<1-4>{\begin{defn}
+A function $f:A \rightarrow B$ is onto (surjective) if for all $b \in B$  there exists ($\exists$) $a \in A$ such that $f(a) = b$.
+\end{defn}} \pause
+
+\begin{itemize}
+\invisible<1-5>{\item[-] $f:\{\hdots, -2, -1, 0, 1, 2, \hdots \} \rightarrow \{ 0, 1, 2, \hdots \}$ and $f(x) = |x|$.  onto, but not 1-1.} \pause
+\invisible<1-6>{\item[-] $f:R \rightarrow R$ $f(x) = x$.  Onto and 1-1, \alert{bijective}}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Composite Functions}
+
+\begin{defn}
+Suppose $f:A \rightarrow B$ and $g:B \rightarrow C$.  Then, define,
+\begin{eqnarray}
+g\circ f & = & g(f(x))\nonumber
+\end{eqnarray}
+\end{defn}
+
+\begin{itemize}
+\item[-] $f(x) = x$, $g(x) = x^2$.  Then $g \circ  f= x^2$.
+\item[-] $f(x)  = \sqrt{x} $, $g(x)  =e^{x}$.  Then $g \circ f = e^{\sqrt{x}}$.
+\item[-] $f(x) = sin(x)$, $g(x) = |x|$.  Then $g \circ f = |sin(x)|$.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Inverse Function}
+
+\begin{defn}
+Suppose a function $f$ is 1-1.  Then we'll define $f^{-1}$ as its \alert{inverse} if,
+\begin{eqnarray}
+f^{-1}(f(x)) & = & x \nonumber
+\end{eqnarray}
+
+\end{defn}
+
+\alert{Why do we need 1-1?}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Induction}
+
+\alert{Well Ordering Principle} Every non-empty set $J$ has a smallest number \pause
+
+\invisible<1>{\begin{thm} If $P(n)$ is a statement containing the variable $n$ such that
+\begin{itemize}
+\item[i.] $P(1)$ is a true statement, and
+\item[ii.] for each $k \in {1, 2, 3, 4, \hdots, n, \hdots}$ if $P(k)$ is true then $P(k+1)$ is true
+\end{itemize}
+then $P(n)$ is true for all $n  \in {1, 2, 3, 4, \hdots, n, \hdots}$
+\end{thm}}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Induction and Contradiction}
+
+
+We'll use \alert{contradiction} and well ordering to prove that induction works.  \pause
+
+\invisible<1>{\begin{proof}  Suppose $P(n)$ is some statement about the variable $n$ and that } \pause
+\begin{itemize}
+\invisible<1-2>{\item[i.] $P(1)$ is true } \pause
+\invisible<1-3>{\item[ii.] If $P(k)$ is true then $P(k +1)$ is true.  } \pause
+\end{itemize}
+
+\invisible<1-4>{Now suppose, \alert{by way of contradiction} that there exists $N$ such that $P(N)$ is false.  This implies that } \pause
+\begin{eqnarray}
+\invisible<1-5>{S & = & \{x: P(x) \text{ is not true }\} \nonumber} \pause
+\end{eqnarray}
+
+\invisible<1-6>{By well ordering principle, there is smallest member of $S$, call it $n_{0}$.} \pause \invisible<1-7>{ By $i.$ we know that $n_{0}>1$.  Further, because $n_{0}$ is smallest member of $S$, then $P(n_{0})$ is false, but $P(n_{0}-1)$ is true.} \pause \invisible<1-8>{But now we have a problem,  because if $P(n_{0} - 1)$   is true, then $P(n_{0})$ is also true.} \pause \invisible<1-9>{ This implies that there is no smallest element of $S$.  \alert{CONTRADICTION}}
+\end{proof}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Summing $N$ numbers}
+Induction is a useful proof technique.
+
+\begin{thm} $\sum_{i=1}^{N} i  = 1 + 2 + 3 + 4 + \hdots + N = \frac{N (N +1) }{2} $
+\end{thm}
+
+\small
+
+Two conditions to show:
+\begin{itemize}
+\item[i.] $\sum_{i=1}^{1}  i = 1 $ and $ \frac{1 (1 + 1) }{2}  = 1$
+\end{itemize}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Summing $N$ numbers}
+\begin{itemize}
+\item[ii.] Suppose true $N$.  Then, for $N+1$ we have,
+\end{itemize}
+\begin{eqnarray}
+\sum_{i=1}^{N+1} i & = & \sum_{i=1}^{N} i  + (N + 1) \nonumber \\
+							& = & \frac{N(N + 1)}{2}  + \frac{ 2 (N + 1)}{2} \nonumber \\
+							& = & \frac{(N + 1)( N + 2) }{2} \nonumber \\
+							& = & \frac{ (N + 1)( (N + 1) + 1)}{2} \nonumber
+\end{eqnarray}
+
+Conditions of induction met.  Therefore, proof complete
+
+\end{frame}
+
+
+\begin{frame}
+
+
+{\tt Very Simple R Code}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Finite, Countable, and Uncountable}
+Three sizes of sets
+\begin{itemize}
+\item[1)] A set, $X$ is finite if there is a bijective function from $\{1, 2, 3, \hdots, n\}$ to $X$.
+\item[2)] A set $X$ is \alert{countably infinite} if there is a bijective function from $\{1, 2, 3, 4, \hdots, \}$ to $X$.
+\item[3)] A set $X$ is \alert{uncountably infinite} if it is not countable
+\end{itemize}
+
+The \alert{Real numbers} are \alert{uncountably infinite}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Recap}
+\alert{We've covered a lot}.\pause \\
+\invisible<1>{\alert{PLEASE} don't worry---we're here to help!} \pause
+\begin{itemize}
+\invisible<1-2>{\item[1)] Sets + Operations} \pause
+\invisible<1-3>{\item[2)] Functions} \pause
+\invisible<1-4>{\item[3)] Contradiction, Induction, and direct proofs}
+\end{itemize}
+
+
+
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+Tomorrow:
+\begin{itemize}
+\item[-] Convergence of sequences
+\item[-] Limits
+\item[-] Continuity
+\item[-] Derivatives
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
