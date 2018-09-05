@@ -1,0 +1,1181 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\  Stanford University}
+\vspace{0.3in}
+
+\date{September 5th, 2018}
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}
+
+{\huge Lab this afternoon!\\
+
+\vspace{0.25in}
+
+130-300pm}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Convergence}
+
+Big idea today is \alert{convergence} \pause 
+
+\begin{itemize}
+\invisible<1>{\item[-] \alert{Sequence} $\rightarrow$ converge on some number} \pause 
+\invisible<1-2>{\item[-] \alert{Function} $\rightarrow$ \alert{limit} (use to calculate derivatives)} \pause 
+\invisible<1-3>{\item[-] \alert{Continuity}  $\rightarrow$ a function doesn't jump (converge on itself)} \pause 
+\invisible<1-4>{\item[-] \alert{Derivatives} $\rightarrow$ limits that measure a function's properties}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sequence: Definition + Examples}
+
+\begin{defn}
+A \alert{sequence} is a function whose domain is the set of positive integers
+\end{defn}
+
+We'll write a sequence as, 
+\begin{eqnarray}
+\left\{a_{n} \right\}_{n=1}^{\infty} & =& (a_{1} , a_{2}, \hdots, a_{N}, \hdots ) \nonumber 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sequence: Definition  + Examples} 
+
+\begin{eqnarray}
+\only<1>{\left\{\frac{1}{n} \right\}  & = & (1, 1/2, 1/3, 1/4, \hdots, 1/N, \hdots, ) \nonumber }
+\only<2>{\left\{\frac{1}{n^2} \right\}  & = & (1, 1/4, 1/9, 1/16, \hdots, 1/N^2, \hdots, ) \nonumber}   
+\only<3>{\left\{\frac{1 + (-1)^n}{2} \right\}  & = & (0, 1, 0, 1, \hdots, 0,1,0,1 \hdots, ) \nonumber }  
+\only<4>{\left\{\theta \right\}_{n=1}^{\infty} & = & (\theta_{1}, \theta_{2} , \hdots, \theta_{n}, \hdots ) \nonumber \\
+		\theta_{n} & = & f(\text{n responses (vote choice) } ) \nonumber }
+\end{eqnarray}
+
+
+\begin{center}
+\only<1>{\scalebox{0.5}{\includegraphics{Seq1.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{Seq2.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{Seq3.pdf}}}
+\only<4>{\scalebox{0.5}{\includegraphics{Seq4.pdf}}}
+\end{center}
+
+\pause\pause
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sequence: Convergence} 
+
+Consider the sequence 
+\begin{eqnarray}
+\left\{\frac{(-1)^{n} }{n} \right \}  & = & (-1, \frac{1}{2}, \frac{-1}{3}, \frac{1}{4}, \frac{-1}{5}, \frac{1}{6}, \frac{-1}{7}, \frac{1}{8}, \hdots )\nonumber 
+\end{eqnarray}
+
+\begin{center}
+\only<1>{\scalebox{0.5}{\includegraphics{Conv0.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{Conv1.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{Conv2.pdf}}}
+\only<4>{\scalebox{0.5}{\includegraphics{Conv3.pdf}}}
+\only<5>{\scalebox{0.5}{\includegraphics{Conv4.pdf}}}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sequence: Convergence definition} 
+
+\begin{defn} A sequence $\left\{a_{n} \right\}_{n=1}^{\infty}$ converges to a real number $A$ if for each $\epsilon >0$ there is a positive integer $N$ such that for all $n \geq N$ we have $|a_{n} - A| < \epsilon$ 
+\end{defn}
+
+\pause 
+
+\begin{itemize}
+\invisible<1>{\item[1)] If a sequence converges, it converges to \alert{one} number.  We call that \alert{A} } \pause 
+\invisible<1-2>{\item[2)] $\epsilon>0$ is some \alert{arbitrary} real-valued number.} \pause \invisible<1-3>{Think about this as our \alert{error} tolerance. Notice $\epsilon \alert{>} 0$.  } \pause 
+\invisible<1-4>{\item[3)] As we will see the $N$ will depend upon $\epsilon$} \pause 
+\invisible<1-5>{\item[4)] Implies the sequence never gets further than $\epsilon$ away from $A$} 
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sequence: Convergence definition}
+
+
+\begin{center}
+\only<1>{\scalebox{0.5}{\includegraphics{Conv0.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{Conv1.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{Conv2.pdf}}}
+\only<4>{\scalebox{0.5}{\includegraphics{Conv3.pdf}}}
+\only<5>{\scalebox{0.5}{\includegraphics{Conv4.pdf}}}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sequence: Proof of Convergence} 
+
+\begin{thm} $\left\{ \frac{1}{n} \right\}$ converges to 0 
+\end{thm} 
+
+\begin{proof}  We need to show that for $\epsilon$ there is some $N_{\epsilon}$ such that, for all $n\geq N_{\epsilon}$  $|\frac{1 } {n} - 0|  < \epsilon $.  \alert{Without loss of generality} (WLOG) select an $\epsilon$.  Then,
+\begin{eqnarray}
+|\frac{ 1} {N_{\epsilon}} - 0 | & < &  \epsilon  \nonumber \\
+\frac{1}{N_{\epsilon}} & < & \epsilon \nonumber \\
+\frac{1}{\epsilon} & < &  N_{\epsilon} \nonumber 
+\end{eqnarray}
+For each epsilon, then, any $N_{\epsilon} > \frac{1}{\epsilon}$ will suffice.
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sequence: Divergence + Bounded}
+
+\begin{defn} If a sequence, $\left\{a_{n} \right\}$ converges we'll call it \alert{convergent}.  If it doesn't we'll call it \alert{divergent}.  If there is some number M such that, for all $n$ $|a_{n}|<M$, then we'll call it bounded
+\end{defn}
+
+\pause 
+\begin{itemize}
+\invisible<1>{\item[-] An unbounded sequence} \pause 
+\begin{eqnarray}
+\invisible<1-2>{\left\{ n \right \} & = & (1, 2, 3, 4, \hdots, N, \hdots ) \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-3>{\item[-] A bounded sequence that doesn't converge} \pause 
+\begin{eqnarray}
+\invisible<1-4>{\left\{\frac{1 + (-1)^n}{2} \right\}  & = & (0, 1, 0, 1, \hdots, 0,1,0,1 \hdots, ) \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-5>{\item[-] \alert{All convergent sequences are bounded } } \pause 
+\invisible<1-6>{\item[-] If a sequence is \alert{constant}, $\left\{C \right \}$  it converges to $C$.  \alert{proof?} } 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Algebra of Sequences} 
+How do we add, multiply, and divide sequences?
+
+
+\begin{thm} Suppose $\left\{a_{n} \right \}$ converges to $A$ and $\left\{b_{n} \right\}$ converges to $B$.  Then, 
+\begin{itemize}
+\item[-] $\left\{a_{n} + b_{n} \right\}$ converges to $A + B$
+\item[-] $\left\{a_{n} b_{n} \right\}$ converges to $A \times B$.  
+\item[-] Suppose $b_{n} \neq 0$ $\alert{\forall}$ n and $B \neq 0$.  Then $\left\{\frac{a_{n}}{b_{n}} \right\}$ converges to $\frac{A}{B}$.  
+\end{itemize}
+\end{thm}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Working Together}
+\begin{itemize}
+ \item[-] Consider the sequence $\left\{\frac{1}{n} \right\}$---what does it converge to?  
+\item[-] Consider the sequence $\left\{\frac{1}{2n} \right \}$ what does it converge to?
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Challenge Questions}
+\begin{itemize}
+\item[-] What does $\left\{3 + \frac{1}{n}\right\}$ converge to?
+\item[-] What about $\left\{ (3 + \frac{1}{n} ) (100  + \frac{1}{n^4} ) \right\}$?
+\item[-] Finally, $\left\{ \frac{ 300 + \frac{1}{n} }{100  + \frac{1}{n^4}} \right\}$?
+\end{itemize}
+
+\alert{Work smarter, not harder}\\
+Divide into teams, let's reconvene in about 10 minutes.  
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sequences$\leadsto$ Limits of Functions}
+
+\alert{Calculus/Real Analysis}: study of functions on the \alert{real line}.\\
+\alert{Limit of a function}: how does a function behave as it gets close to a particular point?  
+\begin{itemize}
+\item[-] Derivatives
+\item[-] Asymptotics 
+\item[-] Game Theory 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Limits of Functions} 
+
+\begin{center}
+\only<1>{\scalebox{0.75}{\includegraphics{Limit0.pdf}}}
+\only<2>{\scalebox{0.75}{\includegraphics{Limit1.pdf}}}
+\only<3>{\scalebox{0.75}{\includegraphics{Limit2.pdf}}}
+\only<4>{\scalebox{0.75}{\includegraphics{Limit3.pdf}}}
+\only<5>{\scalebox{0.75}{\includegraphics{Limit4.pdf}}}
+\only<6>{\scalebox{0.75}{\includegraphics{Limit5.pdf}}}
+\only<7>{\scalebox{0.75}{\includegraphics{Limit6.pdf}}}
+\end{center}
+
+\end{frame}
+\begin{frame}
+\frametitle{Precise Definition of Limits of Functions}
+
+\begin{defn} Suppose $f: \Re \rightarrow \Re$.  We say that $f$ has a limit $L$ at $x_{0}$ if, for each $\epsilon>0$, there is a $\delta>0$ such that $|x - x_{0}|< \delta$ implies that $|f(x) - L| < \epsilon$.  
+\end{defn}
+
+\begin{itemize}
+\item[-] Limits are about the behavior of functions at \alert{points}.  Here $x_{0}$. 
+\item[-] As with sequences, we let $\epsilon$ define an \alert{error rate}
+\item[-] $\delta$ defines an area around $x_{0}$ where $f(x)$ is going to be within our error rate
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Precise Definition of Limit: Example}
+
+\begin{thm} The function $f(x) = x + 1$ has a limit of $1$ at $x_{0} = 0$.  \end{thm}
+
+\begin{proof}  WLOG choose $\epsilon >0$.  We want to show that there is $\delta_{\epsilon}$ such that, 
+$|x - x_{0}| < \delta_{\epsilon}$ implies $|f(x) - 1 |< \epsilon$.  In other words, 
+\begin{eqnarray}
+|x | < \delta_{\epsilon} & \text{ implies } & | (x + 1) - 1|< \epsilon \nonumber \\
+|x| < \delta_{\epsilon} & \text { implies } & |x|< \epsilon \nonumber 
+\end{eqnarray}
+
+But if $\delta_{\epsilon}  = \epsilon$ then this holds, we are done. 
+\end{proof}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Precise Definition of Limit: Example}
+
+A function can have a limit of $L$ at $x_{0}$ even if $f(x_{0} ) \neq L$(!)
+
+\begin{thm} The function $f(x) = \frac{x^2 - 1}{x - 1} $ has a limit of $2$ at $x_{0} = 1$.  
+\end{thm}
+
+\begin{center}
+\only<1>{\scalebox{0.5}{\includegraphics{Limit_hole.pdf}}} 
+\only<2>{\scalebox{0.5}{\includegraphics{Limit_hole2.pdf}}} 
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Precise Definition of Limit: Example}
+
+\begin{proof}
+For all $x \neq 1$, 
+\begin{eqnarray}
+\frac{x^2 - 1}{x - 1} & = & \frac{(x + 1)(x - 1) }{x - 1}  \nonumber \\					
+								& = & x + 1 \nonumber 
+\end{eqnarray}
+Choose $\epsilon >0$ and set $x_{0}=1$.  Then, we're looking for $\delta_{\epsilon}$ such that 
+\begin{eqnarray}
+|x - 1|< \delta_{\epsilon} & \text{ implies } & |(x + 1) - 2| < \epsilon \nonumber 
+\end{eqnarray}
+
+Again, if $\delta_{\epsilon} = \epsilon$, then this is satisfied.  
+
+							
+\end{proof}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Not all Functions have Limits!}
+
+\begin{thm} Consider $f:(0,1) \rightarrow \Re$, $f(x) = 1/x$.  $f(x)$ does not have a limit at $x_{0}=0$ 
+\end{thm}
+
+
+\scalebox{0.55}{\includegraphics{Limit_Hole3.pdf}}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\begin{proof}
+
+Choose $\epsilon>0$.  We need to show that there \alert{does not} exist $\delta$ such that
+\begin{eqnarray}
+|x | < \delta & \text{ implies } & \left|\frac{1}{x} - L \right| <  \epsilon \nonumber 
+\end{eqnarray}
+But, there is a problem.  Because 
+\begin{eqnarray}
+\frac{1}{x} - L & <& \epsilon \nonumber \\
+\frac{1}{x} & < & \epsilon + L \nonumber \\
+x & > & \frac{1}{L + \epsilon} \nonumber 
+\end{eqnarray}
+This implies that there \alert{can't} be a $\delta$, because $x$ has to be bigger than $\frac{1}{L + \epsilon}$. 
+
+\end{proof}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Intuitive Definition of Limit}
+
+\begin{defn} If a function $f$ tends to $L$ at point $x_{0}$ we say is has a limit $L$ at $x_{0}$ we commonly write, 
+\begin{eqnarray}
+\lim_{x \rightarrow x_{0}} f(x) & = & L \nonumber 
+\end{eqnarray}
+\end{defn}
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\begin{defn} If a function $f$ tends to $L$ at point $x_{0}$ as we approach from the right, then we write
+\begin{eqnarray}
+\lim_{x \rightarrow x_{0}^{+} } f(x) & = & L \nonumber 
+\end{eqnarray}
+and call this a \alert{right hand limit} 
+
+If a function $f$ tends to $L$ at point $x_{0}$ as we approach from the left, then we write
+\begin{eqnarray}
+\lim_{x \rightarrow x_{0}^{-} } f(x) & = & L \nonumber
+\end{eqnarray}
+and call this a left-hand limit
+\end{defn}
+
+\alert{Regression discontinuity designs}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Left-hand, Right-hand, and Limits}
+
+
+\begin{thm} The $\lim_{x \rightarrow x_{0}} f(x) $ exists if and only if $\lim_{x \rightarrow x_{0}^{-} } f(x)  = \lim_{x \rightarrow x_{0}^{+}} f(x) $ \end{thm}
+\pause 
+\begin{itemize}
+\invisible<1>{\item[-] Intuition that $\lim_{x \rightarrow x_{0}^{-} } f(x)  = \lim_{x \rightarrow x_{0}^{+}} f(x)  \Rightarrow \lim_{x\rightarrow x_{0}} f(x)$.  If they are equal we can take the smallest $\delta$ and we can guarantee proof.} \pause 
+\invisible<1-2>{\item[-] Intuition that $\lim_{x\rightarrow x_{0}} f(x) \Rightarrow \lim_{x \rightarrow x_{0}^{-} } f(x)  = \lim_{x \rightarrow x_{0}^{+}} f(x) $.  Absolute value is symmetric---so we must be converging from each side. (contradiction could work too!)} \pause 
+\invisible<1-3>{\item[-] We can also appeal to \alert{sequences} to prove this stuff} \pause 
+\end{itemize}
+
+
+\invisible<1-4>{\alert{Trick}: we'll show limits don't exist by showing $\lim_{x \rightarrow x_{0}^{-} } f(x)  \neq \lim_{x \rightarrow x_{0}^{+}} f(x) $}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Finding Limits}
+
+\pause 
+\begin{itemize}
+\invisible<1>{\item[] Student: Justin.  what the hell with the $\delta$'s and $\epsilon$'s? What the hell am I going to use this for?} \pause 
+\invisible<1-2>{\item[] Justin: Limits are used constantly in political science.  And getting comfortable with this notation (by seeing it many times) is important} \pause 
+\invisible<1-3>{\item[] Student: fine.  How am I going to find the limit? I can't do a $\delta-\epsilon$ proof yet.} \pause 
+\invisible<1-4>{\item[] Justin: yes, those take time.  For this class, \alert{graphing} will be critical.  } 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Algebra of Limits}
+
+\begin{thm}
+Suppose $f:\Re \rightarrow \Re$ and $g: \Re \rightarrow \Re$ with limits $A$ and $B$ at $x_{0}$.  Then, 
+\begin{eqnarray}
+\text{i.) } \lim_{x \rightarrow x_{0} } (f(x) + g(x) ) & = & \lim_{x \rightarrow x_{0}} f(x) + \lim_{x \rightarrow x_{0}} g(x)  = A + B\nonumber \\
+\text{ii.) }\lim_{x \rightarrow x_{0} } f(x) g(x) & = & \lim_{x \rightarrow x_{0}} f(x) \lim_{x\rightarrow x_{0}} g(x)  = A B\nonumber 
+\end{eqnarray}
+Suppose $g(x) \neq 0$ for all $x \in \Re$ and $B \neq 0$ then $\frac{f(x)}{g(x)}$ has a limit at $x_{0}$ and 
+\begin{eqnarray}
+\lim_{x \rightarrow x_{0}} \frac{f(x)}{g(x)} & = &  \frac{\lim_{x\rightarrow x_{0} } f(x) }{\lim_{x \rightarrow x_{0} } g(x) } = \frac{A}{B}\nonumber 
+\end{eqnarray}
+\end{thm}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Challenge Problems}
+
+
+Suppose $\lim_{x \rightarrow x_{0} } f(x) = a$.  Find $\lim_{x\rightarrow x_{0}} \frac{f(x)^{3}  + f(x)^2}{f(x)}$
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Continuity}
+
+
+
+\begin{columns}[]
+
+\column{0.6\textwidth} 
+\scalebox{0.55}{\includegraphics{Limit_Hole.pdf}}
+
+
+
+\column{0.4\textwidth}
+\begin{itemize}
+\item[-] Limit exists at 1 \pause 
+\invisible<1>{\item[-] But hole in function} \pause 
+\invisible<1-2>{\item[-] Fails the \alert{pencil} test, \alert{discontinuous} at 1 }
+\end{itemize}
+
+
+\end{columns}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Continuity, Rigorous Definition} 
+
+\begin{defn}
+Suppose $f:\Re \rightarrow \Re$ and consider $x_{0} \in \Re$.  We will say $f$ is continuous at $x_{0}$ if for each $\epsilon>0$ there is a $\delta>0$ such that if, 
+\begin{eqnarray}
+|x - x_{0} | & < & \delta \text{ for all  } x \in \Re \text{ then } \nonumber \\
+|f(x) - \alert{f(x_{0})}| & < & \epsilon \nonumber 
+\end{eqnarray}
+\end{defn}
+
+\begin{itemize}
+\item[-] Previously $f(x_{0})$ was replaced with $L$.  
+\item[-] Now: $f(x)$ has to converge on itself at $x_{0}$.  
+\item[-] Continuity is more restrictive than limit
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Examples}
+\begin{center}
+\only<1>{\scalebox{0.6}{\includegraphics{Abs1.pdf}}} 
+\only<2>{\scalebox{0.6}{\includegraphics{Abs2.pdf}}} 
+\only<3>{\scalebox{0.6}{\includegraphics{Abs3.pdf}}} 
+\only<4>{\scalebox{0.5}{\includegraphics{HainEgg.png}}}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Continuity and Limits}
+
+\begin{thm} 
+Let $f: \Re \rightarrow \Re$ with $x_{0} \in \Re$.  Then $f$ is continuous at $x_{0}$ if and only if $f$ has a limit at $x_{0}$ and that $\lim_{x \rightarrow x_{0} } f(x) = f(x_{0})$.  
+\end{thm} 
+\begin{proof}
+$(\Rightarrow)$.  Suppose $f$ is continuous at $x_{0}$.  This implies that for each $\epsilon>0$ there is $\delta>0$ such that $|x - x_{0}|< \delta$ implies $|f(x) - f(x_{0}) |< \epsilon$.  This is the definition of a limit, with $L = f(x_{0})$.  \\
+$(\Leftarrow)$.  Suppose $f$ has a limit at $x_{0}$ and that limit is $f(x_{0})$.  This implies that for each $\epsilon>0$ there is $\delta>0$ such that $|x - x_{0}|<\delta$ implies $|f(x) - f(x_{0})|< \epsilon $.  But this is the definition of continuity.
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Algebra of Continuous Functions}
+
+\begin{thm} Suppose $f:\Re \rightarrow \Re$ and $g:\Re \rightarrow \Re$ are continuous at $x_{0}$.  Then, 
+\begin{itemize}
+\item[i.)] $f(x) + g(x)$ is continuous at $x_{0}$
+\item[ii.)] $f(x) g(x)$ is continuous at $x_{0}$
+\item[iii.] if $g(x_0) \neq 0$, then $\frac{f(x) } {g(x) } $ is continuous at $x_{0}$ 
+\end{itemize}
+\end{thm}
+
+Use theorem about limits to prove continuous theorems.  
+
+\end{frame}
+
+\begin{frame}
+
+\begin{center}
+\scalebox{0.5}{\includegraphics{absPlot.pdf}}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{How Functions Change}
+
+\begin{itemize}
+\item[-] \alert{Derivatives}---Rates of change in functions
+\item[-] Foundational across a lot of work in Poli Sci.
+\item[-] A special \alert{limit}
+\item[-] Cover three broad ideas 
+\begin{itemize}
+\item[-] Geometric interpretation/intuition
+\item[-] Formulas/Algebra derivatives
+\item[-] Famous theorems
+\end{itemize}
+\end{itemize}
+
+
+ 
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Rates of Change in a Function}
+
+\begin{columns}[]
+
+\column{0.6\textwidth}
+\only<1>{\scalebox{0.5}{\includegraphics{Figure1.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{Figure2.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{Figure3.pdf}}}
+\only<4>{\scalebox{0.5}{\includegraphics{Figure4.pdf}}}
+\only<5>{\scalebox{0.5}{\includegraphics{Figure5.pdf}}}
+\only<6->{\scalebox{0.5}{\includegraphics{Figure6.pdf}}}
+
+\column{0.3\textwidth}
+\begin{itemize}
+\invisible<1-7>{\item[-] Rate of Change $\leadsto$ Return on Vote Share/\$ Invested}
+\invisible<1-8>{\item[-] Instantaneous rate of change $\leadsto$ Increase in vote share in response to infinitesimally small increase in spending}
+\invisible<1-9>{\item[-] \alert{Limit} }
+\end{itemize}
+
+
+\end{columns}
+
+
+
+
+\pause \pause \pause \pause \pause \pause \pause \pause \pause 
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Derivative Definition}
+Suppose $f:\Re \rightarrow \Re$. \pause \invisible<1>{Measure rate of change at a point $x_{0}$ with a function $R(x)$, } \pause 
+\begin{eqnarray}
+\invisible<1-2>{R(x) & = & \frac{f(x) - f(x_{0}) }{ x- x_{0} } \nonumber } \pause 
+\end{eqnarray}
+\begin{itemize}
+\invisible<1-3>{\item[-] $R(x)$ defines the rate of change. } \pause 
+\invisible<1-4>{\item[-] A derivative will examine what happens with a small perturbation at $x_{0}$} \pause 
+\end{itemize}
+
+\begin{defn}
+\invisible<1-5>{Let $f:\Re \rightarrow \Re$.  If the limit } \pause 
+\begin{eqnarray}
+\invisible<1-6>{\lim_{x\rightarrow x_{0}} R(x) & = & \frac{f(x) - f(x_{0}) }{x - x_{0}} \nonumber } \\
+\invisible<1-6>{									& = & f^{'}(x_{0}) \nonumber }\pause 
+\end{eqnarray}
+
+\invisible<1-7>{exists then we say that $f$ is \alert{differentiable} at $x_{0}$.  If $f^{'}(x_{0})$ exists for all $x \in \text{Domain}$, then we say that $f$ is differentiable.   } 
+\end{defn}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Derivative Examples}
+
+\begin{itemize}
+\item[-] Suppose $f(x) = x^2$ and consider $x_{0} = 1$.  Then, \pause 
+\begin{eqnarray}
+\invisible<1>{\lim_{x\rightarrow 1}R(x) & = & \lim_{x\rightarrow 1} \frac{x^2 - 1^2}{x - 1} \nonumber } \pause \\
+\invisible<1-2>{  	& = & \lim_{x\rightarrow 1} \frac{(x- 1)(x + 1) }{ x- 1} \nonumber} \pause  \\
+\invisible<1-3>{ 	& = &  \lim_{x\rightarrow 1} x + 1 \nonumber } \pause \\
+\invisible<1-4>{ 	& = & 2 \nonumber } \pause 
+  	\end{eqnarray}
+\invisible<1-5>{\item[-] Suppose $f(x) = |x|$ and consider $x_{0} = 0$.  Then, } \pause 
+\begin{eqnarray}
+\invisible<1-6>{\lim_{x\rightarrow 0} R(x) & = & \lim_{x\rightarrow 0} \frac{ |x| } {x} \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-7>{$\lim_{x \rightarrow 0^{-}} R(x) = -1$} \pause \invisible<1-8>{, but $\lim_{x \rightarrow 0^{+}} R(x) = 1$.} \pause \invisible<1-9>{ So, not differentiable at $0$. }
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Continuity and Derivatives}
+\begin{itemize}
+\item[-] $f(x) = |x|$ is \alert{continuous} but not differentiable.  This is because the change is \alert{too abrupt}.  
+\item[-] Suggests \alert{differentiability is a stronger condition} 
+\end{itemize}
+
+\begin{thm} Let $f:\Re \rightarrow \Re$ be differentiable at $x_{0}$.  Then $f$ is continuous at $x_{0}$.  \end{thm}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Continuity and Derivatives} 
+
+\begin{thm} Let $f:\Re \rightarrow \Re$ be differentiable at $x_{0}$.  Then $f$ is continuous at $x_{0}$.  \end{thm} \pause 
+\begin{proof}
+\invisible<1>{This proof is all in the setup.  Realize that, } \pause 
+\begin{eqnarray}
+\invisible<1-2>{f(x) & = & \frac{ f(x) - f(x_{0})}{x- x_{0}} (x - x_{0} ) + f(x_{0} ) \nonumber } \pause  \\
+\invisible<1-3>{& = & R(x) (x - x_{0} ) + f(x_{0} ) \nonumber } \pause 
+	\end{eqnarray}
+\invisible<1-4>{If $f(x)$ is continuous at $x_{0}$ then, $\lim_{x\rightarrow x_{0}} f(x) = f(x_{0})$.  } \pause 
+\begin{eqnarray}
+\invisible<1-5>{\lim_{x\rightarrow x_{0}} f(x) & = & \lim_{x\rightarrow x_{0} } [R(x) (x - x_{0} ) + f(x_{0}) ] \nonumber \\} \pause 
+\invisible<1-6>{& = & \left(\lim_{x\rightarrow x_{0} } R(x) \right)\left(\lim_{x\rightarrow x_{0}} (x - x_{0}) \right)  + \lim_{x\rightarrow x_{0}} f(x_{0} ) \nonumber \\} \pause 
+\invisible<1-7>{& = & f^{'}(x_{0} ) 0 + f(x_{0})  = f(x_{0} ) \nonumber } 
+	\end{eqnarray}
+
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{What goes wrong?}
+
+Consider the following piecewise function: 
+\begin{eqnarray}
+f(x)  & = & x^{2} \text{ for all  } x \in \Re\setminus 0  \nonumber \\
+f(x) & = & 1000  \text{ for  } x = 0 \nonumber 
+\end{eqnarray}
+
+Consider derivative at 0.  Then, 
+\begin{eqnarray}
+\lim_{x \rightarrow 0 } R(x) & = & \lim_{x \rightarrow 0 } \frac{f(x) - 1000}{ x - 0   } \nonumber \\
+										&= & \lim_{x \rightarrow 0 } \frac{x^2}{x} - \lim_{x \rightarrow 0 } \frac{1000}{x} \nonumber 
+\end{eqnarray} 
+
+$\lim_{x \rightarrow 0 } \frac{1000}{x}$ diverges, so the limit doesn't exist.  										
+
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Calculating Derivatives}
+
+\begin{itemize}
+\item[-] \alert{Rarely} will we take limit to calculate derivative. 
+\item[-] Rather, rely on \alert{rules} and properties of derivatives
+\item[-] \alert{Important}: do not forget core intuition
+\end{itemize}
+
+Strategy:
+\begin{itemize}
+\item[-] Algebra theorems
+\item[-] Some specific derivatives
+\item[-] Work on problems 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Some Derivative Rules}
+
+
+Suppose $a$ is some constant, $f(x)$ and $g(x)$ are functions \pause 
+\begin{eqnarray}
+\invisible<1>{f(x) = x & ; & f^{'}(x) = 1 \nonumber \\} \pause 
+\invisible<1-2>{f(x) = a x^{k} & ; & f^{'}(x) = (a) (k) x ^{k-1} \nonumber \\} \pause 
+\invisible<1-3>{f(x) = e^{x } & ; & f^{'} (x) = e^{x} \nonumber \\} \pause 
+\invisible<1-4>{f(x) = \sin(x) & ; & f^{'} (x) = \cos (x) \nonumber \\} \pause 
+\invisible<1-5>{f(x) = \cos(x) & ; & f^{'} (x) = - \sin(x) \nonumber } 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Algebra of Derivatives}
+
+\begin{thm} Suppose $f:\Re \rightarrow \Re$ and $g:\Re \rightarrow \Re$ and both are differentiable at $x_{0} \in \Re$.  Then, \pause 
+\begin{itemize}
+\invisible<1>{\item[i)] $h(x) = f(x) + g(x)$ is differentiable at $x_{0}$ and } \pause 
+\begin{eqnarray}
+\invisible<1-2>{h^{'} (x_{0}) & = & f^{'}(x_{0}) + g^{'} (x_{0}) \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-3>{\item[ii)] $h(x) = f(x) g(x) $ is differentiable at $x_{0}$ and } \pause 
+\begin{eqnarray}
+\invisible<1-4>{h^{'}(x_{0}) & = & f^{'}(x_{0}) g(x_{0}) + g^{'}(x_{0}) f(x_{0}) \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-5>{\item[iii)] $h(x)  = \frac{f(x) }{g(x) }$ with $g(x) \neq 0$ then, } \pause 
+\begin{eqnarray}
+\invisible<1-6>{h^{'}(x_{0}) & = &  \frac{f^{'}(x_{0}) g(x_{0}) - g^{'}(x_{0}) f(x_{0})} {g(x_{0})^2} \nonumber } 
+\end{eqnarray}
+\end{itemize}
+\end{thm}
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Challenge Problems} 
+
+Differentiate the following functions and evaluate at the specified value
+\begin{itemize}
+\item[1)] $f(x)= x^3 + 5 x^2  + 4 x$, at $x_{0} = 2$
+\item[2)] $f(x) = sin(x) x^3$ at $x_{0} = y$
+\item[3)] $f(x) = \frac{e^{x} }{x^3}$ at $x = 2$
+\item[4)] $g(x) = \log (x) x^3$ at $x = x_{0}$
+\item[5)] Suppose $f(x) = x^2$ and $g(x) = x^3$. Find all $x$ such that $f^{'}(x) > g^{'} (x)$.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Proving Property of Derivatives}
+
+
+\begin{thm} Suppose $f(x) = x^{k}$ and $k$ is a positive integer.  If $k=0$ then $f^{'}(x) = 0$. If $k>0$, then, $f^{'} (x)  = k x^{k-1}$.  \end{thm}
+\pause 
+
+\begin{proof}
+\invisible<1>{If $k = 0 $ then, $x^{k} = 1$.  The $\lim_{x\rightarrow \tilde{x}} \frac{ 1 - 1}{x - \tilde{x}} = 0 $. } \pause  \\
+\invisible<1-2>{Suppose $k>0$.  We will proceed by induction.  Suppose $k = 1$, $f(x) = x$} \pause 
+\begin{eqnarray}
+\invisible<1-3>{f^{'}(\tilde{x}) & = & \lim_{x \rightarrow \tilde{x}} \frac{ x - \tilde{x} } { x - \tilde{x}} \nonumber \\} \pause 
+\invisible<1-4>{	 & = & 1  = 1x ^{0} \nonumber} \pause 
+	\end{eqnarray}
+\invisible<1-5>{Suppose theorem holds for $k = r$, $f(x) = x^{r}$. Consider $g(x) = x^{r + 1} $.  We know that $g(x) = f(x) x $.  By product rule, } \pause 
+ \begin{eqnarray}
+\invisible<1-6>{ g^{'}(x)  = f(x) x^{'} + f^{'} (x) x & = & x^{r} 1  + r x^{r-1} x \nonumber \\} \pause 
+\invisible<1-7>{  & = & x^{r}  + r x^{r}    = (r + 1)x^{r} \nonumber } 
+  \end{eqnarray}
+  
+  
+\end{proof}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Chain Rule} 
+Common to have functions in functions
+\begin{eqnarray}
+f(x) & = & \frac{e^{ - \frac{(x - \mu)^2}{2 \sigma^2}}}{\sqrt{2 \pi }  } \nonumber \\
+		& = & \frac{f (g(x)) } {\sqrt{2 \pi}} \nonumber 
+\end{eqnarray}
+
+To deal with this, we use the \alert{chain rule} 
+\begin{thm} 
+Suppose $g: \Re \rightarrow \Re$ and $f: \Re \rightarrow \Re$. Suppose both $f(x)$ and $g(x)$ are differentiable at $x_{0}$.  Define $h(x) = g(f(x))$.  Then, 
+\begin{eqnarray}
+h^{'}(x_{0}) & = & g^{'}(f(x_{0}))f^{'}(x_{0}) \nonumber 
+\end{eqnarray}
+\end{thm}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Examples of Chain Rule in Action}
+\begin{itemize}
+\item[-] $h(x) = e^{2x}$.  $g(x) = e^{x}$.  $f(x) = 2x$.  So $h(x) = g(f(x)) = g(2x) = e^{2x}$.  Taking derivatives, we have
+\begin{eqnarray}
+h^{'}(x) & = & g^{'}(f(x))f^{'}(x) = e^{2x}2 \nonumber 
+\end{eqnarray}
+\item[-] $h(x) = \log(\cos(x) )$.  $g(x) = log(x)$.  $f(x) = \cos(x)$.  $h(x) = g(f(x)) = g( \cos(x)) = log(\cos(x))$ 
+\begin{eqnarray}
+h^{'}(x) & = & g^{'}(f(x))f^{'}(x) = \frac{-1}{\cos(x)} \sin(x) = -\tan (x) \nonumber 
+\end{eqnarray}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Derivatives and Properties of Functions}
+
+Derivatives reveal an \alert{immense} amount about functions
+\begin{itemize}
+\item[-] Often use to \alert{optimize} a function (tomorrow)
+\item[-] But also reveal \alert{average rates of change}
+\item[-] Or crucial properties of functions
+\end{itemize}
+
+Goal: introduce ideas.  Hopefully make them less shocking when you see them in work
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Relative Maxima, Minima and Derivatives}
+\begin{thm} Suppose $f:[a, b] \rightarrow \Re$.  Suppose $f$ has a relative maxima or minima on $(a,b)$ and call that $c \in (a, b)$.  Then $f^{'}(c) = 0$.  \end{thm}
+
+Intuition:
+
+\scalebox{0.5}{\includegraphics{Rolles3.pdf}}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Relative Maxima, Minima and Derivatives}
+\begin{thm} \alert{Rolle's Theorem} Suppose $f:[a,b] \rightarrow \Re$ and $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$.  Then if $f(a) = f(b) = 0$, there is $c \in (a, b)$ such that $f^{'}(c) = 0$.  \end{thm}
+
+Proof
+\alert{Intuition} Consider (WLOG) a relative maximum $c$. Consider the left-hand and right-hand limits
+\begin{eqnarray}
+\lim_{x \rightarrow c^{-}} \frac{f(x) - f(c) }{x - c } & \geq & 0 \nonumber \\
+\lim_{x \rightarrow c^{+}} \frac{f(x) - f(c) } {x - c }  & \leq & 0 \nonumber 
+\end{eqnarray}
+
+
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{thm} \alert{Rolle's Theorem} Suppose $f:[a,b] \rightarrow \Re$ and $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$.  Then if $f(a) = f(b) = 0$, there is $c \in (a, b)$ such that $f^{'}(c) = 0$.  \end{thm}
+
+
+But we also know that 
+\begin{eqnarray}
+\lim_{x \rightarrow c^{-}} \frac{f(x) - f(c ) }{x - c } & = & f^{'}(c) \nonumber \\
+\lim_{x \rightarrow c^{+}} \frac{f(x) - f(c) } {x - c }  &  =  & f^{'}(c)  \nonumber 
+\end{eqnarray}
+
+The only way, then, that \\
+$\lim_{x \rightarrow c^{-}} \frac{f(x) - f(c) }{x -c}  = \lim_{x \rightarrow c^{+}} \frac{f(x) - f(c) } {x - c} $ is if $f^{'}(c) = 0$.  
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{What Goes Up Must Come Down}
+
+\begin{thm} \alert{Rolle's Theorem} Suppose $f:[a,b] \rightarrow \Re$ and $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$.  Then if $f(a) = f(b) = 0$, there is $c \in (a, b)$ such that $f^{'}(c) = 0$.  \end{thm}
+\pause 
+
+
+\begin{center}
+\invisible<1>{\scalebox{0.5}{\includegraphics{rolles3.pdf}}} 
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Mean Value Theorem} 
+
+\begin{thm} If $f:[a,b] \rightarrow \Re$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then there is a $c \in (a,b)$ such that 
+
+\begin{eqnarray}
+f^{'}(c) & = & \frac{f(b) - f(a) } { b - a} \nonumber 
+\end{eqnarray}
+\end{thm}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Rolle's Theorem, Rotated} 
+
+
+\only<1>{\scalebox{0.6}{\includegraphics{rolles3.pdf}}} 
+\only<2>{\scalebox{0.6}{\includegraphics{MVT1.pdf}}} 
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Why You Should Care}
+
+\begin{itemize}
+\item[1)] This will come up in a formal theory article.  You'll at least know where to look
+\item[2)] \alert{It allows us to say lots of powerful stuff about functions}
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Powerful Applications of Mean Value Theorem}
+\begin{thm}
+Suppose that $f:[a,b] \rightarrow \Re$ is continuous on $[a,b]$ and differentiable on $(a,b)$.  Then, 
+\begin{itemize}
+\item[i)] If $f^{'}(x) \neq 0$ for all $x \in (a,b)$ then $f$ is 1-1
+\item[ii)] If $f^{'}(x) = 0$ then $f(x)$ is constant 
+\item[iii)] If $f^{'}(x)> 0$ for all $x \in (a,b)$ then then $f$ is strictly increasing
+\item[iv)] If $f^{'}(x)<0$ for all $x \in (a,b)$ then $f$ is strictly decreasing
+\end{itemize}
+\end{thm}
+
+
+\alert{Let's prove these in turn}
+\begin{itemize}
+\item[-] Why---because they are just about applying ideas
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{If $f^{'}(x) \neq 0$ for all $x \in (a,b)$ then $f$ is 1-1}
+
+By way of contradiction, suppose that $f$ is not 1-1.  Then there is $x, y \in (a,b)$ such that $f(x) = f(y)$.  Then, 
+\begin{eqnarray}
+f^{'}(c) & = & \frac{f(x) - f(y)}{x- y} = \frac{0}{x -y}  = 0 \nonumber 
+\end{eqnarray}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{If $f^{'}(x) \neq 0$ for all $x \in (a,b)$ then $f$ is 1-1}
+
+
+\scalebox{0.5}{\includegraphics{Contradiction.png}}
+
+\pause 
+\invisible<1>{$f^{'} \neq 0 $ for all $x$!} 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{If $f^{'}(x) = 0$ then $f(x)$ is constant}
+
+By way of contradiction, suppose that there is $x, y \in (a,b)$ such that $f(x) \neq f(y)$.  But then, 
+\begin{eqnarray}
+f^{'}(c)  & = & \frac{f(x) - f(y) } {x - y} \neq 0 \nonumber
+\end{eqnarray}
+
+\alert{contradiction}
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{If $f^{'}(x)> 0$ for all $x \in (a,b)$ then then $f$ is strictly increasing}
+
+By way of contradiction, suppose that there is $x, y \in (a,b)$ with $y<x$ but $f(y)>f(x)$.  But then, 
+\begin{eqnarray}
+f^{'}(c) & = & \frac{f(x) - f(y) }{x - y } < 0 \nonumber 
+\end{eqnarray}
+\alert{contradiction}\\
+
+\alert{Bonus: proof for strictly decreasing}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Approximating functions and second order conditions}
+
+
+\begin{thm}
+\textbf{Taylor's Theorem}
+Suppose $f:\Re \rightarrow \Re$, $f(x)$ is infinitely differentiable function.  Then, the taylor expansion of $f(x)$ around \alert{$a$} is given by 
+
+\begin{eqnarray}
+f(x) & = & f(a) + \frac{f^{'}(a)}{1!} (x- a) + \frac{f^{''}(a)}{2!} (x - a)^2 + \frac{f^{'''}(a)}{3!}(x- a)^3 + \hdots \nonumber \\
+f(x) & = & \sum_{n=0}^{\infty } \frac{f^{n} (a) }{n!} (x - a)^n \nonumber
+\end{eqnarray}
+
+\end{thm}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Function}
+
+Suppose $a$ = 0 and $f(x) = e^{x}$.  Then, 
+\begin{eqnarray}
+f^{'}(x) & = & e^{x} \nonumber \\
+f^{''}(x) & = & e^{x} \nonumber \\
+\vdots  & \vdots & \vdots \nonumber \\
+f^{n} (x) & = & e^{x} \nonumber 
+\end{eqnarray}
+
+This implies
+\begin{eqnarray}
+e^{x} & = & 1 + x + \frac{x^{2}}{2!} + \frac{x^3}{3!} \hdots + \frac{x^{n}}{n!} + \hdots \nonumber \end{eqnarray}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Wrap up}
+
+Lots of territory. \\
+
+What are your questions?  
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{This Week}
+
+
+{\huge \alert{Lab Tonight!}}
+
+
+\end{frame}
+
+
+
+\end{document}
+
