@@ -1,0 +1,135 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage{fullpage}
+\usepackage{parskip}
+ \usepackage{relsize}
+\usepackage{dcolumn}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\DeclareMathSizes{11}{30}{20}{12}
+\newcommand{\Z}{\mathbb{Z}}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+
+\centerline{\bf Math Camp - Homework 1 Solutions}
+
+
+\bigskip
+
+\noindent \textbf{1.} Using the sets\ldots
+
+\begin{eqnarray*}
+A&=&\left\{2,3,7,9,13 \right\} \\
+B&=&\left\{ x: 4\leq x \leq 8 \  \mbox{and} \ x \in \Z \right\} \\
+C&=&\left\{ x: 2< x < 25 \  \mbox{and} \  x \  \mbox{is prime}  \right\} \\
+D&=&\left\{ 1,4,9,16,25, \ldots  \right\} \\
+\end{eqnarray*}
+
+identify the following:
+
+
+\bigskip
+
+\begin{enumerate}
+\item $A\cup B$\\
+$E = \{2,3,4,5,6,7,8,9,13\}$, combine all integers between 4 and 8 inclusive with the numbers in set A
+\item ($A\cup B) \cap C$\\
+$F = \{3,5,7,13\}$, Since C is only prime numbers greater than 2 and less than 25, we take all the prime numbers that are also included in E, but remember to drop out 2 since it is not included in C
+\item $C \cap D$\\
+$G = \emptyset$, there are no prime numbers in D, so nothing is shared between C and D
+\end{enumerate}
+
+\bigskip
+
+\noindent \textbf{2.} Simplify the following:
+
+\begin{enumerate}
+\item $k^{x-y}*k^{-x-y} $\\
+Using our rules for working with exponents, $k^{(x-y)+(-x-y)} = k^{-2y} = \frac{1}{k^{2y}}$\\
+\item     $\bigg (   \dfrac{z^{4v+6}}{z^{v+9}} \bigg )$\\
+We can rewrite this to simplify things and then work again with exponents,\\ $z^{4v+6}*z^{-(v+9)} = z^{3v-3}$\\
+\item  $(a^{b^0} + a^{0^b} - a^{-1} * a^2)^b $\\
+Important to remember  for this, anything raised to the ``0" power is equal to 1. This will help us simply things inside the parenthesis.\\
+$(a^1 + 1 - a^{-1+2})^b = 1^b = 1$\\
+\end{enumerate}
+
+\bigskip 
+
+\noindent \textbf{3.} Express each of the following as a single logarithm:
+
+\begin{enumerate}
+\item $ \log(x) + \log(y) - \log(z)    $\\
+Applying the log rules, we combine logs that are added through multiplication and then combine logs that are subtracted with division.\\
+$\log(xy) - \log(z)$\\
+$\log( \frac{xy}{z})$
+\item  $  2\log(x) + 1   $\\
+Here its important to remember that anything multiplying a log can be moved inside the parenthesis as an exponent and that $1 = \log(e)$\\
+$\log(x^2) + \log(e) = \log(ex^2)$
+\item  $  \log(x) - 2  $\\
+$\log(x) - 2\log(e) = \log(x) - \log(e^2)  = \log(\frac{x}{e^2})$
+\end{enumerate}
+
+\bigskip 
+
+
+\textbf{NB}: There are multiple ways to prove both 4 and 5.
+
+\bigskip
+
+
+\textbf{4.}	Prove that $n! > n^2$ for integers $n \ge 4$. (Hint: try using induction.)
+
+Let's call our proposition $P_n$ (e.g., $P_{10}$ is that $10! > 10^2$). Recall that induction is a strategy to prove a mathematical proposition for all integers greater than some starting value. In this case, we want to prove that $P_4, P_5, \dots, P_n, \dots$ are all true. Induction requires two steps. 
+
+First, we prove a \emph{base case} for some particular integer. Here, our base case is $P_4$, since we want to prove the proposition for $n \ge 4$. It is easy to see that $4! = 4 \times 3 \times 2 \times 1 = 24$ is greater than $4^2 = 16$. So $P_4$ serves as our basis for induction. 
+
+Next, we need to prove the \emph{inductive step}. That is, we \textit{assume} that $P_k$ is true, and prove that if $P_k$ is true, then $P_{k+1}$ is also true. For this problem, we assume that $k! > k^2$. Then note:
+\begin{align}
+(k+1)! &= (k+1) k! \\
+&> (k+1)k^2 \quad \text{by the inductive hypothesis}
+\end{align}
+If we can show that $k^2 > k+1$, then our proof will be complete. This inequality holds for $k \ge 2$. To see this, divide both sides of the inequality by $k$ to get $k > 1 + \frac{1}{k}$ -- which is true for integers $k \ge 2$. Thus, we have
+\begin{align}
+(k+1)! &> (k+1)k^2 > (k+1)(k+1)
+\end{align}
+So we have proven that a base case $P_4$ is true, and we have proven that whenever $P_k$ is true, $P_{k+1}$ is also true. Therefore, by the principle of induction, we have now proven that $n! > n^2$ for all $n \ge 4$. 
+
+\bigskip
+
+
+\textbf{5.} A number is  \emph{rational} if it can be written as the quotient of two integers --- e.g., if $x = \frac{p}{q}$, with $p, q \in \mathbb{Z}$, then $x$ is rational. (The set of rational numbers is often denoted $\mathbb{Q}$.) A number is  \emph{irrational} if it is not rational. Prove that $\sqrt{2}$ is irrational.  (Hint: try writing a proof by contradiction.)
+
+Recall that in a proof by contradiction, we show that if we assume the truth of a proposition that is actually false, we generate a contradiction. This shows that our original assumption must be wrong.
+
+Suppose, by way of contradiction, that $\sqrt{2}$ is rational. Then we can write $\sqrt{2} = \frac{p}{q}$, where $p$ and $q$ are integers and have no common factors (i.e., we can't simplify the fraction further --- otherwise we can just cancel out common factors until this is true). Then we have:
+\begin{align}
+\sqrt{2} &= \frac{p}{q} \\ 
+2 &= \frac{p^2}{q^2} \\ 
+2 q^2 &= p^2
+\end{align} 
+Note that by definition, the square of a number is a number multiplied by itself. It must therefore have an even number of prime factors. So $p^2$ and $q^2$ both have an even number of prime factors. But this points to a contradiction, because the left hand side is a prime number (2) multiplied by an even number of prime factors ($q^2$), implying that $p^2$ has an odd number of prime factors. Thus, our original hypothesis is false and $\sqrt{2} \not\in \mathbb{Q}$. 
+
+
+%
+%\begin{figure}[!ht]\centering{
+%\includegraphics[scale=.5]{PS3Plot1a.pdf}}
+%\end{figure}
+%
+
+
+%
+%\begin{eqnarray*}
+%Approval_t= \beta_1Approval_{t-1} + \beta_2Unemployment_t + \beta_3Unemployment_{t-1} + \beta D_{assassination}D_t + \epsilon_t
+%\end{eqnarray*}
+
+
+
+
+\end{document}
