@@ -1,0 +1,998 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\  Stanford University}
+\vspace{0.3in}
+
+\date{September 6th, 2018}
+
+\begin{document}
+
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+% \begin{frame}
+
+
+% \only<1>{\scalebox{0.5}{\includegraphics{Rolles1.pdf}}}
+% \only<2>{\scalebox{0.5}{\includegraphics{MVT1.pdf}}}
+
+
+% \end{frame}
+
+
+% \begin{frame}
+% \frametitle{Proving Mean Value Theorem}
+
+% \only<1>{\begin{thm}
+% Suppose $f:[a,b]\rightarrow \Re$ is continuous on $[a,b]$ and $f$ is differentiable on $(a,b)$. Then $\exists$ $c \in (a,b)$ such that
+% \begin{eqnarray}
+% f^{'}(c) & = & \frac{f(b) - f(a) } {b - a} \nonumber 
+% \end{eqnarray}
+
+% \end{thm}
+% }
+% \invisible<1>{\begin{proof}
+% Call new function $g(x)  = f(x) - L(x)$.  \\
+% Task 1: Define $L(x)$.  To apply Rolle's we'd like $g(b) = g(a) = 0$.  
+% \begin{eqnarray}
+% L(x) & = & \frac{f(b) - f(a) }{b - a} (x - a) + f(a) \nonumber 
+% \end{eqnarray}
+
+% Task 2: Use Rolle's Theorem.  We know that $g(b) = g(a) = 0$.  Now, this implies $\exists$ c $\in (a, b)$ such that 
+% \begin{eqnarray}
+% g^{'}(c) & =&   0 \nonumber \\
+% f^{'}(c) - L^{'}(c) & = & 0 \nonumber \\
+% f^{'}(c) - \frac{f(b) - f(a) }{b - a} & = & 0 \nonumber \\
+% f^{'} (c) & = & \frac{f(b) - f(a)}{b- a} \nonumber 
+% \end{eqnarray}
+
+% \end{proof}
+% }
+% \pause 
+% \end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Optimization} 
+
+Social scientists are often concerned with finding \alert{extrema}: \alert{maxima} or \alert{minima} \pause 
+\begin{itemize}
+\invisible<1>{\item[-] Given data, \alert{most} likely value of a parameter} \pause 
+\invisible<1-2>{\item[-] Game theory: given other player's strategy, action that \alert{maximizes} utility} \pause 
+\invisible<1-3>{\item[-] Across substantive areas: what is the \alert{optimal} action, strategy, prediction?} \pause 
+\end{itemize}
+
+
+\invisible<1-4>{\alert{How to Optimize}} \pause 
+\begin{itemize}
+\invisible<1-5>{\item[-] When functions are \alert{well behaved} and \alert{known} $\leadsto$ analytic solutions} \pause
+\begin{itemize}
+\invisible<1-6>{\item[-] Differentiate, set equal to zero, solve} \pause
+\invisible<1-7>{\item[-] Check end points and use second derivative test} \pause
+\end{itemize}
+\invisible<1-8>{\item[-] More difficult problems$\leadsto$ computational solutions} \pause
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Intuition: Optimization with Derivatives, \alert{Known} well behaved functions}
+
+\begin{columns}[]
+\column{0.6\textwidth}
+\scalebox{0.5}{\includegraphics{rolles3.pdf}}
+ \pause 
+
+\column{0.4\textwidth}
+\begin{itemize}
+\invisible<1>{\item[-] Rolle's theorem guarantee's that, at some point, $f^{'}(x) = 0$ } \pause 
+\invisible<1-2>{\item[-] \alert{Intuition from proof}---what happens as we approach from the left?} \pause 
+\invisible<1-3>{\item[-] \alert{Intuition from proof}---what happens as we approach from the right?} \pause 
+\invisible<1-4>{\item[-] \alert{critical intuition} first, second derivatives}
+\end{itemize}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Second Derivatives}
+
+\begin{defn} Suppose $f:\Re \rightarrow \Re$ is differentiable.  Recall we write this as $f^{'}$ and suppose that $f^{'}:\Re \rightarrow \Re$.  Then if the limit, 
+\begin{eqnarray}
+\lim_{x\rightarrow x_{0} } R(x) & = & \frac{f^{'}(x) - f^{'}(x_{0} ) } {x - x_{0} } \nonumber 
+\end{eqnarray}
+exists, we call this the \alert{second derivative} at $x_{0}, f^{''}(x_{0})$.  
+\end{defn}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example of Second Derivatives}
+
+\only<1>{\begin{eqnarray}
+f(x) & = & x \nonumber \\
+f^{'}(x) & = & 1 \nonumber \\
+f^{''} (x) & = & 0 \nonumber 
+\end{eqnarray}}
+
+
+\only<2>{\begin{eqnarray}
+f(x) & = & e^{x} \nonumber \\
+f^{'}(x) & = & e^{x} \nonumber \\
+f^{''}(x) & = & e^{x} \nonumber
+\end{eqnarray}}
+
+\only<3>{
+\begin{eqnarray}
+f(x) & = & \log (x) \nonumber \\
+f^{'}(x) & = & \frac{1}{x} \nonumber \\
+f^{''}(x) & = & \frac{-1}{x^2} \nonumber 
+\end{eqnarray}
+}
+
+\only<4>{\begin{eqnarray}
+f(x) & = & \frac{1}{x} \nonumber \\
+f^{'}(x) & = & \frac{-1}{x^2} \nonumber \\
+f^{''}(x) & = & \frac{2}{x^3} \nonumber 
+\end{eqnarray}}
+
+
+\only<5>{\begin{eqnarray}
+f(x) & = & -x^2 + 20 \nonumber \\
+f^{'}(x) & = & -2 x  \nonumber \\
+f^{''}(x) & =& - 2 \nonumber 
+\end{eqnarray}}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Approximating functions and second order conditions}
+
+
+\begin{thm}
+\textbf{Taylor's Theorem}
+Suppose $f:\Re \rightarrow \Re$, $f(x)$ is infinitely differentiable function.  Then, the taylor expansion of $f(x)$ around \alert{$a$} is given by 
+
+\begin{eqnarray}
+f(x) & = & f(a) + \frac{f^{'}(a)}{1!} (x- a) + \frac{f^{''}(a)}{2!} (x - a)^2 + \frac{f^{'''}(a)}{3!}(x- a)^3 + \hdots \nonumber \\
+f(x) & = & \sum_{n=0}^{\infty } \frac{f^{n} (a) }{n!} (x - a)^n \nonumber
+\end{eqnarray}
+
+\end{thm}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+{\tt R Code!}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Concavity, Convexity, Inflections}
+Second derivatives provide further information about functions 
+
+\begin{columns}[]
+
+\column{0.5\textwidth}
+\only<1>{\scalebox{0.35}{\includegraphics{fig1.pdf}}} 
+
+\only<2>{\scalebox{0.35}{\includegraphics{fig3.pdf}}}
+
+\column{0.5\textwidth}
+
+\only<1>{\scalebox{0.35}{\includegraphics{fig2.pdf}}}
+
+
+\only<2>{\scalebox{0.35}{\includegraphics{fig4.pdf}}}
+
+
+\end{columns}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Concave Up/ Convex}
+
+\begin{defn} 
+Suppose $f:[a,b]\rightarrow \Re$ is a \alert{twice} differentiable function.  If, for all $x \in [a,b]$ and $y \in [a,b]$ and $t \in (0,1)$
+\begin{eqnarray}
+f((1-t)x + t y) & < & (1-t) f(x) + t f(y) \nonumber 
+\end{eqnarray} 
+We say that $f$ is strictly \alert{concave up} or \alert{convex}.  Equivalently if $f^{''}(x)>0$ for all $x \in [a,b]$, we say that $f$ is strictly \alert{concave up}.  
+\end{defn}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Concave Up, Graphical Test}
+
+$f(x) = e^{x}$, $[1, 4]$
+
+\begin{center}
+\only<1>{\scalebox{0.6}{\includegraphics{fig1.pdf}}}
+\only<2>{\scalebox{0.6}{\includegraphics{Conv1.pdf}}}
+\only<3>{\scalebox{0.6}{\includegraphics{Conv2.pdf}}}
+\only<4>{\scalebox{0.6}{\includegraphics{Conv3.pdf}}}
+\only<5>{\scalebox{0.6}{\includegraphics{Conv4.pdf}}}
+\only<6>{\scalebox{0.6}{\includegraphics{Conv5.pdf}}}
+\only<7>{\scalebox{0.6}{\includegraphics{Conv6.pdf}}}
+\end{center}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Concave Up, Second Derivative}
+
+
+\begin{columns}[]
+
+\column{0.6\textwidth}
+\scalebox{0.6}{\includegraphics{fig1.pdf}}
+
+
+\column{0.4\textwidth}
+\pause 
+\begin{eqnarray}
+\invisible<1>{f(x) & = & e^{x} \nonumber \\} \pause 
+\invisible<1-2>{f^{'}(x) & = & e^{x} \nonumber \\} \pause 
+\invisible<1-3>{f^{''}(x) & = & e^{x} \nonumber } \pause 
+\end{eqnarray}
+
+
+\end{columns}
+\invisible<1-4>{$e^{x} >0 $ for all $x \in [1, 4]$} 
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Concave Down}
+
+\begin{defn} 
+Suppose $f:[a,b]\rightarrow \Re$ is a \alert{twice} differentiable function.  If, for all $x \in [a,b]$ and $y \in [a,b]$ and $t \in (0,1)$
+\begin{eqnarray}
+f((1-t)x + t y) & > & (1-t) f(x) + t f(y) \nonumber 
+\end{eqnarray} 
+We say that $f$ is strictly \alert{concave down}.  Equivalently if $f^{''}(x)<0$ for all $x \in [a,b]$, we say that $f$ is strictly \alert{concave down}.  
+\end{defn}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Concave Down} 
+
+\scalebox{0.6}{\includegraphics{Fig2.pdf}}
+
+
+\begin{itemize}
+\item[-] Show Concave down with graph test for $x \in [1,4]$
+\item[-] Show concave down with second derivative test for $x \in [1,4]$
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Optimization}
+
+\begin{thm} \alert{Extreme Value Theorem} Suppose $f: [a,b] \rightarrow \Re$ and that $f$ is continuous.  Then $f$ obtains its extreme value on $[a,b]$.  
+\end{thm}
+
+\begin{cor} Suppose $f: [a,b] \rightarrow \Re$,  that $f$ is continuous and differentiable, and that $f(a)$ nor $f(b)$ is the extreme value.  Then $f$ obtains its maximum on $(a,b)$ and if $f(x_{0})$ is the extreme value of $f$ $x_0 \in (a,b)$ then, $f^{'}(x_{0}) = 0$.  
+\end{cor}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Extrema on End Points}
+\scalebox{0.5}{\includegraphics{Line1.pdf}}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Maximum in Middle, Concave Down}
+
+$f(x) = - x^2 + 5$.  
+
+
+\scalebox{0.5}{\includegraphics{Rolles3.pdf}}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Minimum in Interior, Concave Up}
+
+$f(x) = x^2 + 9x + 9 $
+
+\scalebox{0.5}{\includegraphics{Line3.pdf}}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Local Optima}
+
+
+$f(x) = \sin(x)$
+
+
+\scalebox{0.5}{\includegraphics{Line4.pdf}}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Inflection points}
+
+$f(x) = x^3$
+
+\scalebox{0.5}{\includegraphics{Line5.pdf}}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Framework for Optimization}
+
+\alert{Recipe} for optimization \pause 
+\begin{itemize}
+\invisible<1>{\item[-] Find $f^{'}(x)$. } \pause 
+\invisible<1-2>{\item[-] Set $f^{'}(x) = 0$ and solve for $x$.  Call all $x_{0}$ such that $f^{'}(x_{0} ) = 0$ \alert{critical values}.} \pause 
+\invisible<1-3>{\item[-] Find $f^{''}(x)$.  Evaluate at each $x_{0}$.  } \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] If $f^{''}(x)>0$, Concave up, \alert{local} minimum} \pause 
+\invisible<1-5>{\item[-] If $f^{''}(x)<0$, Concave down, \alert{local} maximum} \pause 
+\invisible<1-6>{\item[-] If $f^{''}(x) = 0$, No knowledge---local minimum, maximum, or inflection point} \pause 
+\end{itemize}
+\invisible<1-7>{\item[-] \alert{Check End Points!}} 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 1: $f(x) = -x^2$,  $x \in [-3, 3] $}
+
+
+\only<1>{\scalebox{0.5}{\includegraphics{OptExamp1.pdf}}} 
+
+
+\only<2->{
+	\invisible<1-2>{1) Critical Value:
+
+	\begin{eqnarray}
+	f^{'}(x) & = & - 2 x \nonumber \\
+	0 & = & - 2 x^{*} \nonumber \\
+	x^{*} & = & 0 \nonumber 
+	\end{eqnarray}}
+
+	\invisible<1-3>{2) Second Derivative: 
+
+	\begin{eqnarray}
+	f^{'}(x) & = & - 2x \nonumber \\
+	f^{''}(x)  & = & - 2 \nonumber 
+	\end{eqnarray}
+	$f^{''}(x)< 0$, local maximum }
+}
+
+
+
+
+
+\pause \pause \pause \pause
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 1: $f(x) = -x^2$,  $x \in [-3, 3] $}
+
+	3) Check end points
+	\begin{eqnarray}
+	f(0) & = & - 0 ^2 = 0 \nonumber \\
+	f(-3) & = & - (-3)^2 = -9 \nonumber \\
+	f(3) & = & - (3)^2 = -9 \nonumber 
+	\end{eqnarray}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Example 2: $f(x) = x^3$, $x \in [-3, 3] $ }
+
+\only<1>{\scalebox{0.5}{\includegraphics{OptExamp2.pdf}}}
+
+
+\only<2->{
+	
+1) Critical Values: 
+\begin{eqnarray}
+f^{'}(x) & = & 3x^2 \nonumber \\
+0 & = & 3 (x^{*})^{2} \nonumber \\
+x^{*} & = & 0 \nonumber 
+\end{eqnarray}
+
+\invisible<1-2>{2) Second Derivative: 
+
+\begin{eqnarray}
+f^{''}(x) & = & 6 x \nonumber \\
+f^{''}(0) & = &  0 \nonumber 
+\end{eqnarray}
+\alert{No information}
+}
+
+}
+\pause \pause 
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 2: $f(x) = x^3$, $x \in [-3, 3] $}
+
+
+3) Check End Points: 
+
+\begin{eqnarray}
+f(0) & = & 0^3  = 0 \nonumber \\
+f(-3) & = & -3^3 = -27 \nonumber \\
+f(3) & = & 3^3 = 27 \nonumber 
+\end{eqnarray}
+
+Neither maximum nor minimum, \alert{saddle point} 
+
+
+
+
+
+
+
+
+
+
+\end{frame}
+
+
+
+
+%%add limits on the function here
+\begin{frame}
+\frametitle{Example 3: \alert{Spatial Model} }
+A large literature in Congress supposes legislators and policies can be situated in \alert{policy space} \pause \\
+
+\invisible<1>{Suppose legislator $i$ and policies $x, i \in \Re$. } \pause  \\
+\invisible<1-2>{Define legislator $i$'s utility as, $U:\Re \rightarrow \Re$,} \pause 
+\begin{eqnarray}
+\invisible<1-3>{U_{i} (x) & = & - (x - \mu)^{2}  \nonumber \\} \pause 
+\invisible<1-4>{U_{i}(x) & = & - x^2 +  2 x \mu  - \mu^2 \nonumber }\pause 
+\end{eqnarray}
+\invisible<1-5>{What is $i$'s optimal policy over the range $x \in [\mu- 2, \mu + 2]$?} \pause 
+\begin{eqnarray}
+\invisible<1-6>{U_{i}^{'} (x) & = & -2 (x - \mu) \nonumber \\} \pause 
+\invisible<1-7>{0 & = & -2x^{*} + 2 \mu \nonumber \\} \pause 
+\invisible<1-8>{x^{*} & = & \mu \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-9>{\alert{Second Derivative Test}} \pause 
+\begin{eqnarray}
+\invisible<1-10>{U^{''}_{i}(x)  & = & -2 <0 \rightarrow \text{Concave Down} \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-11>{We call $\alert{\mu}$ legislator $i$'s \alert{ideal point}} 
+
+\end{frame} 
+
+\begin{frame}
+\frametitle{Example 3: \alert{Spatial Model} }
+
+\begin{eqnarray}
+U_{i}(\mu) & = & - (\mu - \mu)^2 = 0 \nonumber \\
+U_{i}(\mu - 2) & = & - (\mu - 2 - \mu)^2 = -4 \nonumber \\
+U_{i} (\mu + 2) & = & - (\mu + 2 - \mu)^2 = -4 \nonumber 
+\end{eqnarray}
+
+\alert{Maximize utility at $\mu$}
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Example 4: \alert{Maximum Likelihood Estimation}}
+
+In statistics classes we'll learn about \alert{parameters} from \alert{data}.  \pause  \\
+\invisible<1>{Here is an example \alert{likelihood} function: We want to find the \alert{Maximum likelihood estimate}} \pause \\
+\begin{eqnarray}
+\invisible<1-2>{f(\mu) & = & \prod_{i=1}^{N} \exp( \frac{-(Y_{i} - \mu)^2}{ 2}) \nonumber } \pause \\
+\invisible<1-3>{   & = & \exp(- \frac{(Y_{1} - \mu)^2}{ 2}) \times \hdots \times \exp(- \frac{(Y_{N} - \mu)^2}{ 2})\nonumber } \pause \\
+\invisible<1-4>{     & = & \exp( - \frac{\sum_{i=1}^{N} (Y_{i} - \mu)^2} {2}) \nonumber } \pause 
+  \end{eqnarray}
+  
+\invisible<1-5>{ \begin{thm} Suppose $f:\Re \rightarrow (0, \infty)$.  If $x_{0}$ maximizes $f$, then $x_{0}$ maximizes $\log(f(x))$.  
+ \end{thm} } 
+ 
+   
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 4: \alert{Maximum LIkelihood Estimation}}
+
+\pause 
+\begin{eqnarray}
+\invisible<1>{\log f(\mu) & = & \log \left( \exp( - \frac{\sum_{i=1}^{N} (Y_{i} - \mu)^2} {2}) \right) \nonumber \\} \pause 
+	\invisible<1-2>{& = & - \frac{\sum_{i=1}^{N} (Y_{i} - \mu)^2} {2}) \nonumber \\} \pause 
+		\invisible<1-3>{	& = & -\frac{1}{2} \left(\sum_{i=1}^{N} Y_{i}^2 - 2\mu \sum_{i=1}^{N} Y_{i} + N\times\mu^2 \right) \nonumber \\} \pause 
+\invisible<1-4>{\frac{ \partial \log f(\mu) }{ \partial \mu } & = & 		-\frac{1}{2} \left( - 2\sum_{i=1}^{N} Y_{i} + 2 N \mu \right) \nonumber 		}
+\end{eqnarray}
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 4: \alert{Maximum Likelihood Estimation} } 
+
+
+\begin{eqnarray}
+\invisible<1>{0 & = & -\frac{1}{2} \left( - \sum_{i=1}^{N} Y_{i} + 2 N \mu^{*} \right) \nonumber \\} \pause 
+\invisible<1-2>{2 \sum_{i=1}^{N}Y_{i}  & = & 2 N \mu^{*} \nonumber \\} \pause 
+\invisible<1-3>{\frac{\sum_{i=1}^{N}Y_{i}}{N} & = & \mu^{*} \nonumber \\} \pause 
+\invisible<1-4>{\bar{Y} & =& \mu^{*} \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-5>{\alert{Second Derivative Test} } \pause 
+\begin{eqnarray}
+\invisible<1-6>{f^{'}(\mu ) & = & -\frac{1}{2} \left( - 2\sum_{i=1}^{N} Y_{i} + 2 N \mu \right)  \nonumber \\} \pause 
+\invisible<1-7>{f^{''}(\mu ) & = & -N \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-8>{$-N<0$, \alert{concave down}, maximum(!!)} 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 5: IR Bargaining (from Jim Fearon, Part 1) } 
+
+\alert{Countries} fight wars, usually to get stuff.  \pause 
+
+\begin{itemize}
+\invisible<1>{\item[-] Suppose two countries $1,2$ are fighting for something they value at $v$.} \pause 
+\invisible<1-2>{\item[-] Each country decides to invest $a_{1} \in [0,1]$ and $a_{2} \in [0,1]$.  } \pause 
+\invisible<1-3>{\item[-] The probability of country $1$ winning the war is } \pause 
+\begin{eqnarray}
+\invisible<1-4>{p(a_{1}, a_{2} ) & = & \frac{a_{1}^{n} }{a_{1}^{n} + a_{2}^{n} } \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-5>{\item[-] Country $1$'s utility is given by } \pause 
+\begin{eqnarray}
+\invisible<1-6>{U_{1}(a_{1} ) & = & \underbrace{1- a_{1}}_{\text{cost}} + \underbrace{p(a_{1}, a_{2})v}_{\text{Expected Benefit}} \nonumber \\
+				& = & 1 - a_{1} + \frac{a_{1}^{n} }{a_{1}^{n} + a_{2}^{n} }  v \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-7>{\item[-] Suppose country $2$ selected value $x$.  What should country $1$ invest to maximize utility?  } 
+\end{itemize}
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 5: IR Bargaining (from Jim Fearon, Part 1) } 
+
+
+\scalebox{0.5}{\includegraphics{Fearon1.pdf} } 
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Example 5: IR War (from Jim Fearon, Part 1) } 
+
+
+
+\begin{eqnarray}
+\frac{\partial U_{1} (a_{1}) }{\partial a_{1}} & = &  - 1 + \frac{n a_{1}^{n-1} (a_{1}^{n} + x^{n} ) - (n a_{1}^{n-1} a_{1}^{n}) }{(a_{1}^{n} + x^{n} )^2} v \nonumber \\
+& =& - 1 + \frac{n a_{1}^{n-1} x^{n} }{(a_{1}^{n} + x^{n} )^2} v \nonumber 
+\end{eqnarray}
+Set $n = 1$ (for simplicity)
+\begin{eqnarray}
+0 & = &  -1  + \frac{x}{(a_{1} + x)^2}v \nonumber \\
+a_{1}^{*} & = & \sqrt{v}\sqrt{x} - x \nonumber \\
+\end{eqnarray}
+Second derivative!
+\begin{eqnarray}
+U_{1}^{''} (a_{1})& = & \frac{- 2 v x  }{(a_{1} + x)^{3} } \nonumber
+\end{eqnarray}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 5: IR Bargaining (from Jim Fearon, Part 1) } 
+
+One more---check endpoints
+\begin{eqnarray}
+a_{1}^{*} & = & 0, \text{ if } \sqrt{v}\sqrt{x} - x < 0 \nonumber \\
+a_{1}^{*} & = & 0, \text{ if } \sqrt{v}< \sqrt{x} \nonumber \\
+a_{1}^{*} & = & \sqrt{v}\sqrt{x} - x \text{ otherwise }\nonumber 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Optimization \alert{Challenge} Problem}
+
+
+
+\begin{itemize}
+\item[-] Suppose a candidate is attempting to mobilize voters.  Suppose that for each investment of $x \in [0, \infty)$ the candidate receives
+return of $x^{1/2}$, but incurs cost of $a x$.  So, candidate utility is, 
+\begin{eqnarray}
+U_{i} = x^{1/2}  - a x \nonumber 
+\end{eqnarray}
+\item[] What is the optimal investment $x^{*}$?
+
+\end{itemize}
+
+\begin{center}
+\scalebox{0.375}{\includegraphics{Chall1.pdf}}
+\end{center}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Computational Optimization Approaches}
+
+\alert{Analytic} (Closed form)$\leadsto$ Often difficult, impractical, or unavailable  \pause \\
+
+\invisible<1>{\alert{Computational}}\pause\invisible<1-2>{$\leadsto$ \alert{iterative} algorithm that converges to a solution (hopefully the right one!) } \pause 
+\begin{itemize}
+\invisible<1-3>{\item[-] Methods for optimization:} \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] \alert{Newton's method} and related methods} \pause 
+\invisible<1-5>{\item[-] Gradient descent (ascent)} \pause 
+\invisible<1-6>{\item[-] Expectation Maximization} \pause 
+\invisible<1-7>{\item[-] Genetic Optimization} \pause 
+\invisible<1-8>{\item[-] Branch and Bound ...} 
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Newton-Raphson Method}
+
+Iterative procedure to find a \alert{root} \\ \pause 
+\invisible<1>{Often solving for $x$ when $f(x) = 0$ is hard$\leadsto$ complicated function} \pause \\
+\invisible<1-2>{Solving for $x$ when $f(x)$ is linear$\leadsto$ easy} \pause \\
+\invisible<1-3>{Approximate with \alert{tangent line}, iteratively update}
+
+
+%%put an example here that shows how this might work
+
+%\scalebox{0.5}{\includegraphics{TangentExample.pdf}}
+
+%use tangent line to find root
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Tangent Line}
+
+
+\only<1>{\scalebox{0.6}{\includegraphics{TanLine26.pdf}}}
+\only<2>{\scalebox{0.6}{\includegraphics{TanLine1.pdf}}}
+\only<3>{\scalebox{0.6}{\includegraphics{TanLine2.pdf}}}
+\only<4>{\scalebox{0.6}{\includegraphics{TanLine3.pdf}}}
+\only<5>{\scalebox{0.6}{\includegraphics{TanLine4.pdf}}}
+\only<6>{\scalebox{0.6}{\includegraphics{TanLine5.pdf}}}
+\only<7>{\scalebox{0.6}{\includegraphics{TanLine6.pdf}}}
+\only<8>{\scalebox{0.6}{\includegraphics{TanLine7.pdf}}}
+\only<9>{\scalebox{0.6}{\includegraphics{TanLine8.pdf}}}
+\only<10>{\scalebox{0.6}{\includegraphics{TanLine9.pdf}}}
+\only<11>{\scalebox{0.6}{\includegraphics{TanLine10.pdf}}}
+\only<12>{\scalebox{0.6}{\includegraphics{TanLine11.pdf}}}
+\only<13>{\scalebox{0.6}{\includegraphics{TanLine12.pdf}}}
+\only<14>{\scalebox{0.6}{\includegraphics{TanLine13.pdf}}}
+\only<15>{\scalebox{0.6}{\includegraphics{TanLine14.pdf}}}
+\only<16>{\scalebox{0.6}{\includegraphics{TanLine15.pdf}}}
+\only<17>{\scalebox{0.6}{\includegraphics{TanLine16.pdf}}}
+\only<18>{\scalebox{0.6}{\includegraphics{TanLine17.pdf}}}
+\only<19>{\scalebox{0.6}{\includegraphics{TanLine18.pdf}}}
+\only<20>{\scalebox{0.6}{\includegraphics{TanLine19.pdf}}}
+\only<21>{\scalebox{0.6}{\includegraphics{TanLine20.pdf}}}
+\only<22>{\scalebox{0.6}{\includegraphics{TanLine21.pdf}}}
+\only<23>{\scalebox{0.6}{\includegraphics{TanLine22.pdf}}}
+\only<24>{\scalebox{0.6}{\includegraphics{TanLine23.pdf}}}
+\only<25>{\scalebox{0.6}{\includegraphics{TanLine24.pdf}}}
+\only<26>{\scalebox{0.6}{\includegraphics{TanLine25.pdf}}}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Tangent Line}
+
+Formula for Tangent line at $x_{0}$: 
+
+
+\begin{eqnarray}
+\invisible<1>{g(x) =  \alert<4>{f^{'}(x_{0})} \alert<5>{(x - x_{0} )} + \alert<3>{f(x_{0} )} \nonumber }
+\end{eqnarray}
+
+
+\invisible<1-5>{We'll use formula for tangent line to generate updates}
+
+
+\pause \pause \pause \pause 
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Newton-Raphson Method}
+
+Suppose we have some initial guess $x_{0}$.  We're going to approximate $f^{'}(x)$ with the tangent line to generate a new guess
+
+
+ \pause 
+
+\begin{eqnarray}
+\invisible<1>{g(x) & = & f^{''}(x_{0})(x - x_{0} ) + f^{'}(x_{0} ) \nonumber \\}
+\invisible<1-2>{0 & = & f^{''}(x_{0}) (x_{1} - x_{0}) + f^{'}(x_{0} ) \nonumber \\} %because at the root the function has to equal zero, so we're moving closer to it.
+\invisible<1-3>{x_{1} & = &  x_{0} - \frac{f^{'}(x_{0}) }{f^{''}(x_{0})} \nonumber }
+\end{eqnarray}
+
+\invisible<1-4>{Perform iteratively until change in $|x_{t+1} - x_{t}|<$ threshold }
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Example Function }
+
+$f(x) = x^3 + 2x^2 - 1$
+find $x$ that maximizes $f(x) $ with $x \in [-3, 0]$
+
+
+\scalebox{0.5}{\includegraphics{NRExample.pdf}}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{eqnarray}
+f^{'}(x) & = & 3 x^2 + 4 x \nonumber \\
+f^{''}(x) & = & 6x + 4 \nonumber 
+\end{eqnarray}
+
+Suppose we have guess $x_{t}$ then the next step is:
+\begin{eqnarray}
+x_{t+1} & = & x_t - \frac{3 x_{t}^2 + 4 x_{t}}{6 x_{t} + 4} \nonumber
+\end{eqnarray}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle<7->{$x^{*} = -1.3333$}
+
+\only<1>{\scalebox{0.5}{\includegraphics{NRExamp1.pdf}}} 
+\only<2>{\scalebox{0.5}{\includegraphics{NRExamp2.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{NRExamp3.pdf}}}
+\only<4>{\scalebox{0.5}{\includegraphics{NRExamp4.pdf}}}
+\only<5>{\scalebox{0.5}{\includegraphics{NRExamp5.pdf}}}
+\only<6>{\scalebox{0.5}{\includegraphics{NRExamp6.pdf}}}
+\only<7>{\scalebox{0.5}{\includegraphics{NRExamp7.pdf}}}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{What is Happening with the Roots}
+
+\only<1>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv20.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv1.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv2.pdf}}}
+\only<4>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv3.pdf}}}
+\only<5>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv4.pdf}}}
+\only<6>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv5.pdf}}}
+\only<7>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv6.pdf}}}
+\only<8>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv7.pdf}}}
+\only<9>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv8.pdf}}}
+\only<10>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv9.pdf}}}
+\only<11>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv10.pdf}}}
+\only<12>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv11.pdf}}}
+\only<13>{\scalebox{0.5}{\includegraphics{NewtRaphDeriv12.pdf}}}
+
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+\only<1>{\scalebox{0.5}{\includegraphics{NRExamp8.pdf}}} 
+\only<2>{\scalebox{0.5}{\includegraphics{NRExamp9.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{NRExamp10.pdf}}}
+\only<4>{\scalebox{0.5}{\includegraphics{NRExamp11.pdf}}}
+\only<5>{\scalebox{0.5}{\includegraphics{NRExamp12.pdf}}}
+\only<6>{\scalebox{0.5}{\includegraphics{NRExamp13.pdf}}}
+\only<7>{\scalebox{0.5}{\includegraphics{NRExamp14.pdf}}} 
+\only<8>{\scalebox{0.5}{\includegraphics{NRExamp15.pdf}}}
+\only<9>{\scalebox{0.5}{\includegraphics{NRExamp16.pdf}}}
+\only<10>{\scalebox{0.5}{\includegraphics{NRExamp17.pdf}}}
+\only<11>{\scalebox{0.5}{\includegraphics{NRExamp18.pdf}}}
+\only<12>{\scalebox{0.5}{\includegraphics{NRExamp19.pdf}}}
+\only<13>{{\tt To the R Code!}}
+\end{frame}
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Today/Tomorrow}
+
+\begin{itemize}
+\item[-] A Framework for optimization
+\begin{itemize}
+\item[-] Analytic: pencil and paper math
+\item[-] Computational: iterative algorithm that aids in solution
+\end{itemize}
+\item[-] Integration: antidifferentation/area finding
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+\end{document}
+
