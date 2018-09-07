@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{relsize}
+\usepackage{dcolumn}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\DeclareMathSizes{11}{30}{20}{12}
+\newcommand{\Z}{\mathbb{Z}}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+	
+	\centerline{\bf Math Camp - Homework 2 Solutions}
+
+\noindent \textbf{1.} Given that: \\
+
+
+$\lim_{x \to a} f(x) = -3$ \hfill $\lim_{x \to a} g(x) = 0$ \hfill $\lim_{x \to a} h(x) = 8$\\
+
+find the following limits. If the limit doesn't exist, explain why. 
+
+\begin{enumerate}
+\item $\lim_{x \to a} [f(x) + h(x)]$\\
+$-3 + 8 = 5$
+\item $\lim_{x \to a}  [f(x)]^2$\\
+$(-3)^2 = 9$
+\item $\lim_{x \to a}  \frac{f(x)}{h(x)}$\\
+$\frac{-3}{8}$
+\item $\lim_{x \to a}  \frac{g(x)}{f(x)}$\\
+$\frac{0}{-3} = 0$
+\end{enumerate}
+
+\bigskip
+\noindent \textbf{2.} Find the following limits:
+
+\begin{enumerate}
+\item
+The key here is to factor the initial expression\\
+\begin{eqnarray*}
+ \lim_{x \to -4} \frac{(x+4)(x+1)}{(x+4)(x-1)} &=& \lim_{x \to -4} \frac{x+1}{x-1}\\
+ &=& \frac{\lim_{x \to -4}(x+1)}{\lim_{x \to -4}(x-1)} \\
+ &=& \frac{-3}{-5}\\
+ &=& \frac{3}{5}
+\end{eqnarray*}
+\item
+\begin{eqnarray*}
+\lim_{x \to 4^{-}} \sqrt{16 - x^2} &=& \lim_{x \to 4^{-}} \sqrt{(4+x)(4-x)}\\
+&=& \lim_{x \to 4^{-}} \sqrt{4+x} \sqrt{4-x}\\
+&=& \lim_{x \to 4^{-}}\sqrt{4+x} \cdot \lim_{x \to 4^{-}}\sqrt{4-x}\\
+&=&\sqrt{8} * \sqrt{0}\\
+&=& 0
+\end{eqnarray*}
+A critical aspect of this limit, which allows for it to exist, is that it is a left-hand limit. 
+\item \begin{eqnarray*} \lim_{x \to -1} \frac{x-2}{x^2 + 4x -3} &=& \frac{\lim_{x \to -1} (x-2)}{\lim_{x \to -1} (x^2 + 4x -3)}\\
+&=& \frac{-1 - 2}{(-1)^2 + 4(-1) - 3}\\
+&=& \frac{-3}{-6}\\
+&=& \frac{1}{2}
+\end{eqnarray*}
+
+\item
+\begin{eqnarray*}
+ \lim_{x \to -4} \frac{\frac{1}{4} + \frac{1}{x}}{4 + x} &=&  \lim_{x \to -4} \frac{ \frac{x+4}{4x}}{4+x}\\
+&=& \lim_{x \to -4} \frac{4+x}{4x} \frac{1}{4+x}\\
+&=& \lim_{x \to -4} \frac{1}{4x}\\
+&=& \frac{1}{4(-4)}\\
+&=& -\frac{1}{16}
+\end{eqnarray*}
+
+Alternatively, we can use L'H\^{o}pital's Rule:
+\begin{eqnarray*}
+ \lim_{x \to -4} \frac{\frac{1}{4} + \frac{1}{x}}{4 + x} &=&  \lim_{x \to -4} \frac{ -\frac{1}{x^2}}{1} \\
+&=&  \lim_{x \to -4} (-\frac{1}{x^2})\\
+&=& -\frac{1}{16}
+\end{eqnarray*}
+
+\end{enumerate}
+
+\bigskip 
+
+\noindent \textbf{3.} Differentiate the following using the rules we have discussed (chain rule, product rule, etc.)
+\begin{enumerate}
+\item \begin{eqnarray*}
+f(x) &=& 4x^3 + 2x^2 + 5x + 11\\
+f'(x) &=& 12x^2 + 4x + 5\\
+\end{eqnarray*}
+Derivative of a constant is zero\\
+\item \begin{eqnarray*}
+ y &=& \sqrt{30}\\
+ y' &=& 0\\
+\end{eqnarray*}
+\item
+Need to apply the chain rule to the second term, first by bringing down the exponent and then by taking the derivative of sin(x)\\
+\begin{eqnarray*}
+y &=& 2^3 + \mbox{sin}^3x \\
+y' &=& 0 + 3 sin^2(x)cos(x) \\
+&=& 3 sin^2(x)cos(x) \\
+\end{eqnarray*}
+\item \begin{eqnarray*}
+h(t) &=& \log(9t+1)\\
+h'(t)&=& \frac{1}{9t+1}*9 \\
+\end{eqnarray*}
+\item \begin{eqnarray*}
+g(x) &=& x^3  \cos 11x \\
+g'(x) &=& 3x^2 cos(11x) - 11x^3 sin(11x)
+\end{eqnarray*}
+\item \begin{eqnarray*}
+f(x) &=& \log(x^2e^x)\\
+f'(x) &=& \frac{1}{x^2 e^x} * (2x e^x + e^x x^2)\\
+&=& \frac{2x e^x + e^x x^2}{x^2 e^x}\\
+&=& \frac{2}{x} + 1 \\
+\end{eqnarray*}
+\item 
+\begin{eqnarray*}
+h(y) &=&  ( \dfrac{1}{y^2} - \dfrac{3}{y^4})(y+5y^3)\\
+ &=& \frac{y}{y^2} + \frac{5y^3}{y^2} - \frac{3y}{y^4} - \frac{15y^3}{y^4}\\
+&=& \frac{1}{y} + 5y - \frac{3}{y^3} - \frac{15}{y}\\
+&=& 5y - \frac{14}{y} - \frac{3}{y^3}\\
+h'(y) &=& 5 + \frac{14}{y^2} + \frac{9}{y^4}
+\end{eqnarray*}
+
+\item \begin{eqnarray*}
+g(t) &=&  \dfrac{3t-1}{2t+1}\\
+g'(t) &=& \dfrac{(3)(2t+1) - (3t-1)(2)}{(2t+1)^2}\\
+&=& \frac{5}{(2t+1)^2}
+\end{eqnarray*}
+\end{enumerate}
+
+
+\bigskip 
+
+
+\noindent \textbf{4.} Differentiate the following using both the product and quotient rules:
+\begin{enumerate}
+\item $f(x) = \dfrac{x^2-2x}{x^4 + 6}$
+\end{enumerate}
+
+First let's use the quotient rule:
+\begin{eqnarray*}
+h(x) &=& \frac{f(x)}{g(x)}\\
+f(x) &=& x^2 - 2x\\
+g(x) &=& x^4 + 6\\
+f'(x) &=& 2x - 2\\
+g'(x) &=& 4x^3\\
+h'(x) &=& \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}\\
+&=& \frac{(2x-2)(x^4+6) - (x^2 - 2x)(4x^3)}{(x^4 + 6)^2}\\
+&=& \frac{2x^5 + 12x - 2x^4 - 12 - 4x^5 + 8x^4}{(x^4+6)^2}\\
+&=& \frac{-2x^5 + 6x^4 + 12x - 12}{(x^4 + 6)^2}\\
+\end{eqnarray*}
+
+Now we can do the same thing with the product rule:
+\begin{eqnarray*}
+j(x) &=& k(x)m(x)\\
+k(x) &=& x^2 - 2x\\
+m(x) &=& (x^4 + 6)^{-1}\\
+k'(x) &=& 2x-2\\
+m'(x) &=& - (x^4 + 6)^{-2} (4x^3) = - \frac{4x^3}{(x^4 +6)^{2}}\\
+j'(x) &=& k(x)m'(x) + k'(x)m(x)\\
+&=& (x^2 - 2x) (  -\frac{4x^3}{(x^4 + 6)^2} ) + (2x-2)(x^4+6)^{-1}\\
+&=& - \frac{(x^2 - 2x)(4x^3)}{(x^4 + 6)^2} + \frac{2x-2}{x^4+6}\\
+&=& - \frac{4x^5 - 8x^4}{x^4 +6)^2} + \frac{2x - 2}{x^4 + 6}\\
+&=& - \frac{4x^5 - 8x^4}{x^4 +6)^2} + \frac{2x - 2}{x^4 + 6} \frac{x^4 + 6}{x^4 + 6}\\
+&=& - \frac{4x^5 - 8x^4}{(x^4 +6)^2} + \frac{2x^5 + 12x  - 2x^4 - 12}{(x^4 +6)^2}\\
+&=& \frac{2x^5 + 12x  - 2x^4 - 12 - 4x^5 - 8x^4}{(x^4 +6)^2}\\
+&=& \frac{-2x^5 + 6x^4 + 12x - 12}{(x^4 +6)^2}
+\end{eqnarray*}
+
+The quotient rule is simply a derivation of the product rule combined with the chain rule:
+
+\begin{eqnarray*}
+h(x) &=& \frac{f(x)}{g(x)} \\
+&=& f(x)g(x)^{-1} \\
+\end{eqnarray*}
+Apply product and chain rules:
+\begin{eqnarray*}
+h'(x) &=& f'(x)g(x)^{-1} + f(x)(-1)g(x)^{-2}g'(x) \\
+&=& f'(x)g(x)g(x)^{-2} - f(x)g(x)^{-2}g'(x) \\
+&=& [f'(x)g(x) - f(x)g'(x)]g(x)^{-2} \\
+&=& \frac{f'(x)g(x) - f(x)g'(x)}{g(x)^2} \\
+\end{eqnarray*}
+which is the quotient rule.
+
+
+\end{document}

@@ -34,4 +34,4 @@ cd Math18
 git pull
 ```
 
-A more detailed introductory tutorial for using Git can be found [here](http://jmausolf.github.io/code/Intro_Git/).
+A more detailed introductory tutorial for using Git can be found [here](http://jmausolf.github.io/code/intro_git/).
