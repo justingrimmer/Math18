@@ -1,0 +1,974 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\ Stanford University}
+\vspace{0.3in}
+
+\date{September 7th, 2018}
+
+\begin{document}
+
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Integration}
+
+\begin{itemize}
+\item[-] \alert{Derivatives} $\leadsto$ rates of change
+\item[-] \alert{Integrals}$\leadsto$ area under a curve
+\item[-] \alert{Connection}: fundamental theorem of calculus
+\item[-] Some \alert{antiderivative} formulas
+\item[-] Algebra of Integrals
+\item[-] Improper Integrals
+\item[-] Monte Carlo principle
+\item[-] \alert{Integrate a lot in probability theory}, we'll review more then
+\item[-] Infinite Series
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Area Under a Curve}
+
+\begin{columns}[]
+
+\column{0.6\textwidth}
+\only<1>{\scalebox{0.5}{\includegraphics{Log1.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{Log2.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{Log3.pdf}}}
+\only<4>{\scalebox{0.5}{\includegraphics{Log4.pdf}}}
+\only<5>{\scalebox{0.5}{\includegraphics{Log5.pdf}}}
+\only<6>{\scalebox{0.5}{\includegraphics{Log6.pdf}}}
+
+\column{0.4\textwidth}
+\begin{itemize}
+\invisible<1>{\item[-]Approximated area  $ = \sum_{i=1}^{n} f(x_{i-1}) (x_{i} - x_{i-1} )$ }
+\invisible<1-2>{\item[-] As partitions become more refined, they improve} 
+\invisible<1-5>{\item[-] $\lim_{n\rightarrow \infty} \sum_{i=1}^{n} f(x_{i-1}) (x_{i} - x_{i-1} ) \leadsto$ \alert{Riemann Integral}} 
+\end{itemize}
+
+
+\end{columns}
+
+
+\end{frame}
+
+\begin{frame}
+\begin{defn} Suppose $f:\Re \rightarrow \Re$.  We will define the Riemann Integral as $\int_{a}^{b} f(x) dx$.  If this exists then we say $f$ is \alert{integrable} on $[a,b]$ and call $\int_{a}^{b} f(x) dx$ the \alert{integral} of f.  
+\end{defn}
+
+
+\pause 
+
+
+\invisible<1>{\begin{thm}
+Suppose $f:[a,b] \rightarrow \Re$ is a continuous function.  Then $f$ is integrable
+\end{thm}}
+
+
+\pause 
+
+\invisible<1-2>{\begin{thm}
+Suppose $f:[a,b]\rightarrow \Re$ is a monotonic function.  Then $f$ is integrable
+\end{thm}}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Some Counterexamples}
+
+Suppose $f:[0,1]\rightarrow \frac{1}{x}$ 
+\begin{eqnarray}
+\int_{0}^{1} \frac{1}{x} dx \nonumber 
+\end{eqnarray} \pause 
+
+\invisible<1>{Then $\frac{1}{x}$ is not integrable on $[a,b]$ because the area that the integral would represent is infinite.  \pause \\} 
+
+
+\invisible<1-2>{\begin{eqnarray}
+f(x) & = & 1 \text{ if $x$ rational} \nonumber \\
+	 & = & 0 \text{ if $x$ irrational} \nonumber 
+\end{eqnarray}}\pause 
+
+\invisible<1-3>{Not integrable, because every interval will contain a discontinuous jump } 
+
+
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Fundamental Theorem of Calculus}
+
+\pause 
+
+\invisible<1>{A \alert{deep} connection between derivatives and integrals makes integration much easier } \pause 
+\invisible<1-2>{\begin{thm}
+\alert{Fundamental Theorem of Calculus} Suppose $f:[a,b] \rightarrow \Re$ and that $f$ is differentiable on $[a,b]$ and that its derivative, $f^{'}$, is integrable.  Then, 
+\begin{eqnarray}
+\int_{a}^{b} f^{'} (x) dx & = & f(b) - f(a) \nonumber 
+\end{eqnarray} 
+\end{thm}} 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Recipe for Definite Integration}
+
+\begin{eqnarray}
+\int_{a}^{b} f^{'} (x) dx & = & f(b) - f(a) \nonumber 
+\end{eqnarray} 
+
+\begin{itemize}
+\item[-] Calculate \alert{antiderivative}
+\item[-] Evaluate at $b$
+\item[-] Evaluate at $a$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Some Classic Antiderivative Formulas} 
+
+\alert{antiderivative} = \alert{indefinite integral}
+\begin{eqnarray}
+\int 1 dx & = &  x + c \nonumber \\
+\int k dx & = & k x + c \nonumber \\
+\int x^{n} dx & = & \frac{x^{n+1}}{n + 1} + c \nonumber \\
+\int \frac{1}{x} dx & = & \log x + c \nonumber \\
+\int e^{x} dx  & = & e^{x} + c \nonumber \\
+\int a^{x} dx & = & \frac{a^{x} } {\log a }  + c \nonumber 
+\end{eqnarray}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{\alert{Uniform} Distribution}
+
+Suppose $f:\Re \rightarrow \Re$, with 
+
+\begin{eqnarray}
+f(x) & =&  1 \text{ if  } x \in [0,1] \nonumber \\
+f(x) & = & 0 \text{ otherwise } \nonumber
+\end{eqnarray}
+\pause 
+
+\invisible<1>{What is the area under $f(x)$ from $[0, 1/2]$? } \pause \\
+\begin{eqnarray}
+\invisible<1-2>{\int_{0}^{1/2}  f(x)dx & = & \int_{0}^{1/2} 1 dx \nonumber } \pause \\
+\invisible<1-3>{							& = & x|_{0}^{1/2} \nonumber } \pause \\
+\invisible<1-4>{							& = & (1/2) - (0 ) \nonumber \\
+							& = & 1/2 \nonumber }
+\end{eqnarray}
+\pause 
+
+\invisible<1-5>{We will call $f(x) = 1$ the \alert{uniform distribution}.  } 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 2: Area Under a Line} 
+
+Suppose $f:\Re \rightarrow \Re$, with 
+
+\begin{eqnarray}
+f(x) & = & x \nonumber 
+\end{eqnarray}
+
+\pause 
+
+\invisible<1>{Evaluate the $\int_{2}^{t}f(x)dx$ } \pause 
+\begin{eqnarray}
+\invisible<1-2>{\int_{2}^{t}f(x)dx & = & \int_{2}^{t} x dx \nonumber } \pause \\
+\invisible<1-3>{						& = & \frac{x^{2} }{2} |_{2}^{t} \nonumber } \pause  \\
+\invisible<1-4>{						& = & \frac{t^2}{2} - \frac{2^2}{2} \nonumber } \pause \\
+\invisible<1-5>{						& = & \frac{t^2}{2} - \frac{4}{2} = \frac{t^2}{2} - 2 \nonumber } 
+\end{eqnarray}						
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Integration Facts}
+
+\begin{thm} If $f_{1}, f_{2}: [a,b] \rightarrow \Re$ and $f_{1}, f_{2} $ are integrable on [a,b], then
+\begin{itemize}
+\item[i)] Consider the interval $[a,b]$ and $c \in [a,b]$.  Then, 
+\begin{eqnarray}
+\int_{c}^{c}f^{'}_{1}(x) dx & = & f_{1}(c) - f_{1}(c) = 0 \nonumber \\
+\int_{a}^{b} f^{'}_{1} (x) dx & = & \int_{a}^{c} f^{'}_{1} (x) dx + \int_{c}^{b} f^{'}_{1}(x)dx \nonumber \\
+										& = & (f_{1} (c) - f_{1}(a) +  (f_{1}(b) - f_{1}(c) ) \nonumber \\
+										& = & f_{1}(b) - f_{1}(a) \nonumber 
+\end{eqnarray}										  
+\end{itemize}
+
+\end{thm}
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{thm} If $f_{1}^{'}, f_{2}^{'}: [a,b] \rightarrow \Re$ and $f_{1}^{'}, f_{2}^{'} $ are integrable on [a,b] and $f_1^{'}$ has antiderivative is $f_1$ and $f_2^{'}$ has antiderivative $f_2$, then
+\begin{itemize}
+\item[ii)] For $c_{1}, c_{2} \in \Re$ then
+\begin{eqnarray}
+\int_{a}^{b} (c_{1} f_{1}^{'}(x) + c_{2} f_{2}^{'}(x) ) dx & = & c_{1} \int_{a}^{b} f_{1}^{'}(x)dx  + c_{2} \int_{a}^{b}f_{2}^{'}(x) dx \nonumber 
+\end{eqnarray}
+\end{itemize}
+\end{thm}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Challenge Problems}
+
+
+\begin{eqnarray}
+& & \int_{0}^{1} xdx \nonumber \\
+&  & \int_{0}^{1}(x^{2} + x + 1)dx \nonumber \\
+&  & \int_{1}^{2}(\frac{1}{x}  + e^{x} ) \nonumber 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Let's Prove Taylor Theorem (And Come Up With Intuition Too!)}
+
+
+\begin{thm}
+\textbf{Taylor's Theorem}
+Suppose $f:\Re \rightarrow \Re$, $f(x)$ is infinitely differentiable function.  Then, the taylor expansion of $f(x)$ around \alert{$a$} is given by 
+
+\begin{eqnarray}
+f(x) & = & f(a) + \frac{f^{'}(a)}{1!} (x- a) + \frac{f^{''}(a)}{2!} (x - a)^2 + \frac{f^{'''}(a)}{3!}(x- a)^3 + \hdots \nonumber \\
+f(x) & = & \sum_{n=0}^{\infty } \frac{f^{n} (a) }{n!} (x - a)^n \nonumber
+\end{eqnarray}
+
+\end{thm}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+Zero Order Approximation
+
+\small
+\begin{eqnarray}
+f(x) & = & f(a) + \int_{a}^{x} f^{'}(t_{1})dt_{1} \nonumber  \pause \\
+\invisible<1>{\int_{a}^{x} f^{'}(t_{1})dt_{1} & = & f(x) - f(a) \nonumber \\} \pause 
+\invisible<1-2>{f(a) + f(x) - f(a) = f(x) \nonumber} \pause 
+\end{eqnarray}
+First order approximation: 
+\begin{eqnarray}
+\invisible<1-3>{f(x) & = & f(a) + \int_{a}^{x} f^{'}(a) dt_{1} + \int_{a}^{x} \int_{a}^{t_{1}} f^{''}(t_{2} ) dt_{2} dt_{1}}  \pause   \nonumber \\
+\invisible<1-4>{\int_{a}^{x} f^{'}(a) dt_{1} & = & f^{'}(a) (x - a) }\nonumber \pause  \\
+\invisible<1-5>{\int_{a}^{x} \int_{a}^{t_{1}} f^{''}(t_{2} ) dt_{2} dt_{1} & = & \int_{a}^{x} \left(f^{'}(t_{1}) - f^{'}(a)  \right)dt_{1}} \nonumber \\
+\invisible<1-5>{& =  & f(x) - f(a) - f^{'}(a)(x- a)}  \nonumber \\ \pause 
+\invisible<1-6>{& = & f(a) + f^{'}(x- a) + f(x) - f(a) - f^{'}(a)(x- a) \nonumber } \pause \\
+\invisible<1-7>{& = &  f(x) } \pause \nonumber 
+\end{eqnarray} 
+
+\end{frame}
+
+
+\begin{frame}
+
+Next step: \pause 
+
+\begin{small}
+\begin{eqnarray}
+f(x) & = & f(a) + \int_{a}^{x} f^{'}(a) dt_{1} + \int_{a}^{x}\int_{a}^{t_{1}} f^{''}(a) dt_{2} dt_{1} + \int_{a}^{x} \int_{a}^{t_{1}}\int_{a}^{t_{2}} f^{'''}(t_{3})dt_{3} t_{2} t_{1} \nonumber 
+\end{eqnarray}
+\end{small}
+\pause 
+
+
+\begin{itemize}
+\invisible<1>{\item[1)] We have shown this is true for first derivative $k = 1$.} \pause 
+\invisible<1-2>{\item[2)] Suppose it is true for $k$.  Let's show it is true for $k+1$.  } \pause 
+\end{itemize}
+
+\begin{eqnarray}
+\invisible<1-3>{f(x)  & = & P_{k + 1} + R_{k + 1} \nonumber \\} \pause 
+\invisible<1-4>{f(x) & =  & P_{k}   + \nonumber \\} \pause 
+\invisible<1-5>{&& f^{k+1} (a) \frac{(x - a)^{k+1} }{(k+1)!}  + \int_{a}^{x} \int_{a}^{t_{1} } \hdots \int_{a}^{t_{k+1}} f^{k+2} (t_{k+2})dt_{k+2} \hdots dt_{1} \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-6>{Flip bounds on the remainder term and you realize it contains $R_{k}$ and that the additional term cancels out the new $f^{k+1}$ term.  \\
+
+Can obtain error bounds with computation of remainder.  Because expansion around each point is necessarily finite as $k\rightarrow \infty$ remainder goes to zero.  }
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{More Fundamental Theorem of Calculus}
+
+\begin{thm} Suppose $f^{'}:[a,b] \rightarrow \Re$ is integrable on [a,b] and suppose that its antiderivative is $f(x)$.  Define $F(t) = \int_{a}^{t} f^{'} (x) dx$ for $a \leq t \leq b$.  Then, $F^{'}(x_{0})$ is $f^{'}(x_{0})$.  \end{thm}
+\pause 
+
+\invisible<1>{\begin{proof} \alert{intuition} $F(t) = \int_{a}^{t} f^{'}(x) dx = f(t) - f(a) $. \\} \pause 
+
+\invisible<1-2>{Now, we want to take the derivative of $F(t)$ and evaluate at $x_{0}$ and the derivative of $ f(t) - f(a)$ and evaluate at $x_{0}$} \pause 
+\begin{eqnarray}
+\invisible<1-3>{\frac{\partial}{\partial t} F(t) & = & \frac{\partial}{\partial t} (f(t) - f(a) ) \nonumber \\} \pause 
+\invisible<1-4>{F^{'}(t) |_{x_{0}} & =& f^{'}(t) |_{x_{0}} \nonumber } \pause \\
+\invisible<1-5>{F^{'}(x_{0}) & = & f^{'}(x_{0}) \nonumber} 
+\end{eqnarray}
+
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Uniform Cumulative Density Function} 
+
+Suppose that $f^{'}\rightarrow \Re$, $f^{'}(x) = 1$ for $x \in [0,1]$ and $f^{'}(x) = 0$ otherwise.  Define, 
+\begin{eqnarray}
+F(t) & = & \int_{0}^{t} f^{'}(x) dx \nonumber \\
+ 		& = & \int_{0}^{t} 1 dx = x |_{0}^{t}  \nonumber \\
+ 		& = & t  \nonumber 
+ \end{eqnarray}
+
+\begin{center}
+\scalebox{0.3}{\includegraphics{uniform1.pdf}}
+\scalebox{0.3}{\includegraphics{cdfuniform.pdf}}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Improper Integrals}
+
+Discount rates: valuing the future.\\
+We'll do discrete time with infinite series, we can do them in continuous time with integrals
+\begin{eqnarray}
+V & = & \int_{0}^{\infty} e^{-\delta t } dt \nonumber 
+\end{eqnarray}
+
+
+\begin{itemize}
+\item[-] How do we evaluate this integral?
+\item[-] \alert{Improper integrals}
+\item[-] \alert{Continuous} infinite series
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Definition}
+
+\begin{defn} Consider $f:[a, \infty) \rightarrow \Re$.  If the limit 
+\begin{eqnarray}
+\lim_{t \rightarrow \infty} && \int_{a}^{t} f(x) dx \nonumber 
+\end{eqnarray}
+
+exists then we will say $\int_{a}^{\infty} f(x)dx$ \alert{converges} to $L$.  Otherwise, we say it \alert{diverges}. \\
+
+
+
+\end{defn}
+
+
+Also apply definition for
+\begin{itemize}
+\item[-] $\int_{-\infty}^{a} f(x)dx = \lim_{t\rightarrow -\infty } \int_{t}^{a} f(x)dx $ 
+\item[-] $\int_{-\infty}^{\infty} f(x)dx= \lim_{t\rightarrow -\infty } \lim_{y\rightarrow \infty} \int_{t}^{y} f(x)dx$.  
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{When do Integrals Converge?}
+
+Example 1\\
+ $f(x) = 1/x$.  
+\begin{eqnarray}
+\int_{1}^{\infty} \frac{1}{x} dx & = & \lim_{t \rightarrow \infty} \int_{1}^{t} \frac{1}{x}  dx\nonumber \\
+										& = & \lim_{t \rightarrow \infty} (\log x)|_{1}^{t} \nonumber \\
+										& = & \lim_{t \rightarrow \infty} (\log t) - \lim_{t \rightarrow \infty} (\log 1) \nonumber 
+\end{eqnarray}
+\alert{Does not converge}										
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{When do Integrals Converge?}
+
+Example 2 \\
+$f(x) = \frac{1}{x^2} $ 
+
+\begin{eqnarray}
+\int_{1}^{\infty} \frac{1}{x^2} dx & = & \lim_{t \rightarrow \infty} \int_{1}^{t} \frac{1}{x^2} dx \nonumber \\
+											& = & \lim_{t \rightarrow \infty} - \frac{1}{x} |_{1}^{t} \nonumber \\
+											& = & \lim_{t \rightarrow \infty}  -\frac{1}{t} + \frac{1}{1} \nonumber \\
+											& = & 0  + 1\nonumber
+\end{eqnarray}											
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Substitution (slides borrowed from math.hmc.edu)}
+
+
+Sometimes, antidifferentiating is \alert{hard}
+
+\begin{eqnarray}
+\int (x^2 -1)^4 2x  dx \nonumber 
+\end{eqnarray}
+
+But we can use substitution to simplify.  Suspend disbelief and set: 
+\begin{eqnarray}
+u & = & x^2 - 1\nonumber \\
+du & = & 2x dx \nonumber 
+\end{eqnarray}
+
+Rewriting the original, 
+
+\begin{eqnarray}
+\int  (x^2 -1)^4 (2x  dx)  & = & u^4 du \nonumber \\
+										&= & \frac{u^5}{5} + c \nonumber \\
+										& = & \frac{(x^2 - 1)^5}{5} + c\nonumber 
+\end{eqnarray}										
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Substitution Rule (slides borrowed from math.hmc.edu)}
+
+Just chain rule in reverse.  We know that the antiderivative of 
+\begin{eqnarray}
+\int f(g(x))g^{'}(x) dx & = & F(g(x)) \nonumber 
+\end{eqnarray}
+
+So, with substitution rule, we look for ways to set up chain rule
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Substitution Rule (slides borrowed from math.hmc.edu)}
+
+\begin{eqnarray}
+\int - e^{-x} dx && \nonumber \\
+u & = & -x \nonumber \\
+du & = & - dx \nonumber \\
+\int e^{u} du & = & e^{u}  + c \nonumber \\
+ 				&= & e^{-x}  + c \nonumber 
+\end{eqnarray}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Substitution Rule (slides borrowed from math.hmc.edu)}
+
+We can also multiply by 1 (creatively) to set up substitution rule
+\begin{eqnarray}
+\int e^{-2x}dx  & = & -\frac{1}{2}\int -2 e^{-2x} dx \nonumber \\
+	u 				& = & -2 x \nonumber \\
+	du 			& = & -2 dx \nonumber \\
+	-\frac{1}{2} \int e^{u} du & = & -\frac{1}{2} e^{u} + c \nonumber \\
+										& = & -\frac{1}{2} e^{-2x}  + c \nonumber 				
+\end{eqnarray}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Example: Exponential Distribution}
+
+Suppose $f:[0,\infty) \rightarrow \Re$, with $f(x) = e^{-x}$.  Evaluate
+\begin{eqnarray}
+\int_{0}^{\infty} e^{-x} dx& = & \lim_{t\rightarrow \infty} \int_{0}^{t} e^{-x} dx \nonumber \\
+								& = & \lim_{t \rightarrow \infty} -  e^{-x} |_{0}^{t} \nonumber \\
+								& = & \lim_{t \rightarrow \infty} - e^{-t}  + 1 \nonumber\\
+								& = & 0  + 1 \nonumber 								
+\end{eqnarray}
+
+We will call $f(x) = e^{-x}$ the \alert{exponential} distribution
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Integration by Parts}
+
+
+Consider:
+
+\begin{eqnarray}
+&& \int x \cos(x) d x \nonumber 
+\end{eqnarray}
+
+That is hard to integrate.  \\
+Instead we'll use \alert{Integration by parts}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Integration by Parts}
+
+Define:
+\begin{eqnarray}
+g(x) & = & u(x) v(x) \nonumber 
+\end{eqnarray}
+
+\pause 
+
+\invisible<1>{Let's differentiate $g(x)$} \pause 
+\begin{eqnarray}
+\invisible<1-2>{g^{'}(x) & = & u^{'}(x) v(x) + v^{'}(x) u(x) \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-3>{So, antidifferentiating $g^{'}(x)$ yields} \pause 
+
+\begin{eqnarray}
+\invisible<1-4>{\int g^{'}(x) dx & = & \int u^{'}(x) v(x) dx +  \int  u(x) v^{'}(x) dx \nonumber \\} \pause 
+\invisible<1-5>{u(x) v(x) + c - \int u^{'}(x) v(x) dx & = & \int  u(x) v^{'}(x) dx \nonumber \\} \pause 
+\invisible<1-6>{uv - \int v du & =& \int  u dv \nonumber} 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Integration by Parts}
+
+\pause 
+
+\begin{eqnarray}
+\invisible<1>{&& \int x \cos(x) dx \nonumber \\} \pause 
+\invisible<1-2>{u & = & x \nonumber \\} \pause 
+\invisible<1-3>{du & = & 1 \nonumber \\} \pause 
+\invisible<1-4>{dv & = & \cos(x) \nonumber \\} \pause 
+\invisible<1-5>{v & = & \sin(x) \nonumber } \pause 
+\end{eqnarray}
+
+
+\begin{eqnarray}
+\invisible<1-6>{\int x \cos(x) dx & = & x \sin (x) - \int \sin(x) 1 dx \nonumber \\} \pause 
+\invisible<1-7>{& = & x \sin(x) + \cos(x) \nonumber } 
+\end{eqnarray}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Integration by Parts}
+
+Challenge:
+\begin{eqnarray}
+&& \int \exp(x) \cos(x) dx \nonumber \\
+&& \int \text{log}(x) dx \nonumber \\
+&& \int \text{arctan}(x) dx \nonumber 
+\end{eqnarray}
+
+\pause 
+
+\invisible<1>{{\tt Wolfram Alpha (briefly) }} 
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Monte Carlo and Integration (via Jackman)}
+
+
+Suppose that we want to compute some integral $\int_{-\infty}^{\infty} xf(x) dx$, but $f(x)$ is \alert{complicated}. \pause 
+
+\begin{eqnarray}
+\invisible<1>{f(x) & = & \frac{\exp\left(- \frac{(x- \mu)^2}{2\sigma^2} \right) }{\sqrt{2\pi}}} \nonumber 
+\end{eqnarray}
+\pause 
+
+\invisible<1-2>{Suppose we can generate random draws from $f(x)$.} \pause \\
+\invisible<1-3>{$d_{1}, d_{2}, d_{3}, ..., d_{T}$, then we can approximate this with:} \pause 
+
+\begin{eqnarray}
+\invisible<1-4>{\text{Expected Value} & = & \frac{1}{T}\sum_{i =1}^{T} d_{i} \nonumber } \pause 
+\end{eqnarray}
+
+
+
+\invisible<1-5>{as $T \rightarrow \infty$,} \pause \invisible<1-6>{$\text{Expected value} \rightarrow \int_{-\infty}^{\infty} xf(x) dx$} 
+
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+
+
+\only<1>{\scalebox{0.5}{\includegraphics{MonteCarloExample.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{MonteCarloExample1.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{MonteCarloExample2.pdf}}}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+{\tt R code for quantiles!}
+{\tt MonteCarlo.R}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Infinite Series}
+
+\begin{itemize}
+\item[-] Interactions are often \alert{repeated}
+\begin{itemize}
+\item[-] \alert{Countries}: Fight now or fight later
+\item[-] \alert{Congress}: Caro, LBJ, and the Southern Strategy
+\item[-] \alert{FDA}: Do I approve this drug?
+\item[-] \alert{Bargain}: Do I make a deal now, or wait?
+\end{itemize}
+\item[-] General idea :
+\begin{itemize}
+\item[-] Actions have \alert{continuation value}: 
+\item[-] Value in the present time
+\item[-] Stream of benefits in the future
+\end{itemize}
+\item[-] \alert{Infinite Series} to model
+\end{itemize}
+
+Formal definition $\leadsto$ Heuristics $\leadsto$ example problem (from JF)
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Infinite Series} 
+
+\begin{defn} An infinite series is a pair $(\left\{a_{n}\right\}_{n=1}^{\infty} , \left\{S_{n}\right\}_{n=1}^{\infty})$ where $\left\{a_{n}\right\}_{n=1}^{\infty}$ is a sequence and $S_{n} = \sum_{k=1}^{n} a_{k}$.   \end{defn}
+
+\begin{defn} The infinite series $(\left\{a_{n}\right\}_{n=1}^{\infty} , \left\{S_{n}\right\}_{n=1}^{\infty})$ \alert{converges} if the \alert{sequence} $\left\{S_{n}\right\}_{n=1}^{\infty}$ converges to $S$.  We'll write this as, 
+
+
+\begin{eqnarray}
+\sum_{n=1}^{\infty} a_{n}  &= & S \nonumber 
+\end{eqnarray}
+\end{defn}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Infinite Series}
+
+\begin{itemize}
+\item[-] Example 1\pause 
+\begin{itemize}
+\invisible<1>{\item[-] $a_{n} = \left\{0, 1, 0, 1, 0, 1, \hdots, \right\}$} \pause 
+\invisible<1-2>{\item[-] $S_{n} =  \sum_{i=1}^{n} a_{n}  = \frac{n}{2}$ as $n \rightarrow \infty$ clearly diverges} \pause 
+\end{itemize}
+\invisible<1-3>{\item[-] Example 2} \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] $a_{n} = \left\{\frac{1}{n (n + 1) } \right\}_{n=1}^{\infty} $ } \pause 
+\invisible<1-5>{\item[-] We know that $\frac{1}{k (k+ 1) }  = \frac{1}{k} - \frac{1}{k + 1}$} \pause 
+\invisible<1-6>{\item[-] So, for $n = m$, } \pause 
+\begin{eqnarray}
+\invisible<1-7>{S_{m} & = &  \sum_{i=1}^{m} a_{i} \nonumber}\pause \\
+\invisible<1-8>{ 		& = & \frac{1}{1 \times 2}  + \frac{1}{2 \times 3}  + \hdots + \frac{1}{(m)(m+ 1 ) } \nonumber } \pause \\
+\invisible<1-9>{S_{m} & = & \left( \frac{1}{1} - \frac{1}{2} \right)  + \left( \frac{1}{2} - \frac{1}{3} \right) + \hdots \left( \frac{1}{m} - \frac{1}{m + 1} \right) \nonumber \\} \pause 
+\invisible<1-10>{		& = & 1 - \frac{1}{m + 1} \nonumber } \pause 
+\end{eqnarray}		
+\invisible<1-11>{So $S_{m}$ converges on $1$.  (the \alert{sequence} $S_{m}$ converges, just like we prove other sequence convergence)} 
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{How Do We Assess Convergence?}
+
+\begin{thm} If $\left\{S_{n}\right\}_{n=1}^{\infty}$ converges then $\left\{a_{n}\right\}_{n=1}^{\infty}$ is converges to zero 
+\end{thm}
+
+\begin{itemize}
+\item[-] \alert{Necessary}!
+\item[-] \alert{But not sufficient}
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Infinite Series Convergence}
+
+Example 1: 
+\begin{itemize}
+\item[-] $a_{n} = \frac{1}{n}$.  $S_{n}$, 
+\begin{eqnarray}
+S_{n} & = & 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \hdots \nonumber 
+\end{eqnarray}
+\end{itemize}
+
+\alert{Does this converge?}
+
+\begin{center}
+\scalebox{0.35}{\includegraphics{Series1.pdf}}
+\end{center}
+
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Infinite Series Convergence}
+
+Suppose $n = 2^{k}$\pause \\
+
+
+\small
+\begin{eqnarray}
+\invisible<1>{S_{n} & = & 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4}  + \hdots + \frac{1}{2^{k}} \nonumber } \pause \\
+\invisible<1-2>{	& = &  1 + \frac{1}{2} + \left(\frac{1}{3} + \frac{1}{4} \right) + \left(\frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8} \right) + \hdots + \left(\frac{1}{2^{k-1} + 1} + \hdots + \frac{1}{2^{k}}\right) \nonumber } \pause \\
+\invisible<1-3>{	& > & \nonumber 1 + \frac{1}{2}  + 2 \left(\frac{1}{4} \right) + 4 \left(\frac{1}{8} \right) + \hdots + 2^{k-1} \left(\frac{1}{2^{k}} \right) = 1 + \frac{k}{2} \nonumber } \pause 
+	\end{eqnarray}
+
+\invisible<1-4>{We know that $1 + \frac{k}{2}$ does not converge.  } \pause \\
+\invisible<1-5>{And we know that $S_{n}> 1 + \frac{k}{2} \leadsto$ \alert{does not converge} (!!)} \pause 
+
+\invisible<1-6>{\begin{thm} $\sum_{k=1}^{\infty} \frac{1}{k^{p}}$ converges \alert{if and only if} $p>1$.  \end{thm}} 
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Geometric Series and Discount Rates}
+
+\begin{defn} A geometric series is an infinite series such that $a_{n} = c r^{n}$ and that $S_{n} = \sum_{k=0}^{n} c r^{k} =  c + c r + c r^2 + c r^3 + \hdots c r^n $ 
+\end{defn} \pause 
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Geometric Series and Discount Rates}
+
+\pause 
+
+
+\invisible<1>{\begin{thm} If $|r|<1$, then the geometric series converges to $\frac{c}{1-r}$.  If $|r|>1$, the geometric series diverges
+\end{thm}} \pause 
+
+\begin{proof}
+\small
+\begin{eqnarray}
+\only<3>{\invisible<1-2>{S_{n} & = & \sum_{k=0}^{n} c r^{k}  } }  \nonumber \\
+\invisible<1-3>{(1-r)S_{n} & = & (1- r) \sum_{k=0}^{n} c r^{k} } \pause \nonumber \\
+\invisible<1-4>{(1 - r) \sum_{k=0}^{n} c r^{k} & = & c + c r + c r^2 + \hdots + c r^{n}  - \nonumber } \pause \\
+\invisible<1-5>{&  & (c r + c r^2 + c r^3 + \hdots c r^n + c r ^{n + 1} )\nonumber} \pause  \\
+\invisible<1-6>{& = & c - c r^{n+1 } \nonumber } \pause  \\
+\invisible<1-7>{S_{n} & = & c \left(\frac{1 - r^{n+ 1} }{1 - r}\right) \nonumber } 
+\end{eqnarray}
+
+\end{proof}
+\pause
+\end{frame}
+
+\begin{frame}
+
+
+\begin{eqnarray}
+S_{n} & = & c \left(\frac{1 - r^{n+ 1} }{1 - r}\right) \nonumber \\
+		& = & c \left( \frac{1}{1-r}\right) - c\left(\frac{r^{n+1}}{1 - r} \right) \nonumber 
+\end{eqnarray}
+$c\left(\frac{r^{n+1}}{1 - r} \right)$ converges \alert{if and only if} $|r|<1$.  
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Discount Rates and IR (Fearon, Part 2) }
+
+Suppose states are choosing between \alert{attacking} another country to obtain a short time gain, or \alert{cooperating} for peace
+
+\begin{tabular}{c|c|c}
+		& C   & D  \\
+		\hline
+C 		& 20,20	& 10,25    \\
+\hline
+D 		&25,10	& 15,15	\\
+\hline
+\end{tabular}		
+
+\alert{Grim-trigger}: cooperate, until defect.  Then defect forever \\
+Suppose states \alert{discount} future $\delta \in[0,1]$.  \\
+\begin{eqnarray}
+V(C) & = & 20 + \delta 20 + \delta^2 20 + \delta^3 20  + \hdots \nonumber \\
+		& = & \frac{20}{1- \delta} \nonumber \\
+V(D) & = & 25 + \delta 15 + \delta^2 15 + \delta^3 15 \nonumber \\
+		& = & 25 + \delta \frac{15}{1- \delta} \nonumber 
+\end{eqnarray}				
+
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{When Will States Cooperate? (Fearon, Part 2)}
+
+
+\begin{eqnarray}
+V(C) & >& V(D) \nonumber \\
+\frac{20}{1- \delta} & > & 25 + \delta \frac{15}{1- \delta} \nonumber \\
+\frac{1}{1- \delta} (20 - \delta 15) & > & 25 \nonumber \\
+(20 - \delta 15) & > & 25 (1 - \delta ) \nonumber \\
+10\delta  & > & 5 \nonumber \\
+\delta & > & \frac{1}{2} \nonumber
+\end{eqnarray}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+Linear Algebra Tuesday!
+
+
+
+\end{frame}
+
+
+
+
+\end{document}
