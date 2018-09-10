@@ -1,0 +1,182 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage{fullpage}
+\usepackage{parskip}
+ \usepackage{relsize}
+\usepackage{dcolumn}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\DeclareMathSizes{11}{30}{20}{12}
+\newcommand{\Z}{\mathbb{Z}}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+
+\centerline{\bf Math Camp - Homework 4}
+
+
+\bigskip
+
+\noindent \textbf{1:} Evaluate the following integrals, or explain why they do not exist:
+
+\medskip
+
+\begin{multicols}{2}
+\begin{enumerate}
+\item $$\int_0^1 x^{\frac{3}{7}} \,dx$$
+\item $$\int_1^2 \left(\frac{3}{x^4} + 2\right) \,dx$$
+\item $$\int_8^9 2^x \,dx$$
+\item $$\int_3^3 \sqrt{x^5 + 2} \,dx$$
+\end{enumerate}
+\end{multicols}
+
+
+\noindent \textbf{Solution:}
+\begin{enumerate}
+\item As a general rule, we can say that the antiderivative of $x^n$ is, for values of $n$ other than -1, $\frac{x^{n+1}}{n+1}$ plus a constant that we can safely ignore when doing definite integrals of this type. Then this integral evaluates as $\frac{x^{10/7}}{10/7} \bigg|_0^1 = \frac{1^{10/7}}{10/7} - \frac{0^{10/7}}{10/7} = \frac{1}{10/7} = \frac{7}{10}$
+\medskip
+\item Recall that we can write the integral of a sum as the sum of integrals. Then $\int_1^2 \left(\frac{3}{x^4} + 2\right) \,dx = \int_1^2 \frac{3}{x^4} \, dx + \int_1^2 2 \, dx$. Using the same rule as in the previous part, we know this evaluates as follows: $\frac{3}{-3x^{3}}\bigg|_1^2 + 2x\bigg|_1^2 = \frac{1}{-8} - (-1) + 4 - 2 = \frac{23}{8} = 2.875$.
+\medskip
+\item Again, as a general rule, we can say that the antiderivative of $a^x$ (where $a$ is a constant) is $\frac{a^x}{\ln a}$ plus a constant. Then in this case, the integral evaluates as $\frac{2^x}{\ln 2}\bigg|_8^9 = \frac{2^9}{\ln 2} - \frac{2^8}{\ln2} = \frac{2^8}{\ln2} = \frac{256}{\ln2}$, or about 369.33.
+\medskip 
+\item This question is a bit sneaky. Trying to find the antiderivative of this function would be far from trivial. However, we do not actually need to do so! Notice that we are evaluating the integral from 3 to 3. Whatever the antiderivative function $F$ actually is, $F(3) - F(3) = 0$, and 0 is the solution. Intuitively, this should make sense - in effect, we are taking the area under the curve at a single point. In other words, we are taking the area of a line, and a line has no area.
+
+\end{enumerate}
+
+\noindent \textbf{Question 2:} A group of three unidentified first-year political science students at Stanford University are worn out after a week of math camp. Wanting to unwind, the students agree to not talk about math and decide to chat over some casual drinks in downtown Palo Alto.
+
+After five shots of tequila each, two pitchers of beer, a bottle of wine, and a large Chicago-style pizza, the three students have had enough fun and decide to start the trip back home.
+
+Student $A$ gets on a bike and starts pedalling away at a velocity of $v_A(t) = 2t^4 + t$, where $t$ represents minutes. However, the student crashes into the side of a Marguerite shuttle and ends the journey after only 2 minutes.
+
+Student $B$ has no bike, so starts running at a velocity of $v_B(t) = 4\sqrt{t}$. Sadly, after only 4 minutes, the student's legs give out and the student decides to sing a song, instead.
+
+Student $C$ can't even stand up, so has no choice but to slowly crawl at a velocity of $v_C(t) = 2e^{-t}$. Student $C$ steadily plods along for 20 minutes before falling asleep on the sidewalk.
+
+Generally, if an object moves along a straight line with position function $s(t)$, then its velocity is $v(t) = s'(t)$. The Fundamental Theorem of Calculus then tells us that
+\begin{align*}
+\textrm{Total distance traveled} &= \int_{t_1}^{t_2} v(t) \,dt\\
+s(t_2) - s(t_1) &= \int_{t_1}^{t_2} v(t) \,dt
+\end{align*}
+
+Without using a calculator, use this formula to find the distance traveled by Students $A$, $B$, and $C$. (Assume, however unrealistic in may be, that all three students traveled in a straight line.) Who traveled the farthest? The least far?\\
+
+This is a Math Camp Classic from 2011 TA's Eric Min and Nic Sher. 
+
+For Student $A$:
+
+$$\int_{0}^2 2t^4 + t = \frac{2}{5}t^5 + \frac{1}{2}t^2 \bigg|_0^2 = \frac{2}{5} (2^5) + \frac{1}{2}(2^2) - \left[\frac{2}{5} (0^5) + \frac{1}{2}(0^2)\right] = \frac{2(32)}{5} + \frac{4}{2} - [0 + 0] = \frac{64}{5} + 2 = \frac{74}{5}$$
+
+For Student $B$:
+
+$$\int_0^4 4\sqrt{t} = 4\left(\frac{2}{3}\right) t^{3/2} \bigg|_0^4 = \frac{8}{3}(4^{3/2}) - \frac{8}{3} (0^{3/2}) = \frac{8}{3} \left(\sqrt{4^3}\right) - 0 = \frac{8}{3} \sqrt{64} = \frac{8}{3} (8) = \frac{64}{3}$$
+
+For Student $C$:
+
+$$\int_0^{20} 2e^{-t} = -2e^{-t} \bigg|_0^{20} = -2e^{-20} - [-2e^{0}] = -2e^{-20} + 2(1) = -\frac{2}{e^{20}} + 2 \approx 0 + 2 = 2$$
+
+Clearly, Student $C$ had the shortest trip. We can also eyeball that Student $B$ traveled just a bit more than 20 units of distance, while $A$ went a little less than 15. If you want concrete numbers to perform the comparison, you can calculate the quotients or find a common denominator for $\frac{64}{3}$ and $\frac{74}{5}$. You'd see that Student $A$ went $\frac{222}{15}$ while $B$ went $\frac{320}{15}$. Student $B$ went the farthest. (But nobody made it home.)
+
+\noindent \textbf{Question 3:} Determine whether each integral is convergent or divergent. Evaluate those that are convergent.
+\begin{multicols}{2}
+\begin{enumerate}
+\item $$\int_1^{\infty} \left(\frac{1}{3x}\right)^2 \,dx$$
+\item $$\int_0^{\infty} \cos (x) \, dx$$
+\item $$\int_0^{\infty} e^{-x} \,dx$$
+\item $$\int_{-\infty}^0 x^3 \,dx$$
+\end{enumerate}
+\end{multicols}
+
+\noindent \textbf{Solution:}
+\begin{enumerate}
+\item To find whether this integral converges and what it converges to, we must evaluate the limit $\lim_{t \to \infty} \int_1^t \frac{1}{9x^2} \, dx$. By standard rules of integration, this integral evaluates to $-\frac{1}{9x} \bigg|_1^t = -\frac{1}{9t} - (-\frac{1}{9}) = \frac{1}{9}(1-\frac{1}{t})$. As $t$ goes to infinity, $\frac{1}{t}$ goes to 0. Therefore $\lim_{t \to \infty} \frac{1}{9}(1-\frac{1}{t}) = \frac{1}{9}(1) = \frac{1}{9}$, and the integral converges to this value.
+\medskip
+\item Following the same procedure as before, we must evaluate the limit $\lim_{t \to \infty} \int_0^t \cos(x) \, dx$. This integral evaluates to $\sin(x) \bigg|_0^t = \sin(t) - \sin(0)$. Since $\sin(0) = 0$, this is equal to $\sin(t)$. But $\lim_{t \to \infty} \sin(t)$ does not exist - the value of the sine function oscillates continuously along the [-1,1] interval, and does not converge to any value as $t$ goes to infinity. Therefore the integral diverges.
+\medskip
+\item Again, the limit we need to evaluate is $\lim_{t \to \infty} \int_0^t e^{-x} \, dx$. This integral evaluates to $-e^{-x} \bigg|_0^t$ - technically, we would probably use the substitution rule here, but it is easy to see that this is the correct antiderivative even without it. This evaluation equals $-e^{-t} - (-e^0) = -e^{-t} + 1$. As $t$ goes to infinity, $e^{-t}$ goes to 0. Then $\lim_{t \to \infty} (1 - e^{-t}) = 1 - 0 = 1$, so this integral converges to 1.
+\medskip
+\item The integral we need to evaluate here is slightly different, because we are dealing with an infinite lower bound on the integral rather than an infinite upper bound. The limit we must evaluate is $\lim_{t \to -\infty} \int_t^0 x^3 \, dx$. This integral evaluates to $\frac{x^4}{4} \bigg|_t^0 = 0 - \frac{t^4}{4} = -\frac{t^4}{4}$. But it is obvious that the limit of $t^4$ does not exist as $t$ goes to negative infinity; therefore the integral does not converge.
+
+\end{enumerate}
+
+\noindent \textbf{Question 4:} Evaluate the following indefinite integrals showing all your work:
+
+\begin{enumerate}
+\item
+\begin{align*}
+\int cos^3x* sin x dx\\
+\end{align*}
+
+\medskip
+
+Answer: We can use the method of $u$ substitution. Let $u=cos x$. Let $\dfrac{du}{dx} = -sinx \implies du=-sinx dx$. Therefore:
+
+\begin{align*}
+\int cos^3 x *sinx dx = -\int u^3 du  \\
+= -\dfrac{u^4}{ 4} + C\\
+= \dfrac{-cos^4x}{ 4}+ C\\
+\end{align*}
+
+\item 
+\begin{align*}
+\int \dfrac{log(x)}{x} dx\\
+\end{align*}
+
+Answer: Let $u=log(x)$. Let $\dfrac{du}{dx} = \dfrac{1}{x} \implies du= \dfrac{1}{x}  dx$. Therefore:
+
+\begin{align*}
+\int \dfrac{log(x)}{x} dx = \int u du  \\
+= \dfrac{u^2}{ 2} + C\\
+= \dfrac{log(x)^2}{ 2}+ C\\
+\end{align*}
+
+
+\item 
+\begin{align*}
+\int  x^3log(5x) dx\\
+\end{align*}
+
+Answer: For this we can use the method of integration by parts. This comes in handy when we are integrating the product of two functions. The formula for integration by parts states that if we have an integral of the form:
+
+\begin{align*}
+\int u(x)v'(x) dx
+\end{align*}
+
+which can be written for short as:
+
+
+\begin{align*}
+\int u dv
+\end{align*}
+
+then that is equivalent to the integral:
+
+\begin{align*}
+ uv - \int v du
+\end{align*}
+
+There are many proofs of this equality online if you don't want to take this statement at face value. Applying this rule, we can let $u=log(5x)$ which implies that $\dfrac{du}{dx}=\dfrac{5}{5x} \implies du= \dfrac{5}{5x}dx = \dfrac{1}{x}dx$. Let $dv = x^3 dx \implies v=\dfrac{x^4}{4}$. Therefore:
+
+\begin{align*}
+\int x^3log(5x) dx =  uv - \int v du\\
+=   log(5x)* \dfrac{x^4}{4} -  \int \dfrac{x^4}{4}*\dfrac{1}{x} dx  \\
+=   log(5x)* \dfrac{x^4}{4} -  \frac{1}{4} \int x^3 dx  \\
+=   log(5x)* \dfrac{x^4}{4} -  \frac{1}{4} \dfrac{x^4}{4} +C  \\
+=   log(5x)* \dfrac{x^4}{4} -  \frac{1}{16} x^4+C \\
+\end{align*}
+
+\end{enumerate}
+
+
+
+
+
+
+
+\end{document}
