@@ -1,0 +1,1585 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\  Stanford University}
+\vspace{0.3in}
+
+\date{September 10th, 2018}
+
+\begin{document}
+
+
+
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Where We've Been, Where We're Going}
+
+Calculus: \alert{Analyze behavior of functions on real line}
+\begin{itemize}
+\item[-] Convergence
+\item[-] Differentiation 
+\item[-] Integration
+\end{itemize}
+
+
+\alert{Linear Algebra} 
+\begin{itemize}
+\item[-] \alert{Data} stored in \alert{matrices}
+\item[-]  Higher dimensional spaces
+\begin{itemize}
+\item[-] \alert{complex world}, condition on many factors
+\item[-] flood of big data, store in many dimensions
+\end{itemize}
+\item[-] Linear Algebra: 
+\begin{itemize}
+\item[-] \alert{Algebra} of matrices
+\item[-] \alert{Geometry} of high dimensional space 
+\item[-] \alert{Calculus} (multivariable) in many dimensions
+\end{itemize}
+\end{itemize}
+
+\alert{Very important for regression}(!!!!)
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Points + Vectors} 
+\begin{itemize}
+\item[-] A point in $\Re^{1}$ 
+\begin{itemize}
+\item[-] 1 
+\item[-] $\pi$
+\item[-] $e$
+\end{itemize}
+\item[-] An ordered pair in $\Re^{2} = \Re \times \Re$ 
+\begin{itemize}
+\item[-] $(1,2)$
+\item[-] $(0,0)$
+\item[-] $(\pi, e)$
+\end{itemize}
+\item[-] An ordered triple in $\Re^{3} = \Re \times \Re \times \Re$
+\begin{itemize}
+\item[-] $(3.1, 4.5, 6.11132)$
+\end{itemize}
+\item[] \vdots 
+\item[-] An ordered n-tuple in $\Re^{n} = \Re \times \Re \times \hdots \times \Re$
+\begin{itemize}
+\item[-] $(a_{1}, a_{2}, \hdots, a_{n} ) $
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Points and Vectors} 
+
+\begin{defn} 
+A point $\boldsymbol{x} \in \Re^{n}$ is an ordered n-tuple, $(x_{1}, x_{2}, \hdots, x_{n})$.  The vector $\boldsymbol{x} \in \Re^{n}$ is the arrow pointing from the origin $(0, 0, \hdots, 0)$ to $\boldsymbol{x}$.  
+\end{defn}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{One Dimensional Example}
+
+\only<1>{\scalebox{0.5}{\includegraphics{Fig1.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{Fig2.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{Fig3.pdf}}}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Two Dimensional Example}
+
+\only<1>{\scalebox{0.5}{\includegraphics{Fig4.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{Fig5.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{Fig6.pdf}}}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Three Dimensional Example}
+
+
+\begin{itemize}
+\item[-] (Latitude, Longitude, Elevation)
+\item[-] (1, 2, 3)
+\item[-] (0, 1, 0)
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{N-Dimensional Example}
+
+\begin{itemize}
+\item[-]  Individual campaign donation records
+\begin{eqnarray}
+\boldsymbol{x} & = & (1000, 0, 10, 50, 15, 4, 0, 0, 0, \hdots, 2400000000)\nonumber 
+\end{eqnarray}
+\item[-] Counties have proportion of vote for Obama
+\begin{eqnarray}
+\boldsymbol{y} & = & (0.8, 0.5, 0.6, \hdots, 0.2) \nonumber 
+\end{eqnarray}
+\item[-] Run experiment, assess feeling thermometer of elected official
+\begin{eqnarray}
+\boldsymbol{t} & = & (0, 100, 50, 70, 80, \hdots, 100) \nonumber 
+\end{eqnarray}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Arithmetic with Vectors} 
+
+\begin{defn} Suppose $\boldsymbol{u}$ and $\boldsymbol{v}$ are vectors $ \boldsymbol{u}, \boldsymbol{v} \in \Re^{n}$, \\
+
+\begin{eqnarray}
+\boldsymbol{u} & = & (u_{1}, u_{2}, u_{3}, \hdots, u_{n} ) \nonumber \\
+\boldsymbol{v} & = & (v_{1}, v_{2}, v_{3}, \hdots, v_{n} ) \nonumber 
+\end{eqnarray}
+We will say $\boldsymbol{u} = \boldsymbol{v}$ if $u_{1} = v_{1}, u_{2} = v_{2}, \hdots, u_{n} = v_{n} $\\
+
+
+
+
+Define the \alert{sum} of $\boldsymbol{u} + \boldsymbol{v}$ as 
+\begin{eqnarray}
+\boldsymbol{u} + \boldsymbol{v} & = & (u_{1} + v_{1}, u_{2} + v_{2}, u_{3} + v_{3}, \hdots, u_{n} + v_{n} ) \nonumber 
+\end{eqnarray}
+
+Suppose $k \in \Re$.  We will call $k$ a \alert{scalar}.\\
+
+Define $k \boldsymbol{u}$ as the \alert{scalar product} 
+
+\begin{eqnarray}
+k \boldsymbol{u} & = & (k u_{1}, k u_{2}, \hdots, k u_{n} ) \nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Examples} 
+
+Suppose:
+\begin{eqnarray}
+\boldsymbol{u} & = & (1, 2, 3, 4, 5) \nonumber \\
+\boldsymbol{v} & = & (1, 1, 1, 1, 1) \nonumber \\
+k & = & 2 \nonumber 
+\end{eqnarray}
+
+Then, 
+\begin{eqnarray}
+\boldsymbol{u}  + \boldsymbol{v} & = & (1 + 1, 2 + 1, 3+ 1, 4 + 1, 5+ 1)  = (2, 3, 4, 5, 6)\nonumber \\
+k \boldsymbol{u} & = & (2 \times 1, 2 \times 2, 2 \times 3, 2 \times 4, 2 \times 5) = (2, 4, 6, 8, 10) \nonumber \\
+k \boldsymbol{v} & = & (2 \times 1,2 \times 1,2 \times 1,2 \times 1,2 \times 1) = (2, 2, 2, 2, 2) \nonumber 
+\end{eqnarray}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Properties of Arithmetic} 
+\alert{Challenge Proofs}---we can do these!
+\begin{thm} Suppose that $\boldsymbol{u}, \boldsymbol{v},\boldsymbol{w} \in \Re^{n}$ and $k$ and $l$ are scalars.  
+
+
+\begin{itemize}
+\item[a)] $\boldsymbol{u} + \boldsymbol{v}  =  \boldsymbol{v} + \boldsymbol{u}$
+\end{itemize}
+\end{thm} 
+
+\pause 
+
+\invisible<1>{
+\begin{proof}
+\begin{eqnarray} 
+\boldsymbol{u} + \boldsymbol{v}  & =& (u_{1} + v_{1}, u_{2} + v_{2}, \hdots, u_{n} + v_{n} ) \nonumber \\
+													& = & (v_{1} + u_{1}, v_{2} + u_{2}, \hdots, v_{n} + u_{n} ) \nonumber \\
+													& = & \boldsymbol{v} + \boldsymbol{u} \nonumber 
+\end{eqnarray}													
+\end{proof}}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Properties of Arithmetic} 
+\alert{Challenge Proofs}---we can do these!
+\begin{thm} Suppose that $\boldsymbol{u}, \boldsymbol{v},\boldsymbol{w} \in \Re^{n}$ and $k$ and $l$ are scalars.  
+
+
+\begin{itemize}
+\item[b)] $\boldsymbol{u} + \boldsymbol{0}  =  \boldsymbol{0} + \boldsymbol{u} = \boldsymbol{u} $
+\end{itemize}
+\end{thm} 
+\pause 
+\invisible<1>{
+\begin{proof}
+\begin{eqnarray}
+\boldsymbol{u} + \boldsymbol{0} & = & (u_{1} + 0, u_{2} + 0, \hdots, u_{n} + 0) \nonumber \\
+												  & = & (0 + u_{1} , 0 + u_{2}, \hdots, 0 + u_{n} ) = \boldsymbol{0} + \boldsymbol{u} \nonumber \\
+												  & = & (u_{1}, u_{2} ,\hdots, u_{n} ) \nonumber \\
+												  & = & \boldsymbol{u} \nonumber 
+\end{eqnarray}												  		
+
+
+\end{proof}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Properties of Arithmetic} 
+\alert{Challenge Proofs}---we can do these!
+\begin{thm} Suppose that $\boldsymbol{u}, \boldsymbol{v},\boldsymbol{w} \in \Re^{n}$ and $k$ and $l$ are scalars.  
+
+
+\begin{itemize}
+\item[c)] $(l + k) \boldsymbol{u} = l( \boldsymbol{u} ) + k (\boldsymbol{u}) $ 
+\end{itemize}
+\end{thm} 
+\begin{proof} 
+\alert{How can we show this?} 
+\end{proof}
+\end{frame}
+
+\begin{frame}
+\frametitle{Challenge Proofs}
+\begin{itemize}
+\item[-] Show that $1 \boldsymbol{u} = \boldsymbol{u}$ 
+\item[-] Show that $\boldsymbol{u} + -1 \boldsymbol{u} = \boldsymbol{0}$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Inner Product} 
+
+\begin{defn} Suppose $\boldsymbol{u} \in \Re^{n}$ and $\boldsymbol{v} \in \Re^{n}$ then define $\boldsymbol{u} \cdot \boldsymbol{v}$, 
+\begin{eqnarray}
+\boldsymbol{u} \cdot \boldsymbol{v} &= & u_{1} v_{1} + u_{2}v_{2} + \hdots + u_{n} v_{n} \nonumber \\
+														& = & \sum_{i=1}^{N} u_{i} v_{i} \nonumber
+\end{eqnarray}														
+
+\end{defn}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Examples} 
+
+Suppose $\boldsymbol{u} = (1, 2, 3) $ and $\boldsymbol{v} = (2, 3, 1) $.  Then, 
+\begin{eqnarray}
+\boldsymbol{u} \cdot \boldsymbol{v} & = & 1 \times 2 +  2 \times 3 +  3 \times 1 \nonumber \\
+				& = & 2+ 6 + 3\nonumber \\
+				& = & 11 \nonumber 				
+\end{eqnarray}				
+
+Suppose $\boldsymbol{y} = (y_{1}, y_{2}, \hdots, y_{N})$ and $\boldsymbol{1} = (1, 1, 1, \hdots, 1)$.  Then, 
+\begin{eqnarray}
+\boldsymbol{y} \cdot \boldsymbol{1} & = & y_{1} + y_{2} + \hdots + y_{n} \nonumber \\
+														& = & \sum_{i=1}^{n} y_{i} \nonumber 
+\end{eqnarray}														
+
+\end{frame}
+
+\begin{frame}
+\frametitle{{\tt R} Code} 
+Create a vector in {\tt R} \pause \\
+
+\begin{columns}[]
+\column{0.5\textwidth}
+\invisible<1>{{\tt vec <- c(1, 2, 3, 4, 5) } } \pause \\
+\invisible<1-2>{{\tt vec<- c() } }\pause\\
+\invisible<1-3>{{\tt vec[1]<- 1} }\pause    \\
+\invisible<1-4>{{\tt vec[2]<- 2}}\pause \\ 
+\invisible<1-5>{{\tt vec[3]<- 3}}\pause \\
+\invisible<1-6>{{\tt vec[4]<- 4} }\pause\\
+\invisible<1-7>{{\tt vec[5]<- 5}}\pause \\
+\invisible<1-8>{{\tt x1<- c(2, 2, 3, 2) }} \pause \\
+\invisible<1-9>{{\tt x2<- c(5, 3, 1, 3) }} \pause \\
+\invisible<1-10>{{\tt add <- x1 + x2 } }\pause \\
+\invisible<1-11>{{\tt add} } \\
+\invisible<1-11>{{\tt [1] 7 5 4 5}}\pause  \\
+
+
+\column{0.5\textwidth}
+\invisible<1-12>{{\tt scalar<- 10 *x1}} \pause \\
+\invisible<1-13>{{\tt scalar }} \\
+\invisible<1-13>{{\tt [1] 20 20 30 20 }} \pause \\
+\invisible<1-14>{{\tt output<- x1 \%*\% x2 }}\pause  \\
+\invisible<1-15>{{\tt output}}\\
+\invisible<1-15>{{\tt     [,1] } }\\
+\invisible<1-15>{{\tt [1,]   25 } }
+
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Challenge Problems} 
+
+\begin{itemize}
+\item[-] Suppose $\boldsymbol{v} = (1, 4, 1, 4)$ and $\boldsymbol{w} = (4, 1,4,1) $.  Calculate: $\boldsymbol{v} \cdot \boldsymbol{w}$
+\item[-] Prove $\boldsymbol{v}\cdot \boldsymbol{w}  =  \boldsymbol{w} \cdot \boldsymbol{v}$ 
+\item[-] Prove $\boldsymbol{v} \cdot \boldsymbol{v} \geq 0$ and $\boldsymbol{v} \cdot \boldsymbol{v} = 0 $ \alert{if and only if} $\boldsymbol{v} = \boldsymbol{0}$.  
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Vector Length}
+
+\begin{columns}[]
+
+\column{0.6\textwidth} 
+\only<1>{\scalebox{0.5}{\includegraphics{Length1.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{Length2.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{Length3.pdf}}}
+\only<4-5>{\scalebox{0.5}{\includegraphics{Length4.pdf}}}
+
+\column{0.4\textwidth} 
+\begin{itemize}
+\invisible<1>{\item[-] \alert{Pythogorean Theorem}: Side with length $a$} 
+\invisible<1-2>{\item[-] Side with length $b$ and right triangle}
+\invisible<1-3>{\item[-] $c = \sqrt{ a^2 + b^2} $ }
+\invisible<1-4>{\item[-] \alert{This is generally true} }
+\end{itemize}
+
+\end{columns}
+
+\pause \pause \pause \pause 
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Vector Length} 
+
+\begin{defn} Suppose $\boldsymbol{v} \in \Re^{n}$. Then, we will define its \alert{length} as 
+\begin{eqnarray}
+||\boldsymbol{v}|| & = & (\boldsymbol{v} \cdot \boldsymbol{v} )^{1/2} \nonumber \\
+						   & = & (v_{1}^2 + v_{2}^{2} + v_{3}^{2} + \hdots + v_{n}^{2} )^{1/2} \nonumber 
+\end{eqnarray}						   
+\end{defn}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Calculating a Length}
+
+Example 1: suppose $\boldsymbol{x} = (1, 1, 1)$  .  
+\begin{eqnarray}
+||\boldsymbol{x} ||& = & (\boldsymbol{x} \cdot \boldsymbol{x} )^{1/2} \nonumber \\
+							& = & (1 + 1 + 1)^{1/2} \nonumber \\
+							& = & \sqrt{3} \nonumber 
+\end{eqnarray}							
+Example 2: R code for length function
+
+
+{\tt len.vec<- function(x) \{ } \\
+
+{\tt 		p1$<-$ sqrt$(x\%*\%x)$ } \\
+{\tt return(p1) } \\
+{\tt $\}$ }\\
+
+{\tt x <- c(1,1,1) } \\
+{\tt len.vec(x) } \\
+{\tt           [,1]} \\
+{\tt [1,] 1.732051  } \\
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Coding Problem}
+
+Let's calculate the length of some vectors\\
+\begin{itemize}
+\item[-] Write a function to assess the length of a vector.  
+\item[-] Use it to calculate the length of:
+\begin{itemize}
+\item[-] {\tt y<- c(10, 20, 30, 40)} 
+\item[-] {\tt x<- seq(1, 1000*pi, len=1000) } 
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Texts in Space}
+\pause 
+\begin{eqnarray}
+\invisible<1>{\text{Doc1} & = & (1, 1, 3, \hdots, 5) \nonumber \\ } \pause 
+\invisible<1-2>{\text{Doc2} & = & (2, 0, 0, \hdots, 1) \nonumber \\} \pause
+\invisible<1-3>{\textbf{Doc1}, \textbf{Doc2} & \in & \Re^{M} \nonumber } \pause
+\end{eqnarray}
+
+
+\invisible<1-4>{Provides \alert{many} operations that will be useful \\} \pause 
+
+\invisible<1-5>{\alert{Inner Product} between documents: } \pause 
+\begin{eqnarray} 
+\invisible<1-6>{\textbf{Doc1} \cdot \textbf{Doc2}  &  = &  (1, 1, 3, \hdots, 5)^{'} (2, 0, 0, \hdots, 1) \nonumber \\} \pause 
+\invisible<1-7>{  & = &  1 \times 2 + 1 \times 0 + 3 \times 0 + \hdots + 5 \times 1  \nonumber \\} \pause 
+\invisible<1-8>{   & = & 7 \nonumber} 
+   \end{eqnarray}
+
+\end{frame}
+
+
+\begin{frame}
+
+\alert{Length} of document: \pause 
+\invisible<1>{\begin{eqnarray} 
+|| \textbf{Doc1} || & \equiv & \sqrt{ \textbf{Doc1} \cdot \textbf{Doc1} }  \nonumber \\
+ & = &  \sqrt{(1, 1, 3, \hdots , 5) ^{'} (1, 1, 3, \hdots, 5) }\nonumber \\
+  & = & \sqrt{1^{2} +1^{2} + 3^{2} + 5^{2} } \nonumber \\
+   & = &  6  \nonumber 
+   \end{eqnarray}
+   } \pause 
+\invisible<1-2>{\alert{Cosine} of the angle between documents: }\pause 
+\invisible<1-3>{\begin{eqnarray}
+\cos \theta & \equiv  &   \left(\frac{\textbf{Doc1}}{|| \textbf{Doc1}|| } \right)  \cdot \left(\frac{\textbf{Doc2} }  {||\textbf{Doc2} || } \right) \nonumber \\
+ & = & \frac{7} { 6 \times  2.24} \nonumber \\
+  & = & 0.52 \nonumber 
+  \end{eqnarray} } 
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Measuring Similarity} 
+
+
+
+Documents in space $\rightarrow$ measure similarity/dissimilarity \pause   \\
+
+
+
+\invisible<1>{What properties should similarity measure have?} \pause 
+\begin{itemize}
+\invisible<1-2>{\item[-] Maximum: document with itself} \pause 
+\invisible<1-3>{\item[-] Minimum: documents have no words in common (\alert{orthogonal} ) } \pause 
+\invisible<1-4>{\item[-] Increasing when \alert{more} of same words used } \pause 
+\invisible<1-5>{\item[-] \alert{?} $s(a, b)  = s(b,a)$.  }  
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Measuring Similarity}
+
+\begin{center}
+\scalebox{0.35}{\includegraphics{Fig1_text.pdf}}
+\end{center}
+
+
+Measure 1: Inner product \pause  \\
+\begin{eqnarray}
+\invisible<1>{(2, 1)^{'} \cdot (1, 4) & = & 6 }   \nonumber 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{center}
+\only<1-3>{\scalebox{0.35}{\includegraphics{Fig2_text.pdf}}} 
+\only<4>{\scalebox{0.35}{\includegraphics{Fig3_text.pdf}}}
+\end{center}
+
+
+
+\invisible<1>{\alert{Problem}(?): length dependent } 
+\begin{eqnarray}
+\invisible<1-2>{(4,2)^{'} (1,4) & = & 12 } \nonumber \\ 
+\invisible<1-3>{a \cdot b & = & ||a|| \times ||b|| \times \cos \theta \nonumber }
+\end{eqnarray}
+
+\pause \pause \pause 
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Cosine Similarity}
+
+
+\begin{center}
+\only<7->{\scalebox{0.35}{\includegraphics{Fig4_text.pdf}}}
+\end{center}
+
+
+
+$\cos \theta$: removes document length from similarity measure\\ \pause 
+\only<7->{\invisible<1-7>{Project onto Hypersphere} \\
+\invisible<1-8>{$\cos \theta \rightarrow$ Inverse distance on Hypersphere } \\
+\invisible<1-9>{\alert{von Mises Fisher distribution} : distribution on sphere surface } 
+} 
+
+
+\only<1-6>{\begin{eqnarray}
+\invisible<1>{\cos \theta & = & \left(\frac{a} {||a||}\right)  \cdot \left(\frac{b} {||b||}  \right) \nonumber \\} 
+\invisible<1-2>{\frac{(4,2)}{||(4,2) ||} & = & (0.89, 0.45) \nonumber \\} 
+\invisible<1-3>{\frac{(2,1)}{||(2,1) || } & = & (0.89, 0.45) \nonumber \\}
+\invisible<1-4>{\frac{(1,4)} {||(1,4)||}  & = & (0.24, 0.97) \nonumber } \\
+\invisible<1-5>{(0.89, 0.45)^{'} (0.24, 0.97) & = & 0.65 \nonumber } 
+\end{eqnarray}
+}
+
+
+
+\pause \pause \pause \pause \pause   \pause \pause \pause 
+ 
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Matrices}
+
+\begin{defn}
+A \alert{Matrix} is a rectangular array of numbers
+
+
+\begin{eqnarray}
+\boldsymbol{A} & = &  
+\begin{pmatrix}
+a_{11} & a_{12} & \hdots & a_{1n} \\
+a_{21} & a_{22} & \hdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \hdots & a_{mn} \\
+\end{pmatrix} 
+\nonumber 
+\end{eqnarray}
+If $\boldsymbol{A}$ has $m$ rows $n$ columns we will say that $\boldsymbol{A}$ is an $m \times n$ matrix.  \\
+Suppose $\boldsymbol{X}$ and $\boldsymbol{Y}$ are $m \times n$ matrices.  Then $\boldsymbol{X} = \boldsymbol{Y}$ if 
+$x_{ij} = y_{ij}$ for all $i$ and $j$ 
+
+\end{defn}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Simple Examples} 
+
+\begin{eqnarray} 
+\boldsymbol{I} & = & \begin{pmatrix} 
+1 & 0 & 0 & \hdots & 0 \\
+0 & 1 & 0 & \hdots & 0 \\
+0 & 0 & 1 & \hdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 & \hdots & 1 \\
+\end{pmatrix} 
+\nonumber 
+\end{eqnarray}
+If $\boldsymbol{I}$ is an $n \times n$ matrix we will call an \alert{identity} matrix.  
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Simple Examples} 
+
+\begin{eqnarray}
+\boldsymbol{X} & = & \begin{pmatrix} 
+1 & 2 & 3 \\
+2 & 1 & 4 \\
+\end{pmatrix} 
+\nonumber 
+\end{eqnarray}
+$\boldsymbol{X}$ is an $2 \times 3$ matrix
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Algebra}
+\begin{defn} Suppose $\boldsymbol{X}$ and $\boldsymbol{Y} $ are $m \times n$ matrices.  Then define 
+\begin{eqnarray} 
+\boldsymbol{X} + \boldsymbol{Y} & = & \begin{pmatrix} 
+x_{11} & x_{12} & \hdots & x_{1n} \\
+x_{21} & x_{22} & \hdots & x_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{m1} & x_{m2} & \hdots & x_{mn} \\
+\end{pmatrix} + 
+\begin{pmatrix} 
+y_{11} & y_{12} & \hdots & y_{1n} \\
+y_{21} & y_{22} & \hdots & y_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+y_{m1} & y_{m2} & \hdots & y_{mn} \\
+\end{pmatrix}
+\nonumber \\
+& = & \begin{pmatrix} 
+x_{11} + y_{11} & x_{12} + y_{12} & \hdots & x_{1n} + y_{1n} \\
+x_{21} + y_{21} & x_{22} + y_{22} & \hdots & x_{2n} + y_{2n} \\
+\vdots & \vdots & \ddots & \vdots\\
+x_{m1} + y_{m1} & x_{m2} + y_{m2} & \hdots & x_{mn} + y_{mn} \\
+\end{pmatrix} 
+\nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Algebra} 
+\begin{defn}
+Suppose $\boldsymbol{X}$ is an $m \times n$ matrix and $k \in \Re$.  Then, 
+\begin{eqnarray}
+k \boldsymbol{X} & =&  \begin{pmatrix} 
+k x_{11} & k x_{12} & \hdots &  k x_{1n} \\
+k x_{21} & k x_{22} & \hdots & k x_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+k x_{m1} & k x_{m2} & \hdots & k x_{mn} \\
+\end{pmatrix}
+\nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+\alert{Prove theorems about this tonight}
+\end{frame}
+
+\begin{frame}
+\frametitle{{\tt R} Code} 
+
+
+\only<1>{Using \alert{matrix} command
+{\tt mat1<- matrix(NA, nrow=3, ncol=2) \#\# Creating matrix } \\
+{\tt mat1[1,1]<- 1 } \\
+{\tt mat1[1,2]<- 2 } \\
+{\tt mat1[2,1]<- 1 } \\
+{\tt mat1[2,2]<- 4 } \\
+{\tt mat1[3,1]<- exp(1) } \\
+{\tt mat1[3,2]<- 4 } \\
+} 
+\vspace{0.2in} 
+
+\only<2>{Using \alert{rbind} \\
+{\tt r1<- c(1, 2) } \\
+{\tt r2<- c(1, 4) } \\
+{\tt r3<- c(exp(1) , 4) } \\
+{\tt mat1<- rbind(r1, r2, r3) } 
+}
+
+\vspace{0.2in} 
+
+\only<3>{Using \alert{cbind} \\
+{\tt c1<- c(1, 1, exp(1) ) } \\
+{\tt c2<- c(2, 4, 4) }
+}
+
+\only<4>{
+{\tt dim(mat1) } \\
+{\tt [1] 3 2} \\
+
+{\tt mat1 + mat1  } \\
+{\tt         [,1] [,2] } \\
+{\tt [1,] 2.000000    4 } \\
+{\tt [2,] 2.000000    8  } \\
+{\tt [3,] 5.436564    8 } 
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{{\tt R} Code } 
+
+What if the matrices are of different dimension\\
+{\tt mat1<- matrix(1, nrow=3, ncol=2) } \\
+{\tt mat2<- matrix(2, nrow=10, ncol=3) } \\
+{\tt mat1 + mat2 } \\
+{\tt Error in mat1 + mat2 : non-conformable arrays } 
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Matrix Transpose} 
+
+
+We will use \alert{matrix transpose} to flip the dimensionality of a matrix \pause \\
+
+\begin{eqnarray}
+\invisible<1>{\boldsymbol{X} & = & \begin{pmatrix} }
+\invisible<1>{ \alert<3>{x_{11}} & \alert<3>{x_{12}} & \hdots & \alert<3>{x_{1n}} \\}
+\invisible<1>{\alert<4>{x_{21}} & \alert<4>{x_{22}} & \alert<4>{\hdots} & \alert<4>{x_{2n}} \\}
+\invisible<1>{\vdots & \vdots & \ddots & \vdots \\}
+\invisible<1>{\alert<6>{x_{m1}} & \alert<6>{x_{m2}} & \hdots & \alert<6>{x_{mn} } \\}
+\invisible<1>{\end{pmatrix}}  \nonumber  \\
+\invisible<1-2>{\boldsymbol{X}^{'} &  = &  \begin{pmatrix} }
+\invisible<1-2>{\alert<3>{x_{11}}} &  \invisible<1-3>{ \alert<4>{x_{21} } }& \invisible<1-4>{\hdots} & \invisible<1-5>{\alert{x_{m1} } }\\
+\invisible<1-2>{\alert<3>{x_{12}}} & \invisible<1-3>{\alert<4>{x_{22} } }& \invisible<1-4>{\hdots} & \invisible<1-5>{\alert{x_{m2} }} \\
+\invisible<1-2>{\vdots }&\invisible<1-3>{ \vdots} & \invisible<1-4>{\ddot} & \invisible<1-5>{\vdots} \\
+\invisible<1-2>{\alert<3>{x_{1n} }} & \invisible<1-3>{\alert<4>{x_{2n}}} & \invisible<1-4>{\hdots} & \invisible<1-5>{\alert{x_{mn} } }\\
+\invisible<1-2>{\end{pmatrix} }
+\nonumber 
+\end{eqnarray}
+
+
+\invisible<1-6>{If $\boldsymbol{X}$ is an $m \times n$ then $\boldsymbol{X}^{'} $ is $n \times m$.}   \\
+\invisible<1-7>{If $\boldsymbol{X} = \boldsymbol{X}^{'}$ then we say $\boldsymbol{X}$ is symmetric. }  
+
+\pause\pause \pause \pause \pause \pause 
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Transpose}
+
+Example 1:  $\boldsymbol{X} = \begin{pmatrix} 4 & 1 & 2 \\1 & 2  & 3 \\ \end{pmatrix} $ then 
+$\boldsymbol{X}^{'} = \begin{pmatrix} 4 & 1 \\ 1 & 2 \\ 2 & 3 \\ \end{pmatrix} $ \\
+
+\vspace{0.25in} 
+
+In {\tt R } \\
+{\tt mat1<- matrix(c(1, 2, 3), nrow=3, ncol=2) } \\
+{\tt mat2<-  t(mat1)  } \\
+{\tt dim(mat1) } \\
+{\tt 3 2 } \\
+{\tt dim(mat2) } \\
+{\tt 2  3 } \\
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Matrix Multiplication}
+
+How do we \alert{multiply} matrices? \pause \\
+\invisible<1>{\alert{Because we want to use matrix multiplication to solve equations we won't use an intuitive definition} } \pause \\
+
+\invisible<1-2>{Suppose we have two matrices} \pause  \\
+\invisible<1-3>{$\boldsymbol{X} = \begin{pmatrix} 1 & 1 \\ 1& 1 \\ \end{pmatrix} $, $\boldsymbol{Y} = \begin{pmatrix} 1 & 2 \\ 3 & 4 \\ \end{pmatrix} $} \pause 
+
+\invisible<1-4>{We will create a new matrix $\boldsymbol{A}$ by matrix multiplication:} \pause 
+\begin{eqnarray} 
+\invisible<1-5>{\boldsymbol{A} & = & \boldsymbol{X} \boldsymbol{Y} \nonumber } \pause \\
+\invisible<1-6>{				& = & \begin{pmatrix} \alert<8-9>{1} & \alert<8-9>{1} \\ \alert<10-11>{1}& \alert<10-11>{1}\\ \end{pmatrix} \begin{pmatrix} \alert<8,10>{1} & \alert<9,11>{2} \\ \alert<8,10>{3} & \alert<9,11>{4} \\ \end{pmatrix}
+\nonumber } \pause \\
+     					\invisible<1-7>{& = & \begin{pmatrix} }
+							\invisible<1-7>{1 \times 1 + 1 \times 3}  & \invisible<1-8>{1 \times 2 + 1 \times 4}  \\
+							\invisible<1-9>{1 \times 1  + 1\times 3}  & \invisible<1-10>{1 \times 2 + 1 \times 4 }  \\
+							\invisible<1-7>{\end{pmatrix}} \nonumber \\
+					\invisible<1-11>{& = & \begin{pmatrix} 
+							4 & 6 \\
+							4 & 6 \\
+							\end{pmatrix}		}
+							\nonumber 
+\end{eqnarray}							
+\pause \pause \pause\pause  												
+					
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Multiplication}
+
+\begin{defn} Suppose $\boldsymbol{X}$ is an $m \times n$ matrix and $\boldsymbol{Y}$ is an $n \times k$ matrix.  Then define the matrix $\boldsymbol{A}$ an $m \times k$ matrix that obtains from \alert{multiplying} $\boldsymbol{X}$ and $\boldsymbol{Y}$ as, 
+\small
+\begin{eqnarray}
+\boldsymbol{A} & = & \boldsymbol{X} \boldsymbol{Y} \nonumber \\
+						& = & \begin{pmatrix} 
+								x_{11} & x_{12} & \hdots & x_{1n} \\
+								x_{21} & x_{22} & \hdots & x_{2n} \\
+								\vdots & \vdots & \ddots & \vdots \\
+								x_{m1} & x_{m2} & \hdots & x_{mn} \\
+								\end{pmatrix} 
+								\begin{pmatrix} 
+								y_{11} & y_{12} & \hdots & y_{1k} \\
+								y_{21} & y_{22} & \hdots & y_{2k} \\
+								\vdots & \vdots & \ddots & \vdots \\
+								y_{n1} & y_{n2} & \hdots & y_{nk} \\
+								\end{pmatrix} \nonumber \\
+						& = & \begin{pmatrix}
+						x_{11} y_{11} + x_{12} y_{21} + \hdots +  x_{1n} y_{n1} & \hdots & x_{11} y_{1k} + x_{12} y_{2k} + \hdots+  x_{1n} y_{nk} \\
+						\vdots  & \ddots & \vdots \\
+						x_{m1} y_{11} + x_{m2} y_{21} + \hdots + x_{mn} y_{n1} & \hdots & x_{m1} y_{11} + x_{m2} y_{12} + \hdots + 	x_{mn} y_{nk} \\
+						\end{pmatrix} 	\nonumber 													
+								\end{eqnarray}
+\end{defn}								
+
+\end{frame}
+
+\begin{frame}
+
+\begin{defn} Suppose $\boldsymbol{X}$ is an $m \times n$ matrix and $\boldsymbol{Y}$ is an $n \times k$ matrix. Write the \alert{row} vectors of $\boldsymbol{X} = \begin{pmatrix} \boldsymbol{x}_{1} \\ \boldsymbol{x}_{2} \\ \vdots\\ \boldsymbol{x}_{m} \end{pmatrix} $ and $\boldsymbol{Y}$ as column vector $\boldsymbol{Y} = \begin{pmatrix} \boldsymbol{y}_{1} & \boldsymbol{y}_{2} & \hdots & \boldsymbol{y}_{k} \end{pmatrix}$ .  Then the $m \times k$ matrix $\boldsymbol{A} = \boldsymbol{X} \boldsymbol{Y}$ can be written as 
+\begin{eqnarray}
+\boldsymbol{A} & = & \begin{pmatrix} 
+								\boldsymbol{x}_{1} \cdot \boldsymbol{y}_{1} & \boldsymbol{x}_{1} \cdot  \boldsymbol{y}_{2} & \hdots & \boldsymbol{x}_{1} \cdot  \boldsymbol{y}_{k}\\
+								\boldsymbol{x}_{2} \cdot  \boldsymbol{y}_{1} & \boldsymbol{x}_{2} \cdot  \boldsymbol{y}_{2} & \hdots & \boldsymbol{x}_{2}\cdot  \boldsymbol{y}_{k}\\
+								\vdots & \vdots & \ddots & \vdots \\
+								\boldsymbol{x}_{m} \cdot  \boldsymbol{y}_{1} & \boldsymbol{x}_{m} \cdot \boldsymbol{y}_{2} & \hdots & \boldsymbol{x}_{m} \cdot  \boldsymbol{y}_{k}\\
+								\end{pmatrix}  \nonumber 
+\end{eqnarray}								
+
+
+\end{defn}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Multiplication}
+
+Let's work on an example together!\\
+$\boldsymbol{X} = \begin{pmatrix} 1 & 4 & 5 \\
+													10 & 2 & 3 \\
+							\end{pmatrix} 						$													\\
+$\boldsymbol{Y} = \begin{pmatrix} 2 & 3 \\
+													1 & 5 \\
+													3 & 5\\
+							\end{pmatrix} 				$
+What is $\boldsymbol{X} \boldsymbol{Y} $?
+
+
+\pause 
+
+\invisible<1>{Not all matrices can be multiplied.\\
+Matrix $\boldsymbol{A} \boldsymbol{B}$ exists only if the number of columns in $\boldsymbol{A}$  = number of rows in $\boldsymbol{B}$.  If $\boldsymbol{A} \boldsymbol{B}$ exists we will say the matrices are \alert{conformable}
+}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Matrix Multiplication with a Vector} 
+
+Suppose $\boldsymbol{X} = \begin{pmatrix} 2 & 3 & 4 & 5 \\
+													1 & 5 & 1 & 2\\
+													3 & 5 & 3 & 4 \\
+							\end{pmatrix} 	$ a $3 \times 4$ matrix and that $\boldsymbol{v}  = \begin{pmatrix} 3\\ 3 \\ 4 \\ 10 \end{pmatrix} $ a $4 \times 1$ matrix (or a \alert{column} vector) what is \\
+$\boldsymbol{X} \boldsymbol{v}$?
+
+
+What is $\boldsymbol{X}^{'} \boldsymbol{v}$?
+
+
+
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Algebraic Properties} 
+
+Suppose $\boldsymbol{X}$ is an $m \times n$ matrix and $\boldsymbol{Y}$ is an $n \times k$ matrix.  Suppose that $\boldsymbol{I} = \begin{pmatrix} 1 & 0 & \hdots & 0 \\
+						0 & 1 & \hdots & 0 \\
+						\vdots & \vdots & \ddots & \vdots \\
+						0 			&   0 		& \hdots & 1 \\
+						\end{pmatrix} $ as the \alert{identity} matrix and that $k \in Re$.  
+\begin{itemize}
+\item[-] $\boldsymbol{X} \boldsymbol{Y} \neq \boldsymbol{Y} \boldsymbol{X}$ \alert{in general !!!!} (but it could)
+\item[-] $\boldsymbol{X}\boldsymbol{I} = \boldsymbol{X}$ (let's talk it out!)
+\item[-] $(\boldsymbol{X}^{'} )^{'} = \boldsymbol{X}$
+\item[-] $(\boldsymbol{X} \boldsymbol{Y})^{'} = \boldsymbol{Y}^{'} \boldsymbol{X}^{'}$
+\item[-] $(k \boldsymbol{X})^{'} = k \boldsymbol{X}^{'}$
+\item[-] $(\boldsymbol{X} + \boldsymbol{Y})^{'}  = \boldsymbol{X}^{'} + \boldsymbol{Y}^{'} $
+\end{itemize}
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Examples, Implenting in {\tt R} } 
+R and matrix multiplication
+
+
+{\tt X<- matrix(NA, nrow=2, ncol=3) } \\
+{\tt Y<- matrix(NA, nrow=3, ncol=2) } \\
+{\tt X[1,]<- c(1, 4, 5) } \\
+{\tt X[2,]<- c(10, 2, 3)} \\
+
+{\tt Y[1,]<- c(2, 3)} \\
+{\tt Y[2,]<- c(1, 5)} \\
+{\tt Y[3,]<- c(3, 5)} \\
+
+\vspace{0.1in}
+{\tt A<- X\%*\%Y} \\
+{\tt > A } \\
+{\tt      [,1] [,2]} \\
+{\tt [1,]   21   48} \\
+{\tt [2,]   31   55 } 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{\alert{Matrix Inversion}}
+
+Big topic: suppose $\boldsymbol{X}$ is an $n \times n$ matrix.  We want to find the matrix $X^{-1}$ such that 
+
+\begin{eqnarray}
+\boldsymbol{X}^{-1} \boldsymbol{X} & = & \boldsymbol{X} \boldsymbol{X}^{-1} = \boldsymbol{I} \nonumber 
+\end{eqnarray}
+where $\boldsymbol{I}$ is the $n \times n$ identity matrix.  \\
+\alert{Why}?
+\begin{itemize}
+\item[-] Regression
+\item[-] Solving systems of equations
+\item[-] \alert{Will provide intuition about ``colinearity", ``fixed effects", ``treatment designs" and what we can learn as social scientists}
+\end{itemize}
+
+Calculate $\leadsto$ Properties of Inverses $\leadsto$ when do inverses exist $\leadsto$ Application to regression analysis 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Some Motivating Examples} 
+
+
+Consider the following equations:
+\only<1>{\begin{eqnarray}
+x_{1} + x_{2} + x_{3} & = &  0 \nonumber \\
+0x_{1} + 0 x_{2} + x_{3}& =& 5 \nonumber 
+\end{eqnarray}}
+
+\only<2>{\begin{eqnarray}
+x_{1} + x_{2} + x_{3} &= &0 \nonumber \\
+x_{1}  + x_{2}	 + 0x_{3} 	&= &0 \nonumber \\
+0x_{1} + x_{2} + x_{3} &= &0 \nonumber \\
+x_{1} + 0x_{2} + x_{3}& =& 0 \nonumber
+\end{eqnarray} }
+
+
+\only<3->{\begin{eqnarray}
+x_{1} + x_{2} + x_{3} &=& 0 \nonumber \\
+0x_{1} 	+ 	5x_{2} + 0x_{3}  & =& 5 \nonumber \\
+0 x_{1} + 0 x_{2} + 3 x_{3} & = & 6 \nonumber 
+\end{eqnarray}}
+
+\pause \pause \pause 
+
+\invisible<1-3>{$\boldsymbol{A}  = \begin{pmatrix} 1 & 1 & 1 \\ 0 & 5 & 0 \\ 0 & 0 & 3 \end{pmatrix} $   \\} \pause 
+\invisible<1-4>{$\boldsymbol{x} = (x_{1} , x_{2}, x_{3} ) $ \\} \pause 
+\invisible<1-5>{$\boldsymbol{b} = (0, 5, 6)$} \pause 
+
+\invisible<1-6>{The system of equations are now, } \pause 
+\begin{eqnarray}
+\invisible<1-7>{\boldsymbol{A}\boldsymbol{x} & = & \boldsymbol{b} \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-8>{$\boldsymbol{A}^{-1}$ exists \alert{if and only if} $\boldsymbol{A}\boldsymbol{x}  =  \boldsymbol{b}$ has only one solution.  } 
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Matrix Inversion, Definition}
+
+
+
+\begin{defn} Suppose $\boldsymbol{X}$ is an $n \times n$ matrix.  We will call $\boldsymbol{X}^{-1}$ the \alert{inverse} of $\boldsymbol{X}$ if
+\begin{eqnarray}
+\boldsymbol{X}^{-1} \boldsymbol{X} & = & \boldsymbol{X} \boldsymbol{X}^{-1} = \boldsymbol{I} \nonumber 
+\end{eqnarray}
+
+If $\boldsymbol{X}^{-1}$ exists then $\boldsymbol{X}$ is invertible.  If $\boldsymbol{X}^{-1}$ does not exist, then we will say $\boldsymbol{X}$ is \alert{singular}.  
+\end{defn}
+
+\end{frame}
+
+
+
+
+
+%
+%
+%\begin{frame}
+%\frametitle{\alert{Matrix Inversion}, By Hand}
+%
+%A confession: 
+%\begin{itemize}
+%\item[-] I hate doing this, you'll never do this yourself, and this is almost a waste of time
+%\item[-] But it will provide useful intuition about \alert{existence} of inverse
+%\end{itemize}
+%
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Matrix Inversion, By Hand}
+%
+%Apply \alert{elementary row operations} to a matrix to make it an \alert{identity matrix}.  \\
+%
+%
+%Apply those to \alert{identity} matrix at the same time\\
+%\alert{voila} inverse.  
+%
+%
+%\end{frame}
+%
+%
+%\begin{frame}
+%\frametitle{Matrix Inversion, By Hand}
+%
+%Three elementary row operations (thing, solving system of equations) \pause 
+%\begin{itemize}
+%\invisible<1>{\item[-] Multiply row by non-zero constant} \pause 
+%\invisible<1-2>{\item[-] Interchange two rows} \pause 
+%\invisible<1-3>{\item[-] Add a multiple of one row to another } \pause 
+%\end{itemize}
+%
+%\invisible<1-4>{Suppose $\boldsymbol{X} = \begin{pmatrix} 2 & 3 & 4 \\ 3 & 1 & 3 \\ 2 & 4 & 2 \\ \end{pmatrix} $} \pause 
+%
+%\vspace{0.25in} 
+%
+%\end{frame}
+%
+%\begin{frame}
+%
+%\begin{columns}[] 
+%
+%\column{0.4\textwidth}
+%\only<1>{\begin{tabular}{ccc|ccc}
+%2 & 3 & 4 & 1 & 0 & 0 \\
+%3 & 1 & 3 & 0 & 1 & 0 \\
+%2 & 4 & 2 & 0 & 0 & 1\\
+%\end{tabular} } 
+%
+%
+%\only<2>{\begin{tabular}{ccc|ccc}
+%1 &  2& 1  & 0 & 0 & $\frac{1}{2}$ \\
+%0 & -5 &0 & 0 & 1 & -$\frac{3}{2}$ \\
+%2 & 3 & 4 & 0 & 0 & 1\\
+%\end{tabular} 
+%} 
+%
+%\only<3>{\begin{tabular}{ccc|ccc}
+%1 &  2& 1  & 0 & 0 & $\frac{1}{2}$ \\
+%0 & -5 &0 & 0 & 1 & -$\frac{3}{2}$ \\
+%0 &  -1 &  2 & 1 & 0 & -1\\
+%\end{tabular} 
+%} 
+%
+%
+%\only<4>{\begin{tabular}{ccc|ccc}
+%1 &  2& 1  & 0 & 0 & $\frac{1}{2}$ \\
+%0 & 1 &0 & 0 & -$\frac{1}{5}$ & $\frac{3}{10}$ \\
+%0 &  0 &  2 & 1 & -$\frac{1}{5}$ & -$\frac{7}{10}$\\
+%\end{tabular} 
+%} 
+%
+%\only<5>{\begin{tabular}{ccc|ccc}
+%1 &  2& 1  & 0 & 0 & $\frac{1}{2}$ \\
+%0 & 1 &0 & 0 & -$\frac{1}{5}$ & $\frac{3}{10}$ \\
+%0 &  0 &  1 & $\frac{1}{2}$ & -$\frac{1}{10}$ & -$\frac{7}{20}$\\
+%\end{tabular} 
+%} 
+%
+%\only<6>{\begin{tabular}{ccc|ccc}
+%1 &  0& 1  & 0 & $\frac{2}{5}$ & $-\frac{1}{10}$ \\
+%0 & 1 &0 & 0 & -$\frac{1}{5}$ & $\frac{3}{10}$ \\
+%0 &  0 &  1 & $\frac{1}{2}$ & -$\frac{1}{10}$ & -$\frac{7}{20}$\\
+%\end{tabular} 
+%} 
+%
+%
+%\only<7>{\begin{tabular}{ccc|ccc}
+%1 &  0& 0  & -$\frac{1}{2}$ & $\frac{1}{2}$ & $\frac{1}{4}$ \\
+%0 & 1 &0 & 0 & -$\frac{1}{5}$ & $\frac{3}{10}$ \\
+%0 &  0 &  1 & $\frac{1}{2}$ & -$\frac{1}{10}$ & -$\frac{7}{20}$\\
+%\end{tabular} 
+%} 
+%
+%\column{0.5\textwidth}
+%\pause 
+%\begin{itemize}
+%\invisible<1>{\item[1)] Interchange rows 1 and 3}  
+%\invisible<1>{\item[2)] Multiply the new row 1 by -1/2}  
+%\invisible<1>{\item[3)] Multiply row 1 by -3, add to row 2}\pause 
+%\invisible<1-2>{\item[4)] Multiply row 1 by -2, add to row 3} \pause 
+%\invisible<1-3>{\item[5)] Multiply row 2 by -1/5}
+%\invisible<1-3>{\item[6)] Add row 2 to row 3} \pause 
+%\invisible<1-4>{\item[7)] Multiply row 3 by 1/2 } \pause 
+%\invisible<1-5>{\item[8)] Multiply row 2 by -2 add to row 1} \pause 
+%\invisible<1-6>{\item[9)] Multiply row 3 by -1 add to row 1} 
+%\end{itemize}
+%\end{columns}
+%
+%\end{frame}
+%
+%
+%\begin{frame}
+%\frametitle{Matrix Inversion}
+%
+%\begin{eqnarray}
+%\boldsymbol{X}^{-1}  & = & 
+%\begin{pmatrix}
+%-\frac{1}{2} & \frac{1}{2} & \frac{1}{4} \\
+%0 & -\frac{1}{5} & \frac{3}{10} \\
+%\frac{1}{2} & -\frac{1}{10} & -\frac{7}{20} \\
+%\end{pmatrix}
+%\nonumber \pause  \\
+%\invisible<1>{\boldsymbol{X}^{-1} \boldsymbol{X} & = & \begin{pmatrix}
+%-\frac{1}{2} & \frac{1}{2} & \frac{1}{4} \\
+%0 & -\frac{1}{5} & \frac{3}{10} \\
+%\frac{1}{2} & -\frac{1}{10} & -\frac{7}{20} \\ \end{pmatrix} 
+%\begin{pmatrix} 
+%2 & 3 & 4 \\ 
+%3 & 1 & 3 \\ 
+%2 & 4 & 2 \\ 
+%\end{pmatrix}  \nonumber \\} \pause 
+%\invisible<1-2>{& = & \begin{pmatrix} }
+%\only<3>{-1 + 1.5 + 0.5}\only<4->{1}  & \only<5->{0} & \only<6->{0} \\
+%	\invisible<1-6>{0 & 1 & 0 } \\
+%\invisible<1-7>{0 & 0 & 1 } \\
+%\invisible<1-2>{\end{pmatrix} } \nonumber 
+%\end{eqnarray}
+%
+%\pause \pause \pause \pause \pause \pause \pause 
+%
+%\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Inversion}
+
+\alert{You'll never invert a matrix by hand}. \\
+\alert{We're going to use R} \\
+{\tt X<- matrix(NA, nrow=3, ncol=3) } \\
+{\tt X[1,]<- c(2, 3, 4) } \\
+{\tt X[2,]<- c(3, 1, 3) } \\
+{\tt X[3,]<- c(2, 4, 2) } 
+
+{\tt X.inv<- solve(X) } \\
+{\tt > X.inv  } \\
+{\tt      [,1] [,2]  [,3] } \\
+{\tt [1,] -0.5  0.5  0.25} \\
+{\tt [2,]  0.0 -0.2  0.30 } \\
+{\tt [3,]  0.5 -0.1 -0.35 } 
+
+{\tt  X.inv\%*\%X } \\
+{\tt      [,1]          [,2]          [,3]} \\
+{\tt [1,]    1  0.000000e+00 -2.220446e-16 }\\
+{\tt [2,]    0  1.000000e+00  0.000000e+00 }\\
+{\tt [3,]    0 -2.220446e-16  1.000000e+00} \\
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Matrix Inversion}
+\begin{itemize}
+\item[1)] Calculate Inverses
+\item[2)] \alert{Properties of Inverses} 
+\end{itemize}
+
+
+\pause 
+
+\invisible<1>{\begin{thm} 
+The inverse of matrix $\boldsymbol{X}$, $\boldsymbol{X}^{-1}$, is unique
+\end{thm}}
+\pause 
+
+\invisible<1-2>{Proof. \\
+By way of contradiction, suppose not.  Then there are at least two matrices $\boldsymbol{A}$ and $\boldsymbol{C}$ such that $\boldsymbol{AX} = \boldsymbol{I}$ and $\boldsymbol{CX} = \boldsymbol{I}$ \\
+This implies that, 
+\begin{eqnarray}
+\boldsymbol{AXC} & = & (\boldsymbol{A} \boldsymbol{X}) C \nonumber \\
+							& = & \boldsymbol{I}\boldsymbol{C} \nonumber \\
+							& = & \boldsymbol{C}  \nonumber 
+\end{eqnarray}							
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Inversion}
+
+But it also implies that 
+\begin{eqnarray}
+\boldsymbol{AXC}  &  = & \boldsymbol{A}(\boldsymbol{X} \boldsymbol{C} ) \nonumber \\
+							&  = & \boldsymbol{A} (\boldsymbol{I} ) \nonumber \\
+							& = & \boldsymbol{A} \nonumber
+\end{eqnarray}							
+
+So $\boldsymbol{C} = \boldsymbol{AXC}  = \boldsymbol{A}$ or $\boldsymbol{C} =\boldsymbol{A}$ but this contradicts our assumption that there are two unique inverses.   
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Inversion}
+
+\begin{thm} Suppose $\boldsymbol{A}$ has inverse $\boldsymbol{A}^{-1}$ and $\boldsymbol{B}$ has inverse $\boldsymbol{B}^{-1}$.  Then, 
+\begin{eqnarray}
+(\boldsymbol{A} \boldsymbol{B})^{-1} & = & \boldsymbol{B}^{-1} \boldsymbol{A}^{-1} \nonumber 
+\end{eqnarray}
+\end{thm}
+
+\pause 
+
+
+\invisible<1>{Proof.\\
+We need to show that $(\boldsymbol{B}^{-1} \boldsymbol{A}^{-1} ) (\boldsymbol{A} \boldsymbol{B}) = (\boldsymbol{A} \boldsymbol{B})(\boldsymbol{B}^{-1} \boldsymbol{A}^{-1}) = \boldsymbol{I}$.  
+\begin{eqnarray}
+(\boldsymbol{B}^{-1} \boldsymbol{A}^{-1} ) (\boldsymbol{A} \boldsymbol{B})  &  = & \boldsymbol{B}^{-1} (\boldsymbol{A}^{-1}  \boldsymbol{A}) \boldsymbol{B} \nonumber \\
+& = & \boldsymbol{B}^{-1} \boldsymbol{I} \boldsymbol{B} \nonumber \\
+& = & \boldsymbol{B}^{-1} \boldsymbol{B}\nonumber \\
+& = & \boldsymbol{I}\nonumber 
+\end{eqnarray}
+} 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Inversion}
+
+\begin{eqnarray}
+(\boldsymbol{A} \boldsymbol{B})(\boldsymbol{B}^{-1} \boldsymbol{A}^{-1}) & = & \boldsymbol{A} (\boldsymbol{B}\boldsymbol{B}^{-1})  \boldsymbol{A}^{-1} \nonumber \\
+& = & \boldsymbol{A} \boldsymbol{I} \boldsymbol{A}^{-1} \nonumber \\
+& = & \boldsymbol{A} \boldsymbol{A}^{-1} \nonumber \\
+& = & \boldsymbol{I} \nonumber 
+\end{eqnarray}
+So $\boldsymbol{A}\boldsymbol{B} $ is invertible and $(\boldsymbol{A}\boldsymbol{B} )^{-1}   = \boldsymbol{B}^{-1} \boldsymbol{A}^{-1} $.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Challenge Inversion Proofs}
+
+\begin{itemize}
+\item[-] Show that $(\boldsymbol{A}^{-1})^{-1}  = \boldsymbol{A}$.  
+\item[-] Show that $(k \boldsymbol{A})^{-1} = \frac{1}{k} \boldsymbol{A}^{-1}$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Matrix Inversion}
+\begin{itemize}
+\item[1)] How to Calculate an Inverse
+\item[2)] Inversion properties
+\item[3)] \alert{When do inverses exist? }
+\end{itemize}
+
+
+\alert{Linear Independence}: not repeated information in matrix will be the key (for both inversion and regressions)
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Inversion: Existence}
+
+
+\begin{defn} Suppose we have a set of vectors $S =\{ \boldsymbol{v}_{1}, \boldsymbol{v}_{2}, \hdots, \boldsymbol{v}_{r}\}$ 
+
+And consider the system of equations 
+\begin{eqnarray}
+k_{1} \boldsymbol{v}_{1} + k_{2} \boldsymbol{v}_{2} + \hdots + k_{r} \boldsymbol{v}_{r} & = & \boldsymbol{0} \nonumber 
+\end{eqnarray}
+
+If the only solution is $k_{1} = 0, k_{2} = 0, k_{3} = 0, \hdots, k_{r} = 0$ then we say that the set is \alert{linearly independent}.  If there are other solutions, then the set is \alert{linearly dependent}.
+
+\end{defn}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Matrix Inversion: Existence}
+
+Consider $\boldsymbol{v}_{1} = (1, 0, 0)$, $\boldsymbol{v}_{2} = (0,1,0)$, $\boldsymbol{v}_{3} = (0,0,1)$ \\
+Can we write this as a combination of other vectors?  \pause \invisible<1>{\alert{no!}}\pause 
+
+\invisible<1-2>{Consider $\boldsymbol{v}_{1} = (1, 0, 0)$, $\boldsymbol{v}_{2} = (0,1,0)$, $\boldsymbol{v}_{3} = (0,0,1)$, $\boldsymbol{v}_{4} = (1, 2, 3)$.  \\\
+Can we write this as a combination of other vectors?  \\} \pause 
+\begin{eqnarray}
+\invisible<1-3>{\boldsymbol{v}_{4} = \boldsymbol{v}_{1} + 2 \boldsymbol{v}_{2} + 3\boldsymbol{v}_{3} \nonumber } 
+\end{eqnarray}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Matrix Inversion: Existence} 
+
+\begin{thm} 
+Suppose $\boldsymbol{v}_{1}, \boldsymbol{v}_2, \hdots, \boldsymbol{v}_{K} \in \Re^{n}$.  If $K>n$ then the set is linearly dependent 
+\end{thm}
+\pause 
+\begin{itemize}
+\invisible<1>{\item[-] $\boldsymbol{v}_{1} = (v_{11}, v_{21}, \hdots, v_{n1})$} \pause 
+\invisible<1-2>{\item[-] Says that if there are more vectors in the set than elements in each vector, one must be linearly dependent} 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matrix Inversion: Existence} 
+\alert{We care because of the following theorem}
+
+\begin{thm} Suppose $\boldsymbol{X} $ is an $n \times n$ matrix.  Recall we can write this matrix as 
+$\begin{pmatrix} \boldsymbol{x}_{1} \\ \boldsymbol{x}_{2} \\ \vdots \\ \boldsymbol{x}_{n} \end{pmatrix}$.  Then $\boldsymbol{X}$ has an inverse \alert{if and only if}  $S = \{\boldsymbol{x}_{1} , \boldsymbol{x}_{2} ,  \hdots, \boldsymbol{x}_{n} \}$ is linearly independent 
+\end{thm}
+
+If this is true, we say $\alert{\boldsymbol{X}}$ has \alert{full rank} 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear Regression}
+\invisible<1>{In methods classes you learn about linear regression. For each $i$ (individual) we observe covariates $x_{i1}, x_{i2}, \hdots, x_{ik}$ and independent variable $Y_{i}$.   Then, }  
+\begin{eqnarray}
+\invisible<1-3>{Y_{1} & = & \beta_{0} + \beta_{1} x_{11} + \beta_{2} x_{12} + \hdots + \beta_{k} x_{1k} \nonumber \\} 
+\invisible<1-3>{Y_{2} & = & \beta_{0} + \beta_{1} x_{21} + \beta_{2} x_{22} + \hdots + \beta_{k} x_{2k} \nonumber \\}
+\invisible<1-3>{\vdots & \vdots & \vdots \nonumber \\}
+\invisible<1-2>{Y_{i} & = & \beta_{0} + \beta_{1} x_{i1} + \beta_{2} x_{i2} + \hdots + \beta_{k} x_{ik} \nonumber \\}
+\invisible<1-3>{\vdots & \vdots & \vdots \nonumber \\} 
+\invisible<1-3>{Y_{n} & = & \beta_{0} + \beta_{1} x_{n1} + \beta_{2} x_{n2} + \hdots + \beta_{k} x_{nk}\nonumber }
+\end{eqnarray}
+
+
+
+\pause \pause \pause 
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear Regression}
+\begin{itemize}
+\item[-] Define $\boldsymbol{x}_{i} = (1, x_{i1}, x_{i2}, \hdots, x_{ik})$
+\item[-] Define $\boldsymbol{X} = \begin{pmatrix} \boldsymbol{x}_{1}\\\boldsymbol{x}_{2}\\ \vdots \\ \boldsymbol{x}_{n} \end{pmatrix}$ 
+\item[-] Define $\boldsymbol{\beta} = (\beta_{0}, \beta_{1}, \hdots, \beta_{k} )$
+\item[-] Define $\boldsymbol{Y} = (Y_{1}, Y_{2}, \hdots, Y_{n})$.  
+\end{itemize}
+Then we can write 
+\begin{eqnarray}
+\boldsymbol{Y} & = & \boldsymbol{X}\boldsymbol{\beta} \nonumber 
+\end{eqnarray}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear Regression} 
+
+\begin{eqnarray}
+\boldsymbol{Y} & = & \boldsymbol{X}\boldsymbol{\beta} \nonumber \\
+\boldsymbol{X}^{'} \boldsymbol{Y} & = & \boldsymbol{X}^{'} \boldsymbol{X} \boldsymbol{\beta} \nonumber \\
+(\boldsymbol{X}^{'}\boldsymbol{X})^{-1} \boldsymbol{X}^{'} \boldsymbol{Y} & = & (\boldsymbol{X}^{'}\boldsymbol{X})^{-1}\boldsymbol{X}^{'} \boldsymbol{X} \boldsymbol{\beta} \nonumber \\
+(\boldsymbol{X}^{'}\boldsymbol{X})^{-1} \boldsymbol{X}^{'} \boldsymbol{Y} & = &\boldsymbol{\beta} \nonumber 
+\end{eqnarray}
+
+\alert{Big question}:  is $(\boldsymbol{X}^{'} \boldsymbol{X})^{-1}$ invertible?\\
+
+\alert{We'll investigate in homework}!
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{An Introduction to Eigenvectors, Values, and Diagonalization}
+
+
+\begin{defn}
+Suppose $\boldsymbol{A}$ is an $N \times N$ matrix and $\lambda$ is a scalar.  \\
+
+If
+
+\begin{eqnarray}
+\boldsymbol{A}\boldsymbol{x} &= & \lambda \boldsymbol{x} \nonumber
+\end{eqnarray}
+
+Then $\boldsymbol{x}$ is an \alert{eigenvector} and $\lambda$ is the associated \alert{eigenvalue}
+
+
+\end{defn}
+
+\pause
+
+\begin{itemize}
+\invisible<1>{\item[-] $\boldsymbol{A}$ stretches the eigenvector $\boldsymbol{x}$ } \pause
+\invisible<1-2>{\item[-] $\boldsymbol{A}$ stretches $\boldsymbol{x}$ by $\lambda$ } \pause
+\invisible<1-3>{\item[-] To find eigenvectors/values: ({\tt eigen} in {\tt R} ) } \pause
+\begin{itemize}
+\invisible<1-4>{\item Find $\lambda$ that solves $\text{det}(\boldsymbol{A}- \lambda \boldsymbol{I}) = 0 $} \pause
+\invisible<1-5>{\item Find vectors in \alert{null space} of:} \pause
+\begin{eqnarray}
+\invisible<1-6>{(\boldsymbol{A} - \lambda \boldsymbol{I} ) &= & 0 \nonumber }
+\end{eqnarray}
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{defn}
+Suppose $A$ is an $N \times N$ matrix and $A$ has $N$ linearly independent eigenvectors.  Then, we can write $A$ as
+
+\begin{eqnarray}
+\boldsymbol{A} &= & \boldsymbol{W}^{'}\begin{pmatrix}
+\lambda_{1} & 0 & \hdots & 0 \\
+0 & \lambda_{2} & \hdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0&  \hdots & \lambda_{N}\\
+\end{pmatrix}
+\boldsymbol{W} \nonumber
+\end{eqnarray}
+
+Where $\lambda_{1},\lambda_{2} , \hdots , \lambda_{N} $ are the eigenvalues and $\boldsymbol{w}$ is a matrix of the eigenvectors. \\
+
+\end{defn}
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{defn}
+Suppose $\boldsymbol{X}$ is an $N \times J$ matrix.  Then $\boldsymbol{X}$ can be written as:
+
+\begin{eqnarray}
+\boldsymbol{X} & =& \underbrace{\boldsymbol{U}}_{N \times N} \underbrace{\boldsymbol{S}}_{N \times J} \underbrace{\boldsymbol{V}^{'}}_{J \times J} \nonumber
+\end{eqnarray}
+
+Where:
+\begin{eqnarray}
+\boldsymbol{U}^{'}\boldsymbol{U} & = & \boldsymbol{I}_{N} \nonumber \\
+\boldsymbol{V}^{'}\boldsymbol{V} & = & \boldsymbol{V}\boldsymbol{V}^{'} = \boldsymbol{I}_{J} \nonumber
+\end{eqnarray}
+$\boldsymbol{S}$ contains $\min(N, J)$ singular values, $\sqrt{\lambda_{j}}\geq 0$ down the diagonal and then 0's for the remaining entries
+\end{defn}
+
+
+\end{frame}
+
+
+\end{document}
