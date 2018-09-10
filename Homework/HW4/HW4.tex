@@ -1,0 +1,94 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage{fullpage}
+\usepackage{parskip}
+ \usepackage{relsize}
+\usepackage{dcolumn}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\DeclareMathSizes{11}{30}{20}{12}
+\newcommand{\Z}{\mathbb{Z}}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+
+\centerline{\bf Math Camp - Homework 4}
+
+
+\bigskip
+
+\noindent \textbf{1:} Evaluate the following integrals, or explain why they do not exist:
+
+\medskip
+
+\begin{multicols}{2}
+\begin{enumerate}
+\item $$\int_0^1 x^{\frac{3}{7}} \,dx$$
+\item $$\int_1^2 \left(\frac{3}{x^4} + 2\right) \,dx$$
+\item $$\int_8^9 2^x \,dx$$
+\item $$\int_3^3 \sqrt{x^5 + 2} \,dx$$
+\end{enumerate}
+\end{multicols}
+
+\noindent \textbf{Question 2:} A group of three unidentified first-year political science students at Stanford University are worn out after a week of math camp. Wanting to unwind, the students agree to not talk about math and decide to chat over some casual drinks in downtown Palo Alto.\footnote{Protip: Try not to talk about math and/or political science at bars, \textit{especially} with your cohort-mates.}
+
+After five shots of tequila each, two pitchers of beer, a bottle of wine, and a large Chicago-style pizza, the three students have had enough fun and decide to start the trip back home.
+
+Student $A$ gets on a bike and starts pedalling away at a velocity of $v_A(t) = 2t^4 + t$, where $t$ represents minutes. However, the student crashes into the side of a Marguerite shuttle and ends the journey after only 2 minutes.
+
+Student $B$ has no bike, so starts running at a velocity of $v_B(t) = 4\sqrt{t}$. Sadly, after only 4 minutes, the student's legs give out and the student decides to sing a song, instead.
+
+Student $C$ can't even stand up, so has no choice but to slowly crawl at a velocity of $v_C(t) = 2e^{-t}$. Student $C$ steadily plods along for 20 minutes before falling asleep on the sidewalk.
+
+Generally, if an object moves along a straight line with position function $s(t)$, then its velocity is $v(t) = s'(t)$. The Fundamental Theorem of Calculus then tells us that
+\begin{align*}
+\textrm{Total distance traveled} &= \int_{t_1}^{t_2} v(t) \,dt\\
+s(t_2) - s(t_1) &= \int_{t_1}^{t_2} v(t) \,dt
+\end{align*}
+
+Without using a calculator, use this formula to find the distance traveled by Students $A$, $B$, and $C$. (Assume, however unrealistic in may be, that all three students traveled in a straight line.) Who traveled the farthest? The least far? 
+
+\pagebreak
+
+\noindent \textbf{Question 3:} Determine whether each integral is convergent or divergent. Evaluate those that are convergent.
+\begin{multicols}{2}
+\begin{enumerate}
+\item $$\int_1^{\infty} \left(\frac{1}{3x}\right)^2 \,dx$$
+\item $$\int_0^{\infty} \cos (x) \, dx$$
+\item $$\int_0^{\infty} e^{-x} \,dx$$
+\item $$\int_{-\infty}^0 x^3 \,dx$$
+\end{enumerate}
+\end{multicols}
+
+\noindent \textbf{Question 4:} Evaluate the following indefinite integrals showing all your work:
+
+\begin{enumerate}
+\item
+\begin{align*}
+\int \cos^3x \sin x \,dx\\
+\end{align*}
+
+
+\item 
+\begin{align*}
+\int \dfrac{\log(x)}{x} dx\\
+\end{align*}
+
+
+\item 
+\begin{align*}
+\int  x^3\log(5x) dx\\
+\end{align*}
+
+
+
+\end{enumerate}
+
+
+\end{document}
