@@ -1,0 +1,1387 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\Stanford University}
+\vspace{0.3in}
+
+\date{September 11th, 2018}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\alert{Multivariable} Calculus}
+
+\alert{Functions} of many variables:
+\begin{itemize}
+\item[1)] \alert{Policies} may be multidimensional (policy provision and pork buy off)
+\item[2)] Countries may invest in \alert{offensive} and \alert{defensive} resources for fighting wars
+\item[3)] Ethnicity and resources could affect \alert{investment}
+\end{itemize}
+
+Today: 
+\begin{itemize}
+\item[0)] Determinant 
+\item[0)] Eigenvector/Diagonalization
+\item[1)] Multivariate functions
+\item[2)] Partial Derivatives, Gradients, Jacobians, and Hessians
+\item[3)] Total Derivative, Implicit Differentiation, Implicit Function Theorem
+\item[4)] Multivariate Integration
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Determinant}
+
+
+Suppose we have a \alert{square} ($n \times n $) matrix $A$
+
+\begin{eqnarray}
+A & = & \begin{pmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22} \\
+\end{pmatrix} \nonumber
+\end{eqnarray}
+
+A determinant is a function that assigns a number to square matrices
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Determinant} 
+
+Facts needed to define determinant :
+
+\begin{defn}
+ A \alert{permutation} of the set of integers $\{1, 2, \hdots, J \}$ is an arrangement of these integers in some order without omissions or repetition.
+\end{defn}
+
+For example, consider $\{1, 2, 3, 4\}$
+\begin{itemize}
+\item[] $\{3, 2, 1 , 4 \}$
+\item[] $\{4, 3, 2, 1 \} $
+\end{itemize}
+
+If we have $J$ integers then there are $J!$ permutations
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Determinant}
+
+\begin{defn}
+An \alert{inversion} occurs when a larger integer occurs before a smaller integer in a permutation
+\begin{itemize}
+\item[] Even permutation: total inversions are even
+\item[] Odd permutation: total inversions are odd
+\end{itemize}
+\end{defn}
+
+
+Count the inversions
+\begin{itemize}
+\item[] $\{3, 2, 1\}$
+\item[] $\{1, 2, 3\}$
+\item[] $\{3, 1, 2\}$
+\item[] $\{2, 1, 3\}$
+\item[] $\{1, 3, 2\}$
+\item[] $\{2, 3, 1\}$
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Determinant}
+
+\begin{defn}
+For a square $n x n$ matrix $A$, we will call an \alert{elementary product} an $n$ element long product, with no two components coming from the same row or column.  We will call a \alert{signed} elementary product one that multiplies odd permutations of the column numbers by $-1$.  
+\end{defn}
+
+
+\vspace{1in}
+
+\pause 
+
+\only<1-2>{\invisible<1>{$\begin{pmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22} \\
+\end{pmatrix}$}}
+\pause 
+
+\only<3>{$\begin{pmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23}\\
+a_{31} & a_{32} & a_{33}\\
+\end{pmatrix}$}
+
+\only<3>{There are $n!$ elementary products}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Determinant}
+
+\begin{defn}
+Suppose $A$ is an $n \times n $ matrix.  Define the determinant function $\text{det}(A)$ to be the sum of signed elementary products from $A$.  Call $\text{det}(A)$ the \alert{determinant} of $A$ 
+\end{defn}
+
+
+
+
+\only<1-4>{\invisible<1>{Suppose $A$ is a $2 \times 2$ matrix} 
+\begin{eqnarray}
+\invisible<1-2>{\text{det}(A) & = & \text{det} \begin{pmatrix} a_{11} & a_{12} \\
+a_{21} & a_{22} \\
+\end{pmatrix}} 
+\nonumber \\
+\invisible<1-3>{& = & a_{11} a_{22} - a_{12} a_{21} \nonumber } 
+\end{eqnarray} 
+}
+
+
+
+\only<5->{
+Suppose $A$ is a $3 \times 3$ matrix.  
+\begin{eqnarray}
+\invisible<1-5>{\text{det}(A) & = & \text{det} \begin{pmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33} \\
+\end{pmatrix}} 
+\nonumber \\
+\invisible<1-6>{& = & a_{11} a_{22} a_{33} - a_{11} a_{23} a_{32} - a_{12}a_{21} a_{33} \nonumber \\
+& & + a_{12} a_{23} a_{31} + a_{13} a_{21} a_{32} - a_{13} a_{22} a_{31} \nonumber}
+\end{eqnarray}
+}
+
+
+\invisible<1-7>{{\tt R Code!}}
+
+
+\pause \pause \pause \pause \pause \pause \pause 
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{An Introduction to Eigenvectors, Values, and Diagonalization}
+
+
+\begin{defn}
+Suppose $\boldsymbol{A}$ is an $N \times N$ matrix and $\lambda$ is a scalar.  \\
+
+If 
+
+\begin{eqnarray}
+\boldsymbol{A}\boldsymbol{x} &= & \lambda \boldsymbol{x} \nonumber 
+\end{eqnarray}
+
+Then $\boldsymbol{x}$ is an \alert{eigenvector} and $\lambda$ is the associated \alert{eigenvalue}
+
+
+\end{defn}
+
+\pause 
+
+\begin{itemize}
+\invisible<1>{\item[-] $\boldsymbol{A}$ stretches the eigenvector $\boldsymbol{x}$ } \pause 
+\invisible<1-2>{\item[-] $\boldsymbol{A}$ stretches $\boldsymbol{x}$ by $\lambda$ } \pause 
+\invisible<1-3>{\item[-] To find eigenvectors/values: ({\tt eigen} in {\tt R} ) } \pause 
+\begin{itemize}
+\invisible<1-4>{\item Find $\lambda$ that solves $\text{det}(\boldsymbol{A}- \lambda \boldsymbol{I}) = 0 $} \pause 
+\invisible<1-5>{\item Find vectors in \alert{null space} of:} \pause 
+\begin{eqnarray}
+\invisible<1-6>{(\boldsymbol{A} - \lambda \boldsymbol{I} ) &= & 0 \nonumber } 
+\end{eqnarray}
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{An Introduction to Eigenvectors, Values, and Diagonalization}
+
+
+\begin{thm}
+Suppose $\boldsymbol{A}$ is an \alert{invertible} $N \times N$ matrix and further suppose that $\boldsymbol{A}$ has $N$ distinct eigenvalues and $N$ linearly independent eigenvectors.  Then we can write $\boldsymbol{A}$ as, 
+
+\begin{eqnarray}
+\boldsymbol{A} &= & \boldsymbol{W}\begin{pmatrix}
+\lambda_{1} & 0 & \hdots & 0 \\
+0 & \lambda_{2} & \hdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0&  \hdots & \lambda_{N}\\
+\end{pmatrix}
+\boldsymbol{W}^{-1} \nonumber 
+\end{eqnarray}
+
+where $\boldsymbol{W} = \left(\boldsymbol{w}_{1}, \boldsymbol{w}_{2}, \hdots, \boldsymbol{w}_{N} \right)$ is an $N \times N$ matrix with the $N$ eigenvectors as column vectors.  
+
+\end{thm}
+
+\end{frame}
+
+
+\begin{frame}
+Proof:\\
+
+Note
+\begin{eqnarray}
+\boldsymbol{A}\boldsymbol{W} & = & \begin{pmatrix} \lambda_{1} \boldsymbol{w}_{1} &  \lambda_{2} \boldsymbol{w}_{2}  & \hdots  & \lambda_{N} \boldsymbol{w}_{N} \end{pmatrix} \nonumber \\
+& = & \boldsymbol{W}\boldsymbol{\Lambda} \nonumber \\
+\boldsymbol{A} & = & \boldsymbol{W}\boldsymbol{\Lambda} \boldsymbol{W}^{-1} \nonumber 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Examples of Diagonalization}
+
+Suppose $\boldsymbol{A}$ is an $N \times N$ invertible matrix with eigenvalues $\boldsymbol{\lambda} = (\lambda_{1}, \lambda_{2}, \hdots, \lambda_{N})$ and eigenvectors $\boldsymbol{W}$.  Calculate $\boldsymbol{A} \boldsymbol{A} = \boldsymbol{A}^{2}$ 
+
+\begin{eqnarray}
+\boldsymbol{A}\boldsymbol{A} & = & \boldsymbol{W} \boldsymbol{\Lambda} \boldsymbol{W}^{-1} \boldsymbol{W} \boldsymbol{\Lambda} \boldsymbol{W}^{-1} \nonumber \\
+& = &  \boldsymbol{W} \begin{pmatrix}
+\lambda_{1} & 0 & \hdots & 0 \\
+0 & \lambda_{2} & \hdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0&  \hdots & \lambda_{N}\\
+\end{pmatrix} \begin{pmatrix}
+\lambda_{1} & 0 & \hdots & 0 \\
+0 & \lambda_{2} & \hdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0&  \hdots & \lambda_{N}\\
+\end{pmatrix} \boldsymbol{W}^{-1} \nonumber \\
+& = & \boldsymbol{W} \begin{pmatrix}
+\lambda_{1}^{2} & 0 & \hdots & 0 \\
+0 & \lambda_{2}^{2} & \hdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0&  \hdots & \lambda_{N}^{2} \\
+\end{pmatrix} \boldsymbol{W}^{-1} \nonumber 
+\end{eqnarray}
+
+
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Multivariate Functions}
+
+
+\only<1>{\begin{eqnarray}
+f(x_{1}, x_{2}) & = & x_{1}  + x_{2} \nonumber 
+\end{eqnarray}} 
+
+\only<2>{\begin{eqnarray}
+f(x_{1}, x_{2}) & = & x_{1}^2 + x_{2}^2 \nonumber 
+\end{eqnarray}}
+
+
+
+\only<3>{\begin{eqnarray}
+f(x_{1}, x_{2}) & = &   \sin(x_1)\cos(x_2)   \nonumber 
+\end{eqnarray}}
+
+
+\only<4>{\begin{eqnarray}
+f(x_{1}, x_{2}) & = &   -(x-5)^2 - (y-2)^2  \nonumber 
+\end{eqnarray}}
+
+\only<5>{\begin{eqnarray} 
+f(x_{1}, x_{2}, x_{3} ) & = & x_1 + x_2 + x_3 \nonumber 
+\end{eqnarray} }
+
+\only<6>{\begin{eqnarray} 
+f(\boldsymbol{x} ) & = & f(x_{1}, x_{2}, \hdots, x_{N} ) \nonumber \\
+							& = & x_{1} +x_{2} + \hdots + x_{N} \nonumber \\
+							& = & \sum_{i=1}^{N} x_{i} \nonumber 
+\end{eqnarray} } 							
+
+
+
+\only<1>{\scalebox{0.2}{\includegraphics{TC5.png} }} 
+\only<2>{\scalebox{0.3}{\includegraphics{Fig2.png} }}
+\only<3>{\scalebox{0.2}{\includegraphics{Fig3.png} }}
+\only<4>{\scalebox{0.3}{\includegraphics{Fig4.png} }}
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Multivariate Functions}
+
+\begin{defn}
+Suppose $f:\Re^{n} \rightarrow \Re^{1}$.  We will call $f$ a \alert{multivariate} function.  We will commonly write,
+\begin{eqnarray}
+f(\boldsymbol{x}) & = & f(x_{1}, x_{2}, x_{3}, \hdots, x_{n} ) \nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+\begin{itemize}
+\item[-] $\Re^{n} = \Re \underbrace{\times}_{\text{cartesian}} \Re \times \Re \times \hdots \Re $
+\item[-] The function we consider will take $n$ inputs and output a single number (that lives in $\Re^{1}$, or the real line)
+\end{itemize} 
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 1} 
+
+
+\only<1>{\begin{eqnarray}
+f(x_{1}, x_{2}, x_{3}) & = & x_1  + x_2 + x_3 \nonumber 
+\end{eqnarray}
+Evaluate at $\boldsymbol{x} = (x_{1}, x_{2}, x_{3}) = (2, 3, 2) $ \\
+\begin{eqnarray}
+f(2, 3, 2) & = & 2 + 3 + 2 \nonumber \\
+			& = & 7 \nonumber 
+\end{eqnarray}} 
+
+
+\only<2>{\begin{eqnarray}
+f(x_{1}, x_{2} ) & = & x_{1} + x_{2} + x_{1} x_{2} \nonumber 
+\end{eqnarray} 
+Evaluate at $\boldsymbol{w} = (w_{1}, w_{2} ) = (1, 2) $ 
+\begin{eqnarray}
+f(w_{1}, w_{2}) & = & w_{1} + w_{2} + w_{1} w_{2} \nonumber \\
+								& = & 1  + 2  + 1 \times 2 \nonumber \\
+								& = & 5 \nonumber 
+\end{eqnarray}								
+}								
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Preferences for Multidimensional Policy}
+
+Recall that in the \alert{spatial} model, we suppose policy and political actors are located in a space.  \pause \\
+\invisible<1>{Suppose that policy is $N$ dimensional---or $\boldsymbol{x} \in \Re^{N}$.} \pause \\
+\invisible<1-2>{Suppose that legislator $i$'s utility is a $U:\Re^{N} \rightarrow \Re^{1}$ and is given by,} \pause  
+\begin{eqnarray}
+\invisible<1-3>{U(\boldsymbol{x}) & = & U(x_{1}, x_{2}, \hdots, x_{N} ) \nonumber } \pause \\
+\invisible<1-4>{					& = & - (x_{1} - \mu_{1} )^2 - (x_{2} - \mu_{2})^2 - \hdots - (x_{N} - \mu_{N})^{2} \nonumber \\} \pause 
+\invisible<1-5>{						& = & -\sum_{j=1}^{N} (x_{j} - \mu_{j} )^{2} \nonumber } \pause 
+\end{eqnarray}							
+
+\invisible<1-6>{Suppose $\boldsymbol{\mu} = (\mu_{1}, \mu_{2}, \hdots, \mu_{N} ) = (0, 0, \hdots, 0)$.  } \pause 
+\invisible<1-7>{Evaluate legislator's utility for a policy proposal of $\boldsymbol{m} = (1, 1, \hdots, 1)$.  } \pause 
+\begin{eqnarray}
+\invisible<1-8>{U(\boldsymbol{m} ) & = & U(1, 1, \hdots, 1) \nonumber} \pause  \\
+\invisible<1-9>{							  & = & - (1 - 0)^2 - (1- 0) ^2 - \hdots - (1- 0) ^2 } \nonumber \pause \\
+\invisible<1-10>{							& = & -\sum_{j=1}^{N} 1}\pause \invisible<1-11>{ = - N }  \nonumber  \\
+\end{eqnarray} 
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Regression Models and Randomized Treatments}
+Often we administer randomized experiments: \pause  \\
+\invisible<1>{The most recent wave of interest began with \alert{voter mobilization}, and wonder if individual $i$ turns out to vote, $\text{Vote}_{i}$} \pause 
+\begin{itemize}
+\invisible<1-2>{\item[-] $T = 1$ (treated): voter receives mobilization} \pause 
+\invisible<1-3>{\item[-] $T = 0$ (control): voter does not receive mobilization} \pause 
+\end{itemize}
+
+\invisible<1-4>{Suppose we find the following regression model, where $x_{2}$ is a participant's age:} \pause 
+\begin{eqnarray}
+\invisible<1-5>{f(T,x_2) & = & Pr(\text{Vote}_{i} = 1 | T, x_{2} ) \nonumber \\} \pause 
+\invisible<1-6>{		& = &   \beta_{0} + \beta_{1} T + \beta_{2} x_{2} \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-7>{We can calculate the effect of the experiment as:\\} \pause 
+\begin{eqnarray}
+\invisible<1-8>{f(T = 1, x_2) - f(T=0, x_2) & = & \beta_{0} + \beta_{1} 1  + \beta_{2} x_{2} - (\beta_{0} + \beta_{1}  0 + \beta_{2} x_{2}) } \pause \nonumber \\
+								\invisible<1-9>{& = & \beta_{0} - \beta_{0}  + \beta_{1}(1 - 0) + \beta_{2}(x_{2} - x_{2} )} \pause \nonumber \\
+								\invisible<1-10>{	& = & \beta_{1} \nonumber } 
+\end{eqnarray}										
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multivariate Derivative} 
+\begin{defn} 
+Suppose $f:X \rightarrow \Re^{1}$, where $X \subset \Re^{n}$. $f(\boldsymbol{x}) = f(x_{1}, x_{2}, \hdots, x_{N} ) $.  If the limit, \\
+\small
+\begin{eqnarray}
+\frac{\partial}{\partial x_{i} } f(\boldsymbol{x}_{0}  ) & = & \frac{\partial}{\partial x_{i} }  f(x_{01}, x_{02}, \hdots,x_{0i}, x_{0i+1}, \hdots,  x_{0N} ) \nonumber \\
+& = & \lim_{h\rightarrow 0}  \frac{f(x_{01}, x_{02}, \hdots, x_{0i} + h ,  \hdots x_{0N} ) - f(x_{01}, x_{02} , \hdots,x_{0 i},\hdots,  x_{0N} )} {h}  \nonumber 
+\end{eqnarray}
+
+exists then we call this the partial derivative of $f$ with respect to $x_{i}$ at the value $\boldsymbol{x}_{0} = (x_{01}, x_{02}, \hdots, x_{0N})$.
+
+\end{defn}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Rules for Taking Partial Derivatives}
+
+\alert{Partial Derivative}: $\frac{\partial f(\boldsymbol{x}) }{\partial x_{i} }$ 
+\begin{itemize}
+\item[-] Treat each instance of $x_{i}$ as a \alert{variable} that we would differentiate before
+\item[-] Treat each instance of $\boldsymbol{x}_{-i} = (x_{1}, x_{2} , x_{3} , \hdots, x_{i-1}, x_{i+1}, \hdots, x_{n})$ as a \alert{constant}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Partial Derivatives} 
+
+
+\begin{eqnarray}
+f(\boldsymbol{x}) & = & f(x_{1}, x_{2}) \nonumber \\
+							& = & x_{1} + x_{2}\nonumber 
+\end{eqnarray}							
+
+Partial derivative, with respect to $x_{1}$ at $(x_{01}, x_{02})$
+\begin{eqnarray}
+\frac{\partial f(x_{1}, x_{2} ) } {\partial x_{1} }|_{(x_{01}, x_{02} )} & = &  1 + 0|_{x_{01}, x_{02}}  \nonumber \\
+																	& = & 1 \nonumber 
+\end{eqnarray}																	
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Partial Derivatives}
+
+\begin{eqnarray}
+f(\boldsymbol{x}) & = & f(x_{1}, x_{2}, x_{3}) \nonumber \\
+							& = & x_{1}^2 \log(x_{1}) + x_{2}x_{1}x_{3} + x_{3}^2 \nonumber 
+\end{eqnarray}
+
+\pause 
+\invisible<1>{What is the partial derivative with respect to $x_{1}$? }  \invisible<1-2>{$x_{2}$?}  \invisible<1-3>{$x_{3}$?} \invisible<1>{Evaluated at $\boldsymbol{x}_{0} = (x_{01}, x_{02}, x_{03} )$. }
+
+\only<1-2>{\begin{eqnarray}
+\invisible<1>{\frac{\partial f(\boldsymbol{x}) }{\partial x_{1} } |_{\boldsymbol{x}_{0} } & = & 2 x_{1} \log(x_{1}) +  x_{1}^{2} \frac{1}{x_{1}} + x_{2} x_{3} |_{\boldsymbol{x}_{0} } \nonumber \\
+& = & 2 x_{01} \log(x_{01} ) + x_{01}   + x_{02} x_{03} \nonumber }
+\end{eqnarray}
+}
+
+
+\only<3>{\begin{eqnarray}
+\frac{\partial f(\boldsymbol{x}) }{\partial x_{2} } |_{\boldsymbol{x}_{0} } & = & x_{1} x_{3} |_{\boldsymbol{x}_{0} } \nonumber \\
+& = &  x_{01} x_{03} \nonumber 
+\end{eqnarray}
+}
+
+
+\only<4>{\begin{eqnarray}
+\frac{\partial f(\boldsymbol{x}) }{\partial x_{3} } |_{\boldsymbol{x}_{0} } & = & x_{1} x_{2} + 2 x_{3} |_{\boldsymbol{x}_{0}} \nonumber \\
+& = &  x_{01} x_{02}  + 2 x_{03} \nonumber 
+\end{eqnarray}
+}
+
+
+
+\pause\pause 
+
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Rate of Change, Linear Regression}
+
+Suppose we regress \alert{Approval}$_{i}$ rate for Obama in month $i$ on $\text{Employ}_{i}$ and $\text{Gas}_{i}$.  We obtain the following model:
+\begin{eqnarray}
+\text{Approval}_{i} & = & 0.8  -0.5 \text{Employ}_{i}  -0.25 \text{Gas}_{i} \nonumber 
+\end{eqnarray}
+
+We are modeling Approval$_{i} = f(\text{Employ}_{i}, \text{Gas}_{i} )$.  What is partial derivative with respect to employment?
+\begin{eqnarray}
+\frac{\partial f(\text{Employ}_{i}, \text{Gas}_{i} ) }{\partial \text{Employ}_{i} } & = & -0.5 \nonumber 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Gradient} 
+
+\begin{defn} 
+Suppose $f:X \rightarrow \Re^{1}$ with $X \subset \Re^{n}$ is a differentiable function.  Define the gradient vector of $f$ at $\boldsymbol{x}_{0}$, $\nabla f(\boldsymbol{x}_{0})$ as, 
+\begin{eqnarray}
+\nabla f (\boldsymbol{x}_{0})  & = & \left(\frac{\partial f (\boldsymbol{x}_{0}) }{\partial x_{1} }, \frac{\partial f (\boldsymbol{x}_{0}) }{\partial x_{2} }, \frac{\partial f (\boldsymbol{x}_{0}) }{\partial x_{3} }, \hdots, \frac{\partial f (\boldsymbol{x}_{0}) }{\partial x_{n} } \right) \nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+\begin{itemize}
+\item[-] The gradient points in the direction that the function is \alert{increasing} in the fastest direction
+\item[-] We'll use this to do optimization (both analytic and computational)
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Gradient Calculation}
+
+Suppose 
+\begin{eqnarray}
+f(\boldsymbol{x} ) & = &  f(x_{1}, x_{2}, \hdots, x_{n}) \nonumber \\
+							& = & x_{1}^2 + x_{2}^2 + \hdots + x_{n}^2 \nonumber \\ 
+							&= & \sum_{i=1}^{n} x_{i}^{2} \nonumber 
+\end{eqnarray}							
+
+Then $\nabla f(\boldsymbol{x}^{*})$ is 
+\begin{eqnarray}
+\nabla f(\boldsymbol{x}^{*}) & = & \left( 2 x_{1}^{*}, 2 x_{2}^{*}, \hdots, 2 x_{n}^{*} \right) \nonumber 
+\end{eqnarray}
+
+So if $\boldsymbol{x}^{*} = (3, 3, \hdots, 3)$ then 
+\begin{eqnarray}
+\nabla f(\boldsymbol{x}^{*}) & = & (2*3, 2*3, \hdots, 2 *3) \nonumber \\
+										& = & (6, 6, \hdots, 6) \nonumber 
+\end{eqnarray}
+
+
+
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Second Partial Derivative}
+
+\begin{defn}
+Suppose $f:X \rightarrow \Re$ where $X \subset \Re^{n}$ and suppose that $\frac{\partial f(x_{1}, x_{2}, \hdots, x_{n})}{\partial x_{i} }$ exists.  Then we define, 
+\begin{eqnarray}
+\frac{ \partial^{2}  f(\boldsymbol{x}) }{\partial x_{j} \partial x_{i} } & \equiv & \frac{\partial}{\partial x_{j} } \left( \frac{\partial f(\boldsymbol{x})  }{\partial x_{i} }  \right) \nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+\begin{itemize}
+\item[-] Second derivative could be with respect to $x_{i}$ or with some other variable $x_{j}$
+\item[-] Nagging question: does order matter?
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Second Partial Derivative: Order Doesn't Matter} 
+
+\begin{thm} 
+\alert{Young's Theorem} Let $f: X \rightarrow \Re$ with $X \subset \Re^{n}$ be a twice differentiable function on all of $X$.  Then for any $i$, $j$, at all $\boldsymbol{x}^{*} \in X$, 
+\begin{eqnarray}
+\frac{\partial^{2} } {\partial x_{i} \partial x_{j} }f(\boldsymbol{x}^{*} ) & = &   \frac{\partial^{2} } {\partial x_{j} \partial x_{i} }f(\boldsymbol{x}^{*} ) \nonumber 
+\end{eqnarray}
+
+\end{thm}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Second Order Partial Derivates} 
+
+\begin{eqnarray}
+f(\boldsymbol{x}) & = & x_{1}^2 x_{2}^2 \nonumber 
+\end{eqnarray}
+
+Then, 
+\begin{eqnarray}
+\frac{\partial^2}{\partial x_{1} \partial x_{1} } f(\boldsymbol{x}) & = & 2 x_{2}^{2} \nonumber \\
+\frac{\partial^2}{\partial x_{1} \partial x_{2} } f(\boldsymbol{x}) & = & 4 x_{1} x_{2} \nonumber \\
+\frac{\partial^2}{\partial x_{2} \partial x_{2} } f(\boldsymbol{x}) & = & 2 x_{1}^{2} \nonumber 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Hessians}
+
+
+\begin{defn}
+Suppose $f:X \rightarrow \Re^{1}$ , $X \subset \Re^{n}$, with $f$ a twice differentiable function.  We will define the \alert{Hessian} matrix as the matrix of second derivatives at $\boldsymbol{x}^{*} \in X$,
+\begin{eqnarray}
+\boldsymbol{H}(f)(\boldsymbol{x}^{*} )  & = & \begin{pmatrix} 
+		\frac{\partial^{2} f }{\partial x_{1} \partial x_{1} } (\boldsymbol{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{1} \partial x_{2} } (\boldsymbol{x}^{*} ) & \hdots & \frac{\partial^{2} f }{\partial x_{1} \partial x_{n} } (\boldsymbol{x}^{*} ) \\
+		\frac{\partial^{2} f }{\partial x_{2} \partial x_{1} } (\boldsymbol{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{2} \partial x_{2} } (\boldsymbol{x}^{*} ) & \hdots & \frac{\partial^{2} f }{\partial x_{2} \partial x_{n} } (\boldsymbol{x}^{*} ) \\
+		\vdots & \vdots & \ddots & \vdots \\
+		\frac{\partial^{2} f }{\partial x_{n} \partial x_{1} } (\boldsymbol{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{n} \partial x_{2} } (\boldsymbol{x}^{*} ) & \hdots & \frac{\partial^{2} f }{\partial x_{n} \partial x_{n} } (\boldsymbol{x}^{*} ) \\
+\end{pmatrix} \nonumber 
+\end{eqnarray}
+
+\end{defn}		
+
+\begin{itemize}
+\item[-] Hessians are \alert{symmetric}
+\item[-] They describe \alert{curvature} of a function (think, how bended)
+\item[-] Will be the basis for second derivative test for multivariate optimization
+\end{itemize}
+
+											
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{An Example}
+
+\pause 
+
+\invisible<1>{Suppose $f:\Re^{3} \rightarrow \Re$, with } \pause 
+
+\begin{eqnarray}
+\invisible<1-2>{f(x_{1}, x_{2}, x_{3} ) & = & x_{1}^{2} x_{2}^2 x_{3}^{2} \nonumber } \pause 
+\end{eqnarray}
+
+
+\begin{eqnarray}
+\invisible<1-3>{\nabla f(\boldsymbol{x}) & = & (2 x_{1} x_{2}^{2} x_{3}^{2} , 2 x_{1}^{2} x_{2} x_{3}^{2}, 2 x_{1}^{2} x_{2}^{2}, x_{3}) \nonumber } \pause 
+\end{eqnarray}
+
+
+\invisible<1-4>{\begin{eqnarray}
+\boldsymbol{H}(f)(\boldsymbol{x}) & = & 
+\begin{pmatrix}
+2 x_{2}^{2} x_{3}^2 & 4 x_{1} x_{2} x_{3}^{2} & 4 x_{1} x_{2}^{2} x_{3} \\
+4 x_{1} x_{2} x_{3}^{2} & 2 x_{1}^{2} x_{3}^{2} & 4 x_{1}^{2} x_{2} x_{3} \\
+4 x_{1} x_{2}^{2} x_{3} & 4 x_{1}^{2} x_{2} x_{3} & 2 x_{1}^{2} x_{2}^{2} \\
+\end{pmatrix} \nonumber 
+\end{eqnarray}}
+
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Functions with Multidimensional Codomains}
+
+
+\begin{defn}
+Suppose $f:\Re^{m} \rightarrow \Re^{\alert{n}}$.  We will call $f$ a \alert{multivariate} function.  We will commonly write, 
+\begin{eqnarray}
+f(\boldsymbol{x} ) & = & \begin{pmatrix} 
+f_{1} (\boldsymbol{x} ) \\
+f_{2} (\boldsymbol{x} ) \\
+\vdots \\
+f_{n} (\boldsymbol{x} ) \\
+\end{pmatrix} \nonumber 
+\end{eqnarray}
+ \end{defn}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Example Functions}
+
+
+\only<1>{Suppose $f:\Re \rightarrow \Re^{2} $, 
+\begin{eqnarray}
+f(t) & = & (t^2, \sqrt(t) ) \nonumber 
+\end{eqnarray}
+}
+\pause 
+
+
+\only<2>{\invisible<1>{Suppose $f:\Re^{2} \rightarrow \Re^2$ defined as 
+\begin{eqnarray}
+f(r, \theta) & = & \begin{pmatrix} 
+r \cos \theta \\
+r \sin \theta \\
+\end{pmatrix}\nonumber 
+\end{eqnarray}
+}}
+
+\pause 
+\only<3>{\invisible<1-2>{
+	Suppose we have some policy $\boldsymbol{x} \in \Re^{M} $.  Suppose we have $N$ legislators where legislator $i$ has utility
+	\begin{eqnarray}
+U_{i}(\boldsymbol{x} )  & = & \sum_{j = 1}^{M} -(x_{j} - \mu_{ij} )^2 \nonumber 
+\end{eqnarray}
+We can describe the utility of all legislators to the proposal as 
+\begin{eqnarray}
+f(\boldsymbol{x} ) & = & \begin{pmatrix}
+\sum_{j=1}^{M} -(x_{j} - \mu_{1j} )^2 \\
+\sum_{j=1}^{M} -(x_{j} - \mu_{2j} )^2 \\
+\vdots \\
+\sum_{j=1}^{M} -(x_{j} - \mu_{Nj} )^2 \\
+\end{pmatrix}
+\nonumber
+\end{eqnarray}
+}
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Jacobian}
+
+\begin{defn}
+Suppose $f:X \rightarrow \Re^{n}$, where $X \subset \Re^{m}$, with $f$ a differentiable function.   Define the \alert{Jacobian} of $f$ at $\boldsymbol{x}$ as 
+
+\begin{eqnarray}
+\boldsymbol{J}(f)(\boldsymbol{x} ) & = & \begin{pmatrix}
+\frac{\partial f_{1}}{\partial x_{1} } & \frac{\partial f_{1}}{\partial x_{2} } & \hdots & \frac{\partial f_{1}} {\partial x_{m} } \\
+\frac{\partial f_{2}}{\partial x_{1} } & \frac{\partial f_{2}}{\partial x_{2} } & \hdots & \frac{\partial f_{2}} {\partial x_{m} } \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial f_{n} }{x_{1} } & \frac{\partial f_{n} } {x_{2} } & \hdots & \frac{\partial f_{n} } {x_{m} } \\
+\end{pmatrix} \nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example of Jacobian}
+
+\begin{eqnarray}
+f(r, \theta) & = & \begin{pmatrix} 
+r \cos \theta \\
+r \sin \theta\\
+\end{pmatrix} \nonumber 
+\end{eqnarray}
+
+\begin{eqnarray}
+\boldsymbol{J}(f)(r, \theta) & = & 
+\begin{pmatrix}
+\cos \theta & - r \sin \theta  \\
+\sin \theta &  r \cos \theta \\
+\end{pmatrix} \nonumber 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Implicit Functions and Differentiation}
+
+
+We have defined functions \alert{explicitly}
+\begin{eqnarray}
+Y & = & f(x) \nonumber 
+\end{eqnarray}
+
+We might also have an \alert{implicit} function:
+\begin{eqnarray}
+1 & = & x^2 + y^2 \nonumber 
+\end{eqnarray}
+
+
+\begin{center}
+\scalebox{0.4}{\includegraphics{Implicit1.pdf}}
+\end{center}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Implicit Function Theorem (From Avi Acharya's Notes)}
+
+\begin{defn}
+Suppose $X \subset \Re^{m} $ and $Y \subset \Re$.  Let $f:X \cup Y \rightarrow \Re$ be a differentiable function (with continuous partial derivatives).  Let $(\boldsymbol{x}^{*}, y^{*} ) \in X \cup Y$ such that 
+\begin{eqnarray}
+\frac{\partial f(\boldsymbol{x}^{*}, y^{*})}{\partial y } & \neq &  0 \nonumber \\
+f(\boldsymbol{x}^{*}, y^{*} ) & = & 0 \nonumber 
+\end{eqnarray}
+
+\pause 
+
+
+\invisible<1>{Then there exists $B \subset \Re^{n}$ such that there is a differentiable function $g:B \rightarrow \Re$ such that  $x^{*} \in B$ then $g(x^{*}) = y^{*}$ and $f(x, g(x)) = 0$.  The derivative of $g$ for $x \in B$ is given by
+
+\begin{eqnarray}
+\frac{\partial g}{\partial x_{j} }  & = & - \frac{\frac{\partial f} {\partial x_{j} }  } {\frac{\partial f}{\partial y} }  \nonumber 
+\end{eqnarray}
+
+}
+\end{defn}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 1: Implicit Function Theorem}
+
+Suppose that the equation is 
+\begin{eqnarray}
+1 & = & x^2 + y^2 \nonumber \\
+0 & = & x^2 + y^2 - 1 \nonumber 
+\end{eqnarray}
+
+\pause 
+
+\begin{eqnarray}
+\invisible<1>{y & = & \sqrt{1 - x^2} \text{ if y$>$0} \nonumber \\} \pause 
+\invisible<1-2>{y & = & -\sqrt{1 - x^2} \text{ if y$<$ 0 } \nonumber } 
+\end{eqnarray}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 1: Implicit Function Theorem}
+
+\pause 
+
+\begin{eqnarray}
+\invisible<1>{\frac{\partial f}{\partial x} & = & 2 x \nonumber \\}
+\invisible<1>{\frac{\partial f}{\partial y} & = & 2 y = 2 \sqrt{1 - x^2} \text { if y $>$ 0 } \nonumber \\}
+\invisible<1>{\frac{\partial f}{\partial y} & = & 2 y = -2 \sqrt{1 - x^2} \text { if y $<$ 0 } \nonumber \\} \pause 
+\invisible<1-2>{\frac{\partial g(x)} {\partial x}|_{x_{0}} & = & - \frac{\partial f/ \partial x }{\partial f/ \partial y} \nonumber \\} \pause 
+\invisible<1-3>{& = & - \frac{2 x_{0}}{2 y} = -\frac{x_{0}}{\sqrt{1- x_{0}^2}} \text{ if y $>$ 0 } \nonumber \\} \pause 
+\invisible<1-4>{& = & - \frac{2 x_{0}}{2 y} = \frac{x_{0}}{\sqrt{1- x_{0}^2}} \text{ if y $<$ 0 } \nonumber } 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Implicit Function Theorem: Frequently Asked Questions}
+
+\begin{itemize}
+\item[-] Q: What's the deal with the implicit function theorem failing? \pause 
+\invisible<1>{\item[-] A: 
+Consider our proposed solution 
+\begin{eqnarray}
+y & = & \sqrt{1 - x^2} \nonumber \\
+\frac{\partial y}{\partial x} & = & - \frac{x}{\sqrt{1- x^2 }}\nonumber 
+\end{eqnarray}
+} \pause 
+\invisible<1-2>{As $x \rightarrow 1$  or $x \rightarrow - 1 $ this derivative diverges \\} \pause 
+\invisible<1-3>{The intuition from the Implicit Function Theorem is that any function $g(x)  = y$ there would need an ``infinite" slope.  }
+
+
+\end{itemize}
+
+
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Implicit Function Theorems: Frequently Asked Questions}
+
+
+\begin{itemize}
+\item[-] Q: What's the deal with the following equation?: \pause 
+\begin{eqnarray}
+\invisible<1>{\frac{\partial g(x)}{\partial x } & = & \alert{-} \frac{\partial f/\partial x}{\partial f/\partial y} \nonumber }
+\end{eqnarray} \pause 
+\invisible<1-2>{\item[-] A: Consider, first, the following example:} \pause 
+\begin{eqnarray}
+\invisible<1-3>{0 & = & f(x, y ) \nonumber \\} \pause 
+\invisible<1-4>{0 & = & x^2 - y \nonumber \\} \pause 
+\invisible<1-5>{\frac{\partial y}{\partial x} & = & 2 x \nonumber \\} \pause 
+\invisible<1-6>{\frac{\partial f(x, y)/\partial x}{\partial f(x,y)/\partial y} & = & \frac{2 x}{ - 1} =  - \frac{\partial y}{\partial x}\nonumber } \pause 
+\end{eqnarray}
+\end{itemize}
+
+\invisible<1-7>{In this example, the negative sign is ``moving things to the other side".  \\} \pause 
+\invisible<1-8>{In general, the negative sign will capture that we want to measure the \alert{compensatory} behavior of the function: how $y$ moves in response to some $x_{i}$ \alert{along a level curve}} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 2: Implicit Function Theorem (From Jim Fearon)}
+
+
+Suppose there $n$ individuals, each individual $i$ earns pre-tax income $y_{i}>0$. \pause  \\
+\invisible<1>{Total income $Y = \sum_{i=1}^{n} y_{i}$\\} \pause 
+\invisible<1-2>{Per capita income: $\bar{y} = Y/n $\\} \pause 
+\invisible<1-3>{Individuals pay a proportional tax $t \in (0, 1)$ \\} \pause 
+\invisible<1-4>{Suppose:} \pause 
+\begin{eqnarray}
+\invisible<1-5>{U_{i}(t, y_{i}) & = & y_{i} (1- t^2)  + t\bar{y} \nonumber } 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 2: Implicit Function Theorem (From Jim Fearon)}
+
+An individual's optimal tax rate is:
+\begin{eqnarray}
+\frac{\partial U_{i}(t, y_{i} )}{\partial t} & = & - 2 y_{i} t + \bar{y} \nonumber \\
+0 & = & - 2 y_{i} t^{*} + \bar{y} \nonumber \\
+ \frac{\bar{y}}{2 y_{i}}  & = & t_{i}^{*} \nonumber 
+\end{eqnarray}
+
+Checking the second derivative:
+
+\begin{eqnarray}
+\frac{\partial U_{i}(t, y_{i} )}{\partial^2 t} & = &  - 2 y_{i} \nonumber 
+\end{eqnarray}
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Example 2: Implicit Function Theorem (From Jim Fearon)}
+
+If we set utility equal to some constant $a$, it defines an \alert{implicit} function \pause \\
+\invisible<1>{Define \alert{Marginal rate of Substitution} as } \pause 
+\begin{eqnarray}
+\invisible<1-2>{\text{MRS} & = &  -\frac{\partial U(t, y_{i} )/ \partial t } {\partial U(t, y_{i} / \partial y_{i} } = \frac{\partial Y(t)}{\partial t}  \nonumber } \pause 
+\end{eqnarray}
+
+
+
+\begin{eqnarray}
+\invisible<1-3>{\partial U(t, y_{i} )/ \partial t & = & -2 y_{i} t  + \bar{y} \nonumber \\} \pause 
+\invisible<1-4>{\partial U(t, y_{i} / \partial y_{i} & = & ( 1- t^2 ) \nonumber \\} \pause 
+\invisible<1-5>{\text{MRS} & = &  \frac{ 2 y_{i} t - \bar{y} }{1 - t^2} \nonumber } 
+\end{eqnarray}
+
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Example 2: Implicit Function Theorem (From Jim Fearon)}
+\scalebox{0.35}{\includegraphics{IndiffCurve.pdf}}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Multivariate Integration}
+
+
+\begin{columns}[]
+
+\column{0.6\textwidth}
+
+
+Suppose we have a function $f:X \rightarrow \Re^{1}$, with $X \subset \Re^{2}$. \pause \\
+
+\invisible<1>{We will \alert{integrate} a function over an area. \pause}  \\
+\invisible<1-2>{\alert{Area} under function.} \pause  \\
+\invisible<1-3>{Suppose that area, A,  is in 2-dimensions} \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] $A = \{x, y : x \in[0,1], y \in [0,1] \} $} \pause 
+\invisible<1-5>{\item[-] $A = \{x, y: x^2 + y^2 \leq 1 \} $} \pause 
+\invisible<1-6>{\item[-] $A = \{ x, y: x< y, x, y \in (0,2) \}$} 
+\end{itemize}
+
+\column{0.4\textwidth}
+
+\only<5>{\scalebox{0.3}{\includegraphics{c1.pdf}}}
+\only<6>{\scalebox{0.3}{\includegraphics{c2.pdf}}}
+\only<7>{\scalebox{0.3}{\includegraphics{c3.pdf}}}
+
+
+\end{columns}
+
+\only<8>{How do calculate the area under the function over these regions?}
+
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Multivariate Integration}
+
+\begin{defn}
+Suppose $f:X \rightarrow \Re$ where $X \subset \Re^{n}$.  We will say that $f$ is integrable over $A \subset X$ if we are able to calculate its area with refined partitions of $A$ and we will write the integral $I =\int_{A} f(\boldsymbol{x}) d\boldsymbol{A}$
+\end{defn}
+\pause 
+
+\invisible<1>{That's horribly abstract.  There is an extremely helpful theorem that makes this manageable.  } \pause
+
+\invisible<1-2>{\begin{thm}
+\alert{Fubini's Theorem} Suppose $A = [a_{1}, b_{1}]  \times [a_{2}, b_{2} ] \times \hdots \times [a_{n}, b_{n}] $ and that $f:A \rightarrow \Re$ is \alert{integrable}.  Then 
+\begin{eqnarray}
+\int_{A} f(\boldsymbol{x}) d\boldsymbol{A}& = & \int_{a_{n}}^{b_{n}} \int_{a_{n-1}}^{b_{n-1}} \hdots \int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} f(\boldsymbol{x})dx_{1} dx_{2} \hdots dx_{n-1} dx_{n}  \nonumber 
+\end{eqnarray}
+} 
+
+
+\end{thm}
+
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multivariate Integration Recipe}
+
+
+\begin{eqnarray}
+\int_{A} f(\boldsymbol{x}) d\boldsymbol{A} & = & \alert<4>{\int_{a_{n}}^{b_{n}} \int_{a_{n-1}}^{b_{n-1}} \hdots \alert<3>{\int_{a_{2}}^{b_{2}} \alert<2>{\int_{a_{1}}^{b_{1}} f(\boldsymbol{x})dx_{1}} dx_{2}} \hdots dx_{n-1} dx_{n} } \nonumber 
+\end{eqnarray}
+
+\pause 
+
+\begin{itemize}
+\invisible<1>{\item[1)] Start with the inside integral $\alert{x_{1}}$ is the variable, everything else a constant} \pause 
+\invisible<1-2>{\item[2)] Work inside to out, \alert{iterating}} \pause 
+\invisible<1-3>{\item[3)] At the last step, we should arrive at a number } 
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\alert{Intuition}: Three Dimensional Jello Molds, a discussion
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Multivariate Uniform Distribution}
+
+Suppose $f:[0,1] \times [0,1] \rightarrow \Re$ and $f(x_{1}, x_{2}) = 1$ for all $x_{1}, x_{2} \in [0,1]\times[0,1]$. What is 
+$\int_{0}^{1}\int_{0}^{1} f(x) dx_{1} dx_{2}$?
+
+\begin{eqnarray}
+\int_{0}^{1}\int_{0}^{1} f(x) dx_{1} dx_{2} & = & \int_{0}^{1} \alert{\int_{0}^{1} 1 dx_{1}} dx_{2} \nonumber \\
+															& = & \int_{0}^{1} x_{1}|_{0}^{1} dx_{2} \nonumber \\
+															& = & \int_{0}^{1} (1 - 0) dx_{2} \nonumber \\
+															& = & \int_{0}^{1} 1 dx_{2} \nonumber \\
+															& = & x_{2}|_{0}^{1} \nonumber \\
+															& = & 1 \nonumber 
+\end{eqnarray}															
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 2} 
+
+Suppose $f:[a_{1}, b_{1} ] \times [a_{2}, b_{2} ]  \rightarrow \Re$ is given by 
+\begin{eqnarray}
+f(x_{1}, x_{2} ) & = & x_{1} x_{2} \nonumber 
+\end{eqnarray}
+
+\pause 
+
+\invisible<1>{Find $\int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} f(x_{1}, x_{2} )dx_{1} dx_{2} $ } \pause 
+
+\begin{eqnarray}
+\invisible<1-2>{\int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} f(x_{1}, x_{2} )dx_{1} dx_{2} & = & \int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} x_{2} x_{1} dx_{1} dx_{2} \nonumber \\} \pause 
+\invisible<1-3>{ & = & \int_{a_{2}}^{b_{2}} \frac{x_{1}^2}{2} x_{2} |_{a_{1}}^{b_{1}} dx_{2} \nonumber \\} \pause 
+\invisible<1-4>{ & = & \frac{b_{1}^{2} - a_{1}^{2} }{2}  \int_{a_{2}}^{b_{2}} x_{2} dx_{2} \nonumber \\} \pause 
+\invisible<1-5>{ & = & \frac{b_{1}^{2} - a_{1}^{2} }{2} \left( \frac{x_{2}^{2} }{2} |_{a_{2}}^{b_{2}} \right ) \nonumber \\} \pause 
+\invisible<1-6>{ & = & \frac{b_{1}^{2} - a_{1}^{2} }{2} \frac{b_{2}^{2} - a_{2}^{2} }{2} \nonumber } 
+ \end{eqnarray}
+
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Example 3: Exponential Distributions}
+Suppose $f:\Re^{2}_{+} \rightarrow \Re$ and that 
+\begin{eqnarray}
+f(x_{1}, x_{2}) &= &  2 \exp(-x_{1}) \exp(-2 x_{2} ) \nonumber 
+\end{eqnarray}
+\pause 
+
+\invisible<1>{Find:} \pause 
+\small
+\begin{eqnarray}
+\invisible<1-2>{\int_{0}^{\infty} \int_{0}^{\infty} f(x_{1}, x_{2})} & = & \invisible<1-3>{2 \int_{0}^{\infty} \int_{0}^{\infty} \exp(-x_{1}) \exp(-2x_{2}) dx_{1} dx_{2} }  \nonumber \\
+& = & \invisible<1-4>{2 \int_{0}^{\infty}\exp(-x_{1}) dx_{1}\int_{0}^{\infty}  \exp(-2x_{2}) dx_{2} \nonumber}  \\
+& = & \invisible<1-5>{2 ( - \exp(-x)|^{\infty}_{0} ) (-\frac{1}{2} \exp(-2x_{2} ) |^{\infty}_{0}  ) \nonumber}  \\
+& = & \invisible<1-6>{2 \left[  (- \lim_{x_{1} \rightarrow \infty} \exp(-x_{1} )  + 1 ) (-\frac{1}{2} \lim_{x_{2} \rightarrow \infty} \exp(-2x_{2})  + \frac{1}{2} ) \right] \nonumber } \\
+& = & \invisible<1-7>{ 2 [ \frac{1}{2} ] \nonumber}  \\
+& = & \invisible<1-8>{1 \nonumber } 
+\end{eqnarray}
+
+\pause \pause \pause \pause \pause \pause \pause 
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Challenge Problems}
+
+
+\begin{itemize}
+\item[1)] Find $\int_{0}^{1} \int_{0}^{1} x_{1} + x_{2} dx_{1} dx_{2} $
+\item[2)] Demonstrate that 
+\end{itemize}
+\begin{eqnarray}
+\int_{0}^{b} \int_{0}^{a} x_{1} - 3x_{2}  dx_{1} dx_{2} & = & \int_{0}^{a} \int_{0}^{b} x_{1} - 3x_{2} dx_{2} dx_{1} \nonumber 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{More Complicated Bounds of Integration}
+
+So far, we have integrated over \alert{rectangles}.  But often, we are interested in more complicated regions\pause 
+
+\scalebox{0.4}{\includegraphics{c3.pdf}}
+
+
+How do we do this?
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 4: More Complicated Regions}
+
+Suppose $f:[0,1] \times [0,1] \rightarrow \Re$, $f(x_{1}, x_{2}) = x_{1} + x_{2} $.  Find area of function where $x_{1} < x_{2}$.  \\
+\alert{Trick}: we need to determine bound.  If $x_{1}< x_{2}$, $x_{1}$ can take on any value from $0$ to $x_{2}$\\
+\small
+\begin{eqnarray}
+\iint_{x_{1}< x_{2}}  f(\boldsymbol{x}) & = & \int_{0}^{1} \int_{0}^{x_{2}} x_{1} + x_{2} dx_{1} dx_{2} \nonumber \\
+& = & \int_{0}^{1} x_{2} x_{1} |_{0}^{x_{2}} dx_{2}  + \int_{0}^{1} \frac{x_{1}^{2} }{2} |_{0}^{x_{2} } \nonumber \\
+& = & \int_{0}^{1} x_{2}^{2} dx_{2}  + \int_{0}^{1} \frac{x_{2}^2}{2} \nonumber \\
+& = & \frac{x_{2}^{3} }{3}|_{0}^{1} + \frac{x_{2}^{3}}{6}|_{0}^{1} \nonumber \\
+& = & \frac{1}{3}  + \frac{1}{6} \nonumber \\
+& = & \frac{3}{6} = \frac{1}{2} \nonumber 
+\end{eqnarray}
+
+
+\end{frame}
+
+\begin{frame}
+Consider the same function and let's switch the bounds. 
+\begin{eqnarray}
+\iint_{x_{1}<x_{2}} f(\boldsymbol{x}) & = & \int_{0}^{1} \int_{x_{1}}^{1} x_{1} + x_{2} dx_{2} dx_{1}\nonumber \\
+													&  = & \int_{0}^{1} x_{1}x_{2}|_{x_{1}}^{1}  +  \int_{0}^{1} \frac{x_{2}^{2}}{2} |_{x_{1}}^{1}dx_{1} \nonumber \\
+													& = & \int_{0}^{1} x_{1} - x_{1}^2 + \int_{0}^{1} \frac{1}{2} - \frac{x_{1}^2}{2} dx_{1} \nonumber \\
+													& = &  \frac{x_{1}^2}{2}|_{0}^{1}  - \frac{x_{1}^{3}}{3}|_{0}^{1}  + \frac{x_{1}}{2}|_{0}^{1}  - \frac{x_{1}^{3}}{6}|_{0}^{1} \nonumber \\
+													&= & \frac{1}{2}  - \frac{1}{3}  + \frac{1}{2} - \frac{1}{6} \nonumber \\
+													& = & 1 - \frac{3}{6} \nonumber \\
+													& = & \frac{1}{2} \nonumber 
+\end{eqnarray}													
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 5: More Complicated Regions}
+
+Suppose $f[0,1] \times [0,1] \rightarrow \Re$, $f(x_{1}, x_{2} ) = 1$.  What is the area of $x_{1} + x_{2} < 1$? 
+Where is $x_{1} + x_{2}<1$?  Where, $x_{1} < 1 - x_{2}$ 
+
+
+
+\begin{eqnarray}
+\iint_{x_{1} + x_{2} < 1} f(\boldsymbol{x})d\boldsymbol{x}  & = & \int_{0}^{1} \int_{0}^{1-x_{2}} 1 dx_{1} x_{2} \nonumber \\
+																						&= & \int_{0}^{1} x_{1}|_{0}^{1- x_{2}} dx_{2} \nonumber \\
+																						& =& \int_{0} ^{1} (1 - x_{2} ) dx_{2} \nonumber \\
+																						& = & x_{2}|_{0}^{1}  - \frac{x_{2}^2}{2}|_{0}^{1} \nonumber \\
+																						& = &  1 - (\frac{1}{2}) \nonumber \\
+																						& = & \frac{1}{2} \nonumber 
+\end{eqnarray}																						
+
+
+\end{frame}
+
+
+
+
+
+
+
+\end{document}
+
