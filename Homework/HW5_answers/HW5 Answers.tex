@@ -1,0 +1,879 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage{fullpage}
+\usepackage{parskip}
+ \usepackage{relsize}
+\usepackage{dcolumn}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
+\DeclareMathSizes{11}{30}{20}{12}
+\newcommand{\Z}{\mathbb{Z}}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+
+\centerline{\bf Math Camp - Homework 5}
+
+\bigskip
+
+\textbf{Question 1:} Show that
+
+$$k(\textrm{\textbf{X}} + \textrm{\textbf{Y}}) = k\textrm{\textbf{X}} + k\textrm{\textbf{Y}}$$
+
+\medskip
+
+\textbf{\textit{Solution:}} First, let's settle on some generic and common notation. Let's define an $m\times n$ matrices \textbf{X} and \textbf{Y} as the following:
+$$\textrm{\textbf{X}} = \left[\begin{array}{rrr}
+x_{11} & ... & x_{1n}\\
+\vdots & \ddots & \vdots\\
+x_{m1} & ... & x_{mn}\end{array}\right] \qquad \textrm{\textbf{Y}} = \left[\begin{array}{rrr}
+y_{11} & ... & y_{1n}\\
+\vdots & \ddots & \vdots\\
+y_{m1} & ... & y_{mn}\end{array}\right]$$
+
+These are very generic descriptions of matrices that will help prove broad statements about matrices. Make sure that you understand how this notation works, and how the $m\times n$ dimensionality of the matrix lines up with the uses of $m$ and $n$ to describe the entries inside this generic matrix. 
+
+Let's first address $k(\textrm{\textbf{X}+\textbf{Y}})$. Using this notation, we can write
+$$\textrm{\textbf{X}+\textbf{Y}} = \left[\begin{array}{rrr}
+x_{11}+y_{11} & ... & x_{1n}+y_{1n}\\
+\vdots & \ddots & \vdots\\
+x_{m1}+y_{m1} & ... & x_{mn}+y_{mn}\end{array}\right]$$
+
+We saw in class that scalar multiplication also works on matrices. So,
+$$k(\textrm{\textbf{X}+\textbf{Y}}) = \left[\begin{array}{rrr}
+k(x_{11}+y_{11}) & ... & k(x_{1n}+y_{1n})\\
+\vdots & \ddots & \vdots\\
+k(x_{m1}+y_{m1}) & ... & k(x_{mn}+y_{mn})\end{array}\right]$$
+
+We know that distribution applies to scalars. We can distribute the $k$ inside every term of this matrix.
+$$k(\textrm{\textbf{X}+\textbf{Y}}) = \left[\begin{array}{rrr}
+kx_{11}+ky_{11} & ... & kx_{1n}+ky_{1n}\\
+\vdots & \ddots & \vdots\\
+kx_{m1}+ky_{m1} & ... & kx_{mn}+ky_{mn}\end{array}\right]$$
+
+Now, let's go back to the expression $k\textrm{\textbf{X}} + k\textrm{\textbf{Y}}$. Let's distribute the $k$ into each of the matrices separately.
+$$k\textrm{\textbf{X}} = \left[\begin{array}{rrr}
+kx_{11} & ... & kx_{1n}\\
+\vdots & \ddots & \vdots\\
+kx_{m1} & ... & kx_{mn}\end{array}\right] \qquad k\textrm{\textbf{Y}} = \left[\begin{array}{rrr}
+ky_{11} & ... & ky_{1n}\\
+\vdots & \ddots & \vdots\\
+ky_{m1} & ... & ky_{mn}\end{array}\right]$$
+
+Now, let's add these two matrices together to get $k\textrm{\textbf{X}} + k\textrm{\textbf{Y}}$.
+$$k\textrm{\textbf{X}} + k\textrm{\textbf{Y}} = \left[\begin{array}{rrr}
+kx_{11} + ky_{11} & ... & kx_{1n} + ky_{1n}\\
+\vdots & \ddots & \vdots\\
+kx_{m1} + ky_{m1} & ... & kx_{mn} + ky_{mn}\end{array}\right]$$
+
+That matrix is identical to the last thing we got with $k(\textrm{\textbf{X}+\textbf{Y}})$. Therefore, $k(\textrm{\textbf{X}} + \textrm{\textbf{Y}}) = k\textrm{\textbf{X}} + k\textrm{\textbf{Y}}$. We could have also taken the last term we got with $k(\textrm{\textbf{X}+\textbf{Y}})$ and just split it into the two matrices that produced the sum. That would have also shown the equality.
+
+
+\textbf{Question 2:} Using the matrices below, calculate the following. Some may not be defined; if that is the case, say so. (Don't be worried by the number of questions; most of these should go relatively quickly.)
+
+\begin{equation*}
+\textbf{A} = \left[\begin{array}{rrr}
+3 \\ -2 \\ 9 
+\end{array} \right]
+\qquad
+\textbf{B} = \left[\begin{array}{rrr} 8\\0\\-1\end{array}\right]
+\qquad
+\textbf{C} = \left[\begin{array}{rrr}
+7 & -1 & 5\\
+0 & 2 & -4
+\end{array}\right]
+\qquad
+\textbf{D} = \left[\begin{array}{rrr}
+3 & 1\\
+3 & 4\\
+3 & -7
+\end{array}\right]
+\qquad
+\textbf{E}= \left[\begin{array}{rrr}
+5 & 2 & 3\\
+1 & 0 & -4\\
+-2 & 1 & -6
+\end{array}\right]
+\end{equation*}
+
+\begin{equation*}
+\textbf{F} = \left[\begin{array}{rrr}
+4 & 1 & -5\\
+0 & 7 & 7\\
+2 & -3 & 0
+\end{array}\right]
+\qquad
+\textbf{G} = \left[\begin{array}{rrr}
+2 & -8 & -5\\
+-3 & 7 & -4\\
+1 & 0 & 3\\
+1 & 2 & 6
+\end{array}\right]
+\qquad
+\textbf{K} = \left[\begin{array}{rrr}
+9 \\ -2 \\ -1 \\ 0
+\end{array}\right]
+\qquad
+\textbf{L} = \begin{bmatrix}
+5 & 0 & 3 & 1
+\end{bmatrix}
+\end{equation*}
+
+({\it Note:} \textbf{A}$'$ = \textbf{A}$^T$. Both are widely used notation for matrix transposes.)
+
+\begin{minipage}[t]{0.5\textwidth}
+\begin{enumerate}
+\item $\textrm{\textbf{A}} + \textrm{\textbf{B}}$
+\item $-\textrm{\textbf{G}}$
+\item $\textrm{\textbf{D}}^T$
+\item $\textrm{\textbf{C}}+\textrm{\textbf{D}}$ %undefined
+\item $3\textrm{\textbf{C}} - 2\textrm{\textbf{D}}^T$
+\item $\textrm{\textbf{A}} \cdot \textrm{\textbf{B}}$
+\item $\textrm{\textbf{CB}}$
+\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{enumerate}
+\setcounter{enumi}{7}
+\item $\textrm{\textbf{BC}}$ %undefined
+\item $\textrm{\textbf{FB}}$
+\item $\textrm{\textbf{EF}}$
+\item $\textrm{\textbf{K}} \cdot \textrm{\textbf{L}}^T$
+\item $||\textrm{\textbf{K}}||$
+\item $\textrm{\textbf{G}}^T$
+\item $\textrm{\textbf{E}} - 5\textrm{\textbf{I}}_3$
+\end{enumerate}
+\end{minipage}
+
+\textbf{\textit{Solutions}}
+
+\begin{enumerate}
+\item $$\textrm{\textbf{A} + \textbf{B}} = \left[\begin{array}{rrr}
+3 + 8 \\ -2 + 0 \\ 9 + (-1)\end{array}\right] = \left[\begin{array}{rrr} 11 \\ -2 \\ 8\end{array}\right]$$
+
+\item $$\textrm{-\textbf{G}} = (-1) \left[\begin{array}{rrr} 
+2 & -8 & -5\\
+-3 & 7 & -4\\
+1 & 0 & 3\\
+1 & 2 & 6
+\end{array}\right] =
+\left[\begin{array}{rrr} 
+-2 & 8 & 5\\
+3 & -7 & 4\\
+-1 & 0 & -3\\
+-1 & -2 & -6
+\end{array}\right]$$
+
+\item $$\textrm{\textbf{D}}^T = \left[\begin{array}{rrr}
+3 & 3 & 3\\
+1 & 4 & -7\end{array}\right]$$
+
+\item \textbf{C} + \textbf{D} does not exist.
+
+\item \begin{align*}
+3\textrm{\textbf{C}} - 2\textrm{\textbf{D}}^T &= 
+(3) \left[\begin{array}{rrr}
+7 & -1 & 5\\
+0 & 2 & -4\end{array}\right] - (2) \left[\begin{array}{rrr}
+3 & 3 & 3\\
+1 & 4 & -7\end{array}\right] \\
+&= \left[\begin{array}{rrr}
+21 & -3 & 15\\
+0 & 6 & -12\end{array}\right] - \left[\begin{array}{rrr}
+6 & 6 & 6\\
+2 & 8 & -14\end{array}\right]\\
+&= \left[\begin{array}{rrr}
+15 &  & 9\\
+-2 & -2 & 2\end{array}\right]
+\end{align*}
+
+\item $$\textrm{\textbf{A}} \cdot \textrm{\textbf{B}} = 3(8) + (-2)(0) + 9(-1) = 24 + 0 - 9 = 15$$
+
+\item \begin{align*} \textrm{\textbf{CB}} &= \left[\begin{array}{rrr} 7 & -1 & 5 \\ 0 & 2 & -4\end{array}\right] \left[\begin{array}{r}8\\0\\-1\end{array}\right]\\
+&= \left[\begin{array}{rrrrr} 7(8) & + & (-1)(0) & + & 5(-1) \\ 0(8) & + & 2(0) & + & (-4)(-1)\end{array}\right]\\
+&= \left[\begin{array}{r} 56 + 0 - 5 \\ 0 + 0 + 4\end{array}\right]\\
+&= \left[\begin{array}{r} 51 \\ 4\end{array}\right]\\
+\end{align*}
+
+\item \textbf{BC} does not exist.
+
+\item \begin{align*}
+\textrm{\textbf{FB}} &= \left[\begin{array}{rrr} 4 & 1 & -5\\0 & 7 & 7\\2 & -3 & 0\end{array}\right] \left[\begin{array}{r} 8\\0\\-1\end{array}\right]\\
+&= \left[\begin{array}{rrrrr} 4(8) & + & 1(0) & + & (-5)(-1)\\ 0(8) & + & 7(0) & + & 7(-1) \\ 2(8) & + & (-3)(0) & + & 0(-1)\end{array}\right]\\
+&= \left[\begin{array}{r} 32 + 0 + 5\\0+0-7\\16+0+0\end{array}\right]\\
+&= \left[\begin{array}{r} 37 \\ -7 \\ 16 \end{array}\right]
+\end{align*}
+
+\item (Vertical and horizontal lines are added in the work here to clearly delineate each term.) 
+\small
+
+ \begin{align*}
+\textrm{\textbf{EF}} &= \scalemath{.85}{\left[\begin{array}{rrrrr|rrrrr|rrrrr}
+5(4)&+& 2(0) &+& 3(2) & 5(1) &+& 2(7) &+& 3(-3) & 5(-5) &+& 2(7) &+& 3(0)\\ \hline
+1(4)&+& 0(0) &+& (-4)(2) & 1(1) &+& 0(7) &+& (-4)(-3) & 1(-5) &+& 0(7) &+& (-4)(0)\\ \hline
+-2(4) &+& 1(0) &+& (-6)(2) & -2(1) &+& 1(7) &+& (-6)(-3) & -2(-5) &+& 1(7) &+& (-6)(0)
+\end{array}\right]} \\
+&= \left[\begin{array}{rrr}
+20 + 0 + 6 & 5 + 14 -9 & -25 + 14 + 0\\
+4+0-8 & 1+0+12 & -5+0+0\\
+-8+0-12 & -2 + 7 + 18 & 10+7+0\end{array}\right]\\
+&= \left[\begin{array}{rrr}
+26 & 10 & -11\\
+-4 & 13 & -5\\
+-20 & 23 & 17 \end{array}\right]
+\end{align*}
+\normalsize
+
+\item $$\textrm{\textbf{K}} \cdot \textrm{\textbf{L}}^T = \left[\begin{array}{r} 9 \\ -2 \\ -1 \\ 0 \end{array}\right] \cdot \left[\begin{array}{r} 5\\0\\3\\1\end{array}\right] = 9(5) + (-2)(0) + (-1)(3) + 0(1) = 45 + 0 - 3 + 0 = 42$$
+
+\item $$||\textrm{\textbf{K}}|| = \sqrt{\textrm{\textbf{K}} \cdot \textrm{\textbf{K}}} = \sqrt{9^2 + (-2)^2 + (-1)^2 + 0^2} = \sqrt{81 + 4 + 1 + 0} = \sqrt{86}$$
+
+\item $$\textrm{\textbf{G}}^T = \left[\begin{array}{rrr}
+2 & -8 & -5\\
+-3 & 7 & -4\\
+1 & 0 & 3\\
+1 & 2 & 6
+\end{array}\right]^T =
+ \left[\begin{array}{rrrr}
+2 & -3 & 1 & 1\\
+-8 & 7 & 0 & 2\\
+-5 & -4 & 3 & 6 \end{array}\right]$$
+
+\item \begin{align*}
+\textrm{\textbf{E}} - 5\textrm{\textbf{I}}_3 &= \left[\begin{array}{rrr}
+5 & 2 & 3\\ 1 & 0 & -4 \\ -2 & 1 & -6\end{array}\right] - (5)\left[\begin{array}{rrr}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1\end{array}\right]\\
+&= \left[\begin{array}{rrr}
+5 & 2 & 3\\ 1 & 0 & -4 \\ -2 & 1 & -6\end{array}\right] - \left[\begin{array}{rrr}
+5 & 0 & 0\\
+0 & 5 & 0\\
+0 & 0 & 5\end{array}\right]\\
+&= \left[\begin{array}{rrr}
+0 & 2 & 3\\
+1 & -5 & -4\\
+-2 & 1 & -11\end{array}\right]
+\end{align*}
+
+\end{enumerate}
+
+
+\medskip 
+\textbf{Question 3:} As we discussed today, an important attribute of any matrix is its {\it dimensionality}: Given that any matrix is a quadrilateral, its size can be expressed as being $m \times n$ (said ``$m$ by $n$"), where $m$ represents the number of rows and $n$ represents the number of columns. In these terms, matrix \textbf{A} is $3 \times 1$, matrix \textbf{C} is $2 \times 3$, matrix \textbf{E} is $3 \times 3$, and so on. 
+
+We have seen that matrix addition or subtraction only works when the two matrices involved have the same dimensions. Based on your work in question 2, explicitly describe when matrices can or cannot be multiplied. (We touched on this in class, but make sure that it is solidly implanted into your mind.)
+
+\medskip
+
+\textit{\textbf{Solution:}} We talked about this, but to be clear, the number of columns in the first matrix must equal the number of rows in the second matrix for matrix multiplication to work. That is, given some matrix product \textbf{AB}, it must be that \textbf{A} is an $m \times n$ matrix and that \textbf{B} is an $n \times p$ matrix. The $m$ and $p$ can be anything, but the two $n$'s must match. Matrices must be \textit{conformable} in this manner in order to be multiplied. Furthermore, if the matrices are conformable, the dimension of their product will be $m \times p$. Review the matrix multiplication problems in question 2 to verify that this is the case.
+
+Always check whether matrices are conformable before attempting to do anything with them; you could save yourself a lot of time and hassle.
+
+\textbf{Question 4:} Prove the following statement, which was in the slides today: $(\textrm{\textbf{X}}+\textrm{\textbf{Y}})' = \textrm{\textbf{X}}' + \textrm{\textbf{Y}}'$.
+\medskip
+
+\textbf{\textit{Solution:}} This is a relatively simple proof, and there are a lot of different ways to do it. The most straightforward way is simply to write out each of the two matrices and observe that they are identical. Without loss of generality, suppose $\textrm{\textbf{X}}$ and $\textrm{\textbf{Y}}$ are $m \times n$ matrices. We know that $$\textrm{\textbf{X}} + \textrm{\textbf{Y}} = \left[\begin{array}{rrr}
+x_{11}+y_{11} & ... & x_{1n}+y_{1n}\\
+\vdots & \ddots & \vdots\\
+x_{m1}+y_{m1} & ... & x_{mn}+y_{mn}\end{array}\right]$$
+Then it must be that
+$$(\textrm{\textbf{X}} + \textrm{\textbf{Y}})' = \left[\begin{array}{rrr}
+x_{11}+y_{11} & ... & x_{m1}+y_{m1}\\
+\vdots & \ddots & \vdots\\
+x_{1n}+y_{1n} & ... & x_{mn}+y_{mn}\end{array}\right]$$
+Now let's consider the right hand side of the equation. Since
+$$\textrm{\textbf{X}}' = \left[\begin{array}{rrr}
+x_{11} & ... & x_{m1}\\
+\vdots & \ddots & \vdots\\
+x_{1n} & ... & x_{mn}\end{array}\right] \qquad \textrm{\textbf{Y}} = \left[\begin{array}{rrr}
+y_{11} & ... & y_{m1}\\
+\vdots & \ddots & \vdots\\
+y_{1n} & ... & y_{mn}\end{array}\right]$$
+we know that
+$$\textrm{\textbf{X}}' + \textrm{\textbf{Y}}' =  \left[\begin{array}{rrr}
+x_{11}+y_{11} & ... & x_{m1}+y_{m1}\\
+\vdots & \ddots & \vdots\\
+x_{1n}+y_{1n} & ... & x_{mn}+y_{mn}\end{array}\right]$$
+which is the same as $(\textrm{\textbf{X}} + \textrm{\textbf{Y}})'$.
+
+\textbf{Question 5:} When it comes to real numbers, we know that if $xy=0$, then either $x=0$ or $y=0$ or both. It is tempting to believe that a similar idea applies to matrices. However, this is not the case. Prove that if the matrix product \textbf{AB}=$\textbf{0}$---by which we mean a matrix of appropriate dimensionality made up entirely of zeroes---then it is not necessarily true that either \textbf{A}=$\textbf{0}$ or \textbf{B}=$\textbf{0}$. (\textit{Hint:} Remember that you are proving that it is not the case that something is always true. What's the most straightforward way to do that?)
+
+\textbf{Solution:} Generally speaking, it is easy to show that something is \emph{not} necessarily true. All that is needed is a single counterexample! And in this case, there are infinitely many counterexamples. Here's one:
+
+$$\textrm{\textbf{A}} = \left[\begin{array}{rr}
+1 & -1\\
+-1 & 1\end{array}\right] \qquad \textrm{\textbf{B}} = \left[\begin{array}{rr}
+1 & 1\\
+1 & 1\end{array}\right]$$
+
+$$\textrm{\textbf{AB}} = \left[\begin{array}{rr}
+1(1)+1(-1) & 1(1)+1(-1)\\
+1(-1)+1(1) & 1(-1)+1(1)\end{array}\right] =  \left[\begin{array}{rr}
+0 & 0\\
+0 & 0\end{array}\right] $$
+
+%\textbf{Question 6:} Use matrix operations to find the inverse of the matrix, if it exists. Verify that your answer is correct by multiplying it with the original matrix; you should get an identity matrix. (Remember that being invertible and being linearly independent are the same thing.)
+%
+%\begin{minipage}[t]{0.5\textwidth}
+%\begin{enumerate}
+%\item %has an inverse
+%$$Q = \left[\begin{array}{rr}
+%1 & 3\\
+%2 & 7 \end{array}\right]$$
+%
+%\end{enumerate}
+%\end{minipage}
+%\begin{minipage}[t]{0.5\textwidth}
+%\begin{enumerate}
+%\setcounter{enumi}{1}
+%\item $$G = \left[\begin{array}{rrr}
+%2 & 3 & 4\\
+%4 & 8 & 9\\
+%4 & 6 & 8 \end{array}\right]$$
+%\end{enumerate}
+%\end{minipage}
+%\medskip
+%
+%\medskip
+%
+%\textit{\textbf{Solutions}}
+%
+%\begin{enumerate}
+%\item Use the standard inversion process.
+%\begin{equation*}
+%\left[\begin{array}{rr|rr}
+%1 & 3 & 1 & 0\\
+%2 & 7 & 0 & 1
+%\end{array}\right] \xrightarrow{R_2 - 2R_1}
+%\left[\begin{array}{rr|rr}
+%1 & 3 & 1 & 0\\
+%0 & 1 & -2 & 1
+%\end{array}\right] \xrightarrow{R_1 - 3R_2}
+%\left[\begin{array}{rr|rr}
+%1 & 0 & 7 & -3\\
+%0 & 1 & -2 & 1
+%\end{array}\right]
+%\end{equation*}
+%
+%So, $Q^{-1} = \left[\begin{array}{rr} 7 & -3 \\ -2 & 1\end{array}\right]$. If you multiply this with $Q$, you should get a $2 \times 2$ identity matrix.
+%
+%\item This matrix is not invertible. If you take a look at the matrix, you'll see that the third row is simply double the first row. If we used row operations to try to find the inverse of this matrix, one of the rows would become zeroes, making inversion impossible since the left-hand matrix cannot become an identity matrix. (Therefore, the matrix has linearly dependent rows. The fact that one row is a multiple of another makes the linear dependence even more obvious.)
+%
+%\begin{equation*}
+%\left[\begin{array}{rrr|rrr}
+%2 & 3 & 4 & 1 & 0 & 0\\
+%4 & 8 & 9 & 0 & 1 & 0\\
+%4 & 6 & 8 & 0 & 0 & 1
+%\end{array}\right] \xrightarrow{R_3 - 2R_1}
+%\left[\begin{array}{rrr|rrr}
+%2 & 3 & 4 & 1 & 0 & 0\\
+%4 & 8 & 9 & 0 & 1 & 0\\
+%0 & 0 & 0 & -2 & 0 & 1
+%\end{array}\right]
+%\end{equation*}
+%\end{enumerate}
+%
+%
+%\textbf{Question 7:} Recall from the slides that a system of equations can be written as \textbf{Ax}=\textbf{b}. Then, as long as \textbf{A} is invertible, we can solve for \textbf{x} by finding \textbf{A}$^{-1}$ and then evaluating \textbf{A}$^{-1}$\textbf{b}. (Why?) 
+%
+%With that in mind, invert the coefficient matrices to solve the following systems of equations. Verify that your solution to the system of equations is correct by plugging your answers into the system and seeing whether it works.
+%\begin{enumerate}
+%\item
+%\begin{equation*}
+%\begin{array}{rrrrr}
+%2x_1 &+& x_2 &=& 5\\
+%x_1 &+& x_2 &=& 3
+%\end{array}
+%\end{equation*}
+%
+%\item
+%\begin{equation*}
+%\begin{array}{rrrrrrr}
+%2x_1 &+& x_2 & & &=& 4\\
+%6x_1 &+& 2x_2 &+& 6x_3 &=& 20\\
+%-4x_1 &-& 3x_2 &+& 9x_3 &=& 3
+%\end{array}
+%\end{equation*}
+%
+%%\item
+%%\begin{equation*}
+%%\begin{array}{rrrrrrr}
+%%2x_1 &+& 4x_2 & & &=& 2\\
+%%4x_1 &+& 6x_2 &+& 3x_3 &=& 20\\
+%%-6x_1 &-& 12x_2 &+& &=& -8
+%%\end{array}
+%%\end{equation*}
+%
+%\textit{\textbf{Solutions}}
+%
+%\begin{enumerate}
+%\item The coefficient matrix for this question is $A = \begin{bmatrix} 2 & 1 \\ 1 & 1\end{bmatrix}$. Let's look for the inverse of this matrix.
+%
+%\begin{equation*}
+%\left[\begin{array}{rr|rr}
+%2 & 1 & 1 & 0\\
+%1 & 1 & 0 & 1
+%\end{array}\right] \xrightarrow{R_1 \leftrightarrow R_3}
+%\left[\begin{array}{rr|rr}
+%1 & 1 & 0 & 1\\
+%2 & 1 & 1 & 0
+%\end{array}\right] \xrightarrow{R_2 - 2R_1}
+%\left[\begin{array}{rr|rr}
+%1 & 1 & 0 & 1\\
+%0 & -1 & 1 & -2
+%\end{array}\right] \xrightarrow{-R_2}\end{equation*}
+%\begin{equation*}
+%\left[\begin{array}{rr|rr}
+%1 & 1 & 0 & 1\\
+%0 & 1 & -1 & 2
+%\end{array}\right] \xrightarrow{R_1-R_2}
+%\left[\begin{array}{rr|rr}
+%1 & 0 & 1 & -1\\
+%0 & 1 & -1 & 2
+%\end{array}\right]
+%\end{equation*}
+%
+%We've obtained the identity matrix on the left, so we are done. $A^{-1} = \left[\begin{array}{rr}1 & -1 \\ -1 & 2\end{array}\right]$. Now let's use this to find the solution for \textbf{x}.
+%
+%\begin{equation*}
+%\textrm{\textbf{x} = \textbf{A}$^{-1}$\textbf{b}} = \left[\begin{array}{rr}1 & -1 \\ -1 & 2\end{array}\right] \left[\begin{array}{r}5 \\ 3\end{array}\right] =
+%\left[\begin{array}{r} 1(5) + (-1)(3) \\ -1(5) + 2(3)\end{array}\right]=
+%\left[\begin{array}{r}
+%5-3 \\ -5+6\end{array}\right] = 
+%\left[\begin{array}{r}
+%2 \\ 1 \end{array}\right]
+%\end{equation*}
+%
+%That's it. We've found that $x_1 = 2$ and $x_2 = 1$. These answers work in the system of equations: $2(2) + 1 = 5$, and $2 + 1 = 3$.
+%
+%\item This one is unpleasant to solve and also highly unpleasant to type in \LaTeX. Let's find the inverse of the coefficient matrix. 
+%\begin{equation*}
+%\left[
+%\begin{array}{rrr|rrr}
+%2 & 1 & 0 & 1 & 0 & 0\\
+%6 & 2 & 6 & 0 & 1 & 0\\
+%-4 & -3 & 9 & 0 & 0 & 1
+%\end{array}\right] \xrightarrow{R_1/2}
+%\left[
+%\begin{array}{rrr|rrr}
+%1 & 1/2 & 0 & 1/2 & 0 & 0\\
+%6 & 2 & 6 & 0 & 1 & 0\\
+%-4 & -3 & 9 & 0 & 0 & 1
+%\end{array}\right] \xrightarrow{R_2 - 6R_1}
+% \end{equation*}
+%
+%\begin{equation*}
+%\left[
+%\begin{array}{rrr|rrr}
+%1 & 1/2 & 0 & 1/2 & 0 & 0\\
+%0 & -1 & 6 & -3 & 1 & 0\\
+%-4 & -3 & 9 & 0 & 0 & 1
+%\end{array}\right]
+%\xrightarrow{R_3 + 4R_1}
+%\left[
+%\begin{array}{rrr|rrr}
+%1 & 1/2 & 0 & 1/2 & 0 & 0\\
+%0 & -1 & 6 & -3 & 1 & 0\\
+%0 & -1 & 9 & 2 & 0 & 1
+%\end{array}\right] \xrightarrow{-R_2}
+%\end{equation*}
+%
+%\begin{equation*}
+%\left[
+%\begin{array}{rrr|rrr}
+%1 & 1/2 & 0 & 1/2 & 0 & 0\\
+%0 & 1 & -6 & 3 & -1 & 0\\
+%0 & -1 & 9 & 2 & 0 & 1
+%\end{array}\right] \xrightarrow{R_3+R_2}
+%\left[
+%\begin{array}{rrr|rrr}
+%1 & 1/2 & 0 & 1/2 & 0 & 0\\
+%0 & 1 & -6 & 3 & -1 & 0\\
+%0 & 0 & 3 & 5 & -1 & 1
+%\end{array}\right] \xrightarrow{R_3/3}
+%\end{equation*}
+%
+%\begin{equation*}
+%\left[
+%\begin{array}{rrr|rrr}
+%1 & 1/2 & 0 & 1/2 & 0 & 0\\
+%0 & 1 & -6 & 3 & -1 & 0\\
+%0 & 0 & 1 & 5/3 & -1/3 & 1/3
+%\end{array}\right] \xrightarrow{R_2 + 6R_3}
+%\left[
+%\begin{array}{rrr|rrr}
+%1 & 1/2 & 0 & 1/2 & 0 & 0\\
+%0 & 1 & 0 & 13 & -3 & 2\\
+%0 & 0 & 1 & 5/3 & -1/3 & 1/3
+%\end{array}\right] \xrightarrow{R_1 - R_2/2}
+%\end{equation*}
+%
+%\begin{equation*}
+%\left[
+%\begin{array}{rrr|rrr}
+%1 & 0 & 0 & -6 & 3/2 & -1\\
+%0 & 1 & 0 & 13 & -3 & 2\\
+%0 & 0 & 1 & 5/3 & -1/3 & 1/3
+%\end{array}\right]
+%\end{equation*}
+%
+%We are finally done. The right-hand matrix is \textbf{A}$^{-1}$. Now we solve for \textbf{x} using \textbf{A}$^{-1}$\textbf{b}.
+%
+%\begin{align*}
+%\textrm{\textbf{x} = \textbf{A}$^{-1}$\textbf{b}} &= 
+%\left[\begin{array}{rrr}
+%-6 & 3/2 & 1\\
+%13 & -3 & 2\\
+%5/3 & -1/3 & 1/3
+%\end{array}\right]
+%\left[\begin{array}{r} 4\\20\\3	\end{array}\right] =
+%\left[\begin{array}{c}
+%-6(4) + (3/2)(20) + (-1)(3)\\
+%13(4) + (-3)(20) + 2(3)\\
+%(5/3)(4) + (-1/3)(20) + (1/3)(3)
+%\end{array}\right] \\
+%&=
+%\left[\begin{array}{r}
+%-24+30-3\\
+%52-60+6\\
+%\frac{20}{3} - \frac{20}{3} + 1
+%\end{array}\right] =
+%\left[\begin{array}{r}
+%3\\-2\\1\end{array}\right]
+%\end{align*}
+%
+%Therefore, $x_1=3$, $x_2=-2$, and $x_3=1$. We can verify that this does solve the system of equations: $2(3) + (-2) = 4$, $6(3) + 2(-2) + 6(1) = 20$, and $-4(3) - 3(-2) + 9(1) = 3$.
+%\end{enumerate}
+%
+%\end{enumerate}
+
+
+\textbf{Question 6:} Finding the inverse of matrices can be not only difficult, but tedious. Sometimes, it's not even clear how to start. Fortunately, for matrices of dimensions 2x2 or 3x3, there are formulas we can apply to find the inverse. This can still be tedious, but it's no longer difficult. While Justin mentioned you can compute inverses in \texttt{R}, knowing these formulas is helpful for many proofs where the elements of matrices are unknowns, not specific values. We'll just focus on the 2x2 example here, but keep in mind the 3x3 formula also exists. The following formula gives the solution to $\mathbf{A}^{-1}$:
+
+If\\
+
+\begin{eqnarray*}
+ \mathbf{A}=
+\begin{bmatrix} 
+a&b  \\
+c&d\\
+\end{bmatrix}
+\end{eqnarray*}
+
+then\\
+
+\begin{eqnarray*}
+ \mathbf{A}^{-1}=\dfrac{1}{det(\mathbf{A})}
+\begin{bmatrix} 
+d&-b  \\
+-c&a\\
+\end{bmatrix}
+\end{eqnarray*}
+
+where
+
+\begin{eqnarray*}
+\dfrac{1}{det(\mathbf{A})}&=&\dfrac{1}{ad-bc}\\
+\end{eqnarray*}
+
+The term $det$ denotes ``the determinant" which is a special combination of the elements in a square matrix such that if the determinant is zero the matrix is singular (not invertible). For a more complete definition, see here: http://mathworld.wolfram.com/Determinant.html. Use this formula to find the inverse of $\mathbf{Q}$. Then solve $\mathbf{Q}\mathbf{Q}^{-1}$ to verify your solution is correct (if it is, you should get back the Identity matrix).
+
+
+
+\begin{minipage}[t]{0.5\textwidth}
+$$\mathbf{Q} = \left[\begin{array}{rr}
+1 & 3\\
+2 & 7 \end{array}\right]$$
+\end{minipage}
+
+\bigskip
+
+Answer:
+
+
+\begin{eqnarray*}
+ \mathbf{Q}^{-1}=\dfrac{1}{1*7-3*2}*
+\begin{bmatrix} 
+7 & -3\\
+-2 & 1 \\
+\end{bmatrix}\\=
+\dfrac{1}{1}*
+\begin{bmatrix} 
+7 & -3\\
+-2 & 1 \\
+\end{bmatrix}\\=
+\begin{bmatrix} 
+7 & -3\\
+-2 & 1 \\
+\end{bmatrix}
+\end{eqnarray*}
+
+\bigskip
+Let's confirm this is an inverse:\\
+
+\begin{eqnarray*}\mathbf{Q}\mathbf{Q^{-1}}=
+\begin{bmatrix} 
+7 & -3\\
+-2 & 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+1 & 3\\
+2 & 7\\
+\end{bmatrix}\\=
+\begin{bmatrix}
+(7*1) + (-3*2) & (7*3)+(-3*7)\\
+(-2*1) + (1*2) & (-2*3)+(1*7)\\
+\end{bmatrix}\\=
+\begin{bmatrix}
+1& 0\\
+0 & 1\\
+\end{bmatrix}
+\end{eqnarray*}
+
+Done.
+
+
+
+
+\bigskip
+\textbf{Question 7:} Often times practitioners will use a shorthand for complex matrices by partitioning them. For example, the following matrix,
+
+
+
+
+\begin{eqnarray*}
+ \mathbf{A}=
+\begin{bmatrix} 
+1&4&0  \\
+2&9&0\\
+0&0&6\\
+\end{bmatrix}
+\end{eqnarray*}
+
+can be written in partitioned form (also known as ``block form") like so:
+
+\begin{eqnarray*}
+\begin{bmatrix} 
+\mathbf{A_{11}} & \mathbf{A_{12}}  \\
+\mathbf{A_{21}} & \mathbf{A_{22}}  \\
+\end{bmatrix}
+\end{eqnarray*}
+
+where:
+
+\begin{eqnarray*}
+\mathbf{A_{11}}=
+\begin{bmatrix} 
+1& 4 \\
+2 & 9 \\
+\end{bmatrix}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\mathbf{A_{12}}=
+\begin{bmatrix} 
+0\\
+0\\
+\end{bmatrix}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\mathbf{A_{21}}=
+\begin{bmatrix} 
+0 & 0\\
+\end{bmatrix}
+\end{eqnarray*}
+
+and
+
+
+\begin{eqnarray*}
+\mathbf{A_{22}}=
+\begin{bmatrix} 
+6\\
+\end{bmatrix}
+\end{eqnarray*}
+
+Using the rules of matrix multiplication, show that:
+
+\begin{eqnarray*}
+\begin{bmatrix} 
+\mathbf{A_{11}} & \mathbf{A_{12}}  \\
+\mathbf{A_{21}} & \mathbf{A_{22}}  \\
+\end{bmatrix}'
+\begin{bmatrix} 
+\mathbf{A_{11}} & \mathbf{A_{12}}  \\
+\mathbf{A_{21}} & \mathbf{A_{22}}  \\
+\end{bmatrix} = 
+\begin{bmatrix} 
+\mathbf{A_{11}' A_{11}} & \mathbf{0} \\
+\mathbf{0}& \mathbf{A_{22}'A_{22}}  \\
+\end{bmatrix} 
+\end{eqnarray*}
+
+\bigskip
+
+Answer:
+
+\begin{eqnarray*}
+ \mathbf{A_{11}'A_{11}}=
+\begin{bmatrix}
+1&2  \\
+4&9  \\
+\end{bmatrix}
+\begin{bmatrix}
+1&4 \\
+2&9  \\
+\end{bmatrix}=
+\begin{bmatrix}
+5&22 \\
+22&97  \\
+\end{bmatrix}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+ \mathbf{A_{22}'A_{22}}=
+\begin{bmatrix}
+6\\
+\end{bmatrix}
+\begin{bmatrix}
+6\\
+\end{bmatrix}=
+\begin{bmatrix}
+36\\
+\end{bmatrix}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\begin{bmatrix} 
+\mathbf{A_{11}} & \mathbf{A_{12}}  \\
+\mathbf{A_{21}} & \mathbf{A_{22}}  \\
+\end{bmatrix}'
+\begin{bmatrix} 
+\mathbf{A_{11}} & \mathbf{A_{12}}  \\
+\mathbf{A_{21}} & \mathbf{A_{22}}  \\
+\end{bmatrix} = 
+\begin{bmatrix} 
+1&4&0  \\
+2&9&0\\
+0&0&6\\
+\end{bmatrix}'
+\begin{bmatrix} 
+1&4&0  \\
+2&9&0\\
+0&0&6\\
+\end{bmatrix}\\ =
+\begin{bmatrix} 
+1&2&0  \\
+4&9&0\\
+0&0&6\\
+\end{bmatrix}
+\begin{bmatrix} 
+1&4&0  \\
+2&9&0\\
+0&0&6\\
+\end{bmatrix}\\=
+\begin{bmatrix} 
+5&22&0  \\
+22&97&0\\
+0&0&36\\
+\end{bmatrix}\\=
+\begin{bmatrix} 
+\mathbf{A_{11}' A_{11}} & \mathbf{0} \\
+\mathbf{0}& \mathbf{A_{22}'A_{22}}  \\
+\end{bmatrix} 
+\end{eqnarray*}
+
+\bigskip
+
+
+\noindent \textbf{Question 8:} :\\
+
+\begin{enumerate}
+	\item Consider the following function, $\dfrac{1}{b-a}$, defined on the interval [a,b] where a=-9 and b=12. Evaluate the integral over this interval.\\
+	
+	\begin{eqnarray*}
+		\int_{-9}^{12} \frac{1}{12 - - 9} dx &=& \frac{x}{21} |_{-9}^{12}\\
+		&=& \frac{12}{21} - -\frac{9}{21}\\
+		&=& \frac{21}{21} = 1
+	\end{eqnarray*}
+	
+	This function integrates out to 1. Later in Math Camp we'll talk about probability distribution functions, which have the requirement that they integrate out to 1. In this case you've just integrated a uniform probability distribution function with parameters a = -9 and b = 12. If you google image ``uniform pdf" there are several great examples of what this looks like, its basically a flat line that goes from a to b on the x-axis at 1/(b-a) on the y-axis. 
+	
+	\item Using integration, find the value $q$ at which 95\% of the area under the curve lies to the left of $q$ and 5\% lies to the right of $q$. In other words, calculate the 95th percentile of this function.
+	
+	\begin{eqnarray*}
+		.95 &=& \int_{-9}^{q} \frac{1}{21}dx\\
+		&=& \frac{x}{21} |_{-9}^{q} \\
+		&=& \frac{q}{21} - - \frac{9}{21}\\
+		&=& \frac{q+9}{21}\\
+		.95*21 &=& q+9\\
+		.95*21 - 9 &=& 10.95\\
+	\end{eqnarray*}
+	
+	95\% of the area under the function is to the left of 10.95 and 5\% of the area under the function is to the right. 
+	
+	\item Consider a related function, $\dfrac{x}{b-a}$, defined over the same interval as the function in part a. Evaluate the integral of this function from -9 to $q$, the point you identified in part b. 
+	
+	\begin{eqnarray*}
+		\int_{-9}^{10.95} \frac{x}{21} dx &=& \frac{x^2}{42} |_{-9}^{10.95}\\
+		&=& \frac{(10.95)^2}{42} - \frac{(-9)^2}{42}\\
+		&=& \frac{119.9025 - 81}{42}\\
+		&=& 0.92625
+	\end{eqnarray*}
+\end{enumerate}
+
+
+
+\bigskip
+
+\textbf{Question 9:} We have been dealing with (infinite) series. Later in 350A (and in 350B and 350C), you will encounter (infinite) products, which are notated with a capital pi, which looks like this: $\prod$. They work just like sums, except you are multiplying the terms rather than adding them. For example, 
+$$\prod_{n=1}^4 \frac{n}{2} = \frac{1}{2} \times \frac{2}{2} \times \frac{3}{2} \times \frac{4}{2} = 0.5 \times 1 \times 1.5 \times 2 = 1.5$$
+$$\prod_{i=1}^n a_i = a_1 \times a_2 \times a_3 \times ... \times a_n$$
+$$\prod_{i=1}^\infty a_i = a_1 \times a_2 \times a_3 \times a_4 \times ... \times a_{89} \times ... \times a_{5,302} \times ... $$
+
+Today, Justin brought up the concept of maximum likelihood estimation, which we will spend plenty of time learning later -- so don't worry if it's unclear now! Even though we haven't really discussed why this is the case, you probably noticed that maximum likelihood estimation starts with a (log of a) product.
+$$\log \left[\prod_{i=1}^{\infty} f(x_i)\right]$$
+
+As suggested in Justin's slides, we'd much rather prefer to deal with infinite series than with infinite products. (For one thing, it's much easier to find derivatives for an infinite sum of terms than an infinite product of terms; imagine doing product rule on an infinite product!) We can make this happen. Let's do something similar to what Justin did in his slides on maximum likelihood estimation. Using your knowledge of logs and series, show how
+\medskip
+\begin{equation*}
+\log \left[\prod_{i=1}^{\infty} f(x_i)\right] = \sum_{i=1}^\infty \log f(x_i)
+\end{equation*}
+
+({\it Hint:} Write out the first few terms of the infinite product.)
+
+If you understand the mathematical reasoning behind this equality now, it will be an absolute lifesaver in the future.
+
+\textbf{\textit{Solution}}
+
+Hopefully you will find that the solution is not that hard too understand if you take it step by step. As suggested in the hint, let's take the term with the product and write out the first few terms. Notice that this is all taking place within the log. 
+$$\log \left[\prod_{i=1}^{\infty} f(x_i)\right] = \log \left[f(x_1) \times f(x_2) \times f(x_3) \times ...\right]$$
+
+We're doing a lot of multiplication inside the log. Haven't we seen another way to write a log of products? Look back at your notes on logs: $\log(ab) = \log a + \log b$. We can extend this idea to logs of products that involve more than two terms. (Try it out yourself if you don't believe it!) If we apply that to our problem, we get that
+$$\log [f(x_1) \times f(x_2) \times f(x_3) \times ...] = \log f(x_1) + \log f(x_2) + \log f(x_3) + ...$$
+
+Now we're dealing with the sum of many logs! We can make this expression more compact using summation notation:
+$$\log f(x_1) + \log f(x_2) + \log f(x_3) + ... = \sum_{i=1}^\infty \log f(x_i)$$
+
+We've reached our final destination and proved the equality.
+
+It might help to see the whole process in one go. Talk yourself through it to make sure you understand what's happening at each step.
+\begin{align*}
+\log \left[\prod_{i=1}^{\infty} f(x_i)\right] &= \log \left[f(x_1) \times f(x_2) \times f(x_3) \times ...\right]\\
+&= \log f(x_1) + \log f(x_2) + \log f(x_3) + ...\\
+&= \sum_{i=1}^\infty \log f(x_i)
+\end{align*}
+
+This is the power of logs. Like we said in the homework, if you understand this math now, you won't have to worry about it when we do it over and over as we learn about maximum likelihood estimation. That's a good thing -- there will be plenty of other things to worry about at that point!
+
+
+\end{document}
