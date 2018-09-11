@@ -1,0 +1,132 @@
+\documentclass[10pt]{amsart}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage[margin=2.5 cm]{geometry}
+\usepackage{parskip}
+\usepackage{multicol}
+\usepackage{mathtools}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+\centerline{\bf Math Camp - Homework 6}
+
+\section{Linear Algebra}
+
+\textbf{Question 1}: Determine  whether the following matrices are invertible. Justify your answer. (Note: You do not need to find the inverse, just say whether it exists.)
+
+\begin{multicols}{3}
+\begin{enumerate}
+	\item $\mathbf{A} = \left[\begin{matrix*}[r]
+	1 & 9 & 6 \\
+	3 & 10 & -1 \\
+	8 & 38 & 10
+	\end{matrix*}\right]$
+
+	\item $\mathbf{B} = \left[\begin{matrix*}[r]
+	8 & -2 & 4 & 10 \\
+	0 & 0 & 1 & -1 \\
+	-9 & 8 & 0 & 0 \\
+	1 & 0 & 0 & 0
+	\end{matrix*}\right]$
+
+	\item $\mathbf{C} = \left[\begin{matrix*}[r]
+	0 & 1 \\
+	0 & 0
+	\end{matrix*}\right]$
+\end{enumerate}
+\end{multicols}
+
+\bigskip
+
+\textbf{Question 2:} Recall from lecture that, given an $n\times n$ matrix $\mathbf{A}$, if there exists a vector $\mathbf{x}$ and scalar $\lambda$ such that 
+\begin{eqnarray*}
+\mathbf{A}\mathbf{x} = \lambda \mathbf{x}
+\end{eqnarray*}
+then we say that $\mathbf{x}$ is an eigenvector and $\lambda$ is an eigenvalue for $\mathbf{A}$. 
+
+Now consider the matrix
+\begin{align*}
+M &= \left[\begin{matrix*}[r]
+3 & -1 & 1 \\
+1 & 1 & 1 \\
+1 & -1 & -3 \\
+\end{matrix*}\right]
+\end{align*}
+along with the eigenvalues $\lambda_1 = -3$, $\lambda_2 = 2$, and $\lambda_3 = 2$ and eigenvectors 
+\begin{align*}
+\mathbf{x}_1 = \left[\begin{matrix*}[r]
+-1 \\ -1 \\ 5
+\end{matrix*}\right]   & &
+\mathbf{x}_2 = \mathbf{x}_3 = \left[\begin{matrix*}[r]
+1 \\ 1\\ 0
+\end{matrix*}\right]
+\end{align*}
+
+\begin{enumerate}
+	\item For each eigenvalue/vector pair $i$, show that $\mathbf{M} \mathbf{x}_i = \lambda_i \mathbf{x}_i$. 
+	
+	\item One way to calculate the eigenvalues of $\mathbf{A}$ is to find the values of $\lambda$ that solve the equation $$\det(\mathbf{A} - \lambda I) = 0,$$ where $I$ is the identity matrix. Show that this fact holds for $\mathbf{M}$ given above. 
+\end{enumerate}
+
+
+
+
+
+\bigskip
+
+\section{Calculus with Many Variables}
+
+\textit{Notation note:} It's worthwhile to familiarize yourself with two common ways of denoting partial derivatives. Given some function $f(x,y)$, 
+\begin{equation*}\frac{\partial f}{\partial x} = f_x \qquad \frac{\partial f}{\partial y} = f_y \qquad \frac{\partial^2 f}{\partial x^2} = f_{xx} \qquad \frac{\partial}{\partial y} \frac{\partial f}{\partial x} = \frac{\partial^2 f}{\partial y \partial x} = f_{xy} \qquad \frac{\partial}{\partial x} \frac{\partial f}{\partial y} = \frac{\partial^2 f}{\partial x \partial y} = f_{yx} \qquad \frac{\partial^2 f}{\partial y^2} = f_{yy}\end{equation*}
+
+You're free to use either, but {\it please} use them -- they are essential. Do not leave your calculations unlabeled.
+
+\textbf{Question 3:} Find all of the first partial derivatives of each function.
+
+\begin{enumerate}
+\item $f(x,y) = 3x - 2y^4$
+
+\item $f(x,y) = x^5 + 3x^3y^2 + 3xy^4$
+
+\item $g(x,y) = xe^{3y}$
+
+\item $k(x,y) = \frac{x-y}{x+y}$
+
+\item $f(x,y,z) = \log(x+2y+3z)$
+
+\item $h(x,y,z) = x^2 e^{yz}$
+\end{enumerate}
+
+
+\medskip
+
+\textbf{Question 4:} Find the gradient $\nabla f$ of the following functions and evaluate them at the given points.
+\begin{enumerate}
+\item $f(x,y) = \sqrt{x^2 + y^2}$, \quad $(x,y) = (3,4)$
+\item $f(x,y,z) = (x+z)e^{x-y}$, \quad $(x,y,z) = (1,1,1)$
+\end{enumerate}
+
+
+\medskip
+
+
+\textbf{Question 5:} Suppose we were interested in learning about how years of schooling affect the probability that a person turns out to vote. To simplify things, let's say we're trying to predict whether one individual voted. We did some preliminary work on this in Problem Set 3, Question 7, but suppose we showed a colleague our model from that problem and they complained. ``What a lame model," our colleague said, ``You definitely have to include an intercept term." So in this problem we'll follow our colleague's advice and do just that.\\
+
+Let $Y$ be our single observation of the dependent variable (whether or not a person turned out to vote) and $X_1$ be our single observation of an independent variable, $education$, the number of years of schooling for this individual. Now though, we're also going to include an intercept term, $\beta_0$ in our model along with $\beta_1$, a coefficient that's associated with $X_1$. 
+
+This produces the following model: 
+
+\bigskip
+\begin{eqnarray*}
+Y&=& \beta_0 + \beta_1 X_1 + \epsilon\\
+ \end{eqnarray*}
+ 
+ where $\epsilon$ is an error term.
+ 
+ Use the method of least squares to solve for the values of $\beta_0$ and $\beta_1$ that minimize the squared error for this model. Using the tools of multivariate optimization we've been practicing, find the values of $\beta_0$ and $\beta_1$ that minimize the squared error.
+
+\end{document}
