@@ -1,0 +1,930 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\Stanford University}
+\vspace{0.3in}
+
+\date{September 12th, 2018}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multivariate Optimization}
+
+Optimizing multivariate functions 
+\begin{itemize}
+\item[-] Parameters $\boldsymbol{\beta} = (\beta_{1}, \beta_{2}, \hdots, \beta_{n} ) $ such that $f(\boldsymbol{\beta}| \boldsymbol{X}, \boldsymbol{Y})$ is maximized
+\item[-] Policy $\boldsymbol{x} \in \Re^{n}$ that maximizes $U(\boldsymbol{x})$
+\item[-] Weights $\boldsymbol{\pi} = (\pi_{1}, \pi_{2}, \hdots, \pi_{K})$ such that a weighted average of forecasts $\boldsymbol{f}  =  (f_{1} , f_{2}, \hdots, f_{k})$ have minimum loss 
+\begin{eqnarray}
+\min_{\boldsymbol{\pi}} & = & - (\sum_{j=1}^{K} \pi_{j} f_{j}  - y ) ^ 2 \nonumber 
+\end{eqnarray} 
+\end{itemize}
+
+Today we'll describe analytic and computational approaches to optimization
+
+\begin{itemize}
+\item[-] Analytic recipe for optimization
+\item[-] Computational optimization
+\begin{itemize}
+\item[-] Multivariate Newton-Raphson
+\item[-] BFGS
+\item[-] Approximate Optimization: k-means
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Multivariate Optimization}
+
+\begin{defn} 
+Let $\boldsymbol{x} \in \Re^{n}$ and let $\delta >0$.  Define a \alert{neighborhood} of $\boldsymbol{x}$, $B(\boldsymbol{x}, \delta)$, as the set of points such that, 
+\begin{eqnarray}
+B(\boldsymbol{x}, \delta) & = & \{ \boldsymbol{y} \in \Re^{n} : ||\boldsymbol{x} - \boldsymbol{y}||< \delta \}  \nonumber 
+\end{eqnarray}
+
+
+
+\end{defn}
+
+\begin{defn} Suppose $f:X \rightarrow \Re$ with $X \subset \Re^{n}$.  A vector $\boldsymbol{x}^{*} \in X$ is a \alert{global maximum} if , for all other $\boldsymbol{x} \in X$ 
+\begin{eqnarray}
+f(\boldsymbol{x}^{*}) & > & f(\boldsymbol{x} ) \nonumber 
+\end{eqnarray}
+
+A vector $\boldsymbol{x}^{\text{local}}$ is a \alert{local} maximum if there is a neighborhood around $\boldsymbol{x}^{\text{local}}$, $Q \subset X$ such that, for all $x \in Q$, 
+\begin{eqnarray}
+f(\boldsymbol{x}^{\text{local} }) & > & f(\boldsymbol{x} ) \nonumber 
+\end{eqnarray}
+\end{defn}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Multivariate Optimization}
+\begin{defn} A set $X\subset R^{n}$ is \alert{compact} if it is closed and bounded
+\end{defn} 
+
+
+
+\begin{thm} \alert{Multivariate Extreme Value Theorem} Suppose $f:X \rightarrow \Re$ be continuous and $X \subset \Re^{n}$ and $X$ compact.  Then $f$ takes on its \alert{maximum} and \alert{minimum} values on $X$.  
+\end{thm}
+
+We're going to come up with the multivariate equivalent of the \alert{first order} and \alert{second order} conditions now
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Gradient} 
+
+\begin{defn} 
+Suppose $f:X \rightarrow \Re^{n}$ with $X \subset \Re^{1}$ is a differentiable function.  Define the gradient vector of $f$ at $\boldsymbol{x}_{0}$, $\nabla f(\boldsymbol{x}_{0})$ as, 
+\begin{eqnarray}
+\nabla f (\boldsymbol{x}_{0})  & = & \left(\frac{\partial f (\boldsymbol{x}_{0}) }{\partial x_{1} }, \frac{\partial f (\boldsymbol{x}_{0}) }{\partial x_{2} }, \frac{\partial f (\boldsymbol{x}_{0}) }{\partial x_{3} }, \hdots, \frac{\partial f (\boldsymbol{x}_{0}) }{\partial x_{n} } \right) \nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Gradient First Order Condition}
+
+\begin{thm}
+Suppose $f:X \rightarrow \Re^{1}$, $X \subset \Re^{n}$.  Suppose $\boldsymbol{a} \in X$ is a \alert{local} extremum.  Then, 
+\begin{eqnarray}
+\nabla f(\boldsymbol{a}) & = & \boldsymbol{0} \nonumber \\
+									& = & (0, 0, \hdots, 0) \nonumber 				
+\end{eqnarray}
+
+
+\end{thm}
+
+\begin{itemize}
+\item[-] Proof (intuition): same as one dimensional case (left-hand, right hand), just do it dimension by dimension
+\item[-] \alert{Critical Values}: 
+\begin{itemize}
+\item[1)] Maximum
+\item[2)] Minimum 
+\item[3)] \alert{Saddle point} 
+\end{itemize}
+\item[-] \alert{Second Derivative Test}!
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Second Order Conditions: Hessian}
+
+
+\begin{defn}
+Suppose $f:X \rightarrow \Re^{1}$ , $X \subset \Re^{n}$, with $f$ a twice differentiable function.  We will define the \alert{Hessian} matrix as the matrix of second derivatives at $\boldsymbol{x}^{*} \in X$,
+\begin{eqnarray}
+\boldsymbol{H}(f)(\boldsymbol{x}^{*} )  & = & \begin{pmatrix} 
+		\frac{\partial^{2} f }{\partial x_{1} \partial x_{1} } (\boldsymbol{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{1} \partial x_{2} } (\boldsymbol{x}^{*} ) & \hdots & \frac{\partial^{2} f }{\partial x_{1} \partial x_{n} } (\boldsymbol{x}^{*} ) \\
+		\frac{\partial^{2} f }{\partial x_{2} \partial x_{1} } (\boldsymbol{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{2} \partial x_{2} } (\boldsymbol{x}^{*} ) & \hdots & \frac{\partial^{2} f }{\partial x_{2} \partial x_{n} } (\boldsymbol{x}^{*} ) \\
+		\vdots & \vdots & \ddots & \vdots \\
+		\frac{\partial^{2} f }{\partial x_{n} \partial x_{1} } (\boldsymbol{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{n} \partial x_{2} } (\boldsymbol{x}^{*} ) & \hdots & \frac{\partial^{2} f }{\partial x_{n} \partial x_{n} } (\boldsymbol{x}^{*} ) \\
+\end{pmatrix} \nonumber 
+\end{eqnarray}
+
+\end{defn}		
+								
+\alert{General test} $\leadsto$ Two Dimensional Test $\leadsto$ Example
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Hessians}
+\begin{defn}
+Consider $n \times n$ matrix $\boldsymbol{A}$.  If, for all $\boldsymbol{x} \in \Re^{n}$ where $\boldsymbol{x} \neq 0$:
+\begin{eqnarray}
+\boldsymbol{x}^{'} \boldsymbol{A} \boldsymbol{x} & > & 0 \text{ $\boldsymbol{A}$ is \alert{positive definite } } \nonumber \\
+\boldsymbol{x}^{'} \boldsymbol{A} \boldsymbol{x} & < & 0 \text{ $\boldsymbol{A}$ is \alert{negative definite } } \nonumber 
+\end{eqnarray}
+
+
+If $\boldsymbol{x}^{'} \boldsymbol{A} \boldsymbol{x} >0$ for some $\boldsymbol{x}$ and $\boldsymbol{x}^{'} \boldsymbol{A} \boldsymbol{x}<0$ for other $\boldsymbol{x}$, then we say $\boldsymbol{A}$ is \alert{indefinite} 
+
+\end{defn}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Approximating functions and second order conditions}
+
+
+\begin{thm}
+\textbf{Taylor's Theorem}
+Suppose $f:\Re \rightarrow \Re$, $f(x)$ is infinitely differentiable function.  Then, the taylor expansion of $f(x)$ around \alert{$a$} is given by 
+
+\begin{eqnarray}
+f(x) & = & f(a) + \frac{f^{'}(a)}{1!} (x- a) + \frac{f^{''}(a)}{2!} (x - a)^2 + \frac{f^{'''}(a)}{3!}(x- a)^3 + \hdots \nonumber \\
+f(x) & = & \sum_{n=0}^{\infty } \frac{f^{n} (a) }{n!} (x - a)^n \nonumber
+\end{eqnarray}
+
+\end{thm}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Function}
+
+Suppose $a$ = 0 and $f(x) = e^{x}$.  Then, 
+\begin{eqnarray}
+f^{'}(x) & = & e^{x} \nonumber \\
+f^{''}(x) & = & e^{x} \nonumber \\
+\vdots  & \vdots & \vdots \nonumber \\
+f^{n} (x) & = & e^{x} \nonumber 
+\end{eqnarray}
+
+This implies
+\begin{eqnarray}
+e^{x} & = & 1 + x + \frac{x^{2}}{2!} + \frac{x^3}{3!} \hdots + \frac{x^{n}}{n!} + \hdots \nonumber \end{eqnarray}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Multivariate Taylor's Theorem}
+
+\begin{thm} 
+
+Suppose $f:\Re^{n} \rightarrow \Re$ is a three-times continously differentiable function, then around $\boldsymbol{a}\in \Re^{n}$, 
+\begin{eqnarray}
+f(\boldsymbol{x}) & = & f(\boldsymbol{a} ) + \nabla f(\boldsymbol{a}) (\boldsymbol{x} - \boldsymbol{a} )  + \frac{1}{2}(\boldsymbol{x} - \boldsymbol{a} )^{'} \textbf{H} (f)(\boldsymbol{a}) (\boldsymbol{x} - \boldsymbol{a} )  + R(\boldsymbol{a}, \boldsymbol{x}) \nonumber 
+\end{eqnarray}
+
+where $\frac{R(\boldsymbol{x}, \boldsymbol{a})}{||\boldsymbol{x} - \boldsymbol{a}||^2} \rightarrow 0 $ as $\boldsymbol{x} \rightarrow \boldsymbol{a}$
+
+\end{thm}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Intuition for Quadratic Form}
+
+Suppose $\boldsymbol{x}^{*}$ is some critical value, 
+
+\begin{eqnarray}
+f(\boldsymbol{x}) & = & f(\boldsymbol{x}^{*} ) + \nabla f(\boldsymbol{x}^{*} ) (\boldsymbol{x} - \boldsymbol{x}^{*} ) + (\boldsymbol{x}  - \frac{1}{2}\boldsymbol{x}^{*} ) \textbf{H}(f) (x^{*} ) (\boldsymbol{x}- \boldsymbol{x}^{*})  + R(\boldsymbol{x}^{*}, \boldsymbol{x}) \nonumber 
+\end{eqnarray}
+
+\begin{eqnarray}
+f(\boldsymbol{x}) - f(\boldsymbol{x}^{*} ) & = & 0 (\boldsymbol{x}- \boldsymbol{x}^{*} ) + (\boldsymbol{x}  - \frac{1}{2}\boldsymbol{x}^{*} ) \textbf{H}(f) (\boldsymbol{x}^{*} ) (\boldsymbol{x}- \boldsymbol{x}^{*})  + R(\boldsymbol{x}^{*}, \boldsymbol{x})\nonumber
+\end{eqnarray}
+
+For $\boldsymbol{x}$ near $\boldsymbol{x}^{*}$, $R(\boldsymbol{x}^{*}, \boldsymbol{x}) \approx 0$\\
+
+\vspace{0.25in}
+
+$\boldsymbol{H}(f)(\boldsymbol{x}^{*})$ positive definite $\rightarrow$ $f(\boldsymbol{x}) > f(\boldsymbol{x}^{*})$ $\rightarrow$ local minimum \\
+
+$\boldsymbol{H}(f)(\boldsymbol{x}^{*})$ negative definite $\rightarrow$ $f(\boldsymbol{x}) < f(\boldsymbol{x}^{*})$ $\rightarrow$ local maximum \\
+
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+
+
+
+
+
+
+
+
+\begin{thm} 
+\alert{Second Derivative Test}
+\begin{itemize}
+\item[-] If $\boldsymbol{H}(f)(\boldsymbol{a})$ is \alert{positive definite} then $\boldsymbol{a}$ is a local minimum 
+\item[-] If $\boldsymbol{H}(f)(\boldsymbol{a})$ is \alert{negative definite} then $\boldsymbol{a}$ is a local maximum 
+\item[-] If $\boldsymbol{H}(f)(\boldsymbol{a})$ is \alert{indefinite} then $\boldsymbol{a}$ is a saddle point
+\end{itemize}
+\end{thm}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Second Derivative Test} 
+
+Many ways to assess definiteness $\leadsto$ use determinant 
+
+\begin{thm} 
+\alert{Two Dimensional, Second Derivative Test}.  Suppose $f:X \rightarrow \Re$ with $X \subset \Re^{2}$ and $f$ twice differentiable.  Write the \alert{Hessian} of $f$ at a critical value $\boldsymbol{a}$, 
+\begin{eqnarray}
+\boldsymbol{H}(f)(\boldsymbol{a}) & = & \begin{pmatrix} 
+	A & B \\
+	B & C \\
+	\end{pmatrix} \nonumber 
+	\end{eqnarray}
+Then, we can conduct the second derivative test as:
+\begin{itemize}
+\item[-] $AC - B^2> 0$ and $A>0$ $\leadsto$ \alert{positive definite} $\leadsto$ $\boldsymbol{a}$ is a local minimum 
+\item[-] $AC - B^2> 0 $ and $A<0$ $\leadsto$ \alert{negative definite} $\leadsto$ $\boldsymbol{a}$ is a local maximum
+\item[-] $AC - B^2<0 $ $\leadsto$ \alert{indefinite} $\leadsto$ saddle point 
+\item[-] $AC- B^2 = 0$ \alert{inconclusive}
+\end{itemize}
+	
+\end{thm}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multivariate Recipe}
+
+\begin{itemize}
+\item[1)] Calculate \alert{gradient}
+\item[2)] Set equal to zero, solve system of equations
+\item[3)] Calculate \alert{Hessian}
+\item[4)] Assess \alert{Hessian} at critical values
+\item[5)] \alert{Boundary values}?  (if relevant)
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 1: A Simple Optimization Problem}
+
+Suppose $f:\Re^{2} \rightarrow \Re$ with 
+\begin{eqnarray}
+f(x_{1}, x_{2}) & = & 3(x_1 + 2)^2  + 4(x_{2}  + 4)^2 \nonumber 
+\end{eqnarray}
+
+Calculate gradient
+
+\begin{eqnarray}
+\nabla f(\boldsymbol{x}) & = & (6 x_{1} + 12 , 8x_{2} + 32 ) \nonumber \\
+\boldsymbol{0} & = & (6 x_{1}^{*} + 12 , 8x_{2}^{*} + 32 ) \nonumber 
+\end{eqnarray}
+
+We now solve the system of equations to yield
+$x_{1}^{*}  = - 2$ and $x_{2}^{*}  = -4 $ 
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Example 1: A Simple Optimization Problem}
+
+\begin{eqnarray}
+\textbf{H}(f)(\boldsymbol{x}^{*}) & = & \begin{pmatrix}
+6 & 0 \\
+0 & 8 \\
+\end{pmatrix}\nonumber 
+\end{eqnarray}
+
+det$(\textbf{H}(f)(\boldsymbol{x}^{*}))$ = 48 and $6>0$ so $\textbf{H}(f)(\boldsymbol{x}^{*})$ is positive definite. \alert{local minimum}
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Example 2: Two Dimensional Ideal Points}
+Suppose legislators are considering legislation $\boldsymbol{x} \in \Re^{2}$.  And suppose legislator $i$ has utility function $U_{i}: \Re^{2} \rightarrow \Re$, 
+\begin{eqnarray}
+U(\boldsymbol{x})_{i} & = & - (x_{1} - \mu_{1})^2 - (x_{2} - \mu_{2})^2 \nonumber 
+\end{eqnarray}
+What is legislator $i$'s \alert{optimal} policy?
+
+$\nabla f(\boldsymbol{x}) = ( -2 (x_{1} - \mu_{1} ) , -2 (x_{2} - \mu_{2} )  )$\\
+$\nabla f(\boldsymbol{x}) = \boldsymbol{0} $
+\begin{eqnarray}
+- 2(x_{1}^{*} - \mu_{1} ) & = & 0 \nonumber \\
+- 2(x_{2}^{*} - \mu_{2} ) & = & 0 \nonumber 
+\end{eqnarray} 
+Solving yields $x_{1}^{*} = \mu_{1}$ and $x_{2}^{*} = \mu_{2}$.  
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 2: Two Dimensional Ideal Points} 
+
+\begin{eqnarray}
+U(\boldsymbol{x})_{i} & = & - (x_{1} - \mu_{1})^2 - (x_{2} - \mu_{2})^2 \nonumber 
+\end{eqnarray}
+
+Call $\boldsymbol{\mu} = (\mu_{1}, \mu_{2} ) $\\
+
+The Hessian at the critical value is 
+\begin{eqnarray}
+\boldsymbol{H}(f)(\boldsymbol{\mu} ) & = & \begin{pmatrix} 
+\frac{\partial^{2} U_{i}} {\partial x_{1} \partial x_{1}} (\boldsymbol{\mu} ) & \frac{\partial^{2} U_{i}} {\partial x_{1} \partial x_{2}} (\boldsymbol{\mu} )  \\
+\frac{\partial^{2} U_{i}} {\partial x_{2} \partial x_{1}} (\boldsymbol{\mu} ) & \frac{\partial^{2} U_{i}} {\partial x_{2} \partial x_{2}} (\boldsymbol{\mu} )\\
+\end{pmatrix} \nonumber \\
+& = & \begin{pmatrix} 
+-2 & 0  \\
+0 & -2  \\
+\end{pmatrix} 
+\nonumber 
+\end{eqnarray}
+So, $-2 * -2 - 0  = 4 >0$ and $-2 <0$ $\leadsto$ \alert{negative definite}, \alert{maximum} \\
+$\boldsymbol{\mu} = (\mu_{1}, \mu_{2})$ are legislator $i$'s two dimensional ideal point.  
+
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Example 3: Maximum Likelihood Estimation, Normal Distribution}
+\pause 
+
+\invisible<1>{Suppose that we draw an independent and identically distributed random sample of $n$ observations from a normal distribution,} \pause 
+\begin{eqnarray}
+\invisible<1-2>{Y_{i} & \sim & \text{Normal}(\mu, \sigma^2) \nonumber \\} \pause 
+\invisible<1-3>{\boldsymbol{Y} & = & (Y_{1}, Y_{2}, \hdots, Y_{n} ) \nonumber } \pause 
+\end{eqnarray}
+
+
+
+\invisible<1-4>{Our task:} \pause 
+\begin{itemize}
+\invisible<1-5>{\item[-] Obtain likelihood (summary estimator)} \pause
+\invisible<1-6>{\item[-] Derive maximum likelihood estimators for $\mu$ and $\sigma^2$} \pause
+\invisible<1-7>{\item[-] Characterize sampling distribution } 
+\end{itemize}
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 3: Maximum Likelihood Estimation, Normal Distribution}
+\pause 
+\begin{eqnarray}
+\invisible<1>{L(\mu, \sigma^2 | \boldsymbol{Y} ) & \propto & \prod_{i=1}^{n} f(Y_{i}|\mu, \sigma^2) \nonumber \\} \pause 
+ \invisible<1-2>{&\propto  &  \prod_{i=1}^{N} \frac{\exp[ - \frac{ (Y_{i} - \mu)^2 }{2\sigma^2} ]}{\sqrt{2 \pi \sigma^2}} \nonumber \\} \pause 
+ \invisible<1-3>{& \propto  & \frac{\exp[ -\sum_{i=1}^{n} \frac{(Y_{i} - \mu)^2}{2\sigma^2}  ]}{ (2\pi)^{n/2} \sigma^{2n/2} } \nonumber } \pause
+ \end{eqnarray}
+\invisible<1-4>{Taking the logarithm, we have } \pause
+\begin{eqnarray}
+\invisible<1-5>{l(\mu, \sigma^2|\boldsymbol{Y} ) & = & -\sum_{i=1}^{n} \frac{(Y_{i} - \mu)^2}{2\sigma^2} - \frac{n}{2} log(2 \pi) - \frac{n}{2} \log (\sigma^2)  + \alert{c} \nonumber \\} \pause
+\invisible<1-6>{&= & -\sum_{i=1}^{n} \frac{(Y_{i} - \mu)^2}{2\sigma^2}- \frac{n}{2} \log (\sigma^2) + \alert{c}^{'} \nonumber } 
+\end{eqnarray}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 3: Log-Likelihood Plot}
+
+\only<1-3>{\begin{itemize}
+\item[-] In \alert{R}, drew 10,000 realizations from  \pause 
+\begin{eqnarray}
+\invisible<1>{Y_{i} & \sim & \text{Normal}(0.25, 100 ) \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-2>{\item[-] Used realized values $y_{i}$ evaluate $l(\mu, \sigma^2| \boldsymbol{y} ) $ } \pause 
+\end{itemize}
+}
+
+
+\only<1-4>{\invisible<1-3>{\scalebox{0.4}{\includegraphics{NormFig1.pdf}}}  } \pause
+\only<5>{\invisible<1-4>{\scalebox{0.4}{\includegraphics{NormFig2.pdf}}} } 
+
+
+
+
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Example 3: Maximum Likelihood Estimation, Normal Distribution} 
+
+Let's find $\widehat{\mu}$ and $\widehat{\sigma}^{2}$ that maximizes log-likelihood.  \pause 
+
+\begin{eqnarray}
+\invisible<1>{l(\mu, \sigma^2|\boldsymbol{Y} ) & = &  -\sum_{i=1}^{n} \frac{(Y_{i} - \mu)^2}{2\sigma^2} - \frac{n}{2} \log (\sigma^2) + \alert{c}^{'} \nonumber \\}\pause 
+\invisible<1-2>{\frac{\partial l(\mu, \sigma^2)|\boldsymbol{Y} )}{\partial \mu }  & = & \sum_{i=1}^{n} \frac{2(Y_{i} - \mu)}{2\sigma^2}  \nonumber \\}\pause 
+\invisible<1-3>{\frac{\partial l(\mu, \sigma^2)|\boldsymbol{Y})}{\partial \sigma^2} & = &  -\frac{n}{2\sigma^2}  + \frac{1}{2\sigma^4} \sum_{i=1}^{n} (Y_{i} - \mu)^2 \nonumber }
+\end{eqnarray}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 3: Maximum Likelihood Estimation, Normal Distribution}
+
+
+\begin{eqnarray}
+0 & = & -\sum_{i=1}^{n} \frac{2(Y_{i} - \widehat{\mu})}{2\widehat{\sigma}^2}  \nonumber \\
+0 & = &  -\frac{n}{2\widehat{\sigma}^2 }  + \frac{1}{2\widehat{\sigma}^4} \sum_{i=1}^{n} (Y_{i} - \mu^{*})^2 \nonumber 
+\end{eqnarray} 
+\pause 
+\invisible<1>{Solving for $\widehat{\mu}$ and $\widehat{\sigma}^2$ yields, } \pause 
+\begin{eqnarray}
+\invisible<1-2>{\widehat{\mu} & = & \frac{\sum_{i=1}^{n} Y_{i} }{n} \nonumber \\} \pause 
+\invisible<1-3>{\widehat{\sigma}^{2} & = & \frac{1}{n} \sum_{i=1}^{n} (Y_{i} - \overline{Y})^2 \nonumber } 
+\end{eqnarray}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 3: Maximum Likelihood Estimation, Normal Distribution}
+
+ \pause 
+\invisible<1>{$
+\textbf{H}(f)(\widehat{\mu}, \widehat{\sigma}^2)  = 
+ \begin{pmatrix} 
+\frac{\partial^{2} l(\mu, \sigma^2|\boldsymbol{Y} )}{\partial \mu^{2}} & \frac{\partial^{2} l(\mu, \sigma^2|\boldsymbol{Y} )}{\partial \sigma^{2} \partial \mu} \\
+\frac{\partial^{2} l(\mu, \sigma^2|\boldsymbol{Y} )}{\partial \sigma^{2} \partial \mu} & \frac{\partial^{2} l(\mu, \sigma^2|\boldsymbol{Y} )}{\partial^{2} \sigma^{2}} \nonumber 
+\end{pmatrix}
+$} \pause 
+
+\invisible<1-2>{Taking derivatives and evaluating at MLE's yields, } \pause 
+\invisible<1-3>{
+\begin{eqnarray}
+\textbf{H}(f)(\widehat{\mu}, \widehat{\sigma}^2) & = &  \begin{pmatrix} \frac{-n}{\widehat{\sigma}^2} & 0 \\
+0 & \frac{-n}{(\widehat{\sigma}^2)^2} \nonumber \\
+\end{pmatrix} \nonumber } \pause 
+\end{eqnarray}
+
+
+\invisible<1-4>{$\text{det}(\textbf{H}(f)(\widehat{\mu}, \widehat{\sigma}^2)) = n^2/\widehat{\sigma}^5$ and $-n/\widehat{\sigma}^2 < 0 $ $\leadsto $ maximum}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Computational Optimization}
+
+Analytic solutions: often hard. \pause \\
+\invisible<1>{Computational solutions: simplify.  \alert{Trade offs} } \pause 
+\begin{itemize}
+\invisible<1-2>{\item[-] Newton-Raphson: \alert{expensive} } \pause 
+\invisible<1-3>{\item[-] BFGS: \alert{less expensive}} \pause 
+\invisible<1-4>{\item[-] EM-like optimization: solve intractable problems, parallelizable} 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multivariate Newton Raphson}
+
+Suppose $f:\Re^{n} \rightarrow \Re$.  Suppose we have guess $\boldsymbol{x}_{t}$. \pause \invisible<1>{  Then our update is:} \pause 
+\begin{eqnarray}
+\invisible<1-2>{\boldsymbol{x}_{t+1} & = & \boldsymbol{x}_{t} - \textbf{H}(f)(\boldsymbol{x}_{t})^{-1} \nabla f(\boldsymbol{x}_{t}) }\nonumber \pause 
+\end{eqnarray}
+
+\invisible<1-3>{Derivation (intuition):}\pause \invisible<1-4>{ Approximate function with \alert{tangent plane}. } \pause \invisible<1-5>{ Find value of $x_{t+1}$ that makes the plane equal to zero.  Update again.  } \pause 
+
+\invisible<1-6>{\tt R Code}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multivariate Newton Raphson}
+
+\pause 
+
+\begin{itemize}
+\invisible<1>{\item[-] Expensive to calculate (requires inverting Hessian)} \pause 
+\invisible<1-2>{\item[-] Very sensitive to starting points} \pause 
+\invisible<1-3>{\item[-] Ideally: method that exploits Newton-like structure, but is cheaper and more robust} \pause 
+\end{itemize}
+
+\invisible<1-4>{{\tt BFGS}: \alert{Quasi-Newton} method\\} \pause 
+\invisible<1-5>{{\tt R code}} 
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Optimization that is Both Discrete and Continuous}
+
+\alert{K-means}: most commonly used clustering algorithm.  \pause \\
+\invisible<1>{\alert{Story}: Data are grouped in \alert{$K$} clusters and each cluster has a \alert{center} or mean.\\} \pause 
+\invisible<1-2>{$\rightarrow$ Two \alert{types} of parameters to estimate } \pause 
+\begin{itemize}
+\invisible<1-3>{\item[1)] For each cluster $j$, ($j=1,\hdots, K$)
+\item[] $r_{ij} = $Indicator, Document $i$ assigned to cluster $j$ 
+\item[] $\boldsymbol{r}_j = (r_{1j}, r_{2j}, \hdots, r_{Nj} ) $
+\item[] $\boldsymbol{r} = (\boldsymbol{r}_1^{'}, \boldsymbol{r}_2^{'}, \hdots, \boldsymbol{r}_K^{'} ) $ ($N \times K$ matrix) } \pause 
+\invisible<1-4>{\item[2)] For each cluster $j$
+\item[] $\boldsymbol{\mu}_j$ a \alert{cluster center} for cluster $j$.  
+\item[] $\boldsymbol{\mu}_j = (\mu_{1j}, \mu_{2j}, \hdots, \mu_{Mj})$} \pause 
+\end{itemize}
+\invisible<1-5>{Notation. Representation of document $i$:
+\begin{eqnarray}
+\boldsymbol{y}_{i} & = & (y_{i1}, y_{i2}, \hdots, y_{iM} ) \nonumber 
+\end{eqnarray}
+}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Specifying the Method}
+
+
+\begin{itemize}
+\item[1)] Assume Euclidean distance between objects. 
+\item[2)] \alert{Objective function}
+\end{itemize}
+
+
+\begin{eqnarray}
+f(\boldsymbol{r}, \boldsymbol{\mu}, \boldsymbol{y}) & = & \sum_{i=1}^{N} \sum_{j=1}^{K} r_{ij} \left(\sum_{m=1}^{M} (y_{im} - \mu_{km})^{2} \right) \nonumber 
+\end{eqnarray}
+
+\pause 
+
+\invisible<1>{Goal: } \pause \\
+\invisible<1-2>{Choose $\boldsymbol{r}^{*}$ and $\boldsymbol{\mu}^{*}$ to minimize $f(\boldsymbol{r}, \boldsymbol{\mu}, \boldsymbol{y})$\\} \pause 
+\invisible<1-3>{Two observations:
+\begin{itemize}
+\item[-] If $K=N$ $f( r^{*}, \boldsymbol{\mu}^{*}, \boldsymbol{y}) = 0$ (Minimum)
+\begin{itemize}
+\item[-] Each observation in own cluster
+\item[-] $\boldsymbol{\mu}_i = \boldsymbol{y}_i$
+\end{itemize}
+\item[-] If $K = 1$, $f( r^{*}, \boldsymbol{\mu}^{*}, \boldsymbol{y}) = N \times \sigma^2$
+\begin{itemize}
+\item[-] Each observation in one cluster
+\item[-] Center: average of documents
+\end{itemize}
+\end{itemize}
+
+}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Specifying the Method} 
+\begin{itemize}
+\item[1)] Assume Euclidean distance between objects 
+\item[2)] Objective function
+\item[3)] Algorithm for optimization
+\end{itemize}
+
+
+Iterative algorithm, Each Iteration $t$
+\begin{itemize}
+\item[-] Conditional on $\boldsymbol{\mu}^{t-1}$ (from previous iteration), choose $\boldsymbol{r}^{t}$
+\item[-] Conditional on $\boldsymbol{r}^{t}$, choose $\boldsymbol{\mu}^{t}$
+\end{itemize}
+Repeat until convergence, measured as change in $f$.
+\begin{eqnarray}
+\text{Change} & = & f(\boldsymbol{\mu}^{t}, \boldsymbol{r}^{t}, \boldsymbol{y} ) - f(\boldsymbol{\mu}^{t-1}, \boldsymbol{r}^{t-1}, \boldsymbol{y} ) \nonumber 
+\end{eqnarray}
+
+ 
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Specifying the Method}
+
+\begin{eqnarray}
+f(\boldsymbol{r}, \boldsymbol{\mu}, \boldsymbol{y}) & = & \sum_{i=1}^{N} \sum_{j=1}^{K} r_{ij} \left(\sum_{m=1}^{M} (y_{im} - \mu_{km})^{2} \right) \nonumber 
+\end{eqnarray}
+
+
+Algorithm for estimation: \\
+Begin: initialize $\boldsymbol{\mu}_1^{t-1}, \boldsymbol{\mu}_2^{t-1}, \hdots, \boldsymbol{\mu}_K^{t-1}$\\
+Choose $\boldsymbol{r}^{t}$
+\begin{equation}
+r_{ij}^{t} =  \left \{ \begin{array} {ll}
+1 \text{ if } j = \arg\min_{k} \sum_{m=1}^{M} (y_{im} - \mu_{km} )^2 \\
+0  \text{ otherwise } ,
+\end{array} \right. . \nonumber
+\end{equation}
+
+In words: Assign each document $\boldsymbol{y}_i$ to the closest center $\boldsymbol{\mu}_k$
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\begin{eqnarray}
+f(\boldsymbol{r}, \boldsymbol{\mu}, \boldsymbol{y}) & = & \sum_{i=1}^{N} \sum_{j=1}^{K} r_{ij} \left(\sum_{m=1}^{M} (y_{im} - \mu_{km})^{2} \right) \nonumber 
+\end{eqnarray}
+
+Conditional on $\boldsymbol{r}^{t}$, choose $\boldsymbol{\mu}^{t}$\\
+Let's focus on $\boldsymbol{\mu}_k$ \\
+\begin{eqnarray}
+f(\boldsymbol{r}, \boldsymbol{\mu}_{k}, \boldsymbol{y})_{k} & = & \sum_{i=1}^{N} r_{ik} \left(\sum_{m=1}^{M} (y_{im} - \mu_{km})^{2} \right) \nonumber
+\end{eqnarray}  
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+Focus on just $\mu_{km}$ 
+\begin{eqnarray}
+f(\boldsymbol{r}, \mu_{km}, \boldsymbol{y})_{km} & = & \sum_{i=1}^{N} r_{ik} (y_{im} - \mu_{km})^{2} \nonumber
+\end{eqnarray}  
+
+Quadratic: take derivative, set equal to zero (second derivative test works)
+
+\begin{eqnarray}
+\frac{\partial f(\boldsymbol{r}, \mu_{km}, \boldsymbol{y})_{km} } {\partial \mu_{km} } & = & -2 \sum_{i=1}^{N} r_{ik}(y_{im} - \mu_{km} ) \nonumber \\
+2 \sum_{i=1}^{N} r_{ik}(y_{im} - \mu_{km}^{t} ) & = & 0 \nonumber \\
+\sum_{i=1}^{N}r_{ik}y_{im} - \mu_{km}^{t}\sum_{i=1}^{N} r_{ik}  & = & 0 \nonumber \\
+\frac{\sum_{i=1}^{N}r_{ik}y_{im}  }{\sum_{i=1}^{N} r_{ik} } & = & \mu_{km}^{t} \nonumber 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{eqnarray}
+\boldsymbol{\mu}^{t}_{k} & = & \frac{\sum_{i=1}^{N} r_{ik} \boldsymbol{y}_{i} }{\sum_{i=1}^{N} r_{ik} } \nonumber 
+\end{eqnarray}
+
+In words:
+\begin{itemize}
+\item[-] $\boldsymbol{\mu}^{t}_k$ is the average of documents assigned to the $k^{\text{th}}$ cluster
+\end{itemize}
+
+\alert{Algorithm, In Words}
+\begin{itemize}
+\item[-] Conditional on center estimates, assign documents to closest cluster centers
+\item[-] Conditional on document assignments, cluster centers are averages of documents assigned to the cluster
+\end{itemize}
+
+\alert{Expectation-Maximization} (EM) [connection guarantees convergence]
+\begin{itemize}
+\item[-] Estimation of $r \leadsto$ Expectation step (data augmentation)
+\item[-] Estimation of $\boldsymbol{\mu}_k \leadsto$ Maximization Step 
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Visual Example} 
+
+
+\only<1>{\scalebox{0.5}{\includegraphics{BlankPoints.pdf}}}
+\only<2>{\scalebox{0.5}{\includegraphics{KMeans1.pdf}}}
+\only<3>{\scalebox{0.5}{\includegraphics{KMeans2.pdf}}}
+\only<4>{\scalebox{0.5}{\includegraphics{KMeans3.pdf}}}
+\only<5>{\scalebox{0.5}{\includegraphics{KMeans4.pdf}}}
+\only<6>{\scalebox{0.5}{\includegraphics{KMeans5.pdf}}}
+\only<7>{\scalebox{0.5}{\includegraphics{KMeans6.pdf}}}
+\only<8>{\scalebox{0.5}{\includegraphics{KMeans7.pdf}}}
+\only<9>{\scalebox{0.5}{\includegraphics{KMeans8.pdf}}}
+\only<10>{\scalebox{0.5}{\includegraphics{KMeans9.pdf}}}
+\only<11>{\scalebox{0.5}{\includegraphics{KMeans10.pdf}}}
+\only<12>{\scalebox{0.5}{\includegraphics{KMeans11.pdf}}}
+\only<13>{\scalebox{0.5}{\includegraphics{KMeansFinal.pdf}}}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Many Optimization Procedures!!!}
+
+\pause 
+\invisible<1>{Nelder Mead:} \pause 
+\begin{itemize}
+\invisible<1-2>{\item[-] Evaluate points on a simplex (triangle)} \pause 
+\invisible<1-3>{\item[-] Either Reflect, Expand, or Contract (based on values)} \pause 
+\invisible<1-4>{\item[-] Converges to local extrema} \pause 
+\end{itemize}
+
+
+\invisible<1-5>{Stochastic Optimization:} \pause 
+\begin{itemize}
+\invisible<1-6>{\item[-] Sample a subset of data, perform optimization} \pause 
+\invisible<1-7>{\item[-] Sample a new subset, perform optimization, combine with previous sample} \pause 
+\invisible<1-8>{\item[-] Converges on local extrema (given regulatory conditions)} \pause 
+\end{itemize}
+
+
+
+\invisible<1-9>{Genetic Optimization:} \pause 
+\begin{itemize}
+\invisible<1-10>{\item[-] Evaluate fitness of solutions} \pause 
+\invisible<1-11>{\item[-] Randomly select most fit, then combine} \pause 
+\invisible<1-12>{\item[-] Can converge to \alert{global} maximum, but might require extensive run time} 
+\end{itemize}
+
+
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Where We Are Going}
+
+\begin{itemize}
+\item[-] Done with math component
+\item[-] Start probability tomorrow
+\end{itemize}
+
+\end{frame}
+
+
+
+\end{document}
