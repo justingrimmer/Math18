@@ -1,0 +1,776 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\  Stanford University}
+\vspace{0.3in}
+
+\date{September 13th, 2018}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Where are we going?}
+
+Probability Theory:
+\begin{itemize}
+\item[1)] Mathematical model of uncertainty
+\item[2)] Foundation for statistical inference 
+\item[3)] Continues our development of key skills
+\begin{itemize}
+\item[-] Proofs [precision in thinking, useful for formulating arguments]
+\item[-] Statistical computing [basis for much of what you'll do in graduate school]
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Model of Probability}
+
+Three parts to our probability model \pause 
+\begin{itemize}
+\invisible<1>{\item[1)] \alert{Sample space}: set of all things that could
+  happen} \pause 
+\invisible<1-2>{\item[2)] Events: subsets of the sample space} \pause 
+\invisible<1-3>{\item[3)] Probability: \alert{chance} of an event} 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sample Spaces: All Things that Can Happen}
+
+\begin{defn}
+The \alert{sample space} as the set of all things that can occur.  We will collect all distinct outcomes into the set $S$
+\end{defn}
+\pause 
+\invisible<1>{\alert{Known perfectly}} \pause \\
+
+\invisible<1-2>{Examples: } \pause 
+\begin{itemize}
+\invisible<1-3>{\item[1)] \alert{House of Representatives: Elections
+    Every 2 Years}} \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] One incumbent: $S = \{W, N\}$} \pause 
+\invisible<1-5>{\item[-] Two incumbents: $S = \{(W,W), (W,N), (N,W),  (N,N)\}$} \pause
+\invisible<1-6>{\item[-] 435 incumbents: $S = 2^{435}$ possible outcomes } \pause
+\end{itemize}
+\invisible<1-7>{\item[2)] Number of countries signing treaties } \pause
+\begin{itemize}
+\invisible<1-8>{\item[-] $S = \{ 0, 1, 2, \hdots, 194\}$} \pause
+\end{itemize}
+\invisible<1-9>{\item[3)] Duration of cabinets } \pause
+\begin{itemize}
+\invisible<1-10>{\item[-] All non-negative real numbers: $[0, \infty)$ } \pause
+\invisible<1-11>{\item[-] $S = \{x: 0\leq x < \infty\}$} \pause
+\end{itemize}
+\end{itemize}
+
+\invisible<1-12>{Key point: this defines \alert{all possible
+    realizations}} 
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Events: Subsets of Sample Space}
+
+
+\begin{defn}
+An event, $E$ is a subset of the sample space.\\
+$E \subset S$
+\end{defn}
+
+
+\invisible<1>{Plain English: Outcomes from the sample space, collected
+in set}
+\pause \\
+\invisible<1-2>{Congressional Election Example } \pause 
+\begin{itemize}
+\invisible<1-3>{\item[-] One incumbent:  } \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] $E$ = W } \pause 
+\invisible<1-5>{\item[-] $F$ = N } \pause 
+\end{itemize}
+\invisible<1-6>{\item[-] Two Incumbents:  } \pause 
+\begin{itemize}
+\invisible<1-7>{\item[-] $E$ = $\{(W, N), (W, W) \}$ } \pause 
+\invisible<1-8>{\item[-] $F$ = $\{(N, N)\}$ } \pause 
+\end{itemize}
+\invisible<1-9>{\item[-] 435 Incumbents:  } \pause 
+\begin{itemize}
+\invisible<1-10>{\item[-] Outcome of 2010 election: one event } \pause 
+\invisible<1-11>{\item[-] All outcomes where Dems retain control of House: one event } \pause 
+\end{itemize} 
+\end{itemize}
+\invisible<1-12>{\alert{Notation}: } \pause 
+\invisible<1-13>{$x$ is an ``element" of a set $E$:\\ } \pause 
+\large
+\invisible<1-14>{$x \in E$\\ } \pause 
+\invisible<1-15>{$\{N, N\} \in E$ } 
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Events: Subsets of Sample Space}
+
+$E$ is a \alert{set}\pause\invisible<1>{: collection of distinct
+  objects. } \pause  \\
+\invisible<1-2>{\alert{Recall} three operations on sets (like $E$) to create
+  new sets:} \pause \\
+\invisible<1-3>{Consider two example sets (from two incumbent
+  example): } \pause 
+\begin{itemize}
+\invisible<1-4>{\item[] $E = \{ (W,W), (W,N) \}$ } \pause
+\invisible<1-5>{\item[] $F  = \{ (N, N), (W,N) \} $} \pause
+\invisible<1-6>{\item[] $S = \{(W,W), (W,N), (N,W), (N,N) \}$} \pause
+\end{itemize}
+\invisible<1-7>{Operations determine what lies in new set $E^{\text{new}}$} \pause
+\begin{itemize}
+\invisible<1-8>{\item[1)] Union: $\cup$ } \pause
+\begin{itemize}
+\invisible<1-9>{\item[-] All objects that appear in \alert{either} set } \pause
+\invisible<1-10>{\item[-] $E^{\text{new}} = E \cup F  = \{(W,W), (W,N), (N,N) \} $} \pause
+\end{itemize}
+\invisible<1-11>{\item[2)] Intersection: $\cap$ } \pause
+\begin{itemize}
+\invisible<1-12>{\item[-] All objects that appear in \alert{both} sets } \pause
+\invisible<1-13>{\item[-] $E^{\text{new}} = E \cap F = \{(W,N)\} $} \pause
+\invisible<1-14>{\item[-] Sometimes written as $EF$} \pause
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+\item[3)] \alert{Complement} of set $E$: $E^{c}$ \pause
+\begin{itemize}
+\invisible<1>{\item[-] All objects in $S$ that aren't in $E$} \pause
+\invisible<1-2>{\item[-] $E^{c} = \{(N, W) , (N, N) \} $} \pause
+\invisible<1-3>{\item[-] $F^{c} = \{(N, W) , (W, W) \} $} \pause 
+\invisible<1-4>{\item[-] $S = \Re$ and $E = [0,1]$.  What is $E^{c}$? } \pause
+\invisible<1-5>{\item[-] What is $S^{c}$}? \pause \invisible<1-6>{ $\emptyset$} \pause 
+\end{itemize}
+\end{itemize}
+
+
+\invisible<1-7>{Suppose $E = {W}$, $F = {N}$.  Then  $E \cap F = \emptyset$ (there is nothing that lies in both sets)}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Events: Subsets of Sample Space}
+
+\begin{defn}
+Suppose $E$ and $F$ are events.  If $E \cap F = \emptyset$ then we'll say $E$ and $F$ are \alert{mutually exclusive}
+\end{defn}
+
+\pause 
+
+\begin{itemize}
+\invisible<1>{\item[-] Mutual exclusivity $\neq$ independence} \pause 
+\invisible<1-2>{\item[-] $E$ and $E^{c}$ are mutually exclusive events} \pause 
+\end{itemize}
+
+\invisible<1-3>{Examples:} \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] Suppose $S = \{H, T\}$.  Then $E = H$ and $F = T$, then $E \cap F = \emptyset$} \pause 
+\invisible<1-5>{\item[-] Suppose $S = \{(H, H), (H,T), (T, H), (T,T) \}$.  $E = \{(H,H)\}$,  $F = \{(H, H), (T,H)\}$, and $G = \{(H, T), (T, T) \}$ } \pause 
+\begin{itemize}
+\invisible<1-6>{\item[-] $E \cap F = (H, H)$ } \pause 
+\invisible<1-7>{\item[-] $E \cap G = \emptyset$} \pause 
+\invisible<1-8>{\item[-] $F \cap G = \emptyset$ } \pause
+\end{itemize}
+\invisible<1-9>{\item[-] Suppose $S = \Re_{+}$.  $E = \{x: x> 10\}$ and $F = \{x: x < 5\} $.  Then $E \cap F = \emptyset$.  } 
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Events: Subsets of the Sample Space}
+
+\begin{defn}
+Suppose we have events $E_{1}, E_{2}, \hdots, E_{N}$.  \\
+Define: 
+\begin{eqnarray}
+\cup_{i=1}^{N} E_{i} & = & E_{1} \cup E_{2} \cup E_{3} \cup \hdots \cup E_{N} \nonumber
+\end{eqnarray}
+ $\cup_{i=1}^{N} E_{i} $ is the set of outcomes that occur at least once in $E_{1} , \hdots, E_{N}$. \pause \\
+
+\invisible<1>{
+Define: 
+
+
+\begin{eqnarray}
+\cap_{i=1}^{N} E_{i} & = & E_{1} \cap E_{2} \cap \hdots \cap E_{N} \nonumber 
+\end{eqnarray}
+$\cap_{i=1}^{N} E_{i} $ is the set of outcomes that occur in each $E_{i}$
+}
+
+\end{defn}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Probability}
+
+\begin{itemize}
+\invisible<1>{\item[1)] Sample Space: set of all things that could
+  happen} \pause 
+\invisible<1-2>{\item[2)] Events: subsets of sample space} \pause 
+\invisible<1-3>{\item[3)] \alert{Probability}: chance of event} \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] $P$ is a function} \pause 
+\invisible<1-5>{\item[-] Domain: all events $E$} \pause 
+\invisible<1-6>{\item[-] Describes relative likelihood of all $E$
+  (events)} 
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Probability} 
+
+
+\begin{defn}
+All probability functions, $P$, satisfy three axioms: \pause 
+\begin{itemize}
+\invisible<1>{\item[1)] For all events $E$, \\} \pause 
+\invisible<1-2>{$0 \leq P(E) \leq 1$ } \pause 
+\invisible<1-3>{\item[2)] $P(S) = 1$ } \pause 
+\invisible<1-4>{\item[3)] For all sequences of mutually exclusive events $E_{1},
+  E_{2}, \hdots,E_{N} $ (where $N$ can go to infinity)\\} \pause 
+\invisible<1-5>{$P\left(\cup_{i=1}^{N} E_{i}  \right)  =
+  \sum_{i=1}^{N} P(E_{i} ) $} 
+\end{itemize}
+\end{defn}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Probability}
+
+\pause 
+
+\begin{itemize}
+\invisible<1>{\item[-] Suppose we are flipping a \alert{fair} coin.  Then $P(H) = P(T) = 1/2 $}\pause 
+\invisible<1-2>{\item[-] Suppose we are rolling a six-sided die.  Then $P(1) = 1/6$} \pause 
+\invisible<1-3>{\item[-] Suppose we are flipping a pair of fair coins.  Then $P(H, H) = 1/4$} 
+\end{itemize}
+
+
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Example: Congressional Elections} 
+
+One candidate example: \pause 
+\begin{itemize}
+\invisible<1>{\item[-] $P(W)$: probability incumbent wins} \pause 
+\invisible<1-2>{\item[-] $P(N)$: probability incumbent loses} \pause 
+\end{itemize}
+
+\invisible<1-3>{Two candidate example: } \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] $P(\{W,W\})$: probability both incumbents
+  win} \pause 
+\invisible<1-5>{\item[-] $P( \{W,W\}, \{W, N\} ) $: probability
+  incumbent $1$ wins} \pause 
+\end{itemize}
+
+\invisible<1-6>{Full House example: } \pause 
+\begin{itemize}
+\invisible<1-7>{\item[-] $P( \{ \text{All Democrats Win}\} )$ (Cox, McCubbins (1993, 2005),
+  Party Brand Argument  ) } \pause 
+\end{itemize}
+
+\large 
+\invisible<1-8>{We'll use \alert{data} to infer these things} 
+
+\end{frame}
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Properties of Probability} 
+
+We can derive intuitive properties of probability theory.\pause \invisible<1>{  Using just the axioms }
+\pause 
+
+\invisible<1-2>{\begin{prop} 
+$P(\emptyset) = 0 $ 
+\end{prop} } \pause 
+
+\invisible<1-3>{\begin{proof}} \pause 
+\invisible<1-4>{ Define $E_{1} = S$ and $E_{2} = \emptyset$, } \pause 
+\begin{eqnarray}
+\invisible<1-5>{1 = P(S) = P(S \cup \emptyset)  & = & P(E_1 \cup
+  E_{2}) \nonumber \\} \pause 
+\invisible<1-6>{1& = & P(E_{1})  + P(E_{2} ) \nonumber } \pause \\
+\invisible<1-7>{1& = & P(S) + P(\emptyset) \nonumber } \pause \\
+\invisible<1-8>{1& = & 1 + P(\emptyset) \nonumber } \pause \\
+\invisible<1-9>{0 & = & P(\emptyset) \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-10>{\end{proof}} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Properties of Probability} 
+
+\pause 
+
+\invisible<1>{\begin{prop} 
+$P(E) = 1 - P(E^{c})  $
+\end{prop} } \pause 
+
+\invisible<1-2>{\begin{proof} } \pause 
+\invisible<1-3>{Note that, $S = E \cup E^{c}$.  And that $E \cap E^{c}
+  = \emptyset$.} \pause 
+\invisible<1-4>{Therefore, } \pause 
+\begin{eqnarray}
+\invisible<1-5>{ 1 = P(S) & = & P(E \cup E^{c} ) \nonumber } \pause \\
+\invisible<1-6>{ 1& = & P(E) + P(E^{c} ) \nonumber } \pause \\
+\invisible<1-7>{1 - P(E^{c} ) & = & P(E) \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-8>{\end{proof} } \pause 
+
+\invisible<1-9>{In words: Probability an outcome in $E$ happens is $1 - $ probability
+an outcome in $E$ 
+doesn't.  } 
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Properties of Probability} 
+
+
+\pause 
+
+\invisible<1>{\begin{prop} 
+If $E \subset F$ then $P(E) \leq P(F)$.  
+\end{prop} } \pause 
+
+
+\invisible<1-2>{\begin{proof} } \pause 
+\invisible<1-3>{We can write $F = E \cup ( E^{c} \cap F)$. (Why?) \\} \pause 
+\invisible<1-4>{Further, $(E^{c} \cap F ) \cap E = \emptyset$ \\}
+\pause 
+\invisible<1-5>{Then \\} \pause 
+\invisible<1-6>{$P(F) = P(E) + P(E^{c} \cap F) $ (Done!) } \pause 
+\invisible<1-7>{\end{proof} } \pause 
+\invisible<1-8>{As you add more ``outcomes''  to a set, it can't reduce the
+probability.  } 
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Examples in R} 
+
+\alert{Simulation}: use pseudo-random numbers, computers to gain evidence for claim\\
+Tradeoffs:
+\begin{itemize}
+\item[Pro] Deep understanding of problem, easier than proofs
+\item[Con] Never as general, can be deceiving if not done carefully (also, never a monte carlo study that shows a new method is wrong)
+\end{itemize}
+
+
+Walk through {\tt R} code to simulate these two results
+
+
+\end{frame}
+
+\begin{frame}
+
+\large
+To the {\tt R} code!
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+
+
+\scalebox{0.6}{\includegraphics{Mistake.png}}
+
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Inclusion/Exclusion}
+
+\begin{prop} 
+Suppose $E_{1}, E_{2}, \hdots, E_{n}$ are events.  Then 
+
+\begin{eqnarray}
+P(E_{1} \cup E_{2} \cup \cdots \cup E_{n} ) & = & \sum_{i=1}^{N} P(E_{i} ) - \sum_{i_{1} <i_{2} } P(E_{i_{1}} \cap E_{i_{2} } )+ \cdots \nonumber \\
+& & + (-1)^{r+ 1} \sum_{i_{1}<i_{2} < \cdots< i_{r} } P(E_{i_{1}} \cap E_{i_{2}}\cap \cdots \cap E_{i_{r}} ) \nonumber \\
+& & + \cdots + (-1)^{n+1} P(E_{1} \cap E_{2} \cap \cdots E_{n} ) \nonumber 
+\end{eqnarray}
+\end{prop}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Proof: Version 1, Intuition} 
+
+\begin{itemize}
+\item[-] Suppose that we have an outcome.  \pause 
+\invisible<1>{\item[-] If it isn't in the event sequence, doesn't appear anywhere. }\pause 
+\invisible<1-2>{\item[-]  If it is in the event sequence, appears once in $\cup_{i=1}^{n} E_{i}  $ (contributes once to $P(\cup_{i=1}^{n} E_{i})$.   }\pause 
+\invisible<1-3>{\item[-] How many times on the other side? Suppose it appears in $m$ of the $E_{i}$ $m>0$ }\pause 
+\end{itemize}
+\begin{eqnarray}
+\invisible<1-4>{\text{count} & = & {{m}\choose{1}} - {{m}\choose{2}} + {{m}\choose{3}} - \cdots + (-1)^{m+1} {{m}\choose{m}} \nonumber \\ }\pause 
+\invisible<1-5>{\text{count} & = & \sum_{i=1}^{m} {{m}\choose{i} } (-1)^{i+1} \nonumber \\ }\pause 
+\invisible<1-6>{\text{count} & = &  - \sum_{i=1}^{m} {{m}\choose{i} } (-1)^{i} \nonumber  }
+\end{eqnarray} 
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Proof: Version 1, intuition} 
+
+$\text{count}  =   - \sum_{i=1}^{m} {{m}\choose{i} } (-1)^{i}$\\ \pause 
+\invisible<1>{Binomial Theorem: $(x+ y)^{n} = \sum_{i=0}^{n} {{n}\choose {i}} (x)^{n- i} y^{i} $.} \pause 
+\begin{eqnarray}
+\invisible<1-2>{0 = (-1 + 1)^m & = & \sum_{i=0}^{m} { {m}\choose{i} } (-1)^{i} \nonumber \\} \pause 
+\invisible<1-3>{0 & = & 1 + \sum_{i=1}^{m} {{m} \choose{i}} (-1)^{i} \nonumber \\} \pause 
+\invisible<1-4>{0 & = & 1 - \text{count} \nonumber \\} \pause 
+\invisible<1-5>{1 & = & \text{count} \nonumber } 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Inclusion/Exclusion}
+
+
+\begin{cor}
+Suppose $E_{1}$ and $E_{2} $ are events.  Then 
+\begin{eqnarray}
+P(E_{1} \cup E_{2} ) & = & P(E_{1} ) + P(E_{2} ) - P(E_{1} \cap E_{2} ) \nonumber 
+\end{eqnarray}
+\end{cor}
+
+{\tt R Code!}
+
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{prop}
+Consider events $E_{1}$ and $E_{2}$.  Then 
+\begin{eqnarray}
+P(E_{1} \cap E_{2} ) & = & P(E_{1} ) - P(E_{1} \cap E_{2}^{c}) \nonumber 
+\end{eqnarray}
+\end{prop}
+
+\pause 
+\begin{proof}
+\begin{eqnarray}
+\invisible<1>{E_{1} & = & (E_{1} \cap E_{2}) \cup (E_{1} \cap E_{2}^{c}) \nonumber \\} \pause 
+\invisible<1-2>{P(E_{1}) & = & P(E_{1} \cap E_{2} )  + P(E_{1} \cap E_{2}^{c} ) \nonumber \\} \pause 
+\invisible<1-3>{P(E_{1} \cap E_{2} ) & = &  P(E_{1} ) - P(E_{1} \cap E_{2}^{c} ) \nonumber } 
+\end{eqnarray}
+
+
+
+
+\end{proof}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{prop}
+\alert{Boole's Inequality}
+\begin{eqnarray}
+P(\cup_{i=1}^{N} E_{i}) & \leq & \sum_{i=1}^{N} P(E_{i} ) \nonumber 
+\end{eqnarray}
+
+\end{prop}
+\pause 
+\invisible<1>{Proof.} \pause \\
+\invisible<1-2>{Proceed by induction.  Trivially true for $n =1 $.  Now assume the proposition is true for $n = k$ and consider $n = k + 1$.  } \pause 
+
+\begin{eqnarray}
+\invisible<1-3>{P(\cup_{i=1}^{k} E_i \cup E_{k + 1} )  & = & P(\cup_{i=1}^{k} E_i) + P(E_{k + 1} ) - P(\cup_{i=1}^{k} E_i \cap E_{k + 1})\nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-4>{$P(E_{k + 1} ) - P(\cup_{i=1}^{k} E_i \cap E_{k + 1}) \leq P(E_{k + 1} )$\\} 
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Proof Continued}
+\pause 
+\begin{eqnarray}
+\invisible<1>{P(\cup_{i=1}^{k} E_i ) & \leq  & \sum_{i=1}^{k} P(E_{i} ) \nonumber \\} \pause 
+\invisible<1-2>{P(\cup_{i=1}^{k} E_i) + \alert{P(E_{k + 1} ) - P(\cup_{i=1}^{k} E_i \cap E_{k + 1})} & \leq & 
+\sum_{i=1}^{k} P(E_{i} ) + \alert{P(E_{k + 1} )} \nonumber \\} \pause 
+\invisible<1-3>{P(\cup_{i=1}^{k + 1} E_i) & \leq & \sum_{i=1}^{k + 1} P(E_{i} )\nonumber} 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{prop}
+Bonferroni's Inequality
+\begin{eqnarray}
+P(\cap_{i=1}^{n} E_{i} ) & \geq & 1 - \sum_{i=1}^{n} P(E_{i}^{c} ) \nonumber  
+\end{eqnarray}
+
+\end{prop}
+
+\pause 
+\begin{proof}
+\invisible<1>{$\cup_{i=1}^{n} E_{i}^{c} = (\cap_{i=1}^{n} E_{i})^c$.  So, } \pause 
+\begin{eqnarray}
+\invisible<1-2>{P(\cup_{i=1}^{N} E_{i}^{c} ) & \leq  & \sum_{i=1}^{N} P(E_{i}^{c} ) \nonumber \\} \pause 
+\invisible<1-3>{P(\cup_{i=1}^{N} E_{i}^{c} ) & = & P((\cap_{i=1}^{n} E_{i})^c)) \nonumber \\
+& = & 1 - P(\cap_{i=1}^{n} E_{i}) \nonumber \\} \pause 
+\invisible<1-4>{P(\cap_{i=1}^{n} E_{i}) & \geq  &  1- \sum_{i=1}^{n} P(E_{i}^{c} )\nonumber }
+\end{eqnarray}
+
+
+
+\end{proof}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Suprising Probability Facts}
+
+
+\alert{Formalized Probabilistic Reasoning}: helps us to avoid silly reasoning \pause 
+\begin{itemize}
+\invisible<1>{\item[-] ``What are the odds" } \pause \invisible<1-2>{$\leadsto$ not great, but neither are all the other non-pattens that are missed} \pause 
+\invisible<1-3>{\item[-] ``There is no way a candidate has a 80\% chance of winning, the forecasted vote share is only 55\%"} \pause \invisible<1-4>{ $\leadsto$ confuses different events} \pause 
+\invisible<1-5>{\item[-] ``Group A has a higher rate of some behavior, therefore most of the behavior is from group A"} \pause \invisible<1-6>{$\leadsto$ confuses two different problems (explain more tomorrow)} \pause  
+\invisible<1-7>{\item[-] ``This is a low probability event, therefore god designed it" } \pause \invisible<1-8>{$\leadsto$ (1) Even if we stipulate to a low probability event, intelligent design is an assumption (2) Low probability obviously doesn't imply divine intervention.  Take 100 balls and let them sort into an undetermined bins.  You'll get a result, but probability of that result $= 1/(10^{29} \times \text{Number of Atoms in Universe})$} \pause 
+\end{itemize}
+
+
+\invisible<1-9>{\alert{Easy Problems}} 
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Surprising Probability Facts:Birthday Problem}
+
+Probabilistic reasoning pays off for harder problems \pause \\
+\invisible<1>{Suppose we have a room full of $N$ people.  What is the probability at least 2 people have the same birthday?} \pause 
+\begin{itemize}
+\invisible<1-2>{\item[-] Assuming leap year counts, $N = 367$ guarantees at least two people with same birthday (\alert{pigeonhole principle})} \pause 
+\invisible<1-3>{\item[-] For $N< 367? $ } \pause 
+\invisible<1-4>{\item[-] Examine via simulation} 
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\scalebox{0.5}{\includegraphics{BirthdayProblem.pdf}}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Surprising Probability Facts: the E-Harmony Problem}
+
+Curse of dimensionality and on-line dating:\pause \\
+
+\scalebox{0.75}{\includegraphics{eharmony.png}}
+ 
+\invisible<1>{Suppose (for example) 29 dimensions are binary (0,1):} \pause \\
+\invisible<1-2>{Suppose dimensions are independent:} \pause \\
+\invisible<1-3>{Pr(2 people agree) = 0.5 } \pause 
+
+\begin{eqnarray}
+\invisible<1-4>{\text{Pr(Exact)} & = & \text{Pr(Agree)}_{1} \times \text{Pr(Agree)}_{2}\times \hdots \times \text{Pr(Agree)}_{29} } \pause  \nonumber \\
+\invisible<1-5>{& = & 0.5 \times 0.5 \times \hdots \times 0.5} \pause  \nonumber \\
+\invisible<1-6>{& = & 0.5^{29} } \pause \nonumber \\
+\invisible<1-7>{& \approx & 1.8 \times 10^{-9}  } \pause    \nonumber 
+\end{eqnarray}
+
+\invisible<1-8>{1 in 536,870,912 people}  \pause 
+
+\invisible<1-9>{Across many ``variables" (events) agreement is harder} 
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Probability Theory}
+
+
+\begin{itemize}
+\item[-] Today: Introducing probability model
+\item[-] Conditional probability, Bayes' rule, and independence
+\end{itemize}
+
+\end{frame}
+
+
+
+
+\end{document}
