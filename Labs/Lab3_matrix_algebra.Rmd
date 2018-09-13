@@ -1,0 +1,486 @@
+---
+title: "R Lab 3"
+author: "Zuhad Hai and Jesse Yoder"
+date: "9/10/2018"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Dropbox/Math Camp 2014/")
+```
+
+
+LAB # 3: MATRIX ALEGEBRA in R
+Stanford Poli Sci. Math Camp, 2018
+Zuhad Hai and Jesse Yoder, TAs
+
+
+
+```{r}
+## clear the workspace
+rm(list=ls())
+```
+
+
+
+Let's read in data we will need later in this lesson.  You can find the CCES dataset under the R labs folder on the course website.
+
+```{r}
+cces<-read.csv("~/Dropbox/Math Camp 2014/Math Camp Labs (FINAL)/Data/cces.2012.small.csv", header=TRUE, as.is=TRUE) ##load the data, assign it a name
+##three things to always do when you load a data set: 
+class(cces) ##check the class
+dim(cces) ##check the dimensions
+head(cces) ## visually inspect the first few rows
+```
+
+
+You have already begun learning the basic principles and operations of matrix algebra. As you may have noticed, performing these operations by hand can be tedious. Fortunately, all these operations can be performed in R. In fact, many of these operations are being performed "quietly" all the time when researchers use many common functions to estimate statistical models. Understanding the ins and outs of these operations will allow you to be a much more informed empirical analyst down the road. 
+
+
+
+As you might expect, all matrix alebgra in R can only be done on objects that are of the "matrix" class. Though some matrices and data frames look very alike, R does not treat both objects in the same way when it comes to matrix operations. Let's first create three 3x3 matrices to work with, using some functions we have encountered in previous labs.
+
+
+```{r}
+mat<-matrix(nrow=3, ncol=3)
+class(mat)
+mat
+
+mat2<-matrix(nrow=3, ncol=3)
+class(mat2)
+mat2
+
+mat3<-matrix(nrow=3, ncol=3)
+class(mat3)
+mat3
+```
+
+Note that we've only created empty matrices above. By default they are filled with "NA"s. Now let's populate this matrix with some randomly chosen numbers
+
+```{r}
+nums<-seq(from=1,to=50,by=1)
+
+
+set.seed(98)
+
+#We'll use these random number to fill in each matrix row by row, from the top down. To do so we fill in a value in the brackets following our matrix objects followed by a comma. 
+
+mat[1,]<-sample(nums, 3, replace=FALSE)
+mat[2,]<-sample(nums, 3, replace=FALSE)
+mat[3,]<-sample(nums, 3, replace=FALSE)
+mat
+
+mat2[1,]<-sample(nums, 3, replace=FALSE)
+mat2[2,]<-sample(nums, 3, replace=FALSE)
+mat2[3,]<-sample(nums, 3, replace=FALSE)
+mat2
+
+mat3[1,]<-sample(nums, 3, replace=FALSE)
+mat3[2,]<-sample(nums, 3, replace=FALSE)
+mat3[3,]<-sample(nums, 3, replace=FALSE)
+mat3
+
+
+mat4<-matrix(sample(nums, 9, replace=FALSE)
+, nrow=3, ncol=3)
+mat4
+```
+
+
+Generating a matrix filled with data is handy in a variety of applications. For example, a matrix often serves as an excellent storage device for the output from a For Loop. Before we move on and work more with these matrices let's spend a little more time on some things that might go wrong when trying to fill in a matrix with values. 
+
+EXAMPLE 1 - This code doesn't fill in the matrix. What's wrong with it?
+
+```{r}
+prac.mat.1 <- matrix(data=NA, nrow=3, ncol=2)
+nums.1 <- c(1,2,3)
+nums.2 <- c(4,5,6)
+nums.3 <- c(7,8,9)
+
+### uncomment this
+# prac.mat.1[1,] <- nums.1
+# prac.mat.1[2,] <- nums.2
+# prac.mat.1
+```
+
+
+OK, back to working with a populated matrix. Let's start by executing some of the matrix operations you have been doing by hand. 
+
+
+Recall the TRANSPOSE operation. This operation swaps the rows for the columns and vice versa. So row 1 becomes column 1, row 2 becomes column 2, etc. Likewise, column 1 becomes row 1, column 2 becomes row 2, etc. In R, we can achieve this using the "t()" function, which takes as its input a matrix.  
+
+```{r}
+mat
+t(mat)
+```
+
+
+A useful property of matrices is that the transpose of a transpose of a matrix is the original matrix. We can verify this by using nested functions, like so:
+
+```{r}
+mat
+t(t(mat)) ##we see that every element in the resulting matrix is the same as the original
+```
+
+Often we are interested in the diagonal elements of a matrix. We can extract these elements from any matrix using the "diag()" function.
+
+```{r}
+diags<-diag(mat)
+class(diags)
+diags
+```
+
+
+The "diag()" function can also be used to create diagonal matrices.
+
+```{r}
+diag(x=3) #Identity matrix of dimension 3
+I5<-diag(x=5) #Identity matrix of dimension 5
+I5
+diag(I5)<-rep(8,5) #replace the diag with 8's
+I5 #print
+```
+
+
+The trace of a matrix is the sum of its diagonal elements. R has a function for this too:
+
+```{r}
+library(psych)
+tr(mat)
+```
+
+
+Let's verify this worked:
+
+```{r}
+sum(diag(mat))
+```
+
+
+We can multiply all the elements of any matrix by a scalar using the normal multiplication operator:
+
+```{r}
+mat
+3*mat
+```
+
+
+R can also perform all the operations involving multiple matrices. For example:
+
+```{r}
+mat
+mat2
+mat + mat2 ## element-by-element addition is the same as always
+mat - mat2 ## so is subtraction
+mat %*% mat2 ## matrix multiplication
+```
+
+
+
+INVERSES
+
+One of the most tedious processes in matrix algebra is inverting a matrix. First, this takes a lot of time. Second, not all matrices are invertible, and if we were to always attempt inversions by hand, we'd head down a lot of dead end roads. In R we can invert matrices in a flash using the "solve()" function.
+
+```{r}
+mat.inv<-solve(mat) ##Yikes. This is ugly. Aren't you glad we didn't do this by hand?
+mat.inv
+```
+
+
+You'll notice the results of the inverted matrix go out to many decimal places. We can use the "round()" function to round each of these at the second decimal place, like so:
+
+```{r}
+round(mat.inv, digits=2)
+```
+
+Let's verify that the answer we got is correct. Can anyone recall the definition of a matrix inverse?
+
+```{r}
+mat%*%mat.inv
+```
+
+
+
+OTHER LAWS OF MATRIX ALGEBRA
+
+Let's use the operations we just learned to confirm some important laws in Matrix Algebra. Let A, B and C represent generic matrices, and use mat, mat2 and mat3 to verify the following. here, we are matrix multuplying, using the %*% operator.
+
+```{r}
+## Associative Law: (AB)C = A(BC)
+
+## Distributive Law: A(B+C) = AB + AC
+
+## Transpose of a Product: (AB)' = B'A'
+
+## Transpose of an extended product: (ABC)' = C'B'A'
+
+```
+
+
+PRE and POST Multiplication
+
+Unlike in regular algebra, order matters when multiplying matrices. For example:
+
+```{r}
+mat%*%mat2
+mat2%*%mat ##totally different
+```
+
+
+VECTORIZED CODE VS. FOR LOOPS
+
+
+Once you get familiar with R, you will not only wish to write code that works, you will also want to write code that works FAST. Sometimes, if you are working with very large data sets, it will even be essential that you do so. 
+
+We have already seen that one way to deal with repeated tasks is to write a for loop. However, often a loop is not necessary. Instead, we can write "vectorized code": code which performs some operation on all the elements in a vector simultaneously, instead of one at a time, like in a loop.
+
+
+We have already seen some vectorized code. For example, we can take a simple data frame...
+
+
+```{r}
+vec1<-c(1,3,5,6)
+vec2<-c(4,3,2,6)
+df<-cbind.data.frame(vec1=vec1, vec2=vec2)
+
+## We know we can add a column to this data frame as follows:
+df$new<-NA
+
+##This was a vectorized operation. R took every element in the new vector $new, and deposited an NA in it. Similarly, we can replace each value of $new with the sum of each row using vectorized commands:
+
+df$new<-df$vec1+df$vec2
+
+##or the product of each row...
+
+df$new<-df$vec1*df$vec2
+
+##We could have also done this using a loop, as follows:
+df$new<-NA
+for(i in 1:nrow(df)){
+df$new[i]<-df$vec1[i]+df$vec2[i]
+}
+```
+
+Sometimes using for loops vs vectorized commands won't matter too much, but suppose we were dealing with a large data frame:
+
+```{r}
+nums<-1:10000
+vec1<-sample(nums, size=80000, replace=TRUE)
+vec2<-sample(nums, size=80000, replace=TRUE)
+df<-cbind.data.frame(vec1=vec1, vec2=vec2)
+dim(df)
+head(df)
+```
+
+We can use the "proc.time()" function to track how long this takes...
+
+```{r}
+mark<-proc.time() ##set a marker
+df$new<-NA
+for(i in 1:nrow(df)){
+df$new[i]<-df$vec1[i]+df$vec2[i]
+}
+time1<-proc.time()-mark ##calculate the amount of time elapsed
+time1
+
+## Let's compare this to the vectorized command:
+mark<-proc.time() ##set a marker
+df$new<-df$vec1+df$vec2
+time2<-proc.time()-mark ##calculate the amount of time elapsed
+time2
+
+# That was...faster.
+```
+
+
+THE APPLY FUNCTIONS (See: http://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/)
+
+
+Some of the most efficient vectorized functions in R are the "apply" functions. They can be a little counter-intuitive at times, but are extremely powerful once you get the hang of them. The "apply" functions perform verctorized operations on different types of objects.
+
+The most basic of these is "apply()"
+
+The description of this function in the help file : "Returns a vector or array or list of values obtained by applying a function to margins of an array or matrix." This is actually a little misleading because "apply()" works on data frames too. Let's use this function to take the mean of each column in the large data frame "df".
+
+After examining the help file using "?apply" we see that "apply()" has three necessary arguments. The first argument, X, is the object on which we need to perform some repeated task. In this case, X=df. The second argument, MARGIN, is the portion of the object on which we want to perform the repeated tasks. For a 2-D object like this data frame, MARGIN=1 corresponds to rows and MARGIN=2 corresponds to columns. Finally, the FUN argument denotes the function (task) to be performed. This could be a canned function that is native to R, or a custom function we write ourselves. 
+
+```{r, echo = FALSE}
+dim(df)
+##To compute the mean of each column...
+col_means <- apply(X=df, MARGIN=2, FUN=mean)
+col_means
+length(col_means)
+##To take the mean of each row we use...
+row_means <- apply(X=df, MARGIN=1, FUN=mean)
+head(row_means)
+length(row_means)
+```
+
+
+The "by()" function performs repetitive tasks by subgoup, so long as the groups are identified using a factor variable. Let's add a factor variable to our data frame.
+
+```{r}
+df$group<-sample(as.factor(c("a","b","c")), size=nrow(df), replace=TRUE)
+head(df)
+```
+
+Now let's say we want the sum of all items in the "$vec1" column within each group. We can use the "by()" function:
+
+```{r}
+by(df$vec1, INDICES=df$group, FUN=sum)
+```
+
+The function "tapply()" performs a very similar function but creates somewhat cleaner output. It takes three key arguments: tapply(Summary Variable, Group Variable, Function)
+
+```{r}
+tapply(df$vec1, df$group, sum)
+```
+
+
+Another in the suite of apply functions is "lapply()". According to the description in the help file, this function, "returns a list of the same length as X, each element of which is the result of applying FUN to the corresponding element of X," where "x" is a "a vector ... or an expression object."
+
+One scenario in which this might be useful is if we had several data sets, and we needed to perform the same cumbersome repetitive task on each one. Let's create 3 other data frames:
+
+```{r}
+df<-df[,-(3:4)]
+
+set.seed(53)
+
+vec1<-sample(nums, size=50000, replace=TRUE)
+vec2<-sample(nums, size=50000, replace=TRUE)
+df2<-cbind.data.frame(vec1=vec1, vec2=vec2)
+
+vec1<-sample(nums, size=50000, replace=TRUE)
+vec2<-sample(nums, size=50000, replace=TRUE)
+df3<-cbind.data.frame(vec1=vec1, vec2=vec2)
+
+vec1<-sample(nums, size=50000, replace=TRUE)
+vec2<-sample(nums, size=50000, replace=TRUE)
+df4<-cbind.data.frame(vec1=vec1, vec2=vec2)
+
+##and store their first columns all in a list...
+
+dfs<-list(df[,1], df2[,1], df3[,1], df4[,1])
+head(dfs[[1]])
+
+## Not let's say we wanted to compute the mean in the first column of each data frame. 
+lapply(X=dfs, FUN=mean)
+```
+
+
+An EXAMPLE FROM THE 2012 ELECTION
+
+Now let's see if we can drive the virtues of vectorized code home using a substantive example from a real data set..
+
+Below, we'll use a subset of the 2012 Cooperative Congressional Election Study, a survey of the American electorate before and after the 2012 election (very useful data set, available in other years as well), to compare these two methods of coding. The goal will be to have R compute and store the mean vote share for Obama in 2012 in each state.
+
+```{r}
+cces<-read.csv("~/Dropbox/Math Camp 2014/Math Camp Labs (FINAL)/Data/cces.2012.small.csv", header=TRUE, as.is=TRUE) ##load the data, assign it a name
+
+### We see the data includes a column "$obama", which measures each respondent's self-reported vote choice for Pres. Obama. Let's learn more about it.
+
+class(cces$obama) ##what class is it?
+table(cces$obama, exclude=NULL) ##what different values does it take on, and how often?
+##This is an indicator variable: it is equal to 1 if the survey respondent said they voted for Pres. Obama in 2012, and 0 otherwise. We also see that some respondents are coded as "NA" on this variable. That's because I coded those who said "I Don't Know" as missing data, a common practice.
+
+##Suppose we want the mean of this variable? In this case, since the variable only takes on the values 0 and 1, the mean will also be equal to the proportion of respondents who reported voting for Obama. We can use the "mean()" function, as before, taking care to account for the missing data
+
+mean(cces$obama) 
+mean(cces$obama, na.rm = TRUE) ##We see that in this subset of the data (a random sample of 5,000 observations from the entire CCES data set), about 50% of respondents reported voting for Obama
+
+##Now, suppose we wanted the mean of this variable just in a single state, California. We see there is a state variable, "$state". Let's learn more about it.
+
+class(cces$state)
+table(cces$state)
+
+##To calculate the mean in a single state, California, we need to embed a logic statement inside an index. That is, we need to ask R to consider the variable $obama, but ONLY for those observations where the logic statement cces$obama=="California" is TRUE. We can do this as follows.
+
+table(cces$obama[cces$state=="California"], exclude=NULL)
+
+cces$obama[cces$state=="California"]
+mean(cces$obama[cces$state=="California"], na.rm=TRUE )
+
+## Great. We now have an estimate of Obama's vote share in California. Now, what if we wanted to do this for EVERY state. The obvious option might be to repeat this process 50 times.  We can use a for loop to greatly simplify this task.
+
+## The first thing to consider when crafting a for loop is: What am I iterating over? That is, if I'm repeating some process, bu changing something each time I do it, what is the moving part? In this case, we want the moving part to be the state. Everything else (the variable of interest, the calculation of the mean, etc.) can stay the same. So the first step is to identify all the states in the data. We can use the "unique()" function to make a vector of the states in the data.
+
+states<-unique(cces$state)
+class(states)
+length(states)
+states
+
+##Great. We now have a character vector, "states", which has 51 unique values (50 states + D.C.) For every iteration of our loop, we will want to consider a different state, so this vector will come in handy. 
+
+##The next step will be to build an empty storage object. We don't just want a loop to clalculate each state's mean, we also want to store them so we can examine them afterward. So let's build an empty vector:
+
+state.means<-NA
+
+### In fact, what we really want is a speadsheet showing us the names of each state and the corresponding voteshare Obama received. Let's combine the "states" and "state.means" vectors to make a data frame to store these results:
+
+results<-cbind.data.frame(state=states, mean=state.means) ##combine the vectors, renaming them "state" and "mean"
+dim(results)
+
+##Maybe we want the results data frame to be in alphabetical order. We can use the "order()" function for this:
+
+results<-results[order(results$state, decreasing=FALSE), ] ##re-order the rows of the "results" data frame according to the order of the "$state" variable, and then replace the "results" data frame with this re-ordered version
+
+## Now to build the actual loop. 
+
+##Can someone talk through the opening line?
+for(i in 1:length(states)){
+  
+	#...and this next line?	
+  mean.state<-mean(cces$obama[cces$state==states[i]], na.rm=TRUE) 
+
+	#...and this next line?
+  results[results$state==states[i], "mean"]<-mean.state 
+
+} 
+results
+
+
+########## IS THERE A SIMPLER WAY TO DO THIS USING VECTORIZED CODE? Yes. Recall the "by()" function.
+
+##First lets turn the $state variable into a factor
+cces$state<-as.factor(cces$state)
+
+## use tapply
+results2 <- tapply(cces$obama, cces$state, mean, na.rm=TRUE)
+## the state names associated with each mean are store in names()
+results.table<-cbind.data.frame(state=names(results2), mean=as.numeric(results2))
+
+results3 <- tapply(cces$obama[cces$nhwhite==0], cces$state[cces$nhwhite==0], mean, na.rm=TRUE)
+results.table <- cbind(results.table,results3)
+colnames(results.table)[3] <- "nhwhite mean"
+```
+
+This is a very basic exmaple, but hopefully you can begin to see the power of loops and vectorized code. Which you employ will often be situational. Sometimes the most efficient code will not deliver enough of a benefit to warrant the time it takes to write it. Other times, it wil be essential. For now, focus on writing code that WORKS, and on knowing how to make sure that it works. Elegant code will come with time, but be aware that if you are performing a process in R that is taking forever, and there is a way to vectorize your code, it's probably worth looking into.
+
+
+Recoding a variable, example
+
+
+The next lab assignment will require you to recode variables in a data set. Let's practice on some toy data to see how to approach this.
+
+```{r}
+set.seed(64)
+v1<-c(rnorm(1000, mean=0, sd=1), sample(1:1000, size=500))
+set.seed(75)
+v2<-c(rnorm(1000, mean=0, sd=1), sample(1:1000, size=500))
+dd<-cbind.data.frame(v1, v2)
+head(dd)
+dim(dd)
+
+##Let's add a variable $new.var to our data frame that takes a 0 if v1 is less than 1, a 1 if v2 is greater than 1, a 2 if both v1 and v2 are less than 1, and NA otherwise
+
+dd$new.var<-NA
+dd$new.var[dd$v1<1]<-0
+dd$new.var[dd$v2>1]<-1
+dd$new.var[dd$v1<1 & dd$v2<1]<-2
+table(dd$new.var, exclude=NULL)
+table(dd$new.var)
+```
