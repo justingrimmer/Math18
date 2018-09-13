@@ -1,0 +1,121 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage[margin=2.5cm]{geometry}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+
+\centerline{\bf Math Camp - Problem Set 8}
+
+\bigskip
+The following laws of set algebra will be useful:\\
+
+Commutative Property\\
+$A\cup B = B \cup A$\\
+$A\cap B = B \cap A$\\
+
+Associative Law:\\
+$(A\cup B) \cup C = A\cup (B \cup C)$\\
+$(A\cap B) \cap C = A\cap (B \cap C)$\\
+
+
+Distributive Law:\\
+$A\cup (B\cap C) = (A\cup B) \cap (A \cup C)$\\
+$A\cap (B\cup C) = (A\cap B) \cup (A \cap C)$\\
+
+\bigskip
+De Morgan's Law:\\
+$(A \cap B)^c = A^c\cup B^c$\\
+
+
+\bigskip
+
+\noindent \textbf{Question 1}: Prove that if $A \subset B$ and $C \subset D$, then $A \cup C \subset B \cup D$ and $A \cap C \subset B \cap D$. (\textit{Hint:} This can be proven either directly or by contradiction.)
+
+
+
+\bigskip
+
+\noindent \textbf{Question 2:} $A$, $B$, and $D$ are non-mutually exclusive events contained within a sample space $S$. Find the simplest form for the following set expressions:
+\begin{enumerate}
+\item $(A \cap B) \cup (A \cap B^c)$
+\item $(A \cap B) \cap (A \cap B^c)$
+\item $(A \cap B) \cap (A^c \cup B)$
+\item $(A \cap B) \cap (B \cap D)$
+\item $(A^c \cup B^c \cup D^c)^c$
+\item $(A \cup B) \cap (B \cup D)$
+\end{enumerate}
+\bigskip
+
+\medskip
+
+\noindent \textbf{Question 3}: Are the following statements true or false? Explain. (\textit{Hint:} The inclusion-exclusion principle might be useful.)
+\begin{enumerate}
+\item If I flip a coin $n$ times, the probability of getting fewer than $m$ heads is equal to the sum of the probability of getting $k$ heads for all integers $0 < k < m$.
+\item Suppose I roll six fair, ordinary dice. Let $E_1$ be the event in which I rolled exactly one 1, $E_2$ be the event in which I rolled exactly one 2, $E_3$ be the event in which I rolled exactly one 3, and so on through $E_6$. Then: $$P\left( \bigcup_{i=1}^{6}E_{i} \right) = P(E_1)+P(E_2)+P(E_3)+P(E_4)+P(E_5)+P(E_6)$$
+\end{enumerate}
+
+\bigskip
+
+
+\noindent \textbf{Question 4:} Events $A$ and $B$ are contained within a sample space $S$. Given that $P(A)=0.5$, $P(B)=0.3$ and $P(A \cap B) = 0.1$, find:
+\begin{enumerate}
+\item $P(A \cup B)$
+\item $P(A \cap B^c)$
+\item $P[(A \cap B^c) \cup (B \cap A^c)]$
+\end{enumerate}
+\medskip
+(\textit{Hint:} The inclusion-exclusion principle might be useful here, as well.)
+
+\bigskip
+
+
+
+
+
+\noindent \textbf{Question 5:} A political campaign in New Haven, CT.\ decides to conduct an ``experiment" to determine the effectiveness of knocking on a door in turning a resident of that house out to vote. The campaign foolishly denies an offer from a team of political scientists to help them design a protocol for this experiment, and instead directs their two teams of volunteers to each select a random group of the 120 total houses in the district and to go knock on as many of those random doors as they can in the week before the election. The campaign manager directs the teams to count the number of doors on which they knock and to record the names of the residents who live in each house, but neglects to ensure that the two teams select a mutually exclusive set of houses, or to set bounds on how many houses each team chooses. 
+
+On election day, the Team 1 members return, and proudly report to the campaign manager that they knocked on 70\% of the doors in the electoral district. The Team 2 members return shortly after, and report that they knocked on 40\% of the doors in the electoral district. In looking over the names the teams recorded, the campaign manager quickly determines that not only was every house in the district contacted, but some houses were contacted by both teams. (This will make drawing inferences about the effectiveness of door knocking\ldots difficult.)
+
+Use what we have learned about probability to determine how many houses had their doors knocked on by both teams.
+
+%
+%
+%\noindent \textbf{Question 5:} There are currently 193 members of the United Nations General Assembly. The United Nations Security Council is composed of 15 countries in the General Assembly. Five of those members (China, France, the USA, Russia, and the UK) hold permanent places on the Security Council; the remaining 10 spaces on the Security Council are filled by a selection from the remaining 188 members of the General Assembly. Pretending for this problem that there are no restrictions on which groups of 10 countries can fill those spaces, how many possible Security Councils are there? Use \texttt{R} to determine an actual numerical answer; do not simply give a formula. That said, answers in scientific notation are perfectly fine.
+%
+%\bigskip
+%
+%\noindent \textbf{Question 6 (Challenging):} We would like to know what the probability is that \textit{exactly} two people in a class of 45 people share the same birthday. Rather than find a precise solution, we wish to use a Monte Carlo simulation to determine this probability. We will do this by simulating the birthdays for a random class of 45 people. Then, we will determine whether two people in the class share the same birthday. Finally, we will repeat this a large number of times and calculate the fraction of simulated classes where exactly two people shared the same birthday. For this problem, we will assume that there is an equal probability of being born on any day of the year and that we are dealing with regular 365 day years.
+%
+%\begin{enumerate}
+%\item First, we will simulate the birthdays of a class of 45 people using the \texttt{sample} function in \texttt{R}. Enter \texttt{?sample} to see the documentation for this function. We will need to give 3 inputs to the sample function: \texttt{x}, the data to be sampled; \texttt{size}, the size of the sample to draw; and the option \texttt{replace=TRUE} so that we sample with replacement. Use the \texttt{sample} function to simulate the birthdays of 45 people.  (\textit{Hint:} You might find it useful to list birthdays as integers from 1 to 365.)
+%
+%\item Your \texttt{sample} function should return a vector of birthdays for your simulated class. Now, check how many duplicate birthdays you have in your simulated class. Use the \texttt{unique} function to do this. Set the variable \texttt{duplicatebirthdays} to be the number of duplicate birthdays in your sample.
+%
+%\item Next, create a \texttt{for} loop to repeat this process a large number of times; say 30,000. The \texttt{for} loop will repeat the steps in parts (a) and (b) many times and also save the output (number of duplicated birthdays). We will save the number of duplicate birthdays in the $i$-th sample class as the $i$-th element of the vector \texttt{duplicatebirthdays}. Use the \texttt{R} code below as a template:
+%
+%\pagebreak
+%
+%\begin{verbatim}
+%##n is the number of times you want to simulate sample classes
+%n <- 30000
+%
+%##We must create the variable "duplicatebirthdays"
+%##before we can save anything into it from a for loop
+%duplicatebirthdays <- rep(NA, n)
+%
+%for(i in 1:n){
+%	##Code from parts (a) and (b)
+%	duplicatebirthdays[i] <- #Number of duplicate b-days in a sample class
+%	}
+%\end{verbatim}
+%\item What is the probability that exactly two people in a class of 45 people share the same birthday?
+%\item What is the probability that more than a single pair of people has the same birthday in a class of 45 people?
+%
+%\end{enumerate}
+
+\end{document}
