@@ -1,0 +1,291 @@
+---
+title: "Lab Session 4: Functions, Optimization and Simulation in R"
+author: "Jesse Yoder and Zuhad Hai"
+date: "9/14/2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+This session covers the following - markdown topics:
+	
+	1 - Using 'Optimize' and 'Optim' in R to optimize multivariate functions
+	2 - 3d Plotting
+
+Lets load the trade R data file before lab starts, we'll use this later in the lab
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Dropbox/Teaching/Math Camp/Math Camp 2014/Math Camp Labs (FINAL)/")
+```
+
+```{r}
+load("Data/trade.Rdata")
+ls()
+dim(trade)
+head(trade)
+```
+
+## Optimize() & Optim() for optimization in R
+
+In Session 2 we focused on a simple case of optimization with a single variable. We were able to find an analytic solution or plot the derivative of the function and find out where it was equal to zero in R. 
+
+This approach worked fine in that instance, but for more complicated functions, especially those with many variables, it becomes more difficult. R has a function 'Optim' that can handle these more difficult cases. 
+
+### Univariate Case
+
+Let's start with our example from the previous section. If you remember, we were trying to figure out what policy a politician preferred given their utility function. Here's the utility function we used:
+$$ PoliticianUtility = -(PolicyContent - 1)^2 +8$$
+
+
+```{r, fig1, fig.height = 5, fig.width = 10}
+politician.utility <- function(policy.content){
+		politician.support <- -(policy.content - 1)^2 + 8
+		return(politician.support)
+}
+
+x.values <- seq(from=-2, to=4, by=.2)
+y.values <- politician.utility(seq(from=-2,to=4, by=.2))
+plot(x=x.values, y=y.values, type='l', xlab="Policy Ideology",
+     ylab="Legislator Utility From Policy",
+     xlim=c(-4,4), ylim=c(-.5,10), main="Legislator's Utility Function")
+
+```
+
+Where's the peak of this function? 
+
+Let's use the "optimize" function to find out.
+
+A couple things to note. First, we pass our function, "politician.utility" to "optimize". When using optimizers you will need to write a function that returns an output you'd like to maximize/minimize. Second, we need to provide an interval over which "optimize" can search for a maximum value. Third, note that we need to specify that we want to find the maximum of this function. The default setting in both "optimize" and "optim" is to find the minimum of a function. 
+
+
+``` {r}
+optimize(f=politician.utility, interval=c(-2,4), maximum=TRUE)
+
+```
+Maximum tells us the point on the y axis at which the function is maximized, Objective tells us the value of the function evaluated at this point. 
+So this works, it returned the answers we previously found in the second lab session, however in this case we just needed a simple one line command.
+
+
+
+### ON YOUR OWN -- FIND THE MAXIMUM OF THIS FUNCTION
+
+
+
+Use "optimize" to maximize this function:
+$$logLikelihood = -n*log(\beta) - \frac{1}{\beta}  \sum_{i=1}^n x_i $$
+
+```{r}
+
+practice.function <- function(guess, input){
+	loglikelihood <- -length(input)*log(guess) - (1/guess)*sum(input)
+	return(loglikelihood)
+}
+
+
+#Using "relevant.variable" as your data
+random.component <- rnorm(n=1, mean=0, sd=2)
+truth <- 6 + random.component
+
+relevant.variable <- rexp(10000, rate=(1/truth))
+
+#What else do you need to know in order to start optimizing?
+
+#Optimize goes here
+###
+#FILL OUT out <- optimize()
+#FILL OUT out$maximum; truth
+```
+
+
+Great, we've got optimize to work for one dimensional functions. But what if there are multiple variables in a function we want to optimize? For that we need the "optim" function. 
+
+
+##Multivariate Case
+
+
+
+When politicians decide whether to support a bill there are often more than a single dimension at play. For example, an issue mght touch on both economic and social issues. Suppose a politician has different utility functions over two aspects of a bill, what combination of economic and social policy content might they prefer from the bill?
+
+Here's are new function describing politican support for a policy proposal:
+$$PoliticianUtility = (-(EconomicContent -1)^2+8) + (-(SocialContent+2)^2+8) $$
+
+```{r}
+politician.utility.2d <- function(economic.content, social.content){
+				politician.support <- (-(economic.content - 1)^2 + 8 ) +
+				  (-(social.content + 2)^2 + 8)
+				return(politician.support)
+}
+
+```
+
+This is what the legislator's utility function now looks like, the x axis is economic policy content in a bill,  the y axis is the social policy content of a bill and the z axis represents the utility a legislator gets from a bill with those two features
+
+```{r}
+economic.substance <- seq(from=-8,to=8, by=.2)
+social.substance <- seq(from=-8, to=8, by=.2)
+utility <- outer(economic.substance, social.substance, politician.utility.2d)
+```
+
+The outer function makes a grid of utility values based on all the potential combinations of economic.substance and social.substance on the interval I defined. This makes 3-D plotting easy 
+
+Here's a view from above using a "contour" function. Values in the circles closest to the center represent a higher utility for the politician
+
+```{r}
+contour(x=economic.substance, y=social.substance, z=utility, xlab="Economic Policy Content",
+        ylab="Social Policy Content", main="Utility Based on Policy Content on Two Dimensions")
+```
+
+
+
+##3-D Plotting from various angles
+Here's a view from the side using the "persp" function for 3-d plotting, note the upward slope on both sides of the function towards a central 'bliss' point:
+```{r}
+persp(x=economic.substance, y=social.substance, z=utility, theta=-40,phi=10, axes=TRUE,
+      xlab="Economic Policy Content", ylab="Social Policy Content",
+      zlab="Legislator Utility",
+      main="Utility Based on Policy Content on Two Dimensions")
+```
+
+Rotating Around Further Illustrates the shape
+```{r}
+persp(x=economic.substance, y=social.substance, z=utility, theta=-5,phi=10, axes=TRUE,
+      xlab="Economic Policy Content", ylab="Social Policy Content",
+      zlab="Legislator Utility",
+      main="Utility Based on Policy Content on Two Dimensions")
+```
+
+Further Rotation usting the "Theta" parameter
+```{r}
+persp(x=economic.substance, y=social.substance, z=utility, theta=20,phi=10, axes=TRUE,
+      xlab="Economic Policy Content", ylab="Social Policy Content",
+      zlab="Legislator Utility",
+      main="Utility Based on Policy Content on Two Dimensions")
+```
+
+How do we optimize the utility function in this case? We'll use the optim function, but first we need to make a few changes to the politician's utility function so that it meshes well with optim. 
+
+```{r}
+politician.utility.2d.foroptim <- function(params){
+				economic.content <- params[1]
+				social.content <- params[2]
+				politician.support <- (-(economic.content - 1)^2 + 8 ) + (-(social.content + 2)^2 + 8)
+				return(politician.support)
+}
+```
+
+### optim in R
+Now we can run optim. But before that, note several things about this set up...
+	1 - First, we had to rewrite our function to work with optim by specifcying a set of parameters it will take
+	2 - Second, we had to pick starting points at which to start assess these values of the function following the "par" option
+	3 - Third, optim will minimize by default, in order to maximize this function we need to add "control=list(fnscale=-1)". An alternative would be to return the negative of politician support from our "politician.utility.2d.foroptim" function which would accomplish the same thing without needing to change the optim parameter around.  
+	
+```{r}
+optim(par=c(-1,0), fn=politician.utility.2d.foroptim, control=list(fnscale=-1))
+```
+
+Optim has several outputs, most importantly for us the two elements contained in the "par" output show the optimized values for each parameter. Note that these are slightly off from the acutal analytic values which would be 1 and -2, optim has stopping rules in place that tell it when to stop iterating to find a maximum value. This means we will be close to, but perhaps not exactly at, the maximized value of the function if we found it analytically
+
+Now let's use optim with some data to optimize regression model. Before we used matrix algebra to compute the OLS estimates, but at its root all we're trying to do is minimize the sum of squared errors for a data set based on a set of coefficients. Using optim, we can perform procedure without matrix algebra. 
+
+Below is a data set from a January 2013 CBS poll that asked Americans, "Which is more important to you -- to protect American industries and jobs by limiting imports from other countries, or to allow free trade so you can buy good products at low prices no matter what country they come from?"
+
+```{r}
+load("Data/trade.Rdata")
+ls()
+dim(trade)
+head(trade)
+```
+
+Respondents could either support limiting imports or allowing free trade. If the respondent selected "allow free trade" they received a "1" on the free.trade.support variable, if they selected "limit imports" they received a "0" on this variable. 
+
+Among other things, the survey also asked respondents their income and education level. I've coded the income as a numeric variable that takes one of 5 values at the median of income bins on the survey. I've coded the education variable as "1" if the respondent had some education post high school and "0" if they had a high school diploma or less education. 
+
+Recent research in International Relations has examined the underpinnings of public preferences for trade policy. Since this work talks about how education and income relate to trade preferences among the public, let's look at how these two variables predict preferences for free trade in our poll
+
+Here's a simple predictive model of trade preferences
+$$ Trade Support_i = \beta_0 + \beta_1*Income_i + \epsilon_i $$
+
+The betas are parameters that need to be estimated from the data. They tell us how income predicts support for free trade 
+
+As an initial cut, let's assume our goal is to find the parameter values of Beta0 and Beta1 that produce the least total error in our predictive mode (i.e., the values that make this model do the best job possible predicting support for free trade)
+
+More specifically, we'll find these values by minimizing the sum of squared errors of a model's predictions. We'll cover this in much more detail in 350A, but for now let's use this as a case to put our new found skills with optim to use, now incorporating both parameters and data into optim. 
+
+The trade.preferences function sets up the objective function mentioned above. "model.error" is the sum of squared errors for the model, in words it's a measure of how far off the model is in predicting the trade preferences of every survey respondent. 
+
+```{r}
+trade.preferences <- function(params, data){
+	#Pull Parameter Values from params vector
+	beta0 <- params[1]
+	beta1 <- params[2]
+	
+	#Return the sum of squred errors from those particular parameter values
+	model.error <- sum((data$free.trade.support - (beta0 + (beta1*data$income)))^2)
+	
+	#Return the resulting model error
+	return(model.error)
+}
+```
+
+We want to minimize model error, so this time when we run optim, we'll use it to search for a minimum. 
+We now need to specify three parameter starting values with par as well as the data we will use
+
+```{r}
+trade.preferences.predictive.model <- optim(par=c(0,0), data=trade, fn=trade.preferences)
+
+beta0 <- trade.preferences.predictive.model$par[1]
+beta1 <- trade.preferences.predictive.model$par[2]
+
+#So here are our optimized parameter estimates for this model 
+our.estimates <- unname(rbind.data.frame(beta0, beta1))
+our.estimates
+```
+
+No need to get too bogged down in interpreting the results of our predictive right now, but the sign of beta1, for example, suggests that those with higher incomes are more likely to support free trade than those with lower incomes. 
+
+Let's compare the estimates from our function to what we'd obtain using R's canned regression function, lm()
+
+```{r}
+lm.trade.support <- summary(lm(free.trade.support ~ income, data=trade))
+canned.estimates <- unname(cbind.data.frame(lm.trade.support$coefficients[1:2]))
+
+#Here's a table comparing our estimates to those form the lm function
+comparison.frame <- cbind.data.frame(our.estimates, canned.estimates)
+row.names(comparison.frame) <- c("beta0", "beta1")
+comparison.frame$difference.between.estimates <- comparison.frame$our.estimates -
+  comparison.frame$canned.estimates
+comparison.frame
+
+#Let's Plot These Differences As Well
+plot(y=c(1:2), x=comparison.frame[,3], xlim=c(-.001,.001),
+     xaxt='n', yaxt='n', ylab='', xlab='',
+     main="Difference between LM and Optim Estimates")
+abline(v=0, lty=2)
+axis(side=1, at=c(-.001,0,.001))
+axis(side=2, at=c(1,2), labels=c(expression(beta[0]),
+                                 expression(beta[1])), las=1)
+```
+
+Looks like our answer is pretty close to what you would get using lm()
+
+###BREAK OUT SESSION
+We just showed how to use optim to find a parameter estimate for free.trade.support regressed on income. Using what we just learned, program a function that will perform a regression of free.trade.support on education, the other variable included in the trade data frame. You will need to perform the following tasks. 
+
+A) Write a function that will take 1) a vector of two parameter values and 2) our trade data frame and then produce the sum of squared errors for a model with education based on a particular guess of parameter values. 
+
+B) Pass this function to optim. What parameter estimates do you get?
+
+C) Compare these estimates to what you would have obtained from using R's "lm()" function. 
+
+###Note on lab assignment
+
+You will optimize different functions on the Lab Assignment, several of these are likelihood functions, which Justin has referenced at several points in the slides. While this is a new setting for applying the tools of optimization you've just learned, don't worry too much about trying to figure out what a likelihood is for now. For our purposes just consider it another function you've been given to optimize. However, unlike just using some arbitrary function, knowing how to work with these likelihoods will prove useful in research/later methods courses. 
+
+
+
+
+
+
+
+
+
