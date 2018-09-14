@@ -1,0 +1,790 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\ Stanford University}
+\vspace{0.3in}
+
+\date{September 14th, 2018}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Conditional Probability}
+
+Social scientists almost always examine \alert{conditional} relationships
+\begin{itemize}
+\item[-] Given opposite Party ID, probability of date
+\item[-] Given low-interest rates probability of high inflation
+\item[-] Given ``economic anxiety" probability of voting for Trump
+\end{itemize}
+
+\pause 
+
+\invisible<1>{Intuition: } \pause 
+\begin{itemize}
+\invisible<1-2>{\item[-] Some event has occurred: \alert{an outcome was realized} } \pause 
+\invisible<1-3>{\item[-] And with the knowledge that this outcome has already happened} \pause 
+\invisible<1-4>{\item[-] What is the probability that something in another set happens?} \pause 
+\end{itemize}
+
+
+\invisible<1-5>{Let's formalize this idea.  } 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditional Probability: Definition} 
+
+
+\begin{defn}
+Suppose we have two events, $E$ and $F$, and that $P(F)>0$.  Then, 
+\begin{eqnarray}
+P(E|F) & = & \frac{P(E\cap F ) } {P(F) } \nonumber 
+\end{eqnarray}
+\end{defn}
+
+
+\pause 
+
+\begin{itemize}
+\invisible<1>{\item[-] $P(E \cap F)$: Both $E$ and $F$ \alert{must occur} } \pause 
+\invisible<1-2>{\item[-] $P(F)$ normalize: we know $P(F)$ already occurred } 
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Some Examples} 
+ \only<1-14>{
+\pause 
+\invisible<1>{Example 1:} \pause  
+\begin{itemize}
+\invisible<1-2>{\item[-] $F = \{\text{All Democrats Win} \} $\\} \pause 
+\invisible<1-3>{\item[-] $E = \{\text{Nancy Pelosi Wins (D-CA)} \} $ \\} \pause 
+\invisible<1-4>{\item[-] If $F$ occurs then $E$ most occur, $P(E|F) = 1$ \\} \pause 
+\end{itemize}
+
+
+\invisible<1-5>{Example 2: } \pause 
+\begin{itemize}
+\invisible<1-6>{\item[-] $F = \{\text{All Democrats Win} \} $\\} \pause 
+\invisible<1-7>{\item[-] $E = \{ \text{Louie Gohmert Wins (R-TX) }  \} $ \\} \pause 
+\invisible<1-8>{\item[-] $F \cap E = \emptyset \Rightarrow P(E|F) = \frac{P(F \cap E) }{P(F)} = \frac{P(\emptyset)}{P(F)} = 0 $} \pause 
+\end{itemize} 
+
+
+\invisible<1-9>{Example 3: Incumbency Advantage } \pause 
+\begin{itemize}
+\invisible<1-10>{\item[-] $I = \{ \text{Candidate is an incumbent} \} $} \pause 
+\invisible<1-11>{\item[-] $D = \{ \text{Candidate Defeated} \} $} \pause 
+\invisible<1-12>{\item[-] $P(D|I)  = \frac{P(D \cap I)}{P(I) } $} \pause 
+\invisible<1-13>{\item[-] In words?} 
+\end{itemize}
+}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conditional Probabilities are Probabilities}
+
+Everything we proved previously holds for $P(\cdot | B)$.  \pause 
+
+\begin{itemize}
+\invisible<1>{\item[-] $P(S| B) = \frac{P(S \cap B)}{P(B)} = \frac{P(B)}{P(B)} = 1$} \pause 
+\invisible<1-2>{\item[-] Suppose $E_{1}, E_{2}, \hdots, E_{N}$ are mutually exclusive. \\
+\alert{Recall}: $(\cup_{i=1}^{N} E_{i}) \cap B  = \cup_{i=1}^{N} E_{i} \cap B$
+\begin{eqnarray}
+P(\cup_{i=1}^{N} E_{i} |B ) & = & \frac{P(\cup_{i=1}^{N} E_{i} \cap B)}{P(B)} \nonumber \\
+& = & \frac{ \sum_{i=1}^{N} P(E_{i} \cap B) }{P(B)}\nonumber \\
+& = & \sum_{i=1}^{N} P(E_{i} | B) \nonumber
+\end{eqnarray}} \pause 
+
+\end{itemize}
+
+\invisible<1-3>{We are calculating probabilities in the new ``universe" $B$}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{$P(A|B)$ and $P(B|A)$ are usually different}
+
+\only<1-3>{
+\begin{eqnarray}
+\invisible<1>{P(A|B) & = & \frac{P(A\cap B)}{P(B)} \nonumber \\} 
+\invisible<1-2>{P(B|A) & = & \frac{P(A \cap B) } {P(A)} \nonumber } 
+\end{eqnarray}
+}
+
+\pause \pause 
+\end{frame}
+
+
+\begin{frame}
+\frametitle{$P(A|B)$ and $P(B|A)$ are usually different}
+
+Numerous serious examples: Why American Hate Welfare (Gilens 1995), Police Involved Shootings (Streeter 2017) \pause \\
+\invisible<1>{Less Serious Example}\pause\invisible<1-2>{$\leadsto$ type of person who flies to vegas on Southwest Airlines}\pause \\
+\begin{eqnarray}
+\invisible<1-3>{P(\text{Cutoff Shirt}| \text{Southwest Airlines}) & = & 0.2\nonumber} \pause  \\
+\invisible<1-4>{P(\text{Southwest Airlines}| \text{Cutoff Shirt}) & \approx & 1 \nonumber } 
+\end{eqnarray}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\begin{prop} 
+Multiplication Rule: 
+Suppose $E_{1}, E_{2}, \hdots, E_{N}$ is a sequence of events.  
+\begin{eqnarray}
+P(E_{1}\cap E_{2}\cap \cdots \cap E_{N} ) & =& \nonumber \\
+P(E_{1})P(E_{2}|E_{1}) P(E_{3}|E_2, E_{1} ) \times \cdots \times P(E_{N} | E_{N-1}, E_{N-2} , \hdots, E_{1} )  && \nonumber
+\end{eqnarray}
+\end{prop} 
+
+\pause 
+\begin{proof} 
+
+\begin{small}
+\begin{eqnarray}
+\invisible<1>{P(E_{1}) P(E_{2}| E_{1} ) & = & P(E_{1}) \frac{P(E_{2} \cap E_{1} )}{P(E_{1})} \nonumber \\
+& = & P(E_{1} \cap E_{2} ) \nonumber \\} \pause 
+\invisible<1-2>{P(E_{1} \cap E_{2} ) P(E_{3}| E_{1}, E_{2} ) &= & P(E_{1} \cap E_{2} ) \frac{P(E_{3} \cap E_{2} \cap E_{1} )  }{P(E_{2} \cap E_{1} ) } \nonumber \\
+& = & P(E_{3} \cap E_{2} \cap E_{1} )  \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-3>{Repeating for all probabilities proves the proposition} 
+
+\end{small}
+
+\end{proof}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Law of Total Probability} 
+
+\begin{prop} 
+Suppose that we have a set of events $F_{1}, F_{2}, \hdots, F_{N}$ such that the events are mutually exclusive and together comprise the entire sample space $\cup_{i=1}^{N} F_{i} = \text{Sample Space}$.  Then, for any event $E$
+\begin{eqnarray}
+P(E) & = & \sum_{i=1}^{N} P(E | F_{i} ) \times P(F_{i}) \nonumber 
+\end{eqnarray}
+\end{prop}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Law of Total Probability} 
+
+\begin{eqnarray}
+P(E) & = & \sum_{i=1}^{N} P(E | F_{i} ) \times P(F_{i}) \nonumber \pause 
+\end{eqnarray}
+
+
+\begin{proof}
+\invisible<1>{Suppose $F_{1}, F_{2}, \hdots, F_{N}$ are mutually exclusive and $\cup_{i=1}^{N} F_{i} = S$.  Then we can write $E$ as: } \pause 
+\begin{eqnarray}
+\invisible<1-2>{E & = & (E\cap F_{1})\cup(E \cap F_{2})\hdots \cup (E \cap F_{N}) \nonumber\\} \pause 
+\invisible<1-3>{P(E) & = & P\left((E\cap F_{1})\cup(E \cap F_{2})\hdots \cup (E \cap F_{N})\right)\nonumber \\} \pause 
+\invisible<1-4>{& = & \sum_{i=1}^{N} P(E \cap F_{i} ) \nonumber \\} \pause 
+ \invisible<1-5>{& = & \sum_{i=1}^{N} P(E|F_{i}) P(F_{i} ) \nonumber } 
+\end{eqnarray}
+
+
+\end{proof}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example: Law of Total Probability} 
+
+Infer $P(\text{vote})$ after mobilization campaign \pause 
+\begin{itemize}
+\invisible<1>{\item[-] $P(\text{vote}|\text{mobilized} ) = 0.75$} \pause 
+\invisible<1-2>{\item[-] $P(\text{vote}| \text{not mobilized} ) = 0.25 $} \pause 
+\invisible<1-3>{\item[-] $P(\text{mobilized}) = 0.6 ; P(\text{not mobilized} ) = 0.4 $} \pause 
+\invisible<1-4>{\item[-] What is $P(\text{vote})$?} \pause 
+\end{itemize}
+
+\invisible<1-5>{Sample space (one person) = \\$\{$ (mobilized, vote), (mobilized, not vote), (not mobilized, vote) , (not mobilized, not vote) $\}$\\
+\alert{Mobilization} partitions the space (mutually exclusive and exhaustive) } \pause \\
+\invisible<1-6>{We can use the law of total probability} \pause 
+\begin{eqnarray}
+\invisible<1-7>{P(\text{vote} ) & = & P(\text{mob.} ) \times P(\text{vote}| \text{mob.} ) + P(\text{not mob} \times P(\text{vote} | \text{not mob} ) \nonumber \\
+ & = & 0.6 \times 0.75 + 0.4 \times 0.25 \nonumber \\
+  & = & 0.55 \nonumber } 
+  \end{eqnarray}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Law of Total Probability}
+
+\alert{Mixture Models}: flexible modeling strategy.  \\ \pause 
+
+\invisible<1>{Two coins:\\} \pause 
+\begin{itemize}
+\invisible<1-2>{\item[-] Fair: $P(H) = 1/2$ } \pause
+\invisible<1-3>{\item[-] Biased $P(H) = 3/4$} \pause 
+\end{itemize}
+
+\invisible<1-4>{Draw a coin from urn ($P(\text{fair}) = 1/2)$ and then flip.  \\
+$P(H)?$} \pause 
+
+\invisible<1-5>{$S = \{(\text{fair}, H), (\text{fair}, T), (\text{bias}, H), (\text{bias}, T) \}$} \pause 
+
+\begin{eqnarray}
+\invisible<1-6>{P(H) & = & P(\text{fair}) \times P(H| \text{fair} )  + P(\text{bias} ) \times P(H | \text{bias} ) \nonumber\\} \pause 
+\invisible<1-7>{& = & \frac{1}{2} \times \frac{1}{2} + \frac{1}{2} \times \frac{3}{4} \nonumber \\
+& = & \frac{5}{8}\nonumber }\pause 
+\end{eqnarray}
+
+\invisible<1-8>{\alert{Mixture} of two coins} 
+
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Bayes' Rule} 
+
+\begin{itemize}
+\item[-] $P(B|A)$ may be easy to obtain
+\item[-] $P(A|B)$ may be harder to determine
+\item[-] Bayes' rule provides a method to move from $P(B|A)$ to $P(A|B)$.  
+\end{itemize}
+
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{defn}
+Bayes' Rule: For two events $A$ and $B$, 
+\begin{eqnarray}
+P(A|B) & = & \frac{P(A)\times P(B|A)}{P(B)}  \nonumber 
+\end{eqnarray}
+\end{defn} 
+
+\pause 
+\begin{proof} 
+\begin{eqnarray}
+\invisible<1>{P(A|B) & = & \frac{P(A \cap B) }{P(B) } \nonumber \\} \pause 
+ \invisible<1-2>{&  = & \frac{P(B|A)P(A) } {P(B) } \nonumber } 
+\end{eqnarray}
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayes' Rule: Example} 
+
+Enos (2011), Fraga (2015), Imai and Khanna (2015): how do we identify racial groups from lists of names?  \pause \\
+\invisible<1>{Census Bureau collects information on distribution of names by race.} \pause  \\
+\invisible<1-2>{For example, \alert{Washington} is the ``\alert{blackest}" name in America.} \pause\\
+\begin{itemize}
+\invisible<1-3>{\item[-] P(black)= 0.126.} 
+\invisible<1-3>{\item[-] P(not black) = 1 - P(black) = 0.874.} 
+\invisible<1-3>{\item[-] P(Washington$|$ black) = 0.00378.} 
+\invisible<1-3>{\item[-] P(Washington$|$nb) = 0.000060615.} \pause 
+\end{itemize}
+
+\begin{eqnarray}
+\invisible<1-4>{P(\text{black}|\text{Wash} ) & = & \frac{P(\text{black}) P(\text{Wash}| \text{black}) }{P(\text{Wash} ) } \nonumber \\
+ & = & \frac{P(\text{black}) P(\text{Wash}| \text{black}) }{P(\text{black})P(\text{Wash}|\text{black}) + P(\text{nb})P(\text{Wash}| \text{nb}) } \nonumber\\
+ & = & \frac{0.126 \times 0.00378}{0.126\times 0.00378 + 0.874 \times 0.000060616} \nonumber\\
+ & \approx & 0.9 \nonumber } 
+ \end{eqnarray}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\only<1>{\scalebox{1}{\includegraphics{MontyHall.jpg}}}
+\only<2>{\scalebox{0.3}{\includegraphics{WayneBrady.jpg}}}
+\only<3>{\scalebox{0.35}{\includegraphics{Marilyn.png}}}
+\only<4>{"You blew it, and you blew it big! Since you seem to have difficulty grasping the basic principle at work here, I'll explain. After the host reveals a goat, you now have a one-in-two chance of being correct. Whether you change your selection or not, the odds are the same. There is enough mathematical illiteracy in this country, and we don't need the world's highest IQ propagating more. Shame!"
+– Scott Smith, \alert{Ph.D.} University of Florida (From Wikipedia)}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Monty Hall Problem}
+
+Suppose we have three doors.  $A, B, C$.  \pause \\
+\invisible<1>{Behind one door there is a car.  Behind the others is a goat (you don't want a goat) \\} \pause 
+\begin{itemize}
+\invisible<1-2>{\item[-] A contestant guesses a door.} \pause 
+\invisible<1-3>{\item[-] The host opens a different door and then contestant has option to switch} \pause 
+\invisible<1-4>{\item[-] Should the contestant switch?} \pause 
+\end{itemize}
+
+\invisible<1-5>{Contestant guesses $A$\\} \pause 
+\invisible<1-6>{$P(A) = 1/3 \leadsto$ chance of winning without switch\\} \pause 
+\invisible<1-7>{If $C$ is revealed to not have a car:\\} \pause 
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Monty Hall Problem}
+
+\pause 
+\begin{eqnarray}
+\invisible<1>{P(B| C \text{ revealed} ) & = & \frac{P(B)P(C \text{ revealed} | B)}{P(B)P(C \text{ revealed} | B) + P(A) P(C \text{ revealed} | A) } \nonumber \\} \pause 
+\invisible<1-2>{& = & \frac{1/3 \times 1}{1/3 + 1/3 \times 1/2 } = \frac{1/3}{1/2} = \frac{2}{3}\nonumber \\} \pause 
+\invisible<1-3>{P(A| C \text{ revealed} ) & = & \frac{P(A) P(C \text{ revealed} | A)}{ P(B)P(C \text{ revealed} | B) + P(A) P(C \text{ revealed} | A) }\nonumber \\} \pause 
+\invisible<1-4>{& = & \frac{1/3 \times 1/2}{1/3 + 1/3 \times 1/2} = \frac{1}{3} \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-5>{\alert{Double chances of winning with switch}} \pause 
+
+
+\invisible<1-6>{{\tt R Code!}} 
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Testing for a Rare Disease}
+
+Suppose there is a medical test 
+\begin{eqnarray}
+P(\text{positive}| \text{disease}) & = & 0.99 \nonumber \\
+P(\text{positive} | \text{not disease} ) & = & 0.10 \nonumber \\
+P(\text{disease} ) & = & 0.0001 \nonumber 
+\end{eqnarray}
+
+\pause 
+\invisible<1>{After a positive test, how worried should we be?} \pause 
+
+\begin{eqnarray}
+\invisible<1-2>{P(\text{disease}| \text{pos.}) & = & \frac{P(\text{dis.}) P(\text{pos}|\text{dis.} )}{P(\text{dis.}) P(\text{pos}|\text{dis.} ) + P(\text{not dis.}) P(\text{pos}|\text{not dis.} )}} \pause 
+ \nonumber \\
+\invisible<1-3>{& = & \frac{0.0001 \times 0.99 }{0.0001 \times 0.99 + 0.9999\times 0.1} \nonumber \\} \pause 
+\invisible<1-4>{& \approx & 0.0009891 \nonumber } 
+\end{eqnarray}
+
+
+
+
+
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Independence and Information} 
+
+Does one event provide \alert{information} about another event? \pause 
+
+\invisible<1>{\begin{defn} 
+Independence: Two events $E$ and $F$ are independent if 
+\begin{eqnarray}
+P(E\cap F ) & = & P(E)P(F) \nonumber 
+\end{eqnarray}
+If $E$ and $F$ are not independent, we'll say they are dependent 
+\end{defn} } \pause 
+
+
+\begin{itemize}
+\invisible<1-2>{\item[-] Independence is symetric: if $F$ is independent of $E$, then
+  $E$ is indepenent of $F$} 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Independence Relationship}
+
+Flip a fair coin twice.  
+\begin{itemize}
+\item[] $E = \text{first flip heads} $
+\item[] $F = \text{second flip heads} $
+\end{itemize}
+\begin{eqnarray}
+P(E \cap F ) & = & P( \{ (H, H) , (H, T) \} \cap \{ (H, H), (T, H) \} ) \nonumber \\
+ & =& P( \{(H, H)\} ) \nonumber \\
+ & = & \frac{1}{4} \nonumber \\
+P(E ) & = & \frac{1} {2} \nonumber \\
+P(F) & = & \frac{1}{2} \nonumber \\
+P(E)P(F)  & =& \frac{1}{2}\frac{1}{2} = \frac{1}{4}  =P(E \cap F )  \nonumber 
+ \end{eqnarray} 
+ 
+ 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Independence: No Information} 
+
+Suppose $E$ and $F$ are independent.  Then, 
+\begin{eqnarray}
+P(E|F ) & = & \frac{P(E \cap F) }{P(F) } \nonumber \\
+& = & \frac{P(E)P(F)}{P(F)}\nonumber \\
+& = & P(E) \nonumber 
+\end{eqnarray}
+
+
+Conditioning on the event $F$ does not modify the probability of $E$.  \\
+\alert{No information about $E$ in F}  \pause \\
+
+\invisible<1>{\alert{Mutually exclusive} $\neq$ \alert{Independent} \\
+Suppose $E$ and $F$ are mutually exclusive events: 
+\begin{itemize}
+\item[] $E= \{ (H,H), (H,T) \}$; $F= \{(T,H), (T,T) \} $
+\item[] $E \cap F = \emptyset$ 
+\item[] $P(E|F) = 0$; $P(E) = \frac{1}{2}$.  
+\end{itemize}
+}
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Independence and Complements}
+
+\begin{prop}
+Suppose $A$ and $B$ are independent events. Then the events $A$ and $B^{c}$ are also independent.  
+\end{prop}
+
+\pause 
+
+\begin{proof}
+\begin{eqnarray}
+\invisible<1>{P(A \cap B^{c} ) & = & P(A) - P(A \cap B) \nonumber } \pause \\
+\invisible<1-2>{& = & P(A)  - P(A) P(B) \nonumber } \pause \\
+\invisible<1-3>{& = & P(A) ( 1- P(B) ) } \pause \nonumber \\
+ \invisible<1-4>{& = & P(A) P(B^{c}) }  \nonumber 
+\end{eqnarray}
+\end{proof}
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Example: Independence and Causal Inference} 
+
+Selection and Observational Studies
+\begin{itemize}
+\item[-] We often want to infer the effect of some treatment 
+\begin{itemize}
+\item[-] Incumbency on vote return 
+\item[-] Democracy on war
+\end{itemize}
+\item[-] Observational studies: observe what we see to make inference 
+\item[-] Problem: units select into treatment 
+\begin{itemize}
+\item[-] Simple example: enroll in job training if I think it will help 
+\item[-] P(job$|$training in study) $\neq$ P(job$|$forced training) 
+\end{itemize}
+\item[-] \alert{Background characteristic}: difference between
+  treatment and control groups
+\item[-] \alert{Experiments} (second greatest discovery of 20th
+  century): make background characteristics and treatment status
+  independent 
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conditional Probability}
+
+\begin{defn}
+Let $E_{1}$ and $E_{2}$ be two events.  We will say that the events are conditionally independent given $E_{3}$ if 
+\begin{eqnarray}
+P(E_{1} \cap E_{2} | \alert{E_{3}}) & = & P(E_{1} | E_{3} ) P(E_{2} | E_{3} ) \nonumber 
+\end{eqnarray}
+
+
+\end{defn}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{prop}
+Suppose $E_{1}$ and $E_{2}$ and $E_{3}$ are events such that $P(E_{1} \cap E_{2})>0$ and $P(E_{2} \cap E_{3}) >0$.  Then $E_{1}$ and $E_{2}$ are conditionally independent given $E_{3} $ if and only if $P(E_{1} | E_{2} \cap E_{3})  = P(E_{1} | E_{3}) $.  
+\end{prop}
+
+\begin{proof}
+Suppose $E_{1}$ and $E_{2}$ are conditionally independent given $E_{3}$.  Then 
+\begin{eqnarray}
+P(E_{1} \cap E_{2} |  E_{3}) & = & \frac{P(E_{1} \cap E_{2} \cap E_{3}  ) }{P(E_{3} )} \nonumber \\
+& = & \frac{P(E_{3})P(E_{2} | E_{3} )P(E_{1} | E_{2} \cap E_{3} ) }{ P(E_{3} )}\nonumber \\
+P(E_{1}|E_{3}) P(E_{2} | E_{3} ) & = & P(E_{2} | E_{3} )P(E_{1} | E_{2} \cap E_{3} )\nonumber \\
+P(E_{1}|E_{3}) & = & P(E_{1} | E_{2} \cap E_{3} ) \nonumber 
+\end{eqnarray}
+
+\end{proof}
+
+
+
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{proof}
+Suppose $P(E_{1} | E_{2} \cap E_{3})  = P(E_{1} | E_{3}) $
+
+\begin{eqnarray}
+P(E_{1} \cap E_{2}| E_{3 } ) & = & P(E_{2} | E_{3} ) P(E_{1} | E_{2}\cap E_{3} ) \nonumber \\
+ & = & P(E_{2} | E_{3} ) P(E_{1} | E_{3} ) \nonumber 
+\end{eqnarray}
+
+\end{proof}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Conditional Independence }
+
+Suppose we want to hire an employee, but applicants have variable quality. \pause 
+\begin{itemize}
+\invisible<1>{\item[-] 1/2 low quality $(LQ)$: $P(\text{NFU}) = 0.01$ each day} \pause 
+\invisible<1-2>{\item[-] 1/2 high quality $(HQ)$ : $P(\text{NFU} ) = 0.99$ each day} \pause 
+\end{itemize}
+\invisible<1-3>{$E_{1} = $ High Quality selected \\} \pause 
+\invisible<1-4>{$H_{i} = $ Event NFU on day $i$ \\} \pause 
+\begin{eqnarray}
+\invisible<1-5>{P(H_{1} \cap H_{2} | E_{1} ) & = & P(H_{1} | E_{1} ) P(H_{2} | E_{2} ) \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-6>{But} \pause 
+\begin{eqnarray}
+\invisible<1-7>{P(H_{1} ) & = & P(E_{1})P(H_{1} | E_{1} ) + P(E_{1}^{c} ) P(H_{1} | E_{1}^{c} ) = 1/2 (0.99) + 1/2(0.01) = 1/2 \nonumber \\
+P(H_{2} )&  =  & 1/2 \nonumber \\
+P(H_{1} \cap H_{2} )&  = &  P(E_{1} ) P(H_{1} \cap H_{2} | E_{1} )  + P(E_{1}^{c} ) P(H_{1} \cap H_{2} | E_{1}^{c} ) \nonumber \\
+& = & 0.5 (0.99 \times 0.99) + 0.5 (0.01 \times 0.01) \approx 0.5\nonumber }
+\end{eqnarray}
+
+
+
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+
+\begin{defn}
+Suppose we have a sequence of events $E_{1}, E_{2}, \hdots, E_{n}$.  We say the sequence of events is \alert{mutually indepenent} if for each subset of the sequence,  $E_{i_{1}}, E_{i_{2}}, \hdots, E_{i_{j}}$ 
+\begin{eqnarray}
+P(E_{i_{1}}\cap E_{i_{2}}\cap \hdots \cap E_{i_{j}}) & = & \prod_{m = 1}^{j} P(E_{i_{m}}) \nonumber 
+\end{eqnarray}
+\end{defn}
+
+\alert{For a sequence to be independent, every subset is independent }
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{defn}
+Define the odds of some event $E$ as 
+\begin{eqnarray}
+\text{odds}_{E} & = & \frac{P(E)}{1 - P(E)} \nonumber 
+\end{eqnarray}
+
+Suppose $F$ is another event.  Define the \alert{odds ratio} of E to F as
+\begin{eqnarray}
+\text{odds ratio}_{E:F} & = & \frac{odds_{E}}{odds_{F}} \nonumber \\
+& = & \frac{\frac{P(E)}{1-P(E)}}{\frac{P(F)}{1-P(F)}}\nonumber 
+\end{eqnarray}
+
+
+\end{defn}
+
+\begin{itemize}
+\item[-] Big: implies $E$ is very likely
+\item[-] Small: implies $E$ is unlikely
+\item[-] \alert{Problem}: big changes in odd ratio may correspond to very small changes in chance something will happen $\leadsto$ \alert{baseline problem}
+\end{itemize}
+
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Where we're going} 
+
+Today
+\begin{itemize}
+\item[-] Conditional probability 
+\item[-] Bayes' Rule
+\item[-] Independence 
+\end{itemize}
+
+Next lecture: Random variables (discrete and continuous)
+
+
+
+
+\end{frame}
+
+
+
+
+\end{document}
+
