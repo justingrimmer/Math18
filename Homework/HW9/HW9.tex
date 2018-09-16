@@ -1,0 +1,107 @@
+\documentclass[10pt]{amsart}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{multicol}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage[margin=2.5 cm]{geometry}
+\usepackage{parskip}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+\centerline{\bf Math Camp - Homework 9}
+
+
+\noindent \textbf{Question 1:}
+ Find the following probabilities. If you cannot calculate the probability, explain why:
+
+\begin{enumerate} 
+\item $P(Z \cap Q) = .25, P(Z) = .6$. What is P$(Q | Z)$?
+\item $P(A \cap B) = .3, P(B|A) = .4$. What is P(A)?
+\item $P(G \cap W) = .8, P(W) = .2$. What is P$(G | W)$?
+\item $P(H) = .2, P(D | H) = .6$. Find $P(D \cap H).$
+\item P(D) = .8. Using  this information and your answer to the previous question, find $P(H | D)$. 
+\item $P(M \cap P) = .8, P(P) = .81$. What is P$(M | P)$?
+\item  $P(L \cap E) = .6, P(L | E) = .05$. What is P$(L)$?
+\end{enumerate}
+
+\bigskip
+
+\noindent \textbf{Question 2:} 
+
+\begin{enumerate}
+\item Suppose we have events $A$ and $B$ where $P(A)=.6$, $P(B)=.5$, and $P(A \cup B)=.9$. Are $A$ and $B$ independent?
+\item Suppose we have events $A$,$B$, and $C$ where each pair of events is independent and where $P(A) =.5$, $P(A \cap B)$ = .2, and $P(B \cap C) = .32$. Find $P(B)$ and $P(C)$.
+\item $P(D) = .5$, $P(D|H) = .55$. Are $D$ and $H$ independent?
+\item $P(B) = .4, P(X) = .2$ and $P(B \cap X) = 0.08$. Are B and X independent?
+\end{enumerate}
+
+\bigskip
+
+\textbf{Question 3:}
+Many studies explore whether people engage in ``partisan selective exposure." That is, do people choose information to consume based on what aligns with their partisan views?
+\begin{enumerate}
+\item Given the information below, what is the probability a given member of the public watches Fox News?\\
+
+For the purposes of this question, consider Democrat, Republican and Independent as mutually exclusive categories that collectively include every member of the public.
+
+\begin{multicols}{2}
+\begin{enumerate}
+\item[] $P(Democrat) = .4$
+\item[] $P(Republican) = .4$
+\item[] $P(Independent) = .2$
+\item[] $P(Fox \ News | Democrat) = .07$
+\item[] $P(Fox \ News | Republican) = .1675$
+\item[] $P(Fox \ News | Independent) = .05$
+\end{enumerate}
+\end{multicols}
+
+\item Are Fox News viewership and Democratic partisanship independent? Use your answer to the previous question to help you determine this. 
+
+\item Now suppose we get additional information that lets us determine which individuals have high levels of political interest. We then find the following two quantities: \\
+$P(Fox \ News \  | \ High \ Political  \ Interest) = .2$ and  $P(Democrat \ |  \ High \ Political  \ Interest) = .4.$
+	\begin{itemize}
+	\item Given this information, what probability would we need to know in order to say that, conditional on high levels of political interest, Democratic partisanship and Fox News viewership are independent?
+	 \item What value would this probability need to take for the two variables to be independent conditional on high levels of political interest?
+	 \item If, conditional on high political interest, Democratic partisanship and Fox News viewership were independent, what would $P(Fox \ News \ | \ High \ Political \ Interest \ \cap \ Democrat)$ be?
+	\end{itemize}
+\end{enumerate}
+
+\pagebreak
+
+\textbf{Question 4:}
+Suppose a researcher conducted an experiment in which they measured public opinion towards a new policy. Before they offered their opinion, 45\% of the respondents in the study were presented with an argument \textit{against} the proposed policy while the other 55\% of study respondents provided their opinion without hearing the argument.  Overall, 40\% of the individuals in the study supported the policy. However, among individuals who encountered the argument against the policy, only 20\% supported the policy. 
+
+\begin{enumerate}
+
+\item Given this information, what is the probability an individual encountered the argument (i.e., was assigned to the argument condition) given that they support the policy?
+
+\item Suppose instead that encountering the argument did not influence respondent opinion. That is, now assume that 40\% of the subjects in the study supported the policy \textit{and} 40\% of the subjects who encountered the argument support the policy. How does changing this value alter your answer to the previous question? 
+\end{enumerate}
+
+\bigskip
+
+\noindent \textbf{Question 5}: The 1982 movie \textit{Blade Runner} (starring Harrison Ford) is set in a future world where there are robots that are designed to look and behave exactly like human beings. The only way to tell if a randomly selected individual (who appears to be human) is in fact a human being or a robot is to administer a test. (If you've seen the movie, the test in this problem does not quite work like it does in the movie.) If an individual taking the test is in fact a robot, the test will report that the individual is a robot 95\% of the time. If an individual taking the test \textit{is not} a robot, the test will report that the individual \textit{is} a robot 3\% of the time.  Based on the number of robots manufactured, we can estimate that about 2\% of all individuals who appear to be humans are actually robots.
+\begin{enumerate}
+\medskip
+\item What is the probability that a randomly selected individual given the test will be classified as a robot?
+\medskip
+\item Given that an individual is classified as a robot by the test, what is the probability that individual is actually a robot?
+\medskip
+\item Given that an individual is classified as a human by the test, what is the probability that individual is actually a robot?
+\medskip
+\item Suppose that an individual is classified as a robot by the test and we decide to administer the test a second time. If the individual is classified as a robot again by the second test, what is the probability that the individual is in fact a robot? \textit{Hint: Use your answer from part (b) as your prior probability that an individual who appears to be human is actually a robot}.
+\end{enumerate}
+
+\bigskip
+
+\noindent \textbf{Question 6: Modified Monty Hall Problem}. As we discussed in class, Monty Hall was the host of a game show called \textit{Let's Make a Deal}. In one of the segments on the show, a contestant would be shown three doors, one of which had a prize behind it. The contestant did not know which door concealed this prize. The contestant would select a door, then Monty would open one of the remaining doors (but not the one with the prize behind it). Monty would ask the contestant if they wanted to switch their choice of door to the other unopened door or stick with the originally chosen door. After the contestant made a final decision, the doors were opened and the if the contestant picked the door with the prize behind it, they got to keep the prize.
+\begin{enumerate}
+\item Now assume that this game is played using {\it four} doors instead of three. Now, after the contestant has chosen a door, Monty will then reveal two of the remaining doors (of the three remaining doors) that do not have the prize. If the contestant sticks with the originally picked door, what is the probability of winning?
+\item If the contestant switches doors, what is the probability of winning? Show the steps you used to derive a solution. (One more reminder that we are now assuming {\it four} doors, not three.)
+\end{enumerate}
+
+
+\end{document}

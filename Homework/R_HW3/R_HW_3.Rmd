@@ -1,0 +1,163 @@
+---
+title: "R HW3"
+author: "Your Name Goes Here"
+date: "September 14, 2018"
+output: 
+  html_document: 
+    theme: cosmo
+---
+
+Please do the following problems.  When you see a line of code like `set.seed(98)`, just leave it.  It is to make your assignments more easily comparable from student to student.
+
+Please email your completed problem sets (both the R Markdown file and an output file in html or pdf) to Zuhad and Jesse (zuhadhai@stanford.edu and yoderj@stanford.edu) by 1:30pm on Thursday, September 20th. Name each file using the convention Firstname_Lastname_rhw3 with the appropriate suffix (.Rmd, .html, .pdf).
+
+### How to do this problem set
+
+You will get more out of this if you try the assignment on your own first. If you get stuck, search online for a solution. The best way to do this is to google your error messages, or describe what you're trying to do, along with the letter R.  For instance, "how do I create a data frame in R?" or "Error in \`[.data.frame\`(dat, 4) : undefined columns selected" If you get stuck, work in teams, but you must write up your own solutions.  
+
+R code goes in code chunks like this:
+```{r}
+set.seed(99)
+print("Hello World")
+```
+
+They begin with three backticks (the key below the escape key in the upper left part of your keyboard) and {r}.  They end with three backticks, so that the markdown compiler knows to go back to printing text, rather than evaluating your code. You may in the future want to pass additional arguments to knitr (the engine that compiles R markdown documents) by including additional arguments in the curly braces.  For now, you can use the defaults.
+
+Put your solutions below the questions in this .Rmd file.  It is a good practice to periodically compile the document using the "Knit HTML" button. This lets you check on whether the document has any errors in it.  
+
+You should also test your code as you are writing it by pressing Command-Enter (Mac) or Ctrl-Enter (Windows). If you have code selected, it will run that block of code.  If you do not have any code selected, it will run the line of code where your cursor is.
+
+It can be tempting to use R interactively, but this is often a bad idea.  Instead, focus on developing files of R code or knitr documents, running code as needed from your source file.
+
+### Introduction
+
+We have already encounetered cursory examples of ordinary least squares regression. It turns out that as long as our data matrix, $X$ is full rank, then the OLS estimator for $\beta$, the vector of slopes of the best-fit line, can be written in matrix form as follows:
+
+$\hat{\beta} = (X'X)^{-1}X'Y$, in words: the inverse of the $X'X$ matrix, multiplied by the traspose of the $X$ matrix, multipled by $Y$.
+
+Typically, X is a matrix of predictor variables that includes a constant (a column of 1's), and Y is a vector of outcomes. The object $(X'X)^{-1}X'Y$ is a $k x 1$ matrix of estimated coefficients, (one for each unknown in the model, including the constant). So for example, if we want to estimate the following model:
+
+$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \epsilon$$
+
+where $X_1$ and $X_2$ are both columns in the matrix X, $(X'X)^{-1}X'Y$ would return a vector of $k=3$ coefficient estimates: $\hat{\alpha}$, $\hat{\beta}_1$ and $\hat{\beta}_2$ (we use "hats" here to convey that these are estimates and not the true parameter values; an estimate of $\epsilon$, a vector of errors, is not included in this output vector).
+
+This assignment will focus on the mechanics of applying this estimator in R using matrix operations. In short, you are going to write your own OLS function!
+
+To do this, we are going to have you read in a real, uncleaned data set, clean it as needed, and then apply your function to estimate an OLS model. After working through this, much of the mechanics in 350A should seem slightly less scary, or at least have a ring of familiarity when they arrive. This will also give you insight as to what is going on "under the hood" when we use canned OLS functions in R such as lm().
+
+
+
+
+### Problems
+
+##### Problem 1 
+
+1) Read in the 2012 CCES data, the file "commoncontent2012.RData", using the load() command. Use ls() to determine the name of the object you just loaded. Determine its class. Relabel this object "dd". Check the dimensions and examine the first few rows of the data. You'll notice that all of these variables don't have intuitive names, and some of them contain weird values. So next we will need to pre-process these data.
+
+2) We first want to identify the party of the respondents in these data. Let's make a new variable (aka a column in our data frame) called "dem" that takes a 1 if a respondent self-identified as a Democrat (see pid3), or said they leaned toward the Democratic party (see pid7others) in a follow-up question, and a 0 otherwise. (Normally you would have to reference the code book that accompanies the data file to ID which variables convey this information, but for this excercise, we will tell you the pertinent variable names.) Do the same thing for Republicans using the same two variables. (Hint: the functions table() and class() are useful for determining which values a variable contains and what type of vector it is, respectively.)
+
+3) For those labeled  "Skipped" or "Not asked" on pid3, code them as NA. For those labeled "Not sure", "Skipped" or "Not asked" on pid7others, code them as NA. 
+
+
+
+4) Make a new column in dd, age, that is a numeric equal to the respondent's age in years. Do this using the variable birthyr, which is a factor vector that conveys the respondent's year of birth. Note, this survey was conducted in 2012. You may need to change the class of birthyr in order to accomplish this.
+
+5) Create a new column, female that equals 1 if the respondent is a female and 0 if the respondent is a male using gender.
+
+6) Create a column, ba, that equals 1 if the respondent has a Bachelor's Degree or higher, and 0 otherwise using educ. Be mindful of the class of the original variable. Make sure ba ends up as numeric.
+
+7) Construct a variable obama, that equals 1 if the respondent voted for Obama, 0 if they voted for someone else, and NA if the did not vote or did not answer the question or are not sure. Use the variable CC410a.
+
+##### Problem 2 
+
+1) Construct a matrix called X where the columns are: a vector of 1's of the same length as the variables you just created, dem, rep, age, female, and ba, in that order. Make sure the column names remain the same after constructing the matrix; label the column of 1's "constant".
+
+2)  construct a matrix Y that is just one column, obama. Again, make sure the column name remains the same.
+
+3) Using what we know about how to write functions and how to perform matrix operations in R, write a function called "OLS.est" that takes a data frame, a character vector of the names of independent variables, and a character vector with the name of the dependent variable. Have the function subset the data frame to the variables of interest, compute the OLS estimator $(X'X)^{-1}X'Y$, and return a kx1 matrix of estimated coefficients called "beta.hat". Make sure that by default the function renders the first column of X a constant vector of 1's, and give this column the name "(Intercept)" (the constant is often referred to as the intercept, and it's good to practice working with column names). 
+
+
+Note: if an observation (a row) is missing on either an X variable or Y, that entire row cannot be included in the OLS model and must be deleted. Make sure your function accounts for this fact. 
+
+
+##### Problem 3
+
+1) Using the data frame "dd", (that is, the whole CCES data frame) use your new function to estimate the unknown parameters (the constant term and the betas) in the following regression:
+
+$$obama = constant + \beta_1*\text{dem} + \beta_2*\text{rep} + \beta_3*\text{female} + \beta_4*\text{age}  +  \beta_5 \text{ba} +\epslion$$
+
+Do not alter dd prior to passing it to the function; have the subsetting to relevant variables occur within the function.
+
+
+
+
+2) Confirm these estimates are correct by estimating the same regression using the lm() function. Use the ? command or search online for how to use this function. Examples abound.
+
+
+##### Problem 4
+
+You'll notice that the summary output of the lm() function contained standard errors. These are estimates of the standard deviations that distributions of these coefficients would possess if we took many samples of data and estimated these models many times. In other words, they are estimates of the variability in our estimates of these coefficients given this sample of data. Let's use matrix operations to esimate these standard errors.
+
+
+
+1) Revise your OLS.est function to calculate an additional object, a one-column matrix "e" that is equal to $Y -X \hat{\beta}$. This is a vector of residuals, which are estimates of the errors in the model. Still working inside the function, generate a new object which is equal to the sum of the squares of each of the elements in "e", which should be a constant. Call this new object e.2 and make sure it is of class numeric. Have the function return beta.hat, and e.2. Since you are returning multiple objects, have the output of the function be a list.
+
+
+
+2) Revise the function yet again to output a new kxk matrix, "var.cov", that is equal to (e.2 / n-k)*(X'X)^{-1}, where n is the number of observations that were included in the regression, k is the number of estimated parameters, including the constant, and X is the matrix of independent variables included in the regression. 
+
+
+
+3) Revise your function one last time to output an additional object, a vector called "ses", that is equal to the square root of the diagonal elements of var.cov (you may find diag() helpful for this question). So now, the function should output beta.hat, e.2, var.cov and ses in a list. Compare the ses vector to the standard errors estimated by lm(). Are they the same?
+
+
+##### For your own enjoyment
+
+Note, the rest of this problems set is options.  450A will cover this in depth.
+
+1) Interpret the coefficients on BA and female, respectively.
+
+
+2) What is the predicted value of Y (whether or not someone voted for Obama) for an 95-year-old Democrat who is female and went to college? What about a 50-year-old Republican who is male and went to college? Hint: refer back to the equation for the model we estimated, and note that you now have estimated values for the unknown parameters.
+
+
+3) For both predictions, do such people exist in the data set? If so, how many?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
