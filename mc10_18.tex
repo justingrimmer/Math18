@@ -1,0 +1,1183 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\ Stanford University}
+\vspace{0.3in}
+
+\date{September 17th, 2018}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Where we're at} 
+
+
+\begin{itemize}
+\item[-] Conditional Probability/Bayes' Rule \pause 
+\invisible<1>{\item[-] Today: Random Variables} \pause 
+\invisible<1-2>{\item[-] Probability Mass Functions} \pause 
+\invisible<1-3>{\item[-] Expectation, Variance} \pause 
+\invisible<1-4>{\item[-] Famous Discrete Random Variables} \pause 
+\invisible<1-5>{\item[-] A Brief Introduction to Markov Chains}
+\end{itemize}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Random Variable: Intuition} 
+
+
+Recall the three parts of our probability model \pause 
+\begin{itemize}
+\invisible<1>{\item[-] Sample Space} \pause 
+\invisible<1-2>{\item[-] Events } \pause 
+\invisible<1-3>{\item[-] Probability } \pause 
+\end{itemize}
+\invisible<1-4>{Often, we are interested in some function of the sample space} \pause 
+\begin{itemize}
+\invisible<1-5>{\item[-] Number of incumbents who win} \pause 
+\invisible<1-6>{\item[-] An indicator whether a country defaults on loans (1 if Default, 0 otherwise)} \pause 
+\invisible<1-7>{\item[-] Number of casualties in a war (rather than all outcomes of casualties) }\pause  
+\end{itemize} 
+\invisible<1-8>{\alert{Random variables}: functions defined on the \alert{sample space} }
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Definition: Random Variable}
+\pause 
+\begin{defn} 
+\invisible<1>{Random Variable: A Random variable $X$ is a function from the sample space to \alert{real numbers}.  In notation, } \pause 
+\begin{eqnarray}
+\invisible<1-2>{X:\text{Sample Space} \rightarrow \mathcal{R} \nonumber  } \pause 
+\end{eqnarray}
+
+\end{defn} 
+
+
+\begin{itemize}
+\invisible<1-3>{\item[-] $X$'s \alert{domain} are all outcomes (Sample Space) } \pause 
+\invisible<1-4>{\item[-] $X$'s \alert{range} is the Real line (or some subset of it)} \pause 
+\invisible<1-5>{\item[-] Because $X$ is defined on outcomes, makes sense to write $p(X)$ (we'll talk about this soon) } 
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example}
+\pause 
+\invisible<1>{Treatment assignment: } \pause 
+\begin{itemize}
+\invisible<1-2>{\item[-] Suppose we have $3$ units, flipping fair coin ($\frac{1}{2}$) to assign each unit} \pause 
+\invisible<1-3>{\item[-] Assign to $T=$Treatment or $C=$control} \pause 
+\invisible<1-4>{\item[-] $X$ = Number of units received treatment } \pause 
+\end{itemize}
+\invisible<1-5>{Defining the function: } \pause 
+\begin{equation}
+\invisible<1-6>{X  = \left \{} \begin{array} {ll}
+\invisible<1-7>{0  \text{  if  } (C, C, C) } \\
+\invisible<1-8>{1 \text{  if  } (T, C, C) \text{ or } (C, T, C) \text{ or } (C, C, T)} \\
+\invisible<1-9>{2 \text{ if  }  (T, T, C) \text{ or } (T, C, T) \text{ or } (C, T, T) } \\
+\invisible<1-10>{3 \text{ if } (T, T, T)} 
+\end{array} \right. . \nonumber
+\end{equation}
+\pause \pause \pause \pause \pause 
+
+\invisible<1-11>{In other words, } \pause 
+\begin{eqnarray}
+\invisible<1-12>{X( (C, C, C) )  & =  & 0\nonumber} \pause \\
+\invisible<1-13>{X( (T, C, C)) & = &  1 \nonumber} \pause \\
+\invisible<1-14>{X((T, C, T)) & = & 2 \nonumber } \pause \\
+\invisible<1-15>{X((T, T, T)) & = & 3 \nonumber}  
+\end{eqnarray}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Another Example} 
+
+\pause 
+\invisible<1>{$X$ = Number of Calls into congressional office in some period $p$} \pause 
+\begin{itemize}
+\invisible<1-2>{\item[-] $X(c) = c$ } \pause 
+\end{itemize}
+\invisible<1-3>{Outcome of Election} \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] Define $v$ as the proportion of vote the candidate receives} \pause 
+\invisible<1-5>{\item[-] Define $X = 1$ if $v>0.50$ } \pause \\
+\invisible<1-6>{\item[-] Define $X = 0$ if $v<0.50$ } \pause \\
+\end{itemize}
+
+\invisible<1-7>{For example, if $v = 0.48$, then $X(v) = 0 $}\pause  \\
+
+\invisible<1-8>{\alert{Big Question}: How do we compute P(X=1), P(X=0), etc?} 
+
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Probability Mass Function: Intuition} 
+
+Go back to our experiment example--probability comes from probability of outcomes \pause 
+
+\invisible<1>{$P(C, T, C) = P(C)P(T)P(C) = \frac{1}{2}\frac{1}{2}\frac{1}{2} = \frac{1}{8}$} \pause \\
+
+\invisible<1-2>{That's true for all outcomes.}\pause   \\
+
+\begin{eqnarray}
+\invisible<1-3>{p(X = 0) & = & P(C, C, C) = \frac{1}{8} \nonumber} \pause  \\
+\invisible<1-4>{p(X = 1) & = & P(T, C, C) + P(C, T, C) + P(C, C, T) = \frac{3}{8}  \nonumber} \pause  \\ 
+\invisible<1-5>{p(X = 2) & = & P(T, T, C)  + P(T, C, T) + P(C, T, T) = \frac{3}{8} \nonumber} \pause  \\
+\invisible<1-6>{p(X = 3) & = & P(T, T, T) = \frac{1}{8} \nonumber}  \pause 
+\end{eqnarray}
+
+\invisible<1-7>{$p(X = a) = 0 $, for all $a \notin (0, 1, 2, 3)$} 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Probability Mass Function: Intuition} 
+
+\scalebox{0.45}{\includegraphics{pmf1.pdf} }
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Probability Mass Function: Intuition} 
+
+Consider outcome of election: 
+\begin{itemize}
+\item[-] $X(v)=1$ if $v>0.5$ otherwise $X(v) = 0 $
+\item[-] $P(X = 1)$ then is equal to $P(v>0.5)$
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Probability Mass Function} 
+
+If $X$ is defined on an outcome space that is discrete (countable), we'll call it \alert{discrete}.  \pause \\
+\invisible<1, 3->{(Brief aside) Countable: A set is countable if there is a function that can map all its elements to the natural numbers $\{1, 2, 3, 4, \hdots \}$ (one-to-one, injective).  If it is onto (from $S$ to all natural numbers, surjective), then we say the set is countably infinite}\pause 
+
+
+
+
+\invisible<1-2>{\begin{defn}
+Probability Mass Function: For a \alert{discrete} random variable $X$, define the probability mass function $p(x)$ as 
+\begin{eqnarray}
+p(x) & = & P(X = x) \nonumber 
+\end{eqnarray} 
+
+\end{defn} } 
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Probability Mass Function: Example 2} 
+\pause 
+\invisible<1>{Topics:}\pause \invisible<1-2>{ distinct concepts (war in Afghanistan, national debt, \alert{fire department grants} )} \pause \\
+\invisible<1-3>{Mathematically: Probability Mass Function on Words} \pause \invisible<1-4>{ Probability of using word, when discussing a topic } \pause \\
+\invisible<1-5>{Suppose we have a set of words:} \pause 
+\begin{itemize}
+\invisible<1-6>{\item[] (afghanistan, fire, department, soldier, troop, war, grant) } \pause 
+\end{itemize}
+\invisible<1-7>{Topic 1 (say, \alert{war}): } \pause 
+\begin{itemize}
+\invisible<1-8>{\item[] P(afghanistan) = 0.3; P(fire) = 0.0001; P(department) = 0.0001; P(soldier) = 0.2; P(troop) = 0.2; P(war)=0.2997; P(grant)=0.0001} \pause 
+\end{itemize}
+\invisible<1-9>{Topic 2 (say, \alert{fire departments} ):} \pause  \\
+\begin{itemize}
+\invisible<1-10>{\item[] P(afghanistan) = 0.0001; P(fire) = 0.3; P(department) = 0.2; P(soldier) = 0.0001; P(troop) = 0.0001; P(war)=0.0001; P(grant)=0.2997} \pause 
+\end{itemize}
+
+\invisible<1-11>{\alert{Topic Models}: take a set of documents and estimate topics.  } 
+
+
+\end{frame}
+
+
+\begin{frame}
+
+
+\begin{defn} 
+Cumulative Mass (distribution) Function: For a random variable $X$, define the cumulative mass function $F(x)$ as, 
+\begin{eqnarray}
+F(x) & = & P(X \leq x) \nonumber 
+\end{eqnarray} 
+\end{defn} 
+
+\begin{itemize}
+\item[-] Characterizes how probability \alert{cumulates} as $X$ gets larger
+\item[-] $F(x) \in [0,1]$
+\item[-] $F(x)$ is \alert{non-decreasing}
+\end{itemize}
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Cumulative Mass Function: Example}
+
+Consider the three person experiment. \pause \invisible<1>{  $P(T) = P(C) =  1/2$. } \pause  \\
+\invisible<1-2>{What is $F(2)$?} \pause 
+\begin{eqnarray}
+\invisible<1-3>{F(2) & = & P(X = 0) + P(X = 1) + P(X = 2) \nonumber\\} \pause 
+ \invisible<1-4>{& = & \frac{1}{8} + \frac{3}{8} + \frac{3}{8} \nonumber \\} \pause 
+ \invisible<1-5>{& = & \frac{7}{8} \nonumber } \pause 
+ \end{eqnarray}
+
+\invisible<1-6>{What is $F(2) - F(1)$?} \pause 
+\begin{eqnarray} 
+\invisible<1-7>{F(2)  - F(1) & = & [P(X = 0) + P(X = 1) + P(X = 2)]  \nonumber \\
+&&  -[P(X = 0) + P(X = 1)] \nonumber \\} \pause 
+\invisible<1-8>{F(2) - F(1) & = & P(X = 2) \nonumber } 
+\end{eqnarray}
+
+
+
+
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Cumulative Mass Function} 
+There is a close relationship between pmf's and cmf's. \pause \\
+\invisible<1>{Consider Previous example:} \pause \\
+
+\only<1-3>{\scalebox{0.4}{\includegraphics{pmf1.pdf}}} \pause 
+\only<4>{\scalebox{0.4}{\includegraphics{cmf1.pdf}}} \pause 
+\only<5>{\scalebox{0.4}{\includegraphics{cmf2.pdf}}} \pause 
+\only<6>{\scalebox{0.4}{\includegraphics{cmf3.pdf}}} \pause 
+\only<7>{\scalebox{0.4}{\includegraphics{cmf4.pdf}}} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Expectation}
+
+What can we \alert{expect} from a trial? \pause \\
+
+\invisible<1>{Value of random variable for any outcome} \pause \\
+\invisible<1-2>{Weighted by the probability of observing that outcome} \pause \\
+
+\invisible<1-3>{\begin{defn} 
+Expected Value: define the expected value of a function $X$ as, 
+\begin{eqnarray}
+E[X] &  = & \sum_{x:p(x)>0} x p(x) \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-4>{In words: for all values of $x$ with $p(x)$ greater than zero, take the weighted average of the values} 
+\end{defn} 
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Expectation Example: Simple Experiment}
+
+
+
+Suppose again $X$ is number of units assigned to treatment, in one of our previous example. \pause \\
+\invisible<1>{What is $E[X]$?} \pause 
+\begin{eqnarray}
+\invisible<1-2>{E[X]} \pause \invisible<1-3>{ & = & 0\times \frac{1}{8} + 1 \times \frac{3}{8} + 2 \times \frac{3}{8} + 3 \times \frac{1}{8} \nonumber \\} \pause 
+\invisible<1-4>{& = & 1.5 \nonumber } 
+\end{eqnarray}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Expectation Example: A Single Person Poll}
+
+Suppose that there is a group of $N$ people.  \pause 
+\begin{itemize}
+\invisible<1>{\item[-] Suppose $M< N$ people approve of Barack Obama's performance as president} \pause 
+\invisible<1-2>{\item[-] $N - M $ disapprove of his performance} \pause 
+\end{itemize}
+\invisible<1-3>{Define:} \pause 
+
+\invisible<1-5>{Draw one person $i$, with , $P(\text{Draw } i ) = \frac{1}{N}$\\} \pause 
+
+
+
+\begin{equation}
+\invisible<1-6>{X  = \left \{ \begin{array} {ll}
+	1  \text{  if  person Approves}  \\
+    0 \text{  if  Disapproves}   \\
+\end{array} \right. . \nonumber} \pause 
+\end{equation}
+
+\invisible<1-7>{E[X]? } \pause 
+\begin{eqnarray}
+\invisible<1-8>{E[X] & = & 1 \times P(\text{Approve})  + 0 \times P(\text{Disapprove}) \nonumber \\} \pause 
+ \invisible<1-9>{& = & 1 \times \frac{M}{N} \nonumber \\} \pause 
+ \invisible<1-10>{& = & \frac{M}{N} \nonumber } 
+ \end{eqnarray}
+
+
+
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Indicator Variables and Probabilities} 
+
+\pause 
+\invisible<1>{\begin{prop}}\pause 
+\invisible<1-2>{Suppose $A$ is an event.  Define random variable $I$ such that $I= 1$ if an outcome in $A$ occurs and $I =0$ if an outcome in $A^{c}$ occurs.  Then, } \pause 
+\begin{eqnarray}
+\invisible<1-3>{E[I] &  = &  P(A)\nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-4>{\begin{proof} } \pause 
+\begin{eqnarray}
+\invisible<1-5>{E[I]  & =&  1 \times P(A) + 0 \times P(A^{c}) \nonumber \\} \pause 
+\invisible<1-6>{ & = & P(A) \nonumber } 
+\end{eqnarray} 
+\end{proof}
+
+
+\end{prop}
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Functions of Random Variables}
+We might (or often) apply a function to a random variable $g(X)$. \pause  \\
+\invisible<1>{How do we compute $E[g(X)]$?} \pause \\
+
+\invisible<1-2>{\begin{prop} } \pause 
+\invisible<1-3>{Expected value of a function of a random variable: Suppose $X$ is a discrete random variable that takes on values $x_{i}$, $i=\{1, 2, \hdots, \}$, with probabilities $p(x_{i})$.} \pause \invisible<1-4>{  If $g:X \rightarrow \mathcal{R}$, then its expected value $E[g(X)]$ is,} \pause 
+\begin{eqnarray}
+\invisible<1-5>{E[g(X)] & = & \sum_{i} g(x_{i}) p(x_{i} ) \nonumber } 
+\end{eqnarray}
+\end{prop}
+
+%Useful for \alert{Expected Utility}: see your homework
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Functions of Random Variables} 
+\begin{proof} 
+\pause 
+\invisible<1>{Observation $g(X)$ is itself a random variable.  Let's say it has unique values $y_{j}$ $(j=1, 2, \hdots, )$}\pause \invisible<1-2>{  So, we know that $E[g(X)] = \sum_{j}y_{j} P(g(X)= y_{j})$.}\pause \invisible<1-3>{  And we want to show that $\sum_{i} g(x_{i}) p(x_{i})$ is equal to that.  }\pause 
+\begin{eqnarray}
+\invisible<1-4>{\sum_{i} g(x_{i}) p(x_{i}) & = & \sum_{j} \sum_{i:g(x_i) = y_j} g(x_i) p(x_i) \nonumber } \pause \\
+\invisible<1-5>{& = & \sum_{j} \sum_{i: g(x_i) = y_{j}} y_{j} p(x_i) \nonumber } \pause \\
+\invisible<1-6>{& = & \sum_{j} y_{j} \sum_{i:g(x_i) = y_{j} } p(x_{i}) \nonumber } \pause \\
+\invisible<1-7>{& = & \sum_{j} y_{j} P(g(X) = y_{j} ) \nonumber} \pause  \\
+\invisible<1-8>{& = & E[g(X)] \nonumber } 
+\end{eqnarray}
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Functions of Random Variables: Example} 
+Let's suppose that $X$ is the number of observations assigned to treatment (from our previous example).    \pause 
+
+\invisible<1>{Suppose that $g(X) = X^2$.  What is $E[g(X)]$? } \pause 
+\begin{eqnarray} 
+\invisible<1-2>{E[g(X)] = E[X^2]& = & 0^2 \times \frac{1}{8} + 1^2 \times \frac{3}{8} + 2^2 \times \frac{3}{8} + 3^2 \times \frac{1}{8} \nonumber } \pause \\
+\invisible<1-3>{& = & 0 + \frac{3}{8} + \frac{12}{8} + \frac{9}{8} \nonumber } \pause\\
+\invisible<1-4>{& = & \frac{24}{8} = 3\nonumber} 
+\end{eqnarray}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Functions of Random Variables: Corollary} 
+
+
+
+\begin{cor}
+Suppose $X$ is a random variable and $a$ and $b$ are \alert{constants} (not random variables).  Then, 
+\begin{eqnarray}
+E[aX + b] & = & aE[X] + b \nonumber 
+\end{eqnarray}
+\end{cor}
+\pause 
+\begin{proof} 
+\begin{eqnarray}
+\invisible<1>{E[aX + b]  & = & \sum_{x: p(x)>0} (a x + b)p(x) \nonumber \\} \pause 
+\invisible<1-2>{ & = & \sum_{x:p(x)>0} a x p(x) + \sum_{x:p(x)>0} b p(x) \nonumber \\} \pause 
+ \invisible<1-3>{& = & a \sum_{x:p(x)>0} x p(x) + b \sum_{x:p(x)>0} p(x) \nonumber \\} \pause 
+ \invisible<1-4>{& = & a E[X] + b (1) \nonumber } 
+ \end{eqnarray}
+ \end{proof} 
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Variance} 
+
+Expected value is a measure of \alert{central tendency}. \pause \\
+\invisible<1>{What about spread?} \pause \invisible<1-2>{ \alert{Variance} } \pause \\
+\begin{itemize}
+\invisible<1-3>{\item[-] For each value, we might measure distance from center} \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] Euclidean distance, squared $d(x, E[x])^{2} = (x - E[x])^2$  } \pause 
+\end{itemize}
+\invisible<1-5>{\item[-] Then, we might take weighted average of these distances, } \pause 
+\begin{eqnarray} 
+\invisible<1-6>{E[(X - E[X])^2] & = & \sum_{x:p(x)>0} (x  - E[X])^2p(x) \nonumber \\} \pause 
+\invisible<1-7>{& = & \sum_{x:p(x)>0} \left(x^2 p(x)\right)  -\nonumber \\} \pause 
+\invisible<1-8>{& &  2 E[X]\sum_{x:p(x)>0} \left(x p(x)\right) + E[X]^2\sum_{x:p(x)>0} p(x)  \nonumber \\} \pause 
+\invisible<1-9>{&  = &  E[X^2] - 2E[X]^2 + E[X]^2  \nonumber \\} \pause 
+\invisible<1-10>{& = & E[X^2] - E[X]^2 \nonumber \\} \pause 
+\invisible<1-11>{& = & \text{Var}(X) \nonumber } 
+\end{eqnarray}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Variance}
+
+\begin{defn}
+The variance of a random variable $X$, var$(X)$, is 
+\begin{eqnarray}
+ \text{var}(X) & = & E[(X - E[X])^2] \nonumber \\
+ & = &  E[X^2] - E[X]^2 \nonumber 
+\end{eqnarray}
+\end{defn}
+
+\begin{itemize}
+\item[-] We will define the standard deviation of $X$, sd$(X) = \sqrt{\text{var}(X)} $
+\item[-] var$(X) \geq 0$.  
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Variance Calculation} 
+Continue the three person experiment, with $P(T) = P(C) = 1/2$. \pause    \\
+\invisible<1>{What is Var($X$)? } \pause \\
+
+\invisible<1-2>{We have two components to our variance calculation: } \pause 
+\begin{eqnarray}
+\invisible<1-3>{E[X^2] & = & 3 \nonumber \\} \pause 
+\invisible<1-4>{E[X]^2 & = & 1.5^2 = 2.25 \nonumber \\} \pause 
+\invisible<1-5>{\text{Var}(X) & = & E[X^2] - E[X]^2 \nonumber \\} \pause 
+\invisible<1-6>{& = & 3 - 2.25 = 0.75 \nonumber }
+\end{eqnarray}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Variance Corollary} 
+
+\begin{cor}
+Var($aX  + b$)  = $a^2$Var($X$) 
+\end{cor} 
+\pause 
+\begin{proof} 
+\invisible<1>{Define $Y = aX +b$.  Now, we know that \\} \pause 
+\invisible<1-2>{$Var(Y) = E[(Y - E[Y])^2]$.  Let's substitute and use our other corollary} \pause 
+\begin{eqnarray}
+\invisible<1-3>{Var(Y) & =& E[ (aX + b - a E[X] - b)^2 ] \nonumber } \pause \\
+\invisible<1-4>{ & = & E[ (a^2 X^2 - 2 a^2 X E[X] + a^2 E[X]^2)] \nonumber } \pause \\
+\invisible<1-5>{ & = & a^2E[X^2] -2a^2E[X]^2 + a^2 E[X]^2 \nonumber } \pause \\
+ \invisible<1-6>{& = & a^2(E[X^2] - E[X]^2) \nonumber} \pause  \\
+\invisible<1-7>{ & = & a^2 Var(X) \nonumber } 
+ \end{eqnarray}
+\end{proof} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Famous Distributions}
+
+\begin{itemize}
+\item[-] Bernoulli
+\item[-] Binomial
+\item[-] Multinomial
+\item[-] Poisson
+\end{itemize}
+
+\alert{Models} of how world works.  
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bernoulli Random Variable}
+
+
+\begin{defn}
+Suppose $X$ is a random variable, with $X \in \{0, 1\}$ and $P(X = 1) = \pi$.  Then we will say that $X$ is \alert{Bernoulli} random variable, 
+\begin{eqnarray}
+p(k) & = & \pi^{k} (1- \pi)^{1 - k} \nonumber 
+\end{eqnarray}
+
+for $k \in \{0,1\}$ and $p(k) = 0$ otherwise.  \\
+
+We will (equivalently) say that 
+\begin{eqnarray}
+Y & \sim & \text{Bernoulli}(\pi) \nonumber 
+\end{eqnarray}
+
+
+\end{defn}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bernoulli Random Variable}
+
+Suppose we flip a fair coin and $Y = 1$ if the outcome is Heads . \\
+
+\begin{eqnarray}
+Y & \sim & \text{Bernoulli}(1/2) \nonumber \\
+p(1) & = & (1/2)^{1} (1- 1/2)^{ 1- 1} = 1/2 \nonumber \\
+p(0) & = & (1/2)^{0} (1- 1/2)^{1 - 0} = (1- 1/2) \nonumber 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bernoulli Random Variable \alert{Moments}}
+Suppose $Y \sim \text{Bernoulli}(\pi)$ \\
+
+
+\begin{eqnarray} 
+\invisible<1>{E[Y] & = & 1 \times P(Y = 1) + 0 \times P(Y = 0) \nonumber \\
+& = & \pi + 0 (1 - \pi) \nonumber  = \pi } \nonumber \\
+\invisible<1-2>{\text{var}(Y) & = & E[Y^2] - E[Y]^2 \nonumber}  \\
+\invisible<1-3>{E[Y^2] & = & 1^{2} P(Y = 1) + 0^{2} P(Y = 0) \nonumber }\\
+ \invisible<1-4>{& = & \pi \nonumber \\} 
+ \invisible<1-5>{\text{var}(Y) & = & \pi - \pi^{2} \nonumber \\} 
+  \invisible<1-6>{& = & \pi(1 - \pi ) \nonumber } 
+\end{eqnarray}
+
+\invisible<1>{$E[Y] = \pi$}\\
+\invisible<1-6>{var$(Y) = \pi(1- \pi) $}
+\invisible<1-7>{What is the maximum variance?}
+
+
+\pause \pause \pause \pause \pause \pause \pause 
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Winning a War}
+
+Suppose country $1$ is engaged in a conflict and can either win or lose. \pause  \\
+\invisible<1>{Define $Y = 1$ if the country wins and $Y = 0$ otherwise.\\} \pause 
+\invisible<1-3>{Then, } \pause 
+\begin{eqnarray}
+ \invisible<1-4>{Y &\sim & \text{Bernoulli}(\pi) \nonumber } \pause 
+\end{eqnarray}
+
+
+\invisible<1-5>{Suppose country $1$ is deciding whether to fight a war.  \\} \pause 
+\invisible<1-6>{Engaging in the war will cost the country $c$.  \\} \pause 
+\invisible<1-7>{If they win, country $1$ receives $B$.  \\} \pause 
+\invisible<1-8>{What is $1$'s expected utility from fighting a war?\\} \pause 
+\begin{eqnarray}
+\invisible<1-9>{E[U(\text{war})] & = & (\text{Utility}|\text{win})\times P(\text{win}) + (\text{Utility}| \text{lose})\times P(\text{lose}) \nonumber \\} \pause 
+ \invisible<1-10>{&= & (B - c) P(Y = 1) + (- c) P(Y = 0 )\nonumber \\} \pause 
+\invisible<1-11>{& = & B \times p(Y = 1)  - c(P(Y = 1)  + P(Y = 0)) \nonumber \\} \pause 
+\invisible<1-12>{& = & B \times \pi - c \nonumber } 
+\end{eqnarray}
+\pause 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Binomial Random Variable}
+
+\begin{itemize}
+\item[-] A model to count the number of successes across $N$ trials \pause 
+\begin{itemize}
+\invisible<1>{\item[-] Assume the Bernoulli trials are independent} \pause 
+\invisible<1-2>{\item[-] Each Bernoulli trial $i$ is } \pause 
+\begin{eqnarray}
+\invisible<1-3>{Y_{i} & \sim & \text{Bernoulli} (\pi) \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-4>{Independent and identically distributed.  } \pause 
+\end{itemize}
+\invisible<1-5>{\item[-] $Z = $ number of successful trials} \pause 
+\invisible<1-6>{\item[-] Derive probability mass function $P(Z = M) = p(M) $} \pause 
+\invisible<1-7>{\item[-] One way to obtain $M$ successful trials:} \pause 
+\end{itemize}
+\invisible<1-8>{$P(Y_{1} = 1, Y_{2}=0, Y_{3} = 1,  \hdots, Y_{N} = 1)$} \pause 
+\begin{eqnarray}
+\invisible<1-9>{ & = & P(Y_{1}=1)P(Y_{2} =0)\cdots P(Y_{N} =1)} \pause  \nonumber \\
+										\invisible<1-10>{& = & \underbrace{P(Y_{1} = 1)P(Y_{3}=1)\cdots P(Y_{z} = 1)}_{M} \times\underbrace{P(Y_{2}= 0) \cdots P(Y_{N} = 0)}_{N-M}  \nonumber} \pause  \\										
+										\invisible<1-11>{& = & \underbrace{\pi \pi \cdots \pi}_{M} \times \underbrace{(1-\pi)(1-\pi) \cdots (1- \pi) }_{N-M} \nonumber} \pause  \\
+										\invisible<1-12>{& = & \pi^{M}(1-\pi)^{N - M} \nonumber} \pause  
+\end{eqnarray}
+
+
+\end{frame}
+
+
+\begin{frame}
+Are we done? \pause \invisible<1>{  \alert{No} } \pause \\
+\begin{itemize}
+\invisible<1-2>{\item[-] This is just one instance of $M$ successes} \pause 
+\invisible<1-3>{\item[-] How many total instances?} \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] N total trials} \pause 
+\invisible<1-5>{\item[-] We want to select $M$ } \pause 
+\end{itemize}
+\invisible<1-6>{\item[-] ${{N}\choose{M}} = \frac{N!}{(N-M)! M!}$} \pause 
+\end{itemize}
+\invisible<1-7>{Then, } \pause 
+\begin{eqnarray}
+\invisible<1-8>{P(Z = M) & = &  p(M) = {{N}\choose{M}}\pi^{M} (1- \pi)^{N-M} \nonumber } \pause 
+\end{eqnarray}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{defn}
+Suppose $Y$ is a random variable that counts the number of successes in $N$ independent and identically distributed Bernoulli trials.  Then $Y$ is a \alert{Binomial} random variable, 
+\begin{eqnarray}
+p(k) & = & {{N}\choose{k}}\pi^{k} (1- \pi)^{1-k} \nonumber 
+\end{eqnarray}
+for $k \in \{0, 1, 2, \hdots, N\}$ and $p(k) = 0$ otherwise.  \\
+Equivalently, 
+\begin{eqnarray}
+Y & \sim & \text{Binomial}(N, \pi) \nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Binomial Example}
+Recall our experiment example: \pause \\
+\invisible<1>{$P(T) = P(C) = 1/2$.\\  } \pause 
+\invisible<1-2>{$Z = $ number of units assigned to treatment\\} \pause 
+\begin{eqnarray}
+\invisible<1-3>{Z & \sim &  \text{Binomial}(1/2)\nonumber \\} 
+\invisible<1-4>{p(0) & = & {{3}\choose{0}} (1/2)^{0} (1- 1/2)^{3-0} = 1 \times \frac{1}{8}\nonumber \\} 
+\invisible<1-5>{p(1) &  = & {{3}\choose{1}} (1/2)^{1} (1 - 1/2)^{2} = 3 \times \frac{1}{8} \nonumber \\} 
+\invisible<1-6>{p(2) & = & {{3}\choose{2}} (1/2)^{2} (1- 1/2)^1 = 3 \times \frac{1}{8} \nonumber \\} 
+\invisible<1-7>{p(3) & = & {{3}\choose{3}} (1/2)^{3} (1 - 1/2)^{0} = 1 \times \frac{1}{8} \nonumber } 
+\end{eqnarray}
+
+\pause \pause \pause \pause \pause 
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Binomial Random Variable \alert{Moments}}
+$Z = \sum_{i=1}^{N} Y_{i}$ where $Y_{i} \sim \text{Bernoulli}(\pi)$ \pause \\
+\begin{eqnarray}
+\invisible<1>{E[Z] & = & E[Y_{1} + Y_{2} + Y_{3} + \hdots + Y_{N} ] \nonumber \\}
+ \invisible<1-2>{& = & \sum_{i=1}^{N} E[Y_{i} ] \nonumber \\}
+ \invisible<1-3>{& = & N \pi \nonumber \\}
+\invisible<1-4>{\text{var}(Z) & = & \sum_{i=1}^{N} \text{var}(Y_{i}) \nonumber \\}
+\invisible<1-5>{& = & N \pi (1-\pi) \nonumber } 
+ \end{eqnarray}
+
+
+
+
+\invisible<1-3>{$E[Z]  =   N \pi$\\} 
+\invisible<1-5>{$\text{var}(Z)  =  N \pi (1- \pi) \nonumber $} 
+
+\pause \pause \pause \pause 
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Voter Turnout}
+
+Suppose we have a set $N$ voters, with iid turnout decisions $Y_{i} \sim \text{Bernoulli}(\pi)$  \pause \\
+ \invisible<1>{What is the probability that at least $M$ voters turnout? } \pause 
+\begin{eqnarray}
+\invisible<1-2>{P(k\geq M) & = & \sum_{k=M}^{N} {{N}\choose{k}} \pi^{k} (1- \pi)^{N-k} } \pause \nonumber 
+\end{eqnarray}
+
+\begin{center}
+\only<1-4>{\invisible<1-3>{\scalebox{0.4}{\includegraphics{Binom1.pdf}}}}
+\only<5>{\scalebox{0.4}{\includegraphics{Binom2.pdf}}} 
+\only<6>{{\tt R Code!}}
+
+\end{center}
+\pause \pause 
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Voter Turnout, with Spillovers}
+
+Suppose we have the same set of $N$ voters. \pause \\
+\invisible<1>{Now, $N/2$ are leaders, who turnout with probability $(1/2)$\\} \pause 
+\invisible<1-2>{But, $N/2$ are followers, whose turnout depends on a specific leader\\} \pause 
+\invisible<1-3>{Suppose follower $i$ depends on only one leader $j$ (and each follower has their own leader)} \pause 
+\begin{eqnarray}
+\invisible<1-4>{Y_{i} & \sim & \text{Bernoulli}(0.9) \text{ if $j$ votes } \nonumber \\} 
+\invisible<1-5>{Y_{i} & \sim & \text{Bernoulli}(0.1) \text{ if $j$ does not } \nonumber  }
+\end{eqnarray}
+
+\invisible<1-6>{Let $Z$ be the number of voters who turnout. \\} 
+
+\pause \pause \pause 
+
+
+
+
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Voter Turnout, with Spillovers}
+
+
+\begin{center}
+\scalebox{0.5}{\includegraphics{BinomNetwork.pdf}}
+\end{center}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Trials with More than Two Outcomes}
+
+
+\begin{defn}
+Suppose we observe a trial, which might result in $J$ outcomes.  \\
+And that P$(\text{outcome } = i) = \pi_{i}$ \\
+$\boldsymbol{Y} = (Y_{1}, Y_{2}, \hdots, Y_{J})$  where $Y_{j} = 1$ if outcome $j$ occurred and 0 otherwise. 
+
+Then $\boldsymbol{Y}$ follows a \alert{multinomial} distribution, with \\
+\begin{eqnarray}
+p(\boldsymbol{y} ) & = & \pi_{1}^{y_{1}} \pi_{2}^{y_{2} } \hdots \pi_{k}^{y_{k}} \nonumber 
+\end{eqnarray}
+if $\sum_{i=1}^{k} y_{i} = 1$ and the pmf is $0$ otherwise.  \\
+Equivalently, we'll write 
+\begin{eqnarray}
+\boldsymbol{Y} & \sim & \text{Multnomial}(1, \boldsymbol{\pi}) \nonumber \\
+\boldsymbol{Y} & \sim & \text{Categorial}(\boldsymbol{\pi}) \nonumber 
+\end{eqnarray}
+\end{defn}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multinomial Properties + Notes}
+Computer scientists: commonly call Multinomial$(1, \boldsymbol{\pi})$ \alert{Discrete}$(\boldsymbol{\pi})$. 
+
+\begin{eqnarray}
+E[X_{i} ] & = &  N \pi_{i} \nonumber \\
+\text{var}(X_{i} ) & = &  N \pi_{i} (1- \pi_{i}) \nonumber 
+\end{eqnarray}
+
+
+
+\alert{Investigate Further in Homework!}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Counting the Number of Events}
+
+Often interested in counting number of events that occur:
+\begin{itemize}
+\item[1)] Number of wars started
+\item[2)] Number of speeches made
+\item[3)] Number of bribes offered
+\item[4)] Number of people waiting for license
+\end{itemize}
+
+Generally referred to as \alert{event counts}\\
+\alert{Stochastic processes}: a course provide introduction to many processes (\alert{Queing Theory})
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Poisson Distribution}
+
+\begin{defn}
+Suppose $X$ is a random variable that takes on values $X \in \{0, 1, 2, \hdots, \}$ and that $P(X = k) = p(k)$ is,
+\begin{eqnarray}
+p(k) & = & e^{-\lambda} \frac{\lambda^{k}}{k!} \nonumber 
+\end{eqnarray}
+for $k \in \{0, 1, \hdots, \}$ and $0$ otherwise.  Then we will say that $X$ follows a \alert{Poisson} distribution with \alert{rate} parameter $\lambda$.  \\
+\begin{eqnarray}
+X & \sim & \text{Poisson}(\lambda) \nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Poisson Distribution}
+
+Suppose the number of threats a president makes in a term is given by $X \sim \text{Poisson}(5)$.  \invisible<1>{   What is the probability the president will make ten or more threats?} 
+
+
+\only<1-3>{\invisible<1-2>{\scalebox{0.5}{\includegraphics{PoissonExamp1.pdf}}}}
+\only<4>{\scalebox{0.5}{\includegraphics{PoissonExamp2.pdf}}}
+
+
+
+\begin{eqnarray}
+\invisible<1-4>{P(X \geq 10) & = & e^{-\lambda} \sum_{k=10}^{\infty} \frac{5^{k}}{k!} \nonumber \\} 
+				\invisible<1-5>{& = & 1 - P(X< 10 ) \nonumber } 
+\end{eqnarray}
+
+\invisible<1-6>{{\tt R code!}} 
+
+\pause \pause \pause \pause \pause\pause 
+
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Poisson Distribution}
+Properties:
+\begin{itemize}
+\item[1)] It is a probability distribution. \\
+\invisible<1>{Recall the \alert{Taylor expansion} of $e^{x}$} 
+\begin{eqnarray}
+\invisible<1-2>{e^{x} & = & 1 + x + \frac{x^{2}}{2!} + \frac{x^3}{3!} + \hdots \nonumber \\}
+\invisible<1-3>{e^{-\lambda} \sum_{k=0}^{\infty} \frac{\lambda^{k} }{k!} & = & e^{-\lambda}(1 + \lambda  + \frac{\lambda^2}{2!} + \hdots ) \nonumber \\}
+ \invisible<1-4>{& = & e^{-\lambda} (e^{\lambda}) = 1 \nonumber }
+\end{eqnarray}
+\end{itemize}
+
+\pause \pause \pause \pause 
+
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Poisson Distribution}
+Properties:
+
+\begin{itemize}
+\invisible<1>{\item[2)] $E[X] = \lambda$}
+\end{itemize}
+\begin{eqnarray}
+\invisible<1-2>{E[X] & = & e^{-\lambda} \sum_{k=0}^{\infty} k \frac{\lambda^{k}}{k!} \nonumber \\}
+ \invisible<1-3>{& = & e^{-\lambda} \lambda \sum_{k=1}^{\infty} \frac{\lambda^{k-1}}{(k-1)!} \nonumber }
+\end{eqnarray}
+\invisible<1-4>{Define $j = k-1$, then }
+\begin{eqnarray}
+ \invisible<1-5>{E[X]  & = & e^{-\lambda} \lambda \sum_{j=0}^{\infty} \frac{\lambda^{j}}{j!} \nonumber \\}
+ \invisible<1-6>{& = & e^{-\lambda} \lambda e^{\lambda} \nonumber \\}
+ \invisible<1-7>{& = & \lambda \nonumber }
+\end{eqnarray}
+
+\pause \pause \pause \pause \pause \pause \pause 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Poisson Distribution}
+Properties:
+
+\begin{itemize}
+\invisible<1>{\item[3)] var$(X) = \lambda$}
+\end{itemize}
+
+\begin{eqnarray}
+\invisible<1-2>{E[X^2] & = & \sum_{k=0}^{\infty} \frac{k^2 e^{-\lambda} \lambda^{k}}{k!} \nonumber \\}
+\invisible<1-3>{& = & \lambda e^{-\lambda} \left(\sum_{k=1}^{\infty} \frac{k \lambda^{k-1}}{(k-1)!}\right)\nonumber }
+\end{eqnarray}
+\invisible<1-4>{Let $j = k-1$,}
+\begin{eqnarray}
+\invisible<1-5>{E[X^2] & = & \lambda e^{-\lambda} \sum_{j=0}^{\infty} \frac{(j+1) \lambda^{j}}{j!} \nonumber \\}
+\invisible<1-6>{& = & \lambda e^{-\lambda} \left(\sum_{j=0}^{\infty} \frac{(j) \lambda^{j}}{j!} + \sum_{j=0}^{\infty} \frac{(1) \lambda^{j}}{j!} \right) \nonumber \\}
+\invisible<1-7>{& = & \lambda e^{-\lambda} (\lambda e^{\lambda} + e^{\lambda} ) \nonumber \\}
+\end{eqnarray}
+
+\pause \pause \pause \pause \pause \pause \pause 
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Poisson Distribution}
+Properties
+\begin{itemize}
+\item[3)] var$(X) = \lambda$
+\end{itemize}
+
+\begin{eqnarray}
+E[X^2] & = & \lambda e^{-\lambda} (\lambda e^{\lambda} + e^{\lambda} ) \nonumber \\
+\invisible<1>{& = & \lambda (\lambda  + 1 ) \nonumber }
+\end{eqnarray}
+
+
+\invisible<1-2>{var$(X) = E[X^2] - E[X] }\invisible<1-3>{= \lambda^2 + \lambda  - \lambda^2  = \lambda}$
+
+\invisible<1-4>{Very useful distribution, with strong assumptions.  We'll explore in homework!} 
+
+\pause \pause \pause \pause 
+
+\end{frame}
+
+
+\begin{frame}
+
+Often interested in how processes evolve over time \pause 
+\begin{itemize}
+\item[-] Given voting history, probability of voting in the future
+\item[-] Given history of candidate support, probability of future support
+\item[-] Given prior conflicts, probability of future war
+\item[-] Given previous words in a sentence, probability of next word
+\end{itemize}
+
+\alert{Potentially complex history}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Stochastic Process}
+
+\begin{defn}
+Suppose we have a sequence of random variables $\{X\}_{i=0}^{M} = X_{0}, X_{1}, X_{2}, \hdots, X_{M}$ that take on the countable values of $S$.  We will call $\{X\}_{i=0}^{M}$ a stochastic process with state space $S$.  
+\end{defn}
+
+If index gives time, then we might condition on history to obtain probability
+\begin{eqnarray}
+\text{PMF $X_{t}$, given history} & = & P(X_{t} | X_{t-1}, X_{t-2}, \hdots, X_{1}, X_{0}) \nonumber 
+\end{eqnarray}
+\alert{Still Complex}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Markov Chain}
+
+\begin{defn}
+Suppose we have a stochastic process $\{X\}_{i=0}^{M}$ with countable state space $S$.  Then $\{X\}_{i=0}^{M}$ is a markov chain if: 
+
+\begin{eqnarray}
+P(X_{t} | X_{t-1}, X_{t-2}, \hdots, X_{1}, X_{0}) & =& P(X_{t}| X_{t-1})\nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+A Markov chain's future depends only on its current state
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Transition Matrix}
+
+Habitual turnout?
+
+
+\begin{eqnarray}
+\boldsymbol{T} & = & 
+\begin{pmatrix}
+				  & \text{Vote}_{t} & \text{Not Vote}_{t}\\
+\text{Vote}_{t-1} & 0.8 & 0.2 \\ 
+\text{Not Vote}_{t-1} &  0.3 & 0.7\\
+\end{pmatrix} \nonumber 
+\end{eqnarray}
+
+\begin{itemize}
+\item[-] Suppose someone starts as a voter---what is their behavior after
+\item[-] 1 iteration?
+\item[-] 2 interations?
+\item[-] The long run?
+\end{itemize}
+
+{\tt R Code}!
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+Tomorrow: Continuous Random Variables!
+
+
+\end{frame}
+
+
+
+
+\end{document}
