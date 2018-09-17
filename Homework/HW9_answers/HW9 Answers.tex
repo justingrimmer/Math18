@@ -1,0 +1,324 @@
+\documentclass[10pt]{amsart}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{multicol}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage[margin=2.5 cm]{geometry}
+\usepackage{parskip}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+\centerline{\bf Math Camp - Homework 9 Solutions}
+
+
+
+\noindent \textbf{Question 1:}
+ Find the following probabilities. If you cannot calculate the probability, explain why:
+
+\begin{enumerate} 
+\item $P(Z \cap Q) = .25, P(Z) = .6$. What is P$(Q | Z)$?
+\item $P(A \cap B) = .3, P(B|A) = .4$. What is P(A)?
+\item $P(G \cap W) = .8, P(W) = .2$. What is P$(G | W)$?
+\item $P(H) = .2, P(D | H) = .6$. Find $P(D \cap H)$
+\item P(D) = .8. Using  this information and your answer to the previous question, find $P(H | D)$. 
+\item $P(M \cap P) = .8, P(P) = .81$. What is P$(M | P)$?
+\item  $P(L \cap E) = .6, P(L | E) = .05$. What is P$(L)$?
+\end{enumerate}
+
+\textbf{Solutions}:\\
+\begin{enumerate}
+\item
+\begin{eqnarray*}
+P(Q|Z) &=& \dfrac{P(Z \cap Q)}{P(Z)}\\
+&=& \dfrac{.25}{.6}\\
+&\approx& 0.417
+\end{eqnarray*}
+
+\item
+\begin{eqnarray*}
+P(A) &=& \dfrac{P(A \cap B)}{P(B|A)}\\
+&=& \dfrac{.3}{.4}\\
+&=& .75
+\end{eqnarray*}
+
+\item
+The given probabilities must be off in some way. If we try to apply the the conditional probability rule we get a number greater than 1. The issue is that the probability of the intersection of one event with another cannot be larger than the marginal probability of that event to begin with (e.g., $P(A \cap B) \le P(A)$)
+
+\item
+\begin{eqnarray*}
+P(D \cap H) &=& P(D|H) P(H)\\
+&=&.6 \times .2\\
+&=& .12
+\end{eqnarray*}
+
+\item
+\begin{eqnarray*}
+P(H | D) &=& \dfrac{P(D \cap H)}{P(D)}\\
+&=& \dfrac{.12}{.8}\\
+&=& .15
+\end{eqnarray*}
+
+\item
+\begin{eqnarray*}
+P(M | P) &=& \dfrac{P(M \cap P)}{P(P)}\\
+&=& \dfrac{.8}{.81}\\
+&\approx& .99
+\end{eqnarray*}
+
+\item
+Setting up our problem, we could try to find P(L) in the following manner. 
+\begin{eqnarray*}
+P(E|L) &=& \dfrac{P(L \cap E)}{P(L)}\\
+P(L) &=& \dfrac{ P( L \cap E) }{P(E|L) }\\
+\end{eqnarray*}
+We cannot find $P(L)$ because we don't have the right set of probabilities. To do so we would need additional information (e.g.,  $P(E | L)$). 
+
+\end{enumerate}
+
+
+\noindent \textbf{Question 2:} 
+
+\begin{enumerate}
+\item Suppose we have events $A$ and $B$ where $P(A)=.6$, $P(B)=.5$, and $P(A \cup B)=.9$. Are $A$ and $B$ independent?
+\item Suppose we have events $A$,$B$, and $C$ where each pair of events is independent and where $P(A) =.5$, $P(A \cap B)$ = .2, and $P(B \cap C) = .32$. Find $P(B)$ and $P(C)$.
+\item $P(D) = .5$, $P(D|H) = .55$. Are $D$ and $H$ independent?
+\item $P(B) = .4, P(X) = .2$ and $P(B \cap X) = 0.08$. Are B and X independent?
+\end{enumerate}
+
+\noindent \textit{\textbf{Solution}}
+\medskip
+\begin{enumerate}
+\item $A$ and $B$ are independent if $P(A \cap B) = P(A) \times P(B)$. So we need to find $P(A \cap B)$. We know that 
+\begin{eqnarray*}
+P(A \cup B) &=& P(A) + P(B) - P(A \cap B) \\
+P(A \cap B) &=& P(A) + P(B) - P(A \cup B) \\
+P(A \cap B) &=& .6 + .5 - .9 \\
+P(A \cap B) &=& .2
+\end{eqnarray*}
+But $P(A) \times P(B) = .6 \times .5 = .3 \neq .2$. So $A$ and $B$ are not independent.
+\medskip
+\item Because $A$ and $B$ are independent, 
+\begin{eqnarray*}
+P(A \cap B) &=& P(A) \times P(B) \\
+.2 &=& .5 \times P(B) \\
+P(B) &=& .4
+\end{eqnarray*}
+Similarly, because $B$ and $C$ are independent, 
+\begin{eqnarray*}
+P(B \cap C) &=& P(B) \times P(C) \\
+.32 &=& .4 \times P(C) \\
+P(C) &=& .8
+\end{eqnarray*}
+
+\item
+They are not. For independence to hold $P(D) = D(D|H)$. Since this is not the case, the two variables are not independent
+
+\item
+For independence to hold $P(B)P(X) = P(B \cap X)$. $.4 \times .2 = .08$ meaning B and X are independent. 
+\end{enumerate}
+
+\textbf{Question 3:}
+Many studies explore whether people engage in ``partisan selective exposure." That is, do people choose information to consume based on what aligns with their partisan views?
+\begin{enumerate}
+\item Given the information below, what is the probability a given member of the public watches Fox News?\\
+
+For the purposes of this question, consider Democrat, Republican and Independent as mutually exclusive categories that include every member of the public.
+
+\begin{multicols}{2}
+\begin{enumerate}
+\item[] $P(Democrat) = .4$
+\item[] $P(Republican) = .4$
+\item[] $P(Independent) = .2$
+\item[] $P(Fox \ News | Democrat) = .07$
+\item[] $P(Fox \ News | Republican) = .1675$
+\item[] $P(Fox \ News | Independent) = .05$
+\end{enumerate}
+\end{multicols}
+
+\item Are Fox News viewership and Democratic partisanship independent? Use your answer to the previous question to help you determine this. 
+
+\item Now suppose we get additional information that lets us determine which individuals have high levels of political interest. We then find the following two quantities: \\
+$P(Fox \ News \  | \ High \ Political  \ Interest) = .2$ and  $P(Democrat \ |  \ High \ Political  \ Interest) = .4.$
+	\begin{itemize}
+	\item Given this information, what probability would we need to know in order to say that, conditional on high levels of political interest, Democratic partisanship and Fox News viewership are independent?
+	 \item What value would this probability need to take for the two variables to be independent conditional on high levels of political interest?
+	 \item If, conditional on high political interest, Democratic partisanship and Fox News viewership were independent, what would $P(Fox \ News \ | \ High \ Political \ Interest \cap Democrat)$ be?
+	\end{itemize}
+\end{enumerate}
+
+\textbf{Solutions}
+
+\begin{enumerate}
+
+\item We can find this using the law of total probability.
+\begin{eqnarray*}
+P(Watch \ Fox \ News) &=& P(Watch \ Fox \ News \ | \  Democrat)*P(Democrat)\\
+&+& P(Watch \ Fox \ News | Republican)*P(Republican)\\
+&+&  P(Watch \ Fox \ News | Independent)*P(Independent)\\
+&=& (.4*.07) + (.4*.1675) + (.2*.05)\\
+&=& .028 + .067 + .01\\
+&=& .105
+\end{eqnarray*}
+
+\item 
+
+\begin{eqnarray*}
+P(Watch \ Fox \ News) &=& .105 \ ; \  P(Watch \ Fox \ News | Democrat) = .07\\
+P(Watch \ Fox \ News) &\ne& P(Watch \ Fox \ News | Democrat)\\
+.105 &\ne& .07
+\end{eqnarray*}
+If $P(A|B) \ne P(A)$ than A and B are not independent. In this case this equality doesn't hold for Democratic Partisanship and Fox News Viewership so the two events are not independent. 
+	
+\item
+	\begin{itemize}
+	\item We would need to find $P( Fox \ News \ \cap \ Democrat \ | \  High \ Political \ Interest)$
+	\item For conditional independence to hold:
+	\footnotesize
+	\begin{eqnarray*}
+	P( Fox \ News \ \cap \ Democrat \ | \  High \ Political \ Interest) &=& P(Fox\ News \ | \ High \ Political \ Interest) P(Democrat \ | \ High \ Political \ Interest)\\
+	P( Fox \ News \ \cap \ Democrat \ | \  High \ Political \ Interest) &=& .2 \times .4\\
+	P( Fox \ News \ \cap \ Democrat \ | \  High \ Political \ Interest) &=& .08
+	\end{eqnarray*}
+	\normalsize
+	\item 
+	\begin{eqnarray*}
+	P(Fox \ News \ | \ High \ Political \ Interest \cap Democrat) &=& \dfrac{P(Fox \ News \ \cap \ Democrat \ | \ High \ Political \ Interest)}{P(Democrat \ |  \ High \ Political \ Interest)}\\
+	&=& \dfrac{.08}{.4}\\
+	&=& .2
+	\end{eqnarray*}
+	\end{itemize}
+
+
+\end{enumerate}
+
+\textbf{Question 4:}
+Suppose a researcher conducted an experiment in which they measured public opinion towards a new policy. Before they offered their opinion, 45\% of the respondents in the study were presented with an argument \textit{against} the proposed policy while the other 55\% of study respondents provided their opinion without hearing the argument.  Overall, 40\% of the individuals in the study supported the policy. However, among individuals who encountered the argument against the policy, only 20\% supported the policy. 
+
+\begin{enumerate}
+
+\item Given this information, what is the probability an individual encountered the argument (i.e., was assigned to the argument condition) given that they support the policy?
+
+\item Suppose instead that encountering the argument did not influence respondent opinion. That is, suppose 40\% of the subjects in the study supported the policy and 40\% of the subjects who encountered the argument support the policy How does this change your answer to the previous question? 
+\end{enumerate}
+
+\textbf{Solution}:\\
+\begin{enumerate}
+\item
+\begin{eqnarray*}
+P(Argument.Group | Support \ Policy ) &=& \dfrac{P(Support \ Policy | Argument.Group) \  P(Argument.Group)}{P(Support \ Policy)}\\
+&=& \dfrac{.2 \times .45}{.4}\\
+&=& 0.225
+\end{eqnarray*}
+\item
+\begin{eqnarray*}
+P(Argument.Group | Support \ Policy ) &=& \dfrac{P(Support \ Policy | Argument.Group) \  P(Argument.Group)}{P(Support \ Policy)}\\
+&=& \dfrac{.4 \times .45}{.4}\\
+&=& .45
+\end{eqnarray*}
+
+\end{enumerate}
+
+\noindent \textbf{Question 5}: The 1982 movie \textit{Blade Runner} (starring Harrison Ford) is set in a future world where there are robots that are designed to look and behave exactly like human beings. The only way to tell if a randomly selected individual (who appears to be human) is in fact a human being or a robot is to administer a test. (If you've seen the movie, the test in this problem does not quite work like it does in the movie.) If an individual taking the test is in fact a robot, the test will report that the individual is a robot 95\% of the time. If an individual taking the test \textit{is not} a robot, the test will report that the individual \textit{is} a robot 3\% of the time.  Based on the number of robots manufactured, we can estimate that about 2\% of all individuals who appear to be humans are actually robots.
+\begin{enumerate}
+\medskip
+\item What is the probability that a randomly selected individual given the test will be classified as a robot?
+\medskip
+\item Given that an individual is classified as a robot by the test, what is the probability that individual is actually a robot?
+\medskip
+\item Given that an individual is classified as a human by the test, what is the probability that individual is actually a robot?
+\medskip
+\item Suppose that an individual is classified as a robot by the test and we decide to administer the test a second time. If the individual is classified as a robot again by the second test, what is the probability that the individual is in fact a robot? \textit{Hint: Use your answer from part (b) as your prior probability that an individual who appears to be human is actually a robot}.
+\end{enumerate}
+
+\bigskip
+
+\noindent \textit{\textbf{Solution 5:}} For this problem, let us define event $R$ to be the event in which an individual actually is a robot, and let's define event $T$ to be the event in which the test reports the individual to be a robot. The problem tells us that
+\begin{eqnarray*}
+P(T|R) &=& .95 \\
+P(T|R^c) &=& .03 \\
+P(R) &=& .02 
+\end{eqnarray*}
+\begin{enumerate}
+
+\item By the law of total probability, since $R$ and $R^c$ are mutually exclusive events whose union is the entire sample space of individuals,
+\begin{eqnarray*}
+P(T) &=& P(T|R) \times P(R) + P(T|R^c) \times P(R^c) \\
+&=& .95 \times .02 + .03 \times (1-.02) \\
+&=& .019 + .0294 \\
+&=& .0484
+\end{eqnarray*} 
+So the probability of a random individual being reported as a robot by the test is .0484.
+\medskip
+\item
+By Bayes' formula, 
+\begin{eqnarray*}
+P(R|T) &=& \frac{P(T|R) \times P(R)}{P(T|R) \times P(R) + P(T|R^c) \times P(R^c)} \\
+&=& \frac{.95 \times .02}{.95 \times .02+.03 \times (1-.02)} \\
+&=& \frac{.019}{.0484} \\
+&=& .393
+\end{eqnarray*}
+So even if the test reports that a person is a robot, there is only a .393 probability that they actually are. In other words, there are a relatively large number of false positives. 
+\medskip
+\item
+Again, using Bayes' formula gives us
+\begin{eqnarray*}
+P(R|T^c) &=& \frac{P(T^c|R) \times P(R)}{P(T^c|R) \times P(R) + P(T^c|R^c) \times P(R^c)} \\
+&=& \frac{(1-.95) \times .02}{(1-.95) \times .02 + (1-.03) \times (1-.02)} \\
+&=& \frac{.001}{.9516} \\
+&=& .00105
+\end{eqnarray*}
+Despite the relatively large number of false positives, false negatives are extremely rare; almost everyone who the test says is human is actually human.
+\medskip
+\item
+In this part of the question, we will apply Bayes' formula again. The difference between this application and the application in part b is that in this part, we don't think that $P(R) = .02$. We \textit{know} that the individual has failed the test once; we found in part (b) that an individual who fails the test has a .393 probability of being a robot, so our pre-first-test belief that the individual had only a .02 probability of being a robot has been replaced by the .393 probability. This process is known as Bayesian updating, in which the evidence we collect alters our beliefs about how likely an event is to be true.
+Applying Bayes' formula,
+\begin{eqnarray*}
+P(R|T) &=& \frac{P(T|R) \times P(R)}{P(T|R) \times P(R) + P(T|R^c) \times P(R^c)} \\
+&=& \frac{.95 \times .393}{.95 \times .393 +.03 \times (1-.393)} \\
+&=& \frac{.373}{.391} \\
+&=& .9534
+\end{eqnarray*}
+The second test gives us much more confidence that the individual really is a robot. While over half of the individuals testing positive for robot-ness after one test were false positives, only one in twenty individuals testing positive twice is actually human. 
+
+This type of setup is common in signaling games in game theory. In these games, player A has a ``type'' (e.g., a state has a strong military vs. weak military). The other players don't know other player's types, but player A can send a signal about its type. Given the information in the signal, the other players must update their beliefs about the probability that player A is a strong type vs. a weak type. 
+\end{enumerate}
+
+\noindent \textbf{Question 6: Modified Monty Hall Problem}. As we discussed in section, Monty Hall was the host of a game show called \textit{Let's Make a Deal}. In one of the segments on the show, a contestant would be shown three doors, one of which had a prize behind it. The contestant did not know which door concealed this prize. The contestant would select a door, then Monty would open one of the remaining doors (but not the one with the prize behind it). Monty would ask the contestant if they wanted to switch their choice of door to the other unopened door or stick with the originally chosen door. After the contestant made a final decision, the doors were opened and the if the contestant picked the door with the prize behind it, they got to keep the prize.
+\begin{enumerate}
+\item Now, assume that this game is played using {\it four} doors instead of three. If the contestant sticks with the originally picked door, what is the probability of winning?
+\item If the contestant switches doors, what is the probability of winning? Show the steps you used to derive a solution. (One more reminder that we are now assuming {\it four} doors, not three.)
+\end{enumerate}
+
+\bigskip
+
+\noindent \textit{\textbf{Solution 6:}}
+\begin{enumerate}
+\medskip
+\item Let $Z$ indicate the event in which the contestant selects the prize door at the beginning of the game, let $N$ be the event in which the contestant does not switch doors, and let $W$ be the event in which the contestant wins. Note that $P(Z) = \frac{1}{4}$.
+
+By the law of total probability,
+\begin{eqnarray*}
+P(W|N) &=& P(W|N, Z) \times P(Z) + P(W|N, Z^c) \times P(Z^c)
+\end{eqnarray*}
+If the contestant initially picks the correct door, then sticking with the originally picked door is guaranteed to result in a win; $P(W|N,Z) = 1$. If the contestant initially did not pick the correct door, then sticking with it is guaranteed to result in a loss; $P(W|N, Z^c) = 0$. So
+\begin{eqnarray*}
+P(W|N) &=&  P(W|N, Z) \times P(Z) + P(W|N, Z^c) \times P(Z^c) \\
+&=& 1 \times \frac{1}{4} + 0 \times \frac{3}{4} \\
+&=& \frac{1}{4}
+\end{eqnarray*}
+\item Similarly, if the contestant initially picks the correct door, then switching doors is guaranteed to lose; $P(W|N^c, Z) = 0$. But if the contestant did not pick the correct door, Monty must open all doors except the door with the prize behind it, and switching will result in a win; $P(W|N^c, Z^c) = 1$. 
+By the law of total probability,
+\begin{eqnarray*}
+P(W|N^c) &=& P(W|N^c, Z) \times P(Z) + P(W|N^c, Z^c) \times P(Z^c) \\
+&=& 0 \times \frac{1}{4} + 1 \times \frac{3}{4} \\
+&=& \frac{3}{4}
+\end{eqnarray*}
+
+The punchline is that it is always in your best interest to switch doors.
+
+\end{enumerate}
+
+\end{document}
