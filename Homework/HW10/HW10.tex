@@ -1,0 +1,123 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage{fullpage}
+\usepackage{parskip}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+
+\centerline{\bf Math Camp - Homework 10}
+
+\textbf{Question 1:}
+For a discrete random variable $X$, show that:
+\begin{eqnarray*}
+Var(X) &=& E[X^2] - E[X]^2\\
+\end{eqnarray*}
+
+
+\textbf{Question 2:}
+$X$ is a discrete random variable. It takes the value of the number of days required for a governmental agency to respond to a request for information. $X$ is distributed according to the following PMF:\\
+\bigskip
+
+$f(x) = e^{-4} \dfrac{4^x}{x!}$ for $x \in$ \{0,1,2...\} \\
+
+\begin{enumerate}
+\item Given this information, what is the probability of a response from the agency in 3 days or less?
+\item What is the probability the agency response takes more than 10 but less than 13 days?
+\item What is the probability the agency response takes more than 5 days? 
+\item Suppose using $X$ you generate a new variable, $Responsive$. $Responsive$ equals 1 if an agency responds in 5 days or less and 0 otherwise. What is the expected value of $Responsive$?
+\item What is the variance of $Responsive$?
+\end{enumerate}
+
+\textbf{Question 3:}
+Suppose we've developed a model predicting the outcome of the upcoming midterm elections in a state with 4 Congressional districts. In each district there are two candidates, a Republican and a Democrat. We have reason to believe the following PMF describes the distribution of potential election results where $K \in \{0,1,2,3,4\}$ and is the number of seats won by Republican candidates in the upcoming election. 
+
+\begin{eqnarray*}
+P(K=k | \theta) &=& \binom{4}{k} \theta^{k} (1-\theta)^{4-k}\\
+\end{eqnarray*}
+
+Based on polling information, we think the appropriate value for $\theta$ is 0.55. 
+
+\begin{enumerate}
+\item What's the expected number of seats Republicans will win in the upcoming election? 
+\item Given this PMF, what's the probability that no Republican legislators win in the upcoming election?
+\item What's the probability that Republican legislators win a majority of the seats in this state?
+\item A prominent political pundit declares they are certain that Republicans will win a majority of seats in the next election and offers the following bet. If Republicans win a majority of the seats, we must pay the pundit \$15.00. If Republicans fail to win a majority of states, we will win \$20.00. Based on our model, should we take this bet?\\
+ \textit{Hint: Think of the betting outcomes as a random variable. Find the expected value of this random variable.}
+\item Suppose we are offered a second bet with a more complicated structure. In this case we'll receive \$100 if the Republicans win a majority, we'll receive \$50 if neither party wins a majority, and we'll have to pay \$200 if the Democrats win a majority. Should we take this bet?
+\end{enumerate}
+
+\bigskip
+
+
+\textbf{Question 4:}
+Based on the success of our model in Question 3, we're now asked to model election outcomes in another state where there are 5 elections taking place. However, in this state there are three candidates (Democrat, Republican, and Independent) in each district, which requires a fundamental reworking of our model.
+
+We believe the following PMF describes the distribution of potential election results where $W_i \in \{0,1,2,3,4,5\}$ and is the number of seats won by candidates from a given party in the upcoming election. $W_1$ is the number of seats won by Democrats, $W_2$ is the number of seats won by Republicans, and $W_3$ is the number of seats won by Independent candidates.
+
+\begin{eqnarray*}
+P(W_i = w_i | \theta_i) &=& \dfrac{5!}{w_1! w_2! w_3!} \theta_1^{w_1} \theta_2^{w_2} \theta_3^{w_3}
+\end{eqnarray*}
+
+Using polling information we believe $\theta_1 = 0.6$, $\theta_2 = 0.35$, and $\theta_3 = 0.05$, where $\theta_1$ refers to the probability of a Democrat winning a given election, $\theta_2$ refers to the probability of a Republican winning a given election, and $\theta_3$ refers to the probability of an Independent winning a given election.
+
+\begin{enumerate}
+\item Based on this model, what is the probability one Independent, two Republicans, and two Democrats win elections?
+\item What is the expected number of seats that Independent candidates will win in the upcoming election?  
+\item What is the probability that exactly one Independent candidate wins a seat in the election?
+\item Suppose general dissatisfaction with the two major parties boosts $\theta_3$ from 0.05 to 0.06 with $\theta_1$ and $\theta_2$ each reduced by 0.005. How would this change your answer to the previous question?
+\end{enumerate}
+
+\bigskip
+
+
+\textbf{Question 5:}
+
+The random variable $X$ has a probability mass function:
+
+\begin{eqnarray*}
+f(x; \lambda)&=&\dfrac{\lambda^x exp(- \lambda)}{x!}\\
+\end{eqnarray*}
+
+for $x = 0,1,2,\ldots$ (i.e. $X$ has a Poisson distribution with parameter $\lambda$). In a lengthy manuscript, it is discovered that only 13.5 percent of the pages contain no typing errors. 
+
+
+\bigskip
+If we assume that the number of errors per page is a random variable with a Poisson distribution, find the percentage of pages with exactly one error. 
+
+
+
+\textbf{Question 6:}
+
+A prominent hypothesis in the comparative politics literature is the ``resource curse'': in countries that depend economically on extraction of natural resources, there is a lower probability of democratic political institutions.\footnote{The empirical evidence for this hypothesis is shaky (Haber and Menaldo 2011).} Suppose we  want to investigate this hypothesis. For each country, we collect data on whether the country is democratic and whether it depends on oil exports. Denote the outcome variable (democracy) for country $i$ as $y_i$, where $y_i = 1$ for democracies and $y_i  = 0$ for non-democracies. Similarly, denote the predictor variable (dependence on oil) as $x_i$, with $x_i = 1$ for oil-dependent states and $x_i = 0$ for non-oil-dependent states.
+
+For each country, we model $y_i$ as a Bernoulli random variable with rate $\pi_i$ (note the subscript), with the following PMF:
+\begin{align*}
+f(y_i  \mid \pi_i) &= (\pi)^{y_i} (1 - \pi)^{1-y_I}
+\end{align*}
+
+To incorporate the predictor, we'll let $\pi_i$ vary as a function of $x_i$. We'll model this using the inverse logit link function:
+\begin{align*}
+	\pi_i &= \frac{\exp(\beta_0 + \beta_1 x_i)}{1 + \exp(\beta_0 +\beta_1 x_i)}
+\end{align*}
+Our goal in 450C will be to estimate $\beta_0$ and $\beta_1$ using maximum likelihood estimation. These parameters will tell us how the probability varies as a function of $X$. Let's say for now we ran this regression and found that $\hat\beta_0 = 0.35$ and $\hat\beta_1 = -0.9$. 
+
+\begin{enumerate}
+	\item Using the estimates of $\beta_0$ and $\beta_1$, what is the probability that an oil-dependent state is a democracy? What is the probability that a non-oil-dependent state is a democracy?
+	\item Mr. Critic comes along and tells you that your model is completely bogus because it doesn't include region of the world as a predictor. He says you need to control for whether the country is in the Middle East or not. He suggests that you add another variable $z_i$ where $z_i = 1$ if the country is in the Middle East and 0 otherwise. Now you model $\pi_i$ as follows:
+	\begin{align*}
+	\pi_i &= \frac{\exp(\beta_0 + \beta_1 x_i + \beta_2 z_i )}{1 + \exp(\beta_0 +  \beta_1 x_i + \beta_2 z_i )}
+	\end{align*}
+	After running the regression again, we find $\hat{\beta}_0 = 0.2$, $\hat\beta_1 = -0.1$, and $\hat{\beta}_3 = -1.2$. How do your answers to (a) change with these new estimates? 
+	\item Interpret the logit regression: based on these data, what should you conclude about the resource curse? What could account for the discrepancy between the results in (a) and (b)? 
+\end{enumerate}
+
+
+
+
+\end{document}
