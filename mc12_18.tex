@@ -1,0 +1,1079 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\  Stanford University}
+\vspace{0.3in}
+
+\date{September 18th, 2018}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Questions?}
+
+\pause 
+\begin{itemize}
+\invisible<1>{\item[1)] What is a continuous random variable?} \pause 
+\invisible<1-2>{\item[2)] What does it mean when we say $X \sim \text{Normal}(\mu, \sigma^2) $} \pause 
+\invisible<1-3>{\item[3)] Explain why the pdf and cdf contain the same information}  \pause 
+\invisible<1-4>{\item[4)] Explain why the height of the pdf isn't a probability} \pause 
+\invisible<1-5>{\item[5)] Suppose $Z \sim \text{Normal}(0,1)$.  What is $Y = a Z + b$?  } 
+\end{itemize}
+
+
+
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Where We've Been, Where We're Going}
+
+Multivariate Distributions
+\begin{itemize}
+\item[1)] Joint Density 
+\item[2)] Covariance, Marginalization
+\item[3)] Independence of Random Variables
+\item[4)] Properties of Sums of Random Variables
+\item[5)] The Multivariate Normal Distribution and You
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Continuous Random Variable}
+
+\begin{defn}
+$X$ is a continuous random variable if there exists a nonnegative function defined for all $x \in \Re$ having the property for any (measurable) set of real numbers $B$, 
+\begin{eqnarray}
+P(X \in B) & = & \int_{B} f(x)dx \nonumber 
+\end{eqnarray}
+We'll call $f(\cdot)$ the \alert{probability density function} for $X$.  
+\end{defn}
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{defn}
+\alert{Multivariate Distribution}  
+We will say that $X$ and $Y$ are \alert{jointly continuous} if, for all $x\in\Re$ and $y\in \Re$, there exists a function $f(x,y)$ such ever set $C \subset \Re^{2}$, 
+\only<1-10>{\invisible<1-8>{\begin{eqnarray}
+P\{(X, Y) \in C \}  &= & \iint_{(x,y)\in C} f(x,y)dxdy \nonumber
+\end{eqnarray}
+}}
+\only<11>{\begin{eqnarray}
+P\{(X,Y) \in C \} & = & \int_{B} \int_{A} f(x,y) dxdy \nonumber 
+\end{eqnarray}
+}
+
+\end{defn}
+
+\begin{columns}[]
+
+\column{0.6\textwidth}
+
+\invisible<1>{What is $C \subset R^{2}$?} 
+\begin{itemize}
+\invisible<1-2>{\item[-] $R^{2} = R \underbrace{\times}_{\text{Cartesian Product}} R$ } 
+\begin{itemize}
+\invisible<1-3>{\item[-] This is the 2-d plane (your piece of paper)} 
+\end{itemize}
+\invisible<1-4>{\item[-] $C$ is a subset of the 2-d plane }
+\begin{itemize}
+\invisible<1-5>{\item[-] $C = \{x, y: x \in [0,1] , y\in [0,1] \}$} 
+\invisible<1-6>{\item[-] $C = \{x, y: x^2 + y^2 \leq 1 \} $}  
+\invisible<1-7>{\item[-] $C = \{ x, y: x> y, x,y\in(0,2)\} $}  
+\invisible<1-9>{\item[-] $C = \{ x, y: x \in A, y \in B \} $} 
+\end{itemize}
+\end{itemize}
+
+
+\column{0.4\textwidth}
+
+\only<6>{\scalebox{0.3}{\includegraphics{C1.pdf}}} 
+\only<7>{\scalebox{0.3}{\includegraphics{C2.pdf}}} 
+\only<8>{\scalebox{0.3}{\includegraphics{C3.pdf}}} 
+
+
+\end{columns}
+
+
+\pause \pause \pause \pause \pause \pause \pause \pause \pause 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Examples of Joint PDFs}
+
+
+
+\pause 
+\begin{itemize}
+\invisible<1>{\item[-] We're going to focus (initially) on pdfs of \alert{two} random variables} \pause 
+\invisible<1-2>{\item[-] Consider a function $f:\Re \times \Re \rightarrow \Re$} \pause 
+\begin{itemize}
+\invisible<1-3>{\item[-] Input: an $x$ value and a $y$ value.  } \pause 
+\invisible<1-4>{\item[-] Output: a number from the real line } \pause 
+\invisible<1-5>{\item[-] f(x,y) = a } \pause 
+\end{itemize}
+\end{itemize}
+\begin{center}
+\invisible<1-6>{\only<1-7>{\scalebox{0.25}{\includegraphics{ThreeD1.png}}}} \pause 
+\only<8>{\scalebox{0.25}{\includegraphics{ThreeD2.png}}} \pause 
+\only<9>{\scalebox{0.25}{\includegraphics{ThreeD3.png}}} \pause 
+\only<10>{\scalebox{0.25}{\includegraphics{ThreeD4.png}}} \pause 
+\only<11>{\scalebox{0.25}{\includegraphics{ThreeD5.png}}} 
+\end{center}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Equivalently: Contour Plots} 
+
+
+Aerial view of probability density function: contour plots 
+
+\begin{center}
+\only<1-2>{\scalebox{0.35}{\includegraphics{Contour1.pdf}}}
+\only<3>{\scalebox{0.35}{\includegraphics{Contour2.pdf}}}
+\end{center}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example 3D-Contour Plots}
+
+Joint distribution of $X$ and $Y$.    \\
+\only<1-3>{\invisible<1>{1) $f(x,y) = 1$  if $x \in [0,1], y \in [0,1]$, $f(x,y) = 0$}}
+\only<4-5>{2) $f(x,y) = 2 \exp(-2y) \exp(-x) $ if $x \in [0,\infty), y \in [0, \infty)$, $f(x,y) = 0$ otherwise} 
+\only<6-7>{3) $f(x,y) = x + y$, if $x \in [0,1], y \in [0,1] $} 
+
+
+
+\begin{center}
+\only<2>{\scalebox{0.3}{\includegraphics{Contour3.pdf}}} 
+\only<3>{\scalebox{0.3}{\includegraphics{TC3.png}}} 
+\only<4>{\scalebox{0.3}{\includegraphics{Contour4.pdf}}} 
+\only<5>{\scalebox{0.2}{\includegraphics{TC4.png}}} 
+\only<6>{\scalebox{0.2}{\includegraphics{Contour5.pdf}}} 
+\only<7>{\scalebox{0.2}{\includegraphics{TC5.png}}}
+\end{center}
+
+
+
+
+\pause \pause \pause  \pause \pause \pause
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{defn}
+\alert{Multivariate Cumulative Density Function} 
+
+For jointly continuous random variables $X$ and $Y$ define, $F(b,a)$ as 
+\begin{eqnarray}
+F(b,a) = P\{ X \leq b , Y \leq a\} & = & \int_{-\infty}^{a} \int_{-\infty}^{b} f(x,y) dxdy \nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{A Picture} 
+
+\begin{columns}[]
+\column{0.5\textwidth}
+\only<1-2>{\scalebox{0.35}{\includegraphics{CDF1.pdf}}} 
+\only<3>{\scalebox{0.35}{\includegraphics{CDF2.pdf}}}
+\only<4>{\scalebox{0.35}{\includegraphics{CDF3.pdf}}}
+\only<5>{\scalebox{0.35}{\includegraphics{CDF4.pdf}}}
+\only<6>{\scalebox{0.35}{\includegraphics{CDF5.pdf}}}
+
+\column{0.5\textwidth}
+\invisible<1-2>{Examples: } 
+\begin{itemize}
+\only<3>{\invisible<1-2>{\item[-] $F(-1, -0.5)$} }
+\only<4>{\invisible<1-3>{\item[-] $F(-0.5, -1.25)$} }
+\only<5>{\invisible<1-4>{\item[-] $F(0, 0)$} } 
+\only<6>{\invisible<1-5>{\item[-] $F(1.5, 0.25)$} }
+\item[]
+\end{itemize}
+
+\end{columns}
+\begin{eqnarray}
+\invisible<1>{F(b,a) & = & \int_{-\infty}^{a} \int_{-\infty}^{b} f(x,y) dxdy} \nonumber 
+\end{eqnarray}
+
+
+\pause \pause \pause \pause \pause 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Marginalization}
+
+
+\begin{defn}
+\alert{Moving from Joint Distributions to Univariate PDFs}
+
+
+Define $f_{X}(x)$ as the pdf for $X$, 
+\begin{eqnarray}
+f_{X}(x) = \int_{-\infty}^{\infty} f(x,y) d\alert{y} \nonumber 
+\end{eqnarray}
+
+Similarly, define $f_{Y}(y)$ as the pdf for $Y$, 
+\begin{eqnarray}
+f_{Y}(y) & = & \int_{-\infty}^{\infty} f(x,y)d\alert{x} \nonumber 
+\end{eqnarray}
+
+
+\end{defn}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conditional Probability Distribution Function}
+
+
+\begin{defn}
+Suppose $X$ and $Y$ are continuous random variables with joint pdf $f(x,y)$.  Then define the \alert{conditional probability function} $f(x|y)$ as 
+
+\begin{eqnarray}
+f(x|y) & = & \frac{f(x, y) }{f_{Y}(y) } \nonumber 
+\end{eqnarray}
+
+\end{defn}
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{A Picture} 
+
+\only<1>{\scalebox{0.25}{\includegraphics{Perspective1.png}}}
+\only<2>{\scalebox{0.25}{\includegraphics{Perspective2.png}}} 
+\only<3>{\scalebox{0.25}{\includegraphics{Perspective3.png}}}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Why Does Marginalization Work?}
+
+Begin with \alert{discrete} case. \pause 
+
+\invisible<1>{Consider jointly distributed discrete random variables, $X$ and $Y$.  We'll suppose they have joint pmf, } \pause 
+\begin{eqnarray}
+\invisible<1-2>{P(X =x, Y = y) = p(x, y)\nonumber} \pause 
+\end{eqnarray}
+\invisible<1-3>{Suppose that the distribution allocates its mass at $x_{1}, x_{2}, \hdots, x_{M}$ and $y_{1}, y_{2}, \hdots, y_{N}$.  \\} \pause 
+
+
+\invisible<1-4>{Define the conditional mass function $P(X= x| Y= y)$ as, } \pause 
+\begin{eqnarray}
+\invisible<1-5>{P(X=x|Y=y) \equiv & = & p(x|y) \nonumber} \pause  \\
+\invisible<1-6>{& = & p(x,y)/p(y) \nonumber } \pause 
+\end{eqnarray}
+
+
+\invisible<1-7>{Then it follows that: } \pause 
+\begin{eqnarray}
+\invisible<1-8>{p(x,y)  & = & p(x|y)p(y) \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-9>{Marginalizing \alert{over} $y$ to get $p(x)$ is then,} \pause 
+\begin{eqnarray}
+\invisible<1-10>{p(x_{j})  & =& \sum_{i=1}^{N} p(x_{j} |y_{i})p(y_{i} ) \nonumber } 
+\end{eqnarray}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{A Table} 
+
+\only<1>{\begin{tabular}{c|cc|c}
+& Y = 0 & Y = 1 \\
+\hline
+X = 0 & p(0,0)  & p(0, 1) & p$_{X}$(0)\\
+X = 1 & p(1,0) & p(1,1)  & p$_{X}$(1)\\
+\hline
+			& p$_{Y}$ (0) & p$_{Y}$ (1) 
+\end{tabular}}
+
+
+\only<2->{\begin{tabular}{c|cc|c}
+& Y = 0 & Y = 1 \\
+\hline 
+X = 0 & 0.01 & 0.05 & ? \\
+X = 1 & 0.25 & 0.69 & ? \\
+\hline
+& 0.26 & 0.74 & \\
+\end{tabular}
+}
+
+\begin{eqnarray}
+\invisible<1>{p_{X}(0) & = & p(0|y = 0) p(y= 0) + p(0|y=1) p(y=1) \nonumber \\} 
+\invisible<1-2>{& = & \frac{0.01}{0.26} \times 0.26 + \frac{0.05}{0.74} \times 0.74 \nonumber \\} 
+\invisible<1-3>{& = & 0.06 \nonumber } 
+\end{eqnarray}
+
+\begin{eqnarray}
+\invisible<1-4>{p_{X}(1) & = & p(1|y = 0) p(y= 0) + p(1|y=1) p(y=1) \nonumber \\} 
+\invisible<1-5>{& = & \frac{0.25}{0.26} \times 0.26 + \frac{0.69}{0.74} \times 0.74 \nonumber \\} 
+\invisible<1-6>{& = & 0.94\nonumber } 
+\end{eqnarray}
+
+\pause \pause \pause \pause \pause \pause 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Move to the Continuous Case}
+
+
+For \alert{jointly distributed continuous} random variables $X$ and $Y$ define, \pause 
+\begin{eqnarray}
+\invisible<1>{f_{X|Y}(x|y) & = & \frac{f(x,y)}{f_{Y}(y) } \nonumber } \pause 
+\end{eqnarray} 
+
+\invisible<1-2>{Then, analogously, we can define} \pause 
+\begin{eqnarray}
+\invisible<1-3>{f_{X}(x) & = & \int_{-\infty }^{\infty} f_{X|Y}(x|y)f_{Y}(y) dy \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-4>{In words: } \pause 
+\begin{itemize}
+\invisible<1-5>{\item[-] Think of $f_{X|Y}(x|y)$ as the pdf for $X$ at a value of $Y$. } \pause 
+\invisible<1-6>{\item[-] We average over those pdfs to get the final pdf for $X$ (want densities where there is lots of area of $Y$ to receive lots of weight, the densities without much area from $Y$ should receive little weight)} 
+\end{itemize}
+
+  
+\end{frame}
+
+\begin{frame}
+\frametitle{A (Simple) Example} 
+
+Suppose $X$ and $Y$ are jointly continuous and that \pause 
+\begin{eqnarray}
+\invisible<1>{f(x,y) &  = & x + y \text{ , if  } x \in [0,1], y \in [0,1] \nonumber} \pause \\
+\invisible<1-2>{& = & 0 \text{ , otherwise } \nonumber} \pause  
+\end{eqnarray}
+
+\invisible<1-3>{We want $f_{X}(x)$.  Assume we have $f_{Y}(y) = 1/2 + y$.} \pause \\
+\invisible<1-4>{Then: $f(x|y) = \frac{x + y}{1/2 + y} $. \invisible<1-7>{$f(x) = \int_{0}^{1} f(x|y)f(y)dy = 1/2 + x$ } }\pause  
+
+
+\begin{center}
+\invisible<1-2>{\only<1-5>{\scalebox{0.175}{\includegraphics{TC5.png}}}} 
+\invisible<1-5>{\only<1-6>{\scalebox{0.35}{\includegraphics{cond1.pdf}}} }\pause 
+\invisible<1-6>{\only<7>{\scalebox{0.35}{\includegraphics{cond2.pdf}}} } \pause 
+\invisible<1-7>{\only<8>{\scalebox{0.35}{\includegraphics{cond3.pdf}}} } 
+\end{center}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{A (Simple) Example} 
+
+
+\pause 
+\begin{center}
+\only<1>{\scalebox{0.3}{\includegraphics{marg1.pdf}}} \pause 
+\only<2>{\scalebox{0.3}{\includegraphics{marg2.pdf}}} \pause 
+\only<3>{\scalebox{0.3}{\includegraphics{cond3.pdf}}} 
+\end{center}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example} 
+
+(Ross, Example 1)
+
+Suppose $X$ and $Y$ are jointly distributed with pdf (for all$ x>0, y>0)$ 
+\begin{eqnarray}
+f(x,y) & = & 2 \exp(-x) \exp(-2y) \nonumber 
+\end{eqnarray}
+\pause 
+
+\begin{itemize}
+\invisible<1>{\item[1)] Verify this is a pdf} 
+
+\end{itemize}
+
+\footnotesize
+\begin{eqnarray}
+\invisible<1-2>{\int_{0}^{\infty} \int_{0}^{\infty} f(x, y) dx dy} & = & \invisible<1-3>{2\int_{0}^{\infty} \int_{0}^{\infty} \exp(-x) \exp(-2y) dxdy \nonumber }  \\
+\invisible<1-4>{& = & 2 \int_{0}^{\infty}\exp(-2y) dy \int_{0}^{\infty} \exp(-x) dx  \nonumber } \\
+\invisible<1-5>{& = & 2 (-\frac{1}{2} \exp(-2y)|_{0}^{\infty}  ) ( - \exp(-x)|_{0}^{\infty} ) \nonumber } \\
+\invisible<1-6>{& = & 2\left[ (-\frac{1}{2}(\lim_{y\rightarrow\infty} \exp(-2y) - 1))(- (\lim_{x\rightarrow \infty} \exp(-x) - 1) ) \right] \nonumber } \\
+\invisible<1-7>{& =& 2 \left[  -\frac{1}{2} (-1) \times -1 (-1)   \right] \nonumber } \\
+\invisible<1-8>{& = & 1 \nonumber }
+\end{eqnarray}
+
+
+
+\pause \pause \pause\pause \pause \pause \pause 
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{itemize}
+\item[2)] Calculate CDF
+\end{itemize}
+
+\pause 
+\begin{eqnarray}
+\invisible<1>{F(x,y) \equiv P\{X \leq b, Y \leq a\} & =& 2 \int_{0}^{a} \int_{0}^{b} \exp(-x) \exp(-2y) dxdy \nonumber } \pause \\
+\invisible<1-2>{& = & 2 (\int_{0}^{a} \exp(-2y) dy) (\int_{0}^{b} \exp(-x) dx) \nonumber } \pause \\
+\invisible<1-3>{& = & 2 \left[-\frac{1}{2} (\exp(-2a) -1 )\right]\left[ - (\exp(-b) - 1) \right] \nonumber } \pause \\
+\invisible<1-4>{& = & \left[1 - \exp(-2a) \right] \left[ 1- \exp(-b) \right] \nonumber } 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{itemize}
+\item[3)] Calculate $f_{X}(x)$ and $f_{Y}(y)$ 
+\end{itemize}
+\pause 
+
+
+\begin{eqnarray}
+\invisible<1>{f_{X}(x) & = & \int_{0}^{\infty} 2\exp(-x) \exp(-2y) dy\nonumber} \pause  \\
+\invisible<1-2>{& = & 2 \exp(-x) \int_{0}^{\infty} \exp(-2y) dy \nonumber} \pause  \\
+\invisible<1-3>{& = & 2 \exp(-x) \left[ -\frac{1}{2}(0 - 1) \right] \nonumber } \pause \\
+\invisible<1-4>{& = & \exp(-x) \nonumber } \pause 
+\end{eqnarray} 
+
+\begin{eqnarray}
+\invisible<1-5>{f_{Y}(y) & = & \int_{0}^{\infty} 2 \exp(-x) \exp(-2y) dx \nonumber} \pause  \\
+\invisible<1-6>{ & = & 2 \exp(-2y) \int_{0}^{\infty} \exp(-x) dx \nonumber } \pause \\
+\invisible<1-7>{ & = & 2 \exp(-2y) \left[-(0 -1) \right] \nonumber} \pause \\
+\invisible<1-8>{ & = & 2 \exp(-2y) \nonumber } 
+ \end{eqnarray}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+\begin{defn} 
+Two random variables $X$ and $Y$ are independent if for any two sets of real numbers $A$ and $B$, \pause 
+\begin{eqnarray}
+\invisible<1>{P\{ X \in A , Y \in B \} & = & P\{X \in A\} P\{Y \in B\} \nonumber} \pause  
+\end{eqnarray}
+
+\invisible<1-2>{Equivalently we will say $X$ and $Y$ are independent if, } \pause 
+\begin{eqnarray}
+\invisible<1-3>{f(x,y) & = & f_{X}(x) f_{Y}(y) \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-4>{If $X$ and $Y$ are not independent, we will say they are \alert{dependent} } 
+
+\end{defn}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditional Distribution}
+
+If $X$ and $Y$ are independent, then 
+\begin{eqnarray}
+f_{X|Y} (x|y) & = & \frac{f(x,y)}{f_{Y}(y)} \nonumber \\
+& = & \frac{f_{X}(x)f_{Y}(y)}{f_{Y}(y) }\nonumber \\
+& = & f_{X}(x) \nonumber 
+\end{eqnarray}
+
+In words: the distribution of $X$ does not change as levels of $Y$ change.  
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{A (Simple) Example of Dependence}
+
+Suppose $X$ and $Y$ are jointly continuous and that \pause 
+\begin{eqnarray}
+\invisible<1>{f(x,y) &  = & x + y \text{ , if  } x \in [0,1], y \in [0,1] \nonumber} \pause \\
+\invisible<1-2>{& = & 0 \text{ , otherwise } \nonumber} \pause  
+\end{eqnarray}
+
+
+\only<1-7>{\begin{eqnarray}
+\invisible<1-3>{f_{X}(x) & = & \int_{0}^{1} \left(x + y \right) dy \nonumber}  \\
+\invisible<1-4>{& = & xy  + \frac{y^2}{2} |^{1}_{0} \nonumber}  \\
+\invisible<1-5>{& = & x + \frac{1}{2} \nonumber } \\
+\invisible<1-6>{f_{Y}(y) & = & \frac{1}{2} + y \nonumber } 
+\end{eqnarray}}
+
+\pause \pause \pause \pause 
+
+\only<8->{\begin{eqnarray}
+\invisible<1-7>{f(x, y)  &= & x + y \nonumber } \\
+\invisible<1-8>{f_{X}(x) f_{Y}(y) & = & (\frac{1}{2} + x) (\frac{1}{2} + y) \nonumber} \\
+\invisible<1-9>{& = & \frac{1}{4} + \frac{x + y}{2} + xy \nonumber} 
+\end{eqnarray}}
+\pause \pause \pause 
+
+\invisible<1-10>{Intuition: at different levels of $X$ the distribution on $Y$ behaves differently.  } \pause   \\
+\invisible<1-11>{\alert{$X$ provides information about $Y$}} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Expectation} 
+
+\begin{defn}
+For jointly continuous random variables $X$ and $Y$ define,
+\begin{eqnarray}
+E[X] & = & \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x f(x,y) dxdy \nonumber \\
+E[Y] & = & \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} y f(x,y) dxdy \nonumber \\
+E[XY] & = & \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x y f(x,y) dxdy \nonumber 
+\end{eqnarray}
+\end{defn}
+
+\begin{prop}
+Suppose $g:\Re^{2} \rightarrow \Re$ (that isn't crazy).  Then, 
+\begin{eqnarray}
+E[g(X, Y)] & = & \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x, y) f(x,y) dxdy \nonumber 
+\end{eqnarray}
+
+\end{prop}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Covariance} 
+
+\begin{defn} 
+For jointly continous random variables $X$ and $Y$ define, the covariance of $X$ and $Y$ as,\pause 
+\begin{eqnarray}
+\invisible<1>{\text{cov}(X,Y) & = & E[(X-E[X])(Y- E[Y])] \nonumber} \pause  \\
+\invisible<1-2>{& = & E\left[ XY - E[X] Y - E[Y] X + E[X]E[Y] \right] \nonumber} \pause  \\
+\invisible<1-3>{& = & E[XY] - 2E[X]E[Y] + E[E[X]E[Y]] \nonumber } \pause \\
+\invisible<1-4>{& = & E[XY] - E[X]E[Y] \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-5>{Define the correlation of $X$ and $Y$ as, } \pause 
+\begin{eqnarray}
+\invisible<1-6>{\text{cor}(X,Y) & =&  \frac{\text{cov}(X,Y) }{\sqrt{\text{Var}(X) \text{Var}(Y) } } \nonumber } 
+\end{eqnarray}
+\end{defn} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Some Observations}
+
+Variance is the covariance of a random variable with itself.\pause 
+\begin{eqnarray}
+\invisible<1>{cov(X,X) & = & E[X X] - E[X]E[X] \nonumber} \\
+\invisible<1>{& = & E[X^2] - E[X]^2 \nonumber }
+\end{eqnarray}
+\pause 
+\invisible<1-2>{Correlation measures the linear relationship between two random variables\\} \pause 
+\invisible<1-3>{Suppose $X = Y$} \pause 
+\begin{eqnarray}
+\invisible<1-4>{cor(X,Y) & = & \frac{cov(X,Y)}{\sqrt{Var(X)Var(Y)} } \nonumber \\} \pause 
+\invisible<1-5>{& = & \frac{Var(X)}{Var(X)} \nonumber \\} \pause 
+\invisible<1-6>{& = & 1 \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-7>{Suppose $X = -Y$ } \pause 
+\begin{eqnarray}
+\invisible<1-8>{cor(X,Y) & = & \frac{cov(X,Y)}{\sqrt{Var(X)Var(Y)} } \nonumber \\} \pause 
+\invisible<1-9>{& =  & \frac{- Var(X)}{Var(X)} \nonumber \\} 
+\invisible<1-10>{& = & -1 \nonumber } 
+\end{eqnarray}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Correlation is Between -1 and 1}
+
+$|cor(X,Y)| \leq 1$
+\begin{itemize}
+\item[-] Proof 1: Variance trick
+\item[-] Proof 2: Cauchy-Schwartz Inequality 
+\begin{itemize}
+\item[-] ``Inner product" of any two vectors $X$ and $Y$ is less than or equal to the length of vector $X$  times the length of vector $Y$
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example: $X + Y$} 
+Suppose $X$ and $Y$ have pdf $x + y$ for $x, y \in [0,1]$.  \pause \\
+\invisible<1>{Cov$(X,Y)$ } \pause 
+\begin{eqnarray}
+\invisible<1-2>{E[XY] & = & \int_{0}^{1} \int_{0}^{1} xy (x + y) dx dy \nonumber } \pause \\
+\invisible<1-3>{& = & \int_{0}^{1} \int_{0}^{1} (x^2 y + y^2 x) dx dy \nonumber } \pause \\
+\invisible<1-4>{& = & \int_{0}^{1} (\frac{y}{3} + \frac{y^2}{2} ) dy \nonumber } \pause \\
+\invisible<1-5>{& = & \frac{1}{6} + \frac{1}{6} = \frac{1}{3} \nonumber} \pause  
+\end{eqnarray}
+
+\begin{eqnarray}
+\only<1-8>{\invisible<1-6>{E[X] & = & \int_{0}^{1} \int_{0}^{1} x (x + y) dxdy \nonumber } \pause \\
+\invisible<1-7>{ & = & \frac{7}{12} \nonumber } } 
+ \only<9-10>{E[Y] & = & \int_{0}^{1} \int_{0}^{1} y(x + y) dxdy \nonumber \pause \\
+ & = & \invisible<1-9>{\frac{7}{12} \nonumber }} 
+ \end{eqnarray}
+\pause 
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Example: $X + Y$ } 
+
+\begin{eqnarray}
+\text{Cov}(X,Y) & = &  E[XY] - E[X]E[Y] \nonumber  \pause \\
+\invisible<1>{& = & \frac{1}{3}  - \frac{49}{144} = -\frac{1}{144} \nonumber } \pause 
+\end{eqnarray}
+
+\begin{eqnarray}
+\invisible<1-2>{\text{Cor}(X,Y) & = & \frac{\text{Cov}(X,Y)}{\sqrt{\text{Var}(X) \text{Var}(Y) }} \nonumber } \pause \\
+\invisible<1-3>{& = & \frac{- \frac{1}{144}}{\frac{11}{144}} \nonumber} \pause  \\
+\invisible<1-4>{& = & \frac{-1}{11} \nonumber}  
+\end{eqnarray}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Sums of Random Variables}
+
+Suppose we have a sequence of random variables $X_{i}$ , $i = 1, 2, \hdots, N$.  \\
+
+Suppose that they have joint pdf, 
+\begin{eqnarray}
+f(\boldsymbol{x}) & = & f(x_{1}, x_{2}, \hdots, x_{n}) \nonumber 
+\end{eqnarray}
+
+\begin{itemize}
+\item[1)] $E[\sum_{i=1}^{N}X_{i} ]  = \sum_{i=1}^{N} E[X_{i}] $
+\item[2)] var$(\sum_{i=1}^{N} X_{i} )   = \sum_{i=1}^{N} \text{var}(X_{i} )  + 2 \sum_{i<j} \text{cov}(X_{i}, X_{j}) $ 
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sums of Random Variables}
+
+\begin{prop}
+Suppose we have a sequence of random variables $X_{i}$ , $i = 1, 2, \hdots, N$.  \\
+
+Suppose that they have joint pdf, 
+\begin{eqnarray}
+f(\boldsymbol{x}) & = & f(x_{1}, x_{2}, \hdots, x_{n}) \nonumber 
+\end{eqnarray}
+
+Then 
+\begin{eqnarray}
+E[\sum_{i=1}^{N} X_{i} ] & = & \sum_{i=1}^{N} E[X_{i} ] \nonumber 
+\end{eqnarray}
+
+\end{prop}
+
+
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{proof}
+
+\begin{small}
+
+\pause 
+\begin{eqnarray}
+\invisible<1>{E[\sum_{i=1}^{N} X_{i} ] & = &  E[X_{1} + X_{2} + \hdots + X_{N}] \nonumber \\} \pause 
+\invisible<1-2>{& = & \int_{-\infty}^{\infty} \cdot \cdot \cdot \iint_{-\infty}^{\infty} (x_{1} + x_{2} + \hdots + x_{N}) f(x_{1}, x_{2}, \hdots, x_{N}) dx_{1}dx_{2}\hdots dx_{N} \nonumber \\} \pause 
+\invisible<1-3>{& = & \int_{-\infty}^{\infty}x_{1} f_{X_{1}}(x_{1}) dx_{1}  + \int_{-\infty}^{\infty}x_{2} f_{X_{2}}(x_{2}) dx_{2} + \hdots + \int_{-\infty}^{\infty}x_{N} f_{X_{N}}(x_{N}) dx_{N}  \nonumber \\} \pause 
+ \invisible<1-4>{& = & E[X_{1} ] + E[X_{2}] + \hdots + E[X_{N}] \nonumber } 
+\end{eqnarray}
+
+\end{small}
+
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sums of Random Variable}
+
+\begin{prop}
+Suppose $X_{i}$ is a sequence of random variables.  Then 
+
+\begin{eqnarray}
+\text{var}(\sum_{i=1}^{N} X_{i} ) & = & \sum_{i=1}^{N} \text{var}(X_{i} )  + 2 \sum_{i<j} \text{cov}(X_{i}, X_{j} ) \nonumber 
+\end{eqnarray}
+
+\end{prop}
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sums of Random Variable}
+
+\begin{proof}
+Consider two random variables, $X_{1}$ and $X_{2}$.  Then, 
+
+\pause 
+\begin{eqnarray}
+\invisible<1>{\text{var}(X_{1} + X_{2} ) & = & E[(X_{1} + X_{2})^2] - \left(E[X_{1}] + E[X_{2}] \right)^2 \nonumber \\ } \pause 
+\invisible<1-2>{& = & E[X_{1}^2]  + 2 E[X_{1}X_{2}]  + E[X_{2}^2]  \nonumber \\
+&& - (E[X_{1}])^2 - 2 E[X_{1}] E[X_{2}]  - 2 E[X_{2}]^2 \nonumber \\} \pause 
+\invisible<1-3>{& = & \underbrace{E[X_{1}^2] - (E[X_{1}])^2}_{\text{var}(X_{1}) }   + \underbrace{E[X_{2}^2] - E[X_{2}]^{2}}_{\text{var}(X_{2})} \nonumber \\ 
+&&  + 2 \underbrace{(E[X_{1} X_{2} ]  - E[X_{1}] E[X_{2} ] )}_{\text{cov}(X_{1}, X_{2} ) }  \nonumber \\} \pause 
+ \invisible<1-4>{& = & \text{var}(X_{1} ) + \text{var}(X_{2} ) + 2 \text{cov}(X_{1}, X_{2}) \nonumber } 
+\end{eqnarray}
+
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{defn}
+Suppose $\boldsymbol{X} = (X_{1}, X_{2}, \hdots, X_{N}) $ is a vector of random variables.  If $\boldsymbol{X}$ has pdf 
+
+\begin{eqnarray}
+f(\boldsymbol{x}) & = & (2 \pi)^{-N/2} \text{det}\left(\boldsymbol{\Sigma}\right)^{-1/2} \exp\left(-\frac{1}{2}(\boldsymbol{x} - \boldsymbol{\mu})^{'}\boldsymbol{\Sigma}^{-1} (\boldsymbol{x} - \boldsymbol{\mu} ) \right) \nonumber 
+\end{eqnarray}
+Then we will say $\boldsymbol{X}$ is a \alert{Multivariate Normal} Distribution, 
+\begin{eqnarray}
+\boldsymbol{X} & \sim & \text{Multivariate Normal} (\boldsymbol{\mu}, \boldsymbol{\Sigma}) \nonumber 
+\end{eqnarray}
+
+
+\end{defn}
+
+\begin{itemize}
+\item[-] \alert{Regularly} used for likelihood, Bayesian, and other parametric inferences
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multivariate Normal Distribution}
+
+Consider the (bivariate) special case where $\boldsymbol{\mu} = (0, 0)$ and 
+\begin{eqnarray}
+\boldsymbol{\Sigma} & = & \begin{pmatrix} 
+1 & 0 \\
+0 & 1 \\
+\end{pmatrix}
+\nonumber 
+\end{eqnarray}
+
+\pause 
+\invisible<1>{Then 
+\begin{eqnarray}
+f(x_{1}, x_{2} ) & = & (2\pi)^{-2/2} 1^{-1/2} \exp\left(-\frac{1}{2}\left( (\boldsymbol{x}  - \boldsymbol{0} ) ^{'} \begin{pmatrix} 
+1 & 0 \\
+0 & 1 \\
+\end{pmatrix}
+(\boldsymbol{x}  - \boldsymbol{0} ) \right) \right) \nonumber \\} \pause 
+ \invisible<1-2>{& = & \frac{1}{2\pi} \exp\left(-\frac{1}{2} (x_{1}^{2} + x_{2} ^ 2 )     \right) \nonumber \\} \pause 
+ \invisible<1-3>{& = & \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x_{1}^{2}}{2}  \right) \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x_{2}^{2}}{2}  \right) \nonumber} \pause 
+\end{eqnarray}
+
+\invisible<1-4>{$\leadsto$ product of univariate standard normally distributed random variables} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Standard Multivariate Normal}
+
+\begin{defn}
+
+Suppose $\boldsymbol{Z} = (Z_{1}, Z_{2}, \hdots, Z_{N}) $ is 
+\begin{eqnarray}
+\boldsymbol{Z} & \sim & \text{Multivariate Normal}(\boldsymbol{0}, \boldsymbol{I}_{N} ) . \nonumber
+\end{eqnarray}
+
+Then we will call $\boldsymbol{Z}$ the standard multivariate normal.  
+\end{defn}
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Properties of the Multivariate Normal Distribution}
+
+Suppose $\boldsymbol{X} = (X_{1}, X_{2}, \hdots, X_{N} ) $
+
+\begin{eqnarray}
+E[\boldsymbol{X} ] & = &  \boldsymbol{\mu}\nonumber \\
+\text{cov}(\boldsymbol{X} ) & = & \boldsymbol{\Sigma} \nonumber 
+\end{eqnarray}
+
+So that, 
+
+\begin{eqnarray}
+\boldsymbol{\Sigma}  & = & \begin{pmatrix} 
+\text{var}(X_{1}) & \text{cov}(X_{1}, X_{2}) & \hdots & \text{cov}(X_{1}, X_{N}) \\
+\text{cov}(X_{2}, X_{1}) & \text{var}(X_{2}) & \hdots & \text{cov}(X_{2}, X_{N} ) \\
+\vdots & \vdots & \ddots & \vdots \\
+\text{cov}(X_{N}, X_{1} ) & \text{cov}(X_{N}, X_{2} ) & \hdots & \text{var}(X_{N} ) \\
+\end{pmatrix} \nonumber 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Independence and Multivariate Normal}
+
+\begin{prop}
+Suppose $X$ and $Y$ are independent.  Then 
+\begin{eqnarray}
+\text{cov}(X, Y) & = & 0 \nonumber 
+\end{eqnarray}
+
+\end{prop}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\begin{small}
+\begin{proof}
+Suppose $X$ and $Y$ are independent.  \pause 
+\begin{eqnarray}
+\invisible<1>{\text{cov}(X, Y) & = & E[XY] - E[X]E[Y] \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-2>{Calculating $E[XY]$} \pause 
+\begin{eqnarray}
+\invisible<1-3>{E[XY] & = & \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x y f(x,y)dxdy \nonumber \\} \pause 
+\invisible<1-4>{& =& \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x y f_{X}(x) f_{Y}(y)dxdy \nonumber \\} \pause 
+\invisible<1-5>{& = & \int_{-\infty}^{\infty} x f_{X}(x) dx \int_{-\infty}^{\infty} y f_{Y}(y) dy \nonumber \\} \pause 
+ \invisible<1-6>{& = & E[X] E[Y] \nonumber} \pause 
+\end{eqnarray}
+
+\invisible<1-7>{Then cov$(X,Y) = 0$.} 
+
+
+\end{proof}
+
+\end{small}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Zero covariance does not \alert{generally} imply Independent}
+Suppose $X \in \{-1, 1\}$ with $P(X = 1) = P(X = -1) = 1/2$.  \\
+Suppose $Y \in \{-1, 0,1\}$ with $Y = 0 $ if $X = -1$ and $P(Y = 1) = P(Y= -1) $ if $X = 1$.  \\
+
+\begin{small}
+\begin{eqnarray}
+E[XY] & = & \sum_{i \in \{-1, 1\} } \sum_{j \in \{-1, 0, 1\}} i j P(X = i, Y = j) \nonumber \\
+& = & -1 \times 0 \times  P(X = -1, Y = 0) + 1 \times 1  \times P(X = 1, Y = 1)  \nonumber \\
+ && - 1 \times 1 \times P(X = 1, Y = -1) \nonumber \\
+ &= & 0 + P(X = 1, Y = 1)  - P(X = 1, Y = -1 ) \nonumber \\
+  & = &  0.25 - 0.25 = 0  \nonumber \\
+E[X] & = &  0 \nonumber \\
+E[Y] & = & 0 \nonumber 
+\end{eqnarray}
+
+\end{small}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{prop}
+Suppose $\boldsymbol{X} \sim \text{Multivariate Normal}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$.  
+where $\boldsymbol{X}= (X_{1}, X_{2}, \hdots, X_{N})$. \\
+If $\text{cov}(X_{i}, X_{j})  = 0  $, then $X_{i}$ and $X_{j}$ are independent 
+
+\end{prop}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+Tomorrow
+\begin{itemize}
+\item[-] Changing Coordinates
+\item[-] Moment Generating Functions
+\item[-] Famous Inequalities
+\item[-] Different Notions of Convergence
+\end{itemize}
+\end{frame}
+
+
+
+
+\end{document}
