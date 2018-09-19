@@ -1,0 +1,80 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage{fullpage}
+\usepackage{parskip}
+
+\DeclareMathOperator*{\E}{\mathbb{E}}
+\DeclareMathOperator*{\N}{\mathcal{N}}
+\DeclareMathOperator*{\V}{Var}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+
+\centerline{\bf Math Camp - Homework 11}
+
+
+\noindent \textbf{Question 1}: For the first two parts, let  $X$ be a \textit{continuous} random variable and $a$ and $b$ be constants. For the last two parts, keep in mind that the expected value of a random variable does not always exist.
+\medskip
+\begin{enumerate}
+\item Prove that $\E(aX+b) = a\E(X)+b$.
+\item Prove that $\V(aX+b) = a^2 \V(X)$.
+\item Let $X$ be a continuous random variable distributed uniformly over the interval (1,2). Suppose we have a function $g$ where $g(x) = \frac{1}{x}$. Find $\E(g(X))$ and $\V(g(X))$.
+\item What are  $\E(g(X))$ and $\V(g(X))$ if $X$ is distributed over the interval (0,1) instead? As always, show your work.
+\end{enumerate}
+
+\noindent \textbf{Question 2:} Suppose Bob is a voter living in the country of Freedonia, and suppose that in Freedonia, all sets of public policies can be thought of as representing points on a single axis (e.g. a line running from more liberal to more conservative). Bob has a certain set of public policies that he wants to see enacted. This is represented by point $v$, which we will call Bob's \textit{ideal point}. The utility, or happiness, that Bob receives from a set of policies at point $l$ is $U(l)=-(l-v)^2$. In other words, Bob is happiest if the policies enacted are the ones at his ideal point, and he gets less and less happy as policies get farther away from his ideal point. When he votes, Bob will pick the candidate whose policies will make him happiest. However, Bob does not know exactly what policies each candidate will enact if elected -- he has some guesses, but he can't be certain. Each candidate's future policies can therefore be represented by a continuous random variable $L$ with expected value $\mu_l$ and variance $Var(L)$.
+
+\begin{enumerate}
+\item Express $\E(U(L))$ as a function of $\mu_l$, $\V(L)$, and $v$. Why might we say that Bob is \textit{risk averse} -- that is, that Bob gets less happy as outcomes get more uncertain?
+
+\item Suppose Bob is deciding whether to vote for Ronald Thump or Holly Minton. Suppose Bob's ideal point is at 1, The Ronald's policies can be represented by a continuous random variable $L_M$ with expected value at 1 and variance equal to 6, and Holly's policies can be represented by a continuous random variable $L_B$ with expected value at 3 and variance equal to 1. Which candidate would Bob vote for and why? What (perhaps surprising) effect of risk aversion on voting behavior does this example demonstrate?
+
+\end{enumerate}
+
+\bigskip
+
+\noindent \textbf{Question 3:} After an election in a parliamentary system, a government (consisting of a prime minister and a cabinet) is formed by gathering the support of a majority of newly elected members of parliament. Typically a government is allowed to remain in power for a certain number of years before new elections must be called. However, elections can be held earlier if the Parliament passes a vote of no confidence or the prime minster decides to dissolve the government. Suppose we are studying Country Z (which uses a parliamentary system) and we are interested in the duration of governments. In Country Z, governments must call elections at least every 5 years, but they could be called sooner if there is a vote of no confidence or the prime minister dissolves the government. Let the continuous random variable $X$ denote the amount of time (measured in years) between the last election and the calling of the next election. $X$ has support on all real numbers between 0 and 5. Suppose we know that $X$ has the probability density function
+\begin{eqnarray*}
+f(x) &=& \begin{cases}
+kx^3 &  0 < x < 5 \\
+0 & \text{otherwise}
+\end{cases}
+\end{eqnarray*}
+
+\noindent where $k$ is some constant.
+ 
+\begin{enumerate}
+\item Find $k$.
+\item Find the CDF of $X$.
+\item Find $\E(X)$ and $\V(X)$.
+\item Find the median of $X$ (the value of $x$ at which $P(X \leq x) = \frac{1}{2}$).
+\item What is the probability that the government remains in power for exactly 3 years? Why?
+\item What is the probability that the government remains in power between 2 and 4 years?
+\item What is the probability that the government remains in power for less than 1 year or more than 4 years?
+\end{enumerate}
+
+\noindent \textbf{Question 4:} 
+
+Z is distributed according to the following PDF
+
+\begin{eqnarray*}
+f(z) &=& \begin{cases}
+\gamma \ exp(-\gamma z) &  0 \le z \\
+0 & \text{otherwise}
+\end{cases}
+\end{eqnarray*}
+
+\begin{enumerate}
+\item What is $F(z)$, the CDF of this distribution?
+\item Using your answer to the previous question, evaluate the CDF for the interval from 7 to 12. 
+\item Suppose $\gamma$ is 3. Given this, what is $q$ the 10th percentile value of $Z$? 
+\item We observe a single random draw from $Z$, what is the probability this observation is less than .5? Again suppose that $\gamma$ = 3. 
+\end{enumerate}
+
+\end{document}
