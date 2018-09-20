@@ -1,0 +1,327 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage{fullpage}
+\usepackage{parskip}
+\DeclareMathOperator*{\E}{\mathbb{E}}
+\DeclareMathOperator*{\N}{\mathcal{N}}
+\DeclareMathOperator*{\V}{Var}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{document}
+
+\centerline{\bf Math Camp - Homework 11 Solutions}
+
+
+
+\noindent \textbf{Question 1}: For the first two parts, let  $X$ be a continuous random variable and $a$ and $b$ be constants. For the last two parts, keep in mind that the expected value of a random variable does not always exist.
+\medskip
+\begin{enumerate}
+\item Prove that $\E(aX+b) = a\E(X)+b$.
+
+{\it Solution:} By the definition of expected value, $\E(X) = \int_{-\infty}^{\infty} \! xf(x) \, dx$, where $f(x)$ is the probability distribution function of $X$ and $\int_{-\infty}^{\infty} \! f(x) \, dx = P(-\infty < X < \infty) = 1$ . We also know that $\E(g(X)) =  \int_{-\infty}^{\infty} \! g(x)f(x) \, dx$. Therefore
+\begin{eqnarray*}
+\E(aX+b) &=& \int_{-\infty}^{\infty} \! (ax+b)f(x) \, dx \\
+&=& \int_{-\infty}^{\infty} \! (axf(x)+bf(x)) \, \mathrm{d} x \\
+&=& \int_{-\infty}^{\infty} \! axf(x) \, dx + \int_{-\infty}^{\infty} \! bf(x) \, dx \\
+&=& a \! \int_{-\infty}^{\infty} \! xf(x) \, dx + b \! \int_{-\infty}^{\infty} \! f(x) \, dx \\
+&=& a\E(X) + b(1) \\
+&=& a\E(X) + b 
+\end{eqnarray*}
+
+\medskip
+\item Prove that $Var(aX+b) = a^2 Var(X)$.
+
+{\it Solution:} Prove that $Var(aX+b) = a^2Var(X)$.
+\medskip
+ By the definition of variance, $Var(X) = \E(X^2) - \E(X)^2$. Therefore
+\begin{eqnarray*}
+Var(aX+b) = \E[(aX+b)^2] - \E(aX+b)^2 
+\end{eqnarray*}
+
+Since $\E(aX+b) = a\E(X)+b$ (and we omit $\pm\infty$ in the integrals to spare on notation),
+\begin{eqnarray*}
+\V(aX+b) &=& \E[(aX+b)^2] - \E(aX+b)^2 \\
+&=& \E[(aX+b)^2] - [a\E(X)+b]^2 \\
+&=& \E[a^2X^2+2abX + b^2] - [a\E(X)+b]^2 \\
+&=& \left[\int \! (a^2x^2+2abx+b^2)f(x) \, dx \right] - [a\E(X)+b]^2\\
+&=& \left[\int \! (a^2x^2f(x)+2abxf(x)+b^2f(x)) \, dx \right] - [a\E(X)+b]^2\\
+&=& \int \! a^2x^2f(x) dx +\int \! 2abxf(x) dx +\int \! b^2f(x) dx - [a\E(X)+b]^2\\
+&=& a^2 \! \int \! x^2f(x) \, dx +2ab \!\int \! xf(x) \, dx + b^2 \!\int \!f(x) \, dx - [a\E(X)+b]^2\\
+\end{eqnarray*}
+\begin{eqnarray*}
+&=& a^2\E(X^2) + 2ab\E(X) + b^2(1) - [a\E(X) +b]^2 \\
+&=& a^2\E(X^2) + 2ab\E(X) + b^2 - a^2\E(X)^2 - 2ab\E(X) - b^2 \\
+&=& a^2\E(X^2) -a^2\E(X)^2 \\
+&=& a^2[\E(X^2)-\E(X)^2] \\
+&=& a^2 Var(X)
+\end{eqnarray*}
+
+\medskip
+\item Let $X$ be a continuous random variable distributed uniformly over the interval (1,2). Suppose we have a function $g$ where $g(x) = \frac{1}{x}$. Find $\E(g(X))$ and $Var(g(X))$, and show your work.
+
+{\it Solution:} Because $X$ is uniformly distributed on the interval (1,2), we know $f(x) = 1$ for $1<x<2$ and $f(x)=0$ for all other $x$. Therefore, since $\E(g(X)) =  \int_{-\infty}^{\infty} \! g(x)f(x) \, dx$,
+\begin{eqnarray*}
+\E(g(X) &=&  \int_{-\infty}^{\infty} \! \frac{1}{x}f(x) \, \mathrm{d} x \\
+&=&  \int_{-\infty}^1 \! \frac{1}{x}f(x) \, \mathrm{d} x +  \int_1^2 \! \frac{1}{x}f(x) \, \mathrm{d} x +  \int_2^{\infty} \! \frac{1}{x}f(x) \, \mathrm{d} x \\
+&=&  \int_{-\infty}^1 \! \frac{1}{x} \, 0 \, \mathrm{d} x +  \int_1^2 \! \frac{1}{x} \, 1 \, \mathrm{d} x +  \int_2^{\infty} \! \frac{1}{x} \, 0 \, \mathrm{d} x \\
+&=&   \int_1^2 \! \frac{1}{x} \, \mathrm{d} x  \\
+&=& \ln x \Bigr|_1^2 \\
+&=& \ln 2 - \ln 1 \\
+&=& \ln 2 - 0 \\
+&\approx & .693\\
+\\
+Var(g(X)) &=& \E(X^2)-\E(X)^2 \\
+&=& \E(X^2) - (\ln 2)^2 \\
+&=& \int_1^2 \! \frac{1}{x^2} \, 1 \, \mathrm{d} x - (\ln 2)^2\\
+&=& -\frac{1}{x} \Bigr|_1^2 - (\ln 2)^2 \\
+&=& -\frac{1}{2} - (-1) - (\ln2)^2 \\
+&=& \frac{1}{2} - (\ln2)^2 \\
+&\approx & .0195
+\end{eqnarray*} 
+
+\pagebreak
+\item What are  $\E(g(X))$ and $Var(g(X))$ if $X$ is distributed over the interval (0,1) instead? As always, show your work.
+
+{\it Solution:} If $X$ is distributed uniformly on the interval (0,1),  $f(x) = 1$ for $0<x<1$ and $f(x)=0$ for all other $x$,
+\begin{eqnarray*}
+\E(g(X)) &=&  \int_{-\infty}^{\infty} \! \frac{1}{x}f(x) \, \mathrm{d} x \\
+&=&  \int_{-\infty}^0 \! \frac{1}{x}f(x) \, \mathrm{d} x +  \int_0^1 \! \frac{1}{x}f(x) \, \mathrm{d} x +  \int_1^{\infty} \! \frac{1}{x}f(x) \, \mathrm{d} x \\
+&=&  \int_{-\infty}^0 \! \frac{1}{x} \, 0 \, \mathrm{d} x +  \int_0^1 \! \frac{1}{x} \, 1 \, \mathrm{d} x +  \int_1^{\infty} \! \frac{1}{x} \, 0 \, \mathrm{d} x \\
+&=&   \int_0^1 \! \frac{1}{x} \, \mathrm{d} x  \\
+&=& \ln x \Bigr|_0^1 \\
+&=& \ln 1 - \ln 0 \\
+&=& -\ln 0
+\end{eqnarray*}
+However, $\ln 0$ is undefined; thus, $\E(X)$ is undefined as well. Furthermore, since $Var(X) = \E(X-\E(X))^2 = \E(X+\ln 0)^2$, the variance is undefined as well. The takeaway message: \textit{Sometimes, expected values and variances aren't defined}.
+
+\end{enumerate}
+\pagebreak
+
+\noindent \textbf{Question 2:} Suppose Bob is a voter living in the country of Freedonia, and suppose that in Freedonia, all sets of public policies can be thought of as representing points on a single axis (e.g. a line running from more liberal to more conservative). Bob has a certain set of public policies that he wants to see enacted. This is represented by point $v$, which we will call Bob's \textit{ideal point}. The utility, or happiness, that Bob receives from a set of policies at point $l$ is $U(l)=-(l-v)^2$. In other words, Bob is happiest if the policies enacted are the ones at his ideal point, and he gets less and less happy as policies get farther away from his ideal point. When he votes, Bob will pick the candidate whose policies will make him happiest. However, Bob does not know exactly what policies each candidate will enact if elected -- he has some guesses, but he can't be certain. Each candidate's future policies can therefore be represented by a continuous random variable $L$ with expected value $\mu_l$ and variance $Var(L)$.
+
+\begin{enumerate}
+\item Express $\E(U(L))$ as a function of $\mu_l$, $Var(L)$, and $v$. Why might we say that Bob is \textit{risk averse} -- that is, that Bob gets less happy as outcomes get more uncertain?
+
+{\it Solution:} In order to express $\E(U(L))$ as a function of $\mu_l$, $Var(L)$, and $v$, we need to find a form of the equation that contains those variables and no others. We know that
+\begin{eqnarray*}
+\E(U(L)) &=& \E(-(L-v)^2) \\
+&=& \E(-(L^2 - 2vL + v^2)) \\
+&=& \E(-L^2 +2vL - v^2) \\
+&=& \int_{-\infty}^{\infty}  \! (-l^2 + 2vl - v^2)f(l) \, dl \\
+&=&  \int_{-\infty}^{\infty}  \! -l^2f(l) \, dl +  \int_{-\infty}^{\infty}  \! 2vlf(l) \, dl +  \int_{-\infty}^{\infty}  \! -v^2f(l) \, dl \\
+&=&  -\int_{-\infty}^{\infty}  \! l^2f(l) \, dl +  2v\int_{-\infty}^{\infty}  \! lf(l) \, dl - v^2\int_{-\infty}^{\infty}  \! f(l) \, dl \\
+&=& -\E(L^2) + 2v\E(L) - v^2 \\
+&=& -\E(L^2) + 2v\mu_l - v^2
+\end{eqnarray*}
+Notice, however, that $\E(L^2) = Var(L) + \E(L)^2$, which can be determined by adding $\E(L)^2$ to both sides of the definition of $Var(L)$. Therefore
+\medskip
+\begin{eqnarray*}
+\E(U(L)) &=& -\E(L^2) + 2v\mu_l - v^2 \\
+&=& -Var(L) - \mu_l^2 + 2v\mu_l-v^2
+\end{eqnarray*}
+
+Bob can be considered risk averse because his expected utility is inversely related to the variance of $L$; as the variance of potential policy outcomes increases -- or, in other words, as the candidate becomes a riskier bet -- the less utility he receives. This problem illustrates one way in which the concepts we've been talking about, including random variables, expected value, and variance, can be applied to formal or game theoretic analysis.
+
+\pagebreak
+
+\item Suppose Bob is deciding whether to vote for Ronald Thump or Holly Minton. Suppose Bob's ideal point is at 1, The Ronald's policies can be represented by a continuous random variable $L_M$ with expected value at 1 and variance equal to 6, and Holly's policies can be represented by a continuous random variable $L_B$ with expected value at 3 and variance equal to 1. Which candidate would Bob vote for and why? What (perhaps surprising) effect of risk aversion on voting behavior does this example demonstrate?
+
+{\it Solution:} To see who Bob will choose, we first calculate the utility he derives from each of the potential recipients of his vote. 
+\begin{eqnarray*}
+\E(U(L_R))&=&  -\V(L_R) - \E(L_R)^2 + 2v\E(L_R)-v^2 \\
+&=& -6 - (1^2) + 2(1)(1) - (1^2) \\
+&=& -6
+\end{eqnarray*}
+\begin{eqnarray*}
+\E(U(L_H))&=&  -\V(L_H) - \E(L_H)^2 + 2v\E(L_H)-v^2 \\
+&=& -1 - (3^2) + 2(1)(3) - (1^2) \\
+&=& -1 - 9 + 6 -1 \\
+&=& -5
+\end{eqnarray*}
+Notice that $\E(U(L_N)) > \E(U(L_M))$. Therefore Bob will vote for Brock O'Bannen. Although his ideal point is closer to the expected value of Matt's policies -- in fact, they are the same -- the greatly reduced uncertainty surrounding Brock's potential policies is sufficient to convince Bob to vote for him instead. More generally, risk aversion can in some cases induce individuals to vote for candidates whose mean potential policies are not the closest to those individuals' ideal points.
+\end{enumerate}
+
+\bigskip
+
+\noindent \textbf{Question 3:} After an election in a parliamentary system, a government (consisting of a prime minister and a cabinet) is formed by gathering the support of a majority of newly elected members of parliament. Typically a government is allowed to remain in power for a certain number of years before new elections must be called. However, elections can be held earlier if the Parliament passes a vote of no confidence or the prime minster decides to dissolve the government. Suppose we are studying Country Z (which uses a parliamentary system) and we are interested in the duration of governments. In Country Z, governments must call elections at least every 5 years, but they could be called sooner if there is a vote of no confidence or the prime minister dissolves the government. Let the continuous random variable $X$ denote the amount of time (measured in years) between the last election and the calling of the next election. $X$ has support on all real numbers between 0 and 5. Suppose we know that $X$ has the probability density function
+\begin{eqnarray*}
+f(x) &=& \begin{cases}
+kx^3 &  0 < x < 5 \\
+0 & \text{otherwise}
+\end{cases}
+\end{eqnarray*}
+
+\noindent where $k$ is some constant.
+ 
+\pagebreak
+\begin{enumerate}
+\item Find $k$.
+
+\textit{Solution:} Recall that a valid PDF must sum up to 1. So we have to find a $k$ such that the integral of the PDF equals 1.
+\begin{eqnarray*}
+\int_0^5 kx^3 dx &=& 1 \\
+k \int_0^5 x^3 dx &=& 1 \\
+k \left[ \frac{x^4}{4} \right]\bigg|_0^5 &=& 1 \\
+k \left[ \frac{5^4}{4} - \frac{0^4}{4} \right] &=& 1 \\
+\frac{625k}{4} &=& 1 \\
+k &=& \frac{4}{625}
+\end{eqnarray*}
+
+\medskip
+
+\item Find the CDF of $X$.
+
+{\it Solution:}
+\begin{eqnarray*}
+\int_{-\infty}^x \frac{4x^3}{625} dx &=& \int_{0}^x \frac{4x^3}{625} dx = \frac{4}{625} \int_0^x x^3dx = \frac{4}{625} \left[ \frac{x^4}{4} \Big|_0^x \right] = \frac{x^4}{625} \\ \\
+F(x) &=&
+\begin{cases}
+0 & \text{if} \; x < 0 \\
+\frac{x^4}{625} & \text{if} \; 0 < x < 5 \\
+1 & \text{if} \; x > 5
+\end{cases}
+\end{eqnarray*}
+
+Note that, since technically $-\infty < x < \infty$, you should define for CDF for values of $x$ above and below the bounds are you primarily interested in.
+
+\medskip
+
+\item Find $\E(X)$ and $V(X)$.
+
+{\it Solution:}
+\begin{align*}
+\E(X) &= \int_{-\infty}^\infty x \cdot \frac{4}{625} \cdot x^3 dx \\
+&= \int_{0}^5 x \cdot \frac{4}{625} \cdot x^3 dx \\
+&= \frac{4}{625} \int_0^5 x^4 dx \\
+&= \frac{4}{625} \left[ \frac{x^5}{5} \Big|_0^5 \right] \\
+&= \frac{4}{625} \cdot 625 \\
+&= 4
+\end{align*}
+
+\begin{align*}
+\E(X^2) &= \int_{-\infty}^\infty x^2 \cdot \frac{4}{625} \cdot x^3 dx\\
+&= \int_{0}^5 x^2 \cdot \frac{4}{625} \cdot x^3 dx \\
+&= \frac{4}{625} \int_0^5 x^5 dx \\
+&= \frac{4}{625} \left[ \frac{x^6}{6} \Big|_0^5 \right]\\ 
+&= \frac{4}{625} \cdot \frac{15625}{6} \\
+&= 25 \cdot \frac{2}{3} \\
+&= \frac{50}{3}
+\end{align*}
+
+\begin{eqnarray*}
+V(X) = \E(X^2) - [\E(X)]^2 = \frac{50}{3} - 4^2 = \frac{50}{3}-16 = \frac{2}{3}
+\end{eqnarray*}
+
+\pagebreak
+\item Find the median of $X$ (the value of $x$ at which $P(X \leq x) = \frac{1}{2}$).
+
+{\it Solution:}
+\begin{eqnarray*}
+\int_{-\infty}^m \frac{4}{625} \cdot x^3 dx &=& \frac{1}{2} \\
+\int_{0}^m \frac{4}{625} \cdot x^3 dx &=& \frac{1}{2} \\
+\frac{4}{625} \int_{0}^m x^3 dx &=& \frac{1}{2} \\
+\frac{4}{625} \left[ \frac{x^4}{4} \right]\bigg|_0^m &=& \frac{1}{2} \\
+\frac{4}{625} \cdot \frac{m^4}{4} &=& \frac{1}{2} \\
+m^4 &=& \frac{625}{2} \\
+m &=& \sqrt[4]{\frac{625}{2}} \\
+&=& \frac{5}{\sqrt[4]{2}} \approx 4.2045
+\end{eqnarray*}
+
+\medskip
+
+\item What is the probability that the government remains in power for exactly 3 years? Why?
+
+{\it Solution:} Zero. If the random variable is continuous, the probability of any one particular outcome is zero.
+
+\medskip
+
+\item What is the probability that the government remains in power between 2 and 4 years?
+
+{\it Solution:} 
+\begin{eqnarray*}
+F(4) - F(2) &=& \frac{4^4}{625} - \frac{2^4}{625} = \frac{256-16}{625} = \frac{240}{625} = 0.384
+\end{eqnarray*}
+
+The probability that the government remains in power between 2 and 4 years is 0.384.
+
+\medskip
+
+\item What is the probability that the government remains in power for less than 1 year or more than 4 years?
+
+{\it Solution:}
+This is the probability that the government survives between 0 and 1 year, $F(1)$, plus the probability that the government survives between 4 and 5 years, $F(5)-F(4)=1-F(4)$.
+\begin{eqnarray*}
+F(1) + [1-F(4)] &=& \frac{1^4}{625} + \left[ 1 - \frac{4^4}{625} \right] = \frac{1}{625} + \left[ 1 - \frac{256}{625} \right] \\
+&=& \frac{1}{625} + \frac{369}{625} = \frac{370}{625} = 0.592
+\end{eqnarray*}
+
+The probability that the government remains in power for less than one year or more than 4 years is 0.592.
+
+\end{enumerate}
+
+\noindent \textbf{Question 4:} 
+
+Z is distributed according to the following PDF
+
+\begin{eqnarray*}
+f(z) &=& \begin{cases}
+\gamma \ exp(-\gamma z) &  0 \le z \\
+0 & \text{otherwise}
+\end{cases}
+\end{eqnarray*}
+
+\begin{enumerate}
+\item What is $F(z)$, the CDF of this distribution?
+\item Using your answer to the previous question, evaluate the CDF for the interval from 7 to 12. 
+\item Suppose $\gamma$ is 3. Given this, what is q the 10th percentile value of Z? 
+\item We observe a single random draw from $Z$, what is the probability this observation is less than .5? Again suppose that $\gamma$ = 3. 
+\end{enumerate}
+
+\textbf{Solutions} - Note: We're working with the exponential distribution in this problem
+\begin{enumerate}
+
+\item
+	Z is only defined for the interval when greater than 0, so to find the CDF we assess $P(Z \le z)$. 
+	\begin{eqnarray*}
+	F(z) &=& \int_0^z \gamma \ exp(-\gamma z) dz\\
+	&=& - exp(-\gamma z) |_0^{z}\\
+	&=&  - exp(-\gamma z) - - exp(0)\\
+	&=& 1 - exp(-\gamma z)
+	\end{eqnarray*}
+	
+\item 
+	\begin{eqnarray*}
+	F(12) - F(7) &=& ( 1 - exp(-12\gamma) ) - ( 1 - exp(-7\gamma) )\\
+	&=&  exp(-7\gamma) - exp(-12\gamma) 
+	\end{eqnarray*}
+
+\item
+	\begin{eqnarray*}
+	.1 &=& \int_0^q f(z)dz\\
+	&=& F(q) - F(0)\\
+	.1 &=&  ( 1 - exp(-3q) ) - ( 1 - exp(0) )\\
+	.1 &=& 1 - exp(-3q)\\
+	exp(-3q) &=& .9\\
+	-3q &=& log(.9)\\
+	q &=& - \dfrac{log(.9)}{3}\\
+	q &\approx& 0.035
+	\end{eqnarray*}
+	
+\item
+	We would expect a random draw from this distribution to be less than .5 with a probability equal to .78. 
+	\begin{eqnarray*}
+	\int_0^{.5} f(z)dz &=& F(.5) - F(0)\\
+	&=&  ( 1 - exp(-3 \times .5) ) - ( 1 - exp(0) )\\
+	&=& 1 - exp(-1.5)\\
+	&=& 0.7768698
+	\end{eqnarray*}
+\end{enumerate}
+
+
+
+\end{document}
