@@ -1,0 +1,1060 @@
+\documentclass{beamer}
+
+%\usepackage[table]{xcolor}
+\mode<presentation> {
+  \usetheme{Boadilla}
+%  \usetheme{Pittsburgh}
+%\usefonttheme[2]{sans}
+\renewcommand{\familydefault}{cmss}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{palatino}
+%\usepackage{cmbright}
+  \setbeamercovered{transparent}
+\useinnertheme{rectangles}
+}
+%\usepackage{normalem}{ulem}
+%\usepackage{colortbl, textcomp}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg= black}
+\definecolor{trial}{cmyk}{1,0,0, 0}
+\definecolor{trial2}{cmyk}{0.00,0,1, 0}
+\definecolor{darkgreen}{rgb}{0,.4, 0.1}
+\usepackage{array}
+\beamertemplatesolidbackgroundcolor{white}  \setbeamercolor{alerted
+text}{fg=red}
+
+\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}
+
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{colortbl}
+%\usepackage[usenames, dvipsnames]{color}
+%\setbeamertemplate{caption}[numbered]\newcounter{mylastframe}c
+%\newcolumntype{Y}{\columncolor[cmyk]{0, 0, 1, 0}\raggedright}
+%\newcolumntype{C}{\columncolor[cmyk]{1, 0, 0, 0}\raggedright}
+%\newcolumntype{G}{\columncolor[rgb]{0, 1, 0}\raggedright}
+%\newcolumntype{R}{\columncolor[rgb]{1, 0, 0}\raggedright}
+
+%\begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Block}
+%$A = B$.
+%\end{beamerboxesrounded}}
+\renewcommand{\familydefault}{cmss}
+%\usepackage[all]{xy}
+
+\usepackage{tikz}
+\usepackage{lipsum}
+
+ \newenvironment{changemargin}[3]{%
+ \begin{list}{}{%
+ \setlength{\topsep}{0pt}%
+ \setlength{\leftmargin}{#1}%
+ \setlength{\rightmargin}{#2}%
+ \setlength{\topmargin}{#3}%
+ \setlength{\listparindent}{\parindent}%
+ \setlength{\itemindent}{\parindent}%
+ \setlength{\parsep}{\parskip}%
+ }%
+\item[]}{\end{list}}
+\usetikzlibrary{arrows}
+%\usepackage{palatino}
+%\usepackage{eulervm}
+\usecolortheme{lily}
+
+\newtheorem{com}{Comment}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+ \numberwithin{equation}{section}
+
+
+\title[Methodology I] % (optional, nur bei langen Titeln nötig)
+{Math Camp}
+
+\author{Justin Grimmer}
+\institute[Stanford University]{Professor\\Department of Political Science \\  Stanford University}
+\vspace{0.3in}
+
+\date{September 19th, 2017}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\begin{frame}
+
+
+Questions?\\
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+
+Today:
+\begin{itemize}
+\item[1)] Properties of Expectations
+\item[2)] Changing Coordinates
+\item[3)] Moment Generating Functions
+\item[4)] Inequalities 
+\item[5)] Convergence
+\end{itemize}
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Iterated Expectations}
+
+\begin{prop}
+Suppose $X$ and $Y$ are random variables.  Then 
+
+\begin{eqnarray}
+E[X] & = & E[E[X|Y]] \nonumber 
+\end{eqnarray}
+
+
+
+
+\end{prop}
+
+
+\begin{itemize}
+\item[-] Inner Expectation is $E[X|Y] = \int_{-\infty}^{\infty} x f_{X|Y} (x|y) dx$.  
+\item[-] Outer expectation is over $y$.  
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Iterated Expectations}
+
+\pause 
+\begin{proof}
+\begin{eqnarray}
+\invisible<1>{E[E[X|Y]] & = & \int_{-\infty}^{\infty}  \int_{-\infty}^{\infty} x f_{X|Y} (x|y) f_{Y}(y) dx dy \nonumber \\} \pause 
+ \invisible<1-2>{&= & \int_{-\infty}^{\infty}  \int_{-\infty}^{\infty} x f_{X|Y} (x|y) f_{Y}(y) dy dx \nonumber \\} \pause 
+ \invisible<1-3>{& = & \int_{-\infty}^{\infty} x \int_{-\infty}^{\infty}  f(x, y) dy dx  \nonumber \\} \pause 
+ \invisible<1-4>{& = & \int_{-\infty}^{\infty}  x f_{X}(x) dx  \nonumber \\} \pause 
+  \invisible<1-5>{& =& E[X] \nonumber } 
+\end{eqnarray}
+
+
+
+\end{proof}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Iterated Expectations}
+
+\begin{defn}
+Suppose $Y$ is a continuous random variable with $Y \in [0,1]$ and pdf of $Y$ given by 
+
+\begin{eqnarray}
+f(y) & = & \frac{\Gamma(\alpha_1 + \alpha_2)}{\Gamma(\alpha_{1} ) \Gamma(\alpha_{2})} y^{\alpha_{1} - 1} (1- y)^{\alpha_{2} - 1 } \nonumber 
+\end{eqnarray}
+
+Then we will say $Y$ is a \alert{Beta} distribution with parameters $\alpha_{1}$ and $\alpha_{2}$.  Equivalently,
+\begin{eqnarray}
+Y & \sim & \text{Beta}(\alpha_{1}, \alpha_{2} ) \nonumber 
+\end{eqnarray}
+
+
+
+\end{defn}
+
+
+\begin{itemize}
+\item[-] Beta is a distribution on \alert{proportions} 
+\item[-] Beta is a special case of the \alert{Dirichlet} distribution 
+\item[-] $E[Y] = \frac{\alpha_{1}}{\alpha_{1} + \alpha_{2}}$
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Iterated Expectations}
+
+Suppose 
+\begin{eqnarray}
+\pi & \sim & \text{Beta}(\alpha_{1}, \alpha_{2}) \nonumber \\
+Y|\pi, n & \sim & \text{Binomial}(n, \pi)\nonumber 
+\end{eqnarray}
+
+What is $E[Y]$? \pause 
+
+\begin{eqnarray}
+\invisible<1>{E[Y] & = & E[E[Y| \pi]] \nonumber \\} \pause 
+\invisible<1-2>{& = & \int_{-\infty}^{\infty} \sum_{j = 0}^{N} {{N}\choose{j}} j p(j|\pi) f(\pi) d\pi \nonumber \\} \pause 
+\invisible<1-3>{ & = & \int_{-\infty}^{\infty} N \pi f(\pi) d\pi \nonumber  \\} \pause 
+  \invisible<1-4>{& = & N \frac{\alpha_{1}}{\alpha_{1} + \alpha_{2}} \nonumber } 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Change of Coordinates}
+
+
+\begin{prop}
+Suppose $X$ is a random variable and $Y = g(X)$, where $g:\Re \rightarrow \Re$ that is a $monotonic$ function.  \\
+Define $g^{-1}:\Re \rightarrow \Re$ such that $g^{-1}(g(X)) = X$ and is differentiable.  Then, 
+\begin{eqnarray}
+f_{Y}(y) & = & f_{X}(g^{-1}(y))\left|\frac{\partial g^{-1}(y)}{\partial y} \right| \text{ if $y = g(x)$ for some $x$ } \nonumber \\
+& = & 0 \text{ otherwise } \nonumber 
+\end{eqnarray}
+
+\end{prop}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Change of Coordinates}
+
+
+\begin{proof}
+
+Suppose $g(\cdot)$ is monotonically increasing (WLOG)\pause 
+\begin{eqnarray}
+\invisible<1>{F_{Y}(y) & = & P(Y \leq y) \nonumber \\} \pause 
+\invisible<1-2>{& = & P(g(X) \leq y) \nonumber \\} \pause 
+\invisible<1-3>{& = & P(X \leq g^{-1}(y) ) \nonumber \\} \pause 
+\invisible<1-4>{& = & F_{X}(g^{-1}(y) ) \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-5>{Now differentiating to get the pdf } \pause 
+\begin{eqnarray}
+\invisible<1-6>{\frac{\partial F_{Y}(y)}{\partial y} & = & \frac{\partial F_{X}(g^{-1}(y) )} {\partial y } \nonumber \\
+ & = & f_{X}(g^{-1}(y) ) \frac{\partial g^{-1}(y)}{\partial y }   \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-7>{Then this is a pdf because $\frac{\partial g^{-1}(Y)}{\partial y } > 0$.  } 
+
+
+\end{proof}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Change of Coordinates}
+
+Suppose $X$ is a random variable with pdf $f_{X}(x)$.  Suppose $Y =  X^{n}$.  Find $f_{Y}(y)$. \pause  \\
+\invisible<1>{Then $g^{-1} (x)  =  x^{1/n}$.  } \pause 
+
+
+
+
+\begin{eqnarray}
+\invisible<1-2>{f_{Y}(y) & = & f_{X}(g^{-1}(y)) \left| \frac{\partial g^{-1}(Y)}{\partial y } \right| \nonumber \\} \pause 
+\invisible<1-3>{ & = & f_{X} (y^{1/n} ) \frac{y^{\frac{1}{n} - 1}}{n} \nonumber } 
+\end{eqnarray}
+\pause
+\invisible<1-4>{\alert{We've used this to derive many of the pdfs}} \pause 
+\begin{itemize}
+\invisible<1-5>{\item[-] Normal distribution }
+\invisible<1-5>{\item[-] Chi-Squared Distribution}
+\end{itemize}
+
+
+
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Moment Generating Functions}
+
+
+\begin{defn}
+Suppose $X$ is a random variable with pdf $f$.  Define, 
+\begin{eqnarray}
+E[X^{n}] & = & \int_{-\infty}^{\infty} x^{n} f(x) dx   \nonumber 
+\end{eqnarray}
+
+We will call $X^{n}$ the \alert{$n^{\text{th}}$} moment of $X$ 
+
+\end{defn}
+
+\begin{itemize}
+\item[-] By this definition $var(X) = \text{Second Moment} - \text{First Moment}^{2} $
+\item[-] We are assuming that the integral converges
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Moment Generating Functions}
+
+\begin{prop}
+Suppose $X$ is a random variable with pdf $f(x)$.  Call $M(t) = E[e^{tX}]$, 
+\begin{eqnarray}
+M(t) & = & E[e^{tX}] \nonumber \\
+ & = & \int_{-\infty}^{\infty} e^{tx} f(x) dx \nonumber 
+ \end{eqnarray}
+
+We will call $M(t)$ the moment generating function, because:
+\begin{eqnarray}
+\frac{\partial^{n} M (t) }{\partial^{n} t}|_{0} & = & E[X^{n}] \nonumber 
+\end{eqnarray}
+
+(Assuming that we can interchange derivative and integral)
+
+\end{prop}
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+\scalebox{0.25}{\includegraphics{Meme.jpg}}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Moment Generating Functions}
+
+\begin{small}
+\begin{proof}
+Recall the Taylor Expansion of $e^{tX}$ at $0$, \pause 
+\begin{eqnarray}
+\invisible<1>{e^{tX} & = & 1 + tx + \frac{t^2 x^2}{2!} + \frac{t^3 x^3}{3!} + \hdots \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-2>{Then, } \pause 
+\begin{eqnarray}
+\invisible<1-3>{E[e^{tX} ] & = &  1 + tE[X] + \frac{t^2}{2!} E[X^2] + \frac{t^3}{3!} E[X^3] + \hdots \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-4>{Differentiate once:} \pause 
+\begin{eqnarray}
+\invisible<1-5>{\frac{\partial M(t)}{\partial t} & = & 0 + E[X]  + \frac{2t}{2!} E[X^2] + \hdots \nonumber \\
+M^{'}(0) & = & 0 + E[X] + 0 + 0 \hdots \nonumber } 
+\end{eqnarray}
+
+
+
+
+
+\end{proof}
+
+\end{small}
+
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{small}
+\begin{proof}
+
+Differentiate $n$ times \pause 
+\begin{eqnarray}
+\invisible<1>{\frac{\partial^{n} M(t)}{\partial^{n} t } & = & 0 + 0 + 0 + \hdots + \frac{n \times n-1 \times \hdots 2 \times t^{0} E[X^{n}] }{n!}  + \frac{n!t E[X^{n+1}] }{(n+ 1)! } + \hdots \nonumber \\} \pause 
+\invisible<1-2>{& = & \frac{n! E[X^{n}] }{n!}  + \frac{n!t E[X^{n+1}] }{(n+ 1)! } + \hdots  \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-3>{Evaluated at 0, yields $M^{n}(0)  = E[X^{n}] $} \pause 
+
+\end{proof}
+
+\begin{itemize}
+\invisible<1-4>{\item[-] If two random variables, $X$ and $Y$ have the same moment generating functions, then $F_{X}(x) = F_{Y}(x)$ for \alert{almost all} $x$.  } 
+\end{itemize}
+
+
+\end{small}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The Moments of the Normal Distribution}
+Suppose $Z \sim N(0,1)$.  \pause 
+
+\begin{eqnarray}
+\invisible<1>{E[e^{tX}] & = & \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{tx} e^{-x^2/2} dx \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-2>{$tx - \frac{1}{2} x^2 = -\frac{1}{2}\left( ( x - t)^2 - t^2 \right)$} \pause 
+
+\begin{eqnarray} 
+\invisible<1-3>{E[e^{tX}] & = & \frac{1}{\sqrt{2\pi}}  e^{\frac{t^{2}}{2}}\int_{-\infty}^{\infty} e^{-(x- t)^2/2} dx \nonumber \\} \pause 
+ \invisible<1-4>{& = & e^{\frac{t^{2}}{2}} \nonumber } 
+\end{eqnarray}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Extracting Moments of the Normal Distribution}
+
+\pause 
+\begin{eqnarray}
+\invisible<1>{M^{'}(0) & = &E[X] =  e^{t^2/2} t |_{0} = 0 \nonumber \\} \pause
+\invisible<1-2>{M^{''} (0 ) & = & E[X^2] =  e^{t^2/2} (t^2 + 1) |_{0} = 1 \nonumber \\} \pause 
+\invisible<1-3>{M^{'''} (0) & = & E[X^3] = e^{t^2/2} t (t^2 + 3) |_{0} = 0 \nonumber \\} \pause 
+\invisible<1-4>{M^{''''} (0) & = & E[X^4] = e^{t^2/2} (t^4 + 6t^2 + 3)|_{0} = 3 \nonumber } \\ \pause 
+\invisible<1-5>{M^{5} (0) & = & E[X^5] = e^{t^2/2} t (t^4 + 10t^2 + 15)|_{0} = 0 \nonumber } \\ \pause 
+\invisible<1-6>{M^{6} (0) & = & E[X^6] = e^{t^2/2} (t^6 + 15t^4 + 45t^2 + 15 )|_{0} = 15 \nonumber } \pause 
+\end{eqnarray} 
+
+
+\end{frame}
+
+\begin{frame}
+
+\begin{prop}
+Suppose $X_{i}$ are a sequence of independent random variables.  Define 
+\begin{eqnarray}
+Y & = & \sum_{i=1}^{N} X_{i} \nonumber 
+\end{eqnarray}
+
+Then 
+\begin{eqnarray}
+M_{Y}(t) & = & \prod_{i=1}^{N} M_{X_{i}}(t) \nonumber 
+\end{eqnarray}
+
+
+\end{prop}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{proof}
+\begin{eqnarray}
+M_{Y}(t) & = & E[e^{tY}] \nonumber \\ \pause 
+\invisible<1>{& = & E[e^{t\sum_{i=1}^{N} X_{i} } ] \nonumber \\ } \pause 
+ \invisible<1-2>{& = & E[e^{tX_{1} + tX_{2} + \hdots tX_{N} } ] \nonumber \\} \pause 
+  \invisible<1-3>{& = & E[e^{tX_{1} }]E[e^{tX_{2} }] \hdots E[e^{tX_{N} }] \text{ (by independence) } \nonumber \\} \pause 
+   \invisible<1-4>{& = & \prod_{i=1}^{N} E[e^{tX_{i}}] \nonumber } 
+\end{eqnarray}
+
+\end{proof}
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Inequalities and Limit Theorems}
+
+
+\alert{Limit Theorems}
+\begin{itemize}
+\item[-] What happens when we consider a long sequence of random variables ?
+\item[-] What can we reasonably infer from data?
+\begin{itemize}
+\item[-] Laws of large numbers: averages of random variables converge on expected value?
+\item[-] Central Limit Theorems: sum of random variables have normal distribution?
+\end{itemize}
+\item[-] We'll focus on intuition for both, but we'll prove some stuff too.  
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Weak Law of Large Numbers}
+
+Proof plan: 
+\begin{itemize}
+\item[-] Markov's Inequality
+\item[-] Chebyshev's Inequality
+\item[-] Weak Law of Large Numbers 
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Markov's Inequality}
+
+\begin{prop}
+Suppose $X$ is a random variable that takes on non-negative values.  Then, for all $a>0$, 
+\begin{eqnarray}
+P(X\geq a) & \leq & \frac{E[X]}{a} \nonumber 
+\end{eqnarray}
+\end{prop}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Markov's Inequality} 
+
+
+\begin{proof}
+For $a>0$,  \pause 
+\begin{eqnarray}
+\invisible<1>{E[X] & = & \int_{0}^{\infty} x f(x) dx \nonumber \\} \pause 
+ \invisible<1-2>{& = & \int_{0}^{a} x f(x) dx + \int_{a}^{\infty} x f(x) dx \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-3>{Because $X\geq 0$, } \pause 
+
+\begin{eqnarray}
+\invisible<1-4>{E[X] \geq \int_{a}^{\infty} x f(x) dx  \geq \int_{a}^{\infty} a f(x)dx = a P(X \geq a )\nonumber \\} \pause 
+\invisible<1-5>{\frac{E[X]}{a} \geq P(X \geq a )\nonumber } 
+\end{eqnarray}
+
+
+\end{proof}
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Chebyshev's Inequality} 
+
+\begin{prop} 
+If $X$ is a random variable with mean $\mu$ and variance $\sigma^2$, then, for any value $k>0$, 
+\begin{eqnarray}
+P(|X - \mu| \geq k) & \leq & \frac{\sigma^2}{k^2} \nonumber 
+\end{eqnarray}
+
+\end{prop}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Chebyshev's Inequality} 
+
+
+\begin{proof}
+Define the random variable 
+\begin{eqnarray}
+ Y & = & (X - \mu)^2 \nonumber 
+\end{eqnarray}
+
+Where $\mu = E[X]$. 
+
+\pause 
+
+\invisible<1>{Then we know $Y$ is a non-negative random variable.  Set $a = k^2$.  \\} \pause 
+\invisible<1-2>{Applying the inequality:} \pause 
+\begin{eqnarray}
+\invisible<1-3>{P(Y \geq k^2) \leq \frac{E[Y]}{k^2} \nonumber \\} \pause 
+\invisible<1-4>{P( (X- \mu)^2 \geq k^2) \leq \frac{E[(X - \mu)^2]}{k^2} \nonumber \\} \pause 
+\invisible<1-5>{P( (X- \mu)^2 \geq k^2) \leq \frac{\sigma^2}{k^2}\nonumber } 
+\end{eqnarray}
+
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Chebyshev's Inequality} 
+
+
+Further we know that, 
+\begin{eqnarray}
+(X - \mu)^2  \geq k^2 \nonumber 
+\end{eqnarray}
+
+\pause 
+
+\invisible<1>{Implies that } \pause 
+\begin{eqnarray}
+\invisible<1-2>{|X - \mu| \geq k \nonumber } \pause 
+\end{eqnarray}
+
+\invisible<1-3>{Thus, we have shown } \pause 
+\begin{eqnarray}
+\invisible<1-4>{P( |X- \mu| \geq k) \leq \frac{\sigma^2}{k^2}\nonumber } 
+\end{eqnarray}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Sequence of Random Variables}
+
+Sequence of Independent and Identically, Distributed Random variables.
+\begin{itemize}
+\item[-] Sequence: $X_{1}, X_{2}, \hdots, X_{n}, \hdots $
+\item[-] Think of a sequence as sampled \alert{data}:
+\begin{itemize}
+\item[-] Suppose we are drawing a sample of $N$ observations
+\item[-] Each observation will be a random variable, say $X_{i}$
+\item[-] With realization $x_{i}$ 
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Mean/Variance of Sample Mean}
+
+\begin{prop}
+Let $X_{1}, X_{2}, \hdots, X_{n}$ be a random sample from a distribution with mean $\mu$ and variance $\sigma^2$.  Let $\bar{X}_{n}$ be the sample mean.  Then 
+$E[\bar{X}_{n}] = \mu$ and var$(\bar{X}_{n}) = \frac{\sigma^2}{n}$
+\end{prop}
+
+\pause 
+\begin{proof}
+
+\begin{eqnarray}
+\invisible<1>{E[\bar{X}_{n}] & = & \frac{1}{n}\sum_{i=1}^{n} E[X_{i}] \nonumber \\} \pause 
+\invisible<1-2>{& = & \frac{1}{n} n \mu  = \mu \nonumber } 
+\end{eqnarray}
+
+
+
+\end{proof}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Mean/Variance of Sample Mean}
+
+
+\pause 
+\begin{eqnarray}
+\invisible<1>{\text{var}(\bar{X}_{n}) & = & \frac{1}{n^2} \text{var}(\sum_{i=1}^{n} X_{i}) \nonumber \\} \pause 
+ \invisible<1-2>{&= & \frac{1}{n^2} \sum_{i=1}^{n} \text{var}(X_{i}) \nonumber \\} \pause 
+  \invisible<1-3>{& = & \frac{1}{n^2} n \sigma^2 = \frac{\sigma^2}{n} \nonumber } 
+\end{eqnarray}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Weak Law of Large Numbers} 
+
+\begin{prop}
+Suppose $X_{1}, X_{2}, \hdots, X_{n}$ is a random sample from a distribution with mean $\mu$ and $Var(X_{i})= \sigma^2$.  Then, for all $\epsilon >0$, 
+\begin{eqnarray}
+P\left\{ \left| \frac{X_{1} + X_{2} + \hdots + X_{n} }{n} -\mu \right| \geq \epsilon \right\} \rightarrow 0 \text{ as } n \rightarrow \infty \nonumber 
+\end{eqnarray}
+
+\end{prop}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Weak Law of Large Numbers}
+
+\begin{proof}
+From our previous proposition \pause 
+\begin{eqnarray}
+\invisible<1>{\frac{\text{E}[X_{1} + X_{2} + \cdots + X_{n} ]}{n} & = & \frac{\sum_{i=1}^{n} E[X_{i}] }{n}  = \mu \nonumber} \pause 
+\end{eqnarray}
+\invisible<1-2>{Further, } \pause 
+\begin{eqnarray}
+\invisible<1-3>{\text{E}[ (\frac{\sum_{i=1}^{n} X_{i} - \mu}{n} )^2] = \frac{\text{Var}(X_{1} + X_{2} + \cdots + X_{n} )}{n^2} & = & \frac{ \sum_{i=1}^{n} \text{Var}(X_{i}) }{n^2} = \frac{\sigma^2}{n} \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-4>{Apply Chebyshev's Inequality: } \pause 
+\begin{eqnarray}
+\invisible<1-5>{P\left\{ \left| \frac{X_{1} + X_{2} + \hdots + X_{n} }{n} -\mu \right| \geq \epsilon \right\}\leq \frac{\sigma^2}{n \epsilon^2} \nonumber }
+\end{eqnarray}
+
+\end{proof}
+
+
+\end{frame}
+
+\begin{frame}
+Suppose $X_{1}, X_{2}, \hdots$ are iid normal distributions,
+\begin{eqnarray}
+X_{i} & \sim & \text{Normal}(0, 10) \nonumber 
+\end{eqnarray}
+
+\begin{eqnarray} 
+P\left\{ \left| \frac{X_{1} + X_{2} + \hdots + X_{n} }{n} -\mu \right| \geq 0.1 \right\} \text{ as } n \rightarrow \infty\nonumber 
+\end{eqnarray}
+\pause 
+
+
+\only<1-2>{\invisible<1>{\begin{center}
+\scalebox{0.4}{\includegraphics{c8fig.pdf}}
+\end{center}
+
+}
+
+}
+
+\only<3-6>{Suppose we want to guarantee that we have at most a $0.01$ probability of being more than $0.1$ away from the true $\mu$.  How big do we need $n$?\pause 
+\begin{eqnarray}
+\invisible<1-3>{0.01 & = & \frac{10}{n (0.1^2) } \nonumber} \pause  \\
+\invisible<1-4>{n & = & \frac{1000}{0.01} \nonumber } \pause \\
+\invisible<1-5>{n & = & 100,000 } \nonumber 
+\end{eqnarray}
+}
+
+
+\end{frame}
+
+%
+%\begin{frame}
+%\frametitle{Strong Law of Large Numbers}
+%Statement\\
+%Difference: this says equality, other says that it gets really close (but fails to establish equality) \\
+%Give intuition for this 
+%\end{frame}
+%
+%
+%
+%\begin{frame}
+%\frametitle{Central Limit Theorem} 
+%
+%Statement, intuition, and examples.  
+%
+%
+%\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Sequences and Convergence} 
+
+Sequence (refresher):\\
+\begin{eqnarray}
+\left\{a_{i} \right\}_{i=1}^{\infty} & =  & \left\{a_{1}, a_{2}, a_{3}, \hdots, a_{n}, \hdots, \right\} \nonumber 
+\end{eqnarray}
+
+
+\begin{defn}
+We say that the sequence $\left\{a_{i} \right\}_{i=1}^{\infty} $ converges to real number $A$ if for each $\epsilon>0$ there is a positive integer $N$ such that for $n\geq N$, $|a_{n} - A| < \epsilon$
+\end{defn}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Sequences and Convergence} 
+
+
+Sequence of functions: 
+\begin{eqnarray}
+\left\{ f_{i} \right\}_{i=1}^{\infty}  & = & \left\{f_{1}, f_{2}, f_{3}, \hdots, f_{n}, \hdots, \right\}\nonumber 
+\end{eqnarray}
+
+\begin{defn}
+Suppose $f_{i}: X \rightarrow \Re$ for all $i$.  Then $\left\{ f_{i} \right\}_{i=1}^{\infty} $ converges \alert{pointwise} to $f$ if, for all $x \in X$ and $\epsilon> 0$, there is an $N$ such that for all $n\geq N$,  
+\begin{eqnarray}
+|f_{n} (x)  - f(x)|<\epsilon \nonumber 
+\end{eqnarray}
+\end{defn}
+
+This is as strong of a statement as we're likely to make in statistics \\
+
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Convergence Definitions}
+
+Define $\widehat{\theta}_{n}$ to be estimator for $\theta$ based on $n$ observations.  \pause  \\
+\invisible<1>{\alert{Sequence} of estimators: increasing sample size} \pause \\
+\begin{eqnarray}
+\invisible<1-2>{\left\{\widehat{\theta}_{i}\right\}_{i=1}^{n} &= & \left\{\widehat{\theta}_{1}, \widehat{\theta}_{2},    \widehat{\theta}_{3}, \hdots, \widehat{\theta}_{n} \right\} \nonumber} \pause  
+ \end{eqnarray}
+
+\invisible<1-3>{Question: What can we say about $\left\{\widehat{\theta}_{i}\right\}_{i=1}^{n}$ as $n\rightarrow \infty$? } \pause 
+\begin{itemize}
+\invisible<1-4>{\item[-] What is the probability $\widehat{\theta}_{n}$ differs from $\theta$?  } \pause 
+\invisible<1-5>{\item[-] What is the probability $\left\{\widehat{\theta}_{i}\right\}_{i=1}^{n} $ converges to $\theta$? } \pause 
+\invisible<1-6>{\item[-] What is sampling distribution of $\widehat{\theta}_{n}$ as $n \rightarrow \infty$ ? } 
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Convergence in Probability}
+
+\pause 
+\invisible<1>{\begin{defn} 
+We will say the sequence $\widehat{\theta}_{n}$ converges in probability to $\theta$ (perhaps a non-degenerate RV)  if, 
+\begin{eqnarray}
+\lim_{n\rightarrow\infty} Prob(|\widehat{\theta}_{n} - \theta | > \epsilon ) = 0 \nonumber 
+\end{eqnarray}
+For any $\epsilon>0$
+\end{defn}} \pause 
+
+\begin{itemize}
+\invisible<1-2>{\item[-] $\epsilon$ is a tolerance parameter: how much error around $\theta$?} \pause 
+\invisible<1-3>{\item[-] In the limit, convergence in probability implies sampling distribution collapses on a spike at $\theta$} \pause 
+\invisible<1-4>{\item[-] $\left\{\widehat{\theta}_{i}\right\}$ need not actually converge to $\theta$, only P($|\theta_{n}$ - $\theta| > \epsilon) = 0 $ } 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example (Cassella and Burger)} 
+\pause 
+\invisible<1>{Suppose $S \sim $ Uniform(0,1).  Define $X(s) = s$. } \pause \\
+\invisible<1-2>{Suppose $X_{n}$ is define as follows: } \pause 
+\begin{eqnarray}
+\invisible<1-3>{X_{1}(s) = s + I(s \in [0,1]) & ,&  X_{2} (s)  = s +  I(s \in [0,1/2]) \nonumber \\} \pause
+\invisible<1-4>{ X_{3}(s)  = s + I(s \in [1/2, 1])& ,&  X_{4}(s) = s + I(s \in [0,1/3]) \nonumber \\} \pause
+\invisible<1-5>{ X_{5} (s)  =  s + I(s \in [1/3,2/3]) & ,&  X_{6}(s) = s + I(s \in [2/3, 1]) \nonumber } \pause
+\end{eqnarray}
+\invisible<1-6>{Does $X_{n}(s)$ pointwise converge to $X(s)$? \\} \pause
+\invisible<1-7>{Does $X_{n}(s) $ converge in probability to $X(s)$?} \pause
+
+\begin{eqnarray}
+\invisible<1-8>{P(|X_{n} - X | > \epsilon)  & = &P ( s \in [l_{n}, u_{n} ] ) \nonumber } \pause
+\end{eqnarray} 
+
+\invisible<1-9>{Length of $[l_{n}, u_{n}] \rightarrow 0  \Rightarrow P ( s \in [L_{n}, U_{n} ] )   = 0 $} 
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Almost Sure Convergence} 
+
+\pause 
+\begin{defn} 
+\invisible<1>{We will say the sequence $\widehat{\theta}_{n}$ converges almost surely to $\theta$ if, 
+\begin{eqnarray}
+Prob(\lim_{n \rightarrow \infty} |\widehat{\theta}_{n} - \theta| > \epsilon ) = 0 \nonumber } \pause 
+\end{eqnarray}
+
+\end{defn}
+
+
+\begin{itemize}
+\invisible<1-2>{\item[-] Stronger: says that sequence converges to $\theta$ (almost everywhere) ) } \pause 
+\invisible<1-3>{\item[-] Think about definition of random variable: $\widehat{\theta}_{n}$ is a function from sample space to real line.} \pause 
+\invisible<1-4>{\item[-]  Almost sure says that, for all outcomes ($s$)  in  sample space ($S$) $s \in S$, } \pause 
+\begin{eqnarray} 
+\invisible<1-5>{\widehat{\theta}_{n}(s) & \rightarrow& \theta(s) \nonumber } \pause 
+\end{eqnarray}
+\invisible<1-6>{\item[] Except for a subset $\mathcal{N} \subset S $ such that $P(\mathcal{N}) = 0 $.  } 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example (Cassella and Burger)} 
+
+Suppose $S \sim $ Uniform(0,1).\\
+Suppose $X_{n}$ is define as follows: 
+\begin{eqnarray}
+X_{1}(s) = s + I(s \in [0,1]) & ,&  X_{2} (s)  = s +  I(s \in [0,1/2]) \nonumber \\
+ X_{3}(s)  = s + I(s \in [1/2, 1])& ,&  X_{4}(s) = s + I(s \in [0,1/3]) \nonumber \\
+ X_{5} (s)  =  s + I(s \in [1/3,2/3]) & ,&  X_{6}(s) = s + I(s \in [2/3, 1]) \nonumber 
+\end{eqnarray}
+Does $X_{n}(s) $ converge almost surely to $X(s) = s$?\pause 
+
+\invisible<1>{\alert{No!}: the sequence doesn't converge for each $s$} \pause \\
+\invisible<1-2>{For each value of $s$ the sequence varies between $s$ and $s + 1$ infinitely often } 
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Convergence in Distribution}
+We've talked about $\widehat{\theta}_{n}$'s sampling distribution converging to a normal distribution.\pause   \\
+\invisible<1>{This is \alert{convergence in distribution} }\pause 
+
+\begin{defn}
+\invisible<1-2>{$\widehat{\theta}_{n}$, with cdf $F_{n}(x)$,  converges in distribution to random variable $Y$ with cdf $F(x)$ if 
+\begin{eqnarray}
+\lim_{n\rightarrow \infty} |F_{n} (x) - F(x) | = 0 \nonumber 
+\end{eqnarray} 
+For all $x \in \Re$ where $F(x)$ is continuous.  } \pause 
+\end{defn}
+
+\begin{itemize}
+\invisible<1-3>{\item[-] Weakest form of convergence almost sure $\rightarrow$ probability $\rightarrow$ distribution } \pause 
+\invisible<1-4>{\item[-] Says that cdfs are equal, says nothing about convergence of underlying RV } \pause 
+\invisible<1-5>{\item[-] Useful for justifying use of some sampling distributions } 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Convergence in Distribution $\not \Rightarrow$ Convergence in Probability}
+
+Define $X \sim N(0,1)$ and each $X_{n} = - X$.  Then:
+
+$X_{n} \sim N(0,1)$ for all $n$ so $X_{n}$ trivially converges to $X$. But, 
+\begin{eqnarray}
+P(|X_{n} - X| > \epsilon ) & = & P(|X + X| > \epsilon) \nonumber \\
+							& = & P( |2X| > \epsilon) \nonumber \\
+						    & =  & P(|X| > \epsilon/2) \not \leadsto 0 \nonumber 
+\end{eqnarray}						    
+
+
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Central Limit Theorem}
+
+\begin{prop}
+Let $X_{1}$, $X_{2}, \hdots$ be a sequence of independent random variables with mean $\mu$ and variance $\sigma^2$.  Let $X_{i}$ have a cdf $P(X_{i} \leq x) = F(x)$ and moment generating function $M(t) = E[e^{tX_{i}}]$ .  Let $S_{n} = \sum_{i=1}^{n} X_{i}$.  Then 
+
+\begin{eqnarray}
+\lim_{n\rightarrow \infty} P\left( \frac{S_{n} - \mu n }{\sigma\sqrt{n}} \leq x \right) &  = &  \frac{1}{\sqrt{2\pi} } \int_{-\infty}^{x} \exp\left( -\frac{z^{2} }{2} \right) dz \nonumber 
+\end{eqnarray}
+
+
+\end{prop}
+
+\pause 
+\invisible<1>{Proof plan:}
+\begin{itemize}
+\invisible<1>{\item[1)] Rely on Fact that convergence of MGFs$\leadsto$ convergence in CDFs}
+\invisible<1>{\item[2)] Show that MGFs, in limit, converge on normal MGF}
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{prop}
+Let $F_{n}$ be a sequence of cumulative distribution functions with the corresponding moment generating functions $M_{n}$.  $F$ be a cdf with the moment generating functions $M$.  If $\lim_{n\rightarrow \infty} M_{n}(t) \rightarrow M(t)$ for all $t$ in some interval, then $F_{n}(x) \leadsto F(x)$ for all $x$ (when $F$ is continuous).  
+\end{prop}
+
+\pause 
+\invisible<1>{\begin{prop}
+Suppose $\lim_{n\rightarrow \infty} a_{n} \rightarrow a$, then 
+\begin{eqnarray}
+\lim_{n\rightarrow \infty} \left( 1 + \frac{a_{n}}{n}\right)^{n}  & = & e^{a} \nonumber 
+\end{eqnarray}
+
+\end{prop}
+}
+
+\pause 
+
+\invisible<1-2>{\begin{prop}
+Suppose $M(t)$ is a moment generating function some random variable $X$.  Then $M(0) = 1$.  
+\end{prop}}
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Proof of Central Limit Theorem (Courtsey of Swarthmore Notes)}
+
+\large{Proof.}
+Suppose $X_{1}, \hdots, X_{n}$ are iid variables with $E[X] = 0 $, variance $\sigma^{2}_{x}$, Moment Generating Function (MGF) $M_{x}(t)$. \pause  \\
+
+\invisible<1>{Let $S_{n} = \sum_{i=1}^{n} X_{i}$ and $Z_{n} = \frac{S_{n}}{\sigma_{x} \sqrt{n}}$. } \pause \\
+\invisible<1-2>{$M_{S_{n}}  = (M_{x}(t))^{n} $ and $M_{Z_{n}} (t) = \left(M_{x} \left(\frac{t}{\sigma_{x} \sqrt{n}}    \right)    \right)^{n}$} \pause \\
+\invisible<1-3>{Using Taylor's Theorem we can write
+\begin{eqnarray}
+M_{x} (s) & = & M_{x} (0)  + s M^{'}_{x}(0) + \frac{1}{2} s^2 M_{x}^{''}(0) + e_{s} \nonumber 
+\end{eqnarray}
+$e_{s}/s^2 \rightarrow 0 $ as $s\rightarrow 0$.  } 
+
+\end{frame}
+
+
+\begin{frame}
+\begin{eqnarray}
+M_{x} (s) & = & M_{x} (0)  + s M^{'}_{x}(0) + \frac{1}{2} s^2 M_{x}^{''}(0) + e_{s} \nonumber 
+\end{eqnarray}
+
+Filling  in the values we have 
+\begin{eqnarray}
+M_{x} (s) & = & 1  + 0 + \frac{\sigma_{x}^{2}}{2} s^2  + \underbrace{e_{s}}_{\text{Goes to zero}} \nonumber 
+\end{eqnarray}
+
+Set $s = \frac{t}{\sigma_{x} \sqrt{n}} $ $\lim_{n\rightarrow \infty} s \rightarrow 0$.  Then 
+
+\begin{eqnarray}
+M_{Z_{n}}(t) & = & \left(1 + \frac{\sigma_{x}^{2}}{2}\left( \frac{t}{\sigma_{x} \sqrt{n}} \right)^{2} \right)^{n} \nonumber \\
+& = & \left( 1 + \frac{t^{2}/2}{n} \right)^{n} \nonumber \\
+\lim_{n\rightarrow \infty} M_{Z_{n}}(t) & = & e^{\frac{t^2}{2}}\nonumber 
+\end{eqnarray}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+\end{document}
