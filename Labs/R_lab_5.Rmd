@@ -1,0 +1,478 @@
+---
+title: "R Lab 5 - Working with Random Variables"
+author: 
+- "TAs: Zuhad Hai and Jesse Yoder"
+date: "September 20, 2018"
+output: html_document
+theme: sandstone
+---
+
+
+# 1. Introduction to Random Variables
+
+### What is a random variable?
+
+A **random variable** is a function from the sample space (all outcomes) to a real number.  
+
+Examples: treatment assignment to three experimental units, where the random variable is the number of units that get treated. It can be arbitrary to assign certain values to an outcome: Is it going to rain tomorrow? $\rightarrow$ Yes = 1, No = 0.
+
+### Why care?
+
+Because we care about the probability that a random variable takes a certain value. This tells us the probability that certain events will happen, which helps us make predictions/estimations. For example, is China going to be a democracy by 2020? For Yes, X=1; for No, X=0. We are interested in the probability that X=1. *Note*: rather than saying Pr(China will be democratic) each time, Pr(X=1) is a more convenient/tractable way to represent what we mean.
+
+
+# 2. Discrete Random Variables
+
+We have seen that random variables take on values with some probability. The set of values a random variable can take on, and the associated probabilities with those values, is known as a **probability distribution**. The simplest random variables are **discrete**: they take on specific values (i.e., 0, 1, 2, ...) with precise probabilities.
+
+The most commonly used distributions of discrete random variables are:
+
+* Bernoulli
+* Binomial
+* Multinomial
+* Poisson
+
+
+### Bernoulli and Binomial
+
+A **Bernoulli** random variable takes on two possible values---1 or 0---with probabilities p and (1-p), respectively (or, alternatively, $\pi$ and $(1-\pi)$. 
+
+This distribution is extremely important in political science because we are constantly studying dichomtomous outcomes, e.g. voting (or not), going to war (or not), becoming a democracy (or not), or winning an election (or losing it). When studying one of these outcomes, the goal of the researcher may be to estimate the value of p, or estimate the influence of factors that contribute to p: i.e., under certain conditions, what is the probability that some event occurs? Understanding random variables and their properties lies at the root of the techniques we use to tackle these complex questions.
+
+If we have repeated Bernoulli trials, then we have a random variable that is distributed **Binomial**. This variable has two parameters, n (the number of trials) and p (the probability of sucess in each trial). Put another way, a Bernoulli random variable is a Binomial random variable with parameters n=1 and p. We can therefore use the "binom()" functions in R to deal with both types of variables. 
+
+
+### Dealing with distributions in R
+
+Let's take a look at the help file for one of these functions:
+
+```{r}
+rm(list=ls())
+?rbinom
+```
+
+We see there are four functions associated with this probability distribution: "dbinom()", "pbinom()", "qbinom()" and "rbinom()". These four functions, with prefixes "d", "p", "q" and "r" are common to all the famous distribution functions in R, and always perform the same tasks. 
+
+#### prefix "r": Taking random draws
+
+Let's start with "rbinom()" which takes random draws from a distribution given the parameters we specify."rbinom()" takes three mandatory arguments: n, size and prob:
+
+1) "n" is the number of observations, i.e., the number of collections of trials to be run. 
+2) "size" is the number of trials within each of those collections. This can be somewhat confusing, since in most stats texbooks, "n" denotes the number of trials in each Binomial process. So we need to keep that straight here. 
+3) "prob" is the probability of success in each trial (equivalent to the parameter "p" in a stats book). 
+
+For example, consider repeated coin flips. Set n=2, size=10 and prob=.5. Here, we would be simulating 2 "experiments". In each experiment, a coin would be flipped 10 times (in other words, there will be ten trials in each of the two simulations). On each flip, the chance of a heads would be .5. "rbinom()" would then tally the number of successes (let's call heads a success) in each experiment, and report those sums.
+
+```{r}
+set.seed(98)
+rbinom(n=2, size=10, prob=.5)
+```
+
+The code spits out two numbers: 5 and 4. What do they mean?  
+$\rightarrow$ In the first experiment, 5 out of the 10 trials were a head. In the second, 4 were a head. 
+
+#### prefix "d": the probability of an outcome
+
+"dbinom()" produces the probability of a certain outcome given a binomial random variable with parameters n and p. That is, it gives us the height of the pmf at a specific value. Suppose we want to know the probability of exactly 3 heads in 10 coin flips if the probability of a head on a single flip is 0.3 (i.e., the coin is not "fair"; it favors tails).
+
+```{r}
+dbinom(x=3, size=10, prob=.3)
+```
+
+Note this function does not produce a random result. It just outputs a fixed analytical result given these parameters. 
+
+Question: What do the following lines of code produce?
+```{r}
+dbinom(x=0, size=10, prob=.3) + dbinom(x=1, size=10, prob=.3) + 
+  dbinom(x=2, size=10, prob=.3) + dbinom(x=3, size=10, prob=.3)
+
+sum(dbinom(x=0:3,size=10,prob=.3))
+```
+
+The previous chunk of code calculates the probability of having three or fewer successes when a coin with a success probability of 0.3 is flipped ten times.
+
+Let's visualize what's happening here:
+```{r}
+plot( 0:10, 0:10, col="white", ylab="Probability",
+      xlab="Number of Successes", main="PMF of Binomial RV (n=10, p=.3)", ylim=c(0, .3), 
+      frame.plot=FALSE, axes=FALSE)
+axis(1, at=seq(0,10,1), labels=T)
+axis(2, at=seq(0,1,.1), labels=T)
+segments(0:10, rep(0, 11),0:10, dbinom(x=0:10, size=10, prob=.3), 
+         lty=1, col=c(rep("red",4), rep("black", 7)) , lwd=2)
+```
+
+
+#### prefix "p": the cumulative mass function of a distribution
+
+There is a more efficient way to obtain this result: we can use the "pbinom()" function, which returns the value of the **cumulative mass function** at a specified quantile. 
+```{r}
+pbinom(q=3, size=10, prob=.3)
+```
+
+Let's visualize what pbinom is doing
+```{r}
+probs <- pbinom(0:10, 10, .3)
+probs2 <- pbinom(1:11, 10, .3)
+range <- 0:10
+plot(range, probs, type="p", axes=FALSE, pch=19, xlab="Number of Successes", 
+     ylab="Cumulative Probability", main="CMF of Binomial RV (n=10, p=.3)")
+segments(range, probs, range+1, probs, lty=1)##horizontal line
+segments(range+1, probs, range+1, probs2, lty=2)##horizontal line
+axis(1, at=seq(0,10,1), labels=T)  ##custom X axis
+axis(2, at=seq(0,1,.1), labels=T)  ##custom Y axis
+segments(0, pbinom(3, 10, .3),3, pbinom(3, 10, .3),  lty=2, col="red")
+segments(3, 0, 3, pbinom(3, 10, .3), lty=2, col="red")
+```
+
+To make sure we know the relation between the PMF and the CMF, let's look at these pictures side by side
+```{r}
+## combine the following plots in a matrix with 1 row, 2 columns
+par(mfrow=c(1,2)) 
+
+## first plot:
+plot( 0:10, 0:10, col="white", ylab="Probability",
+      xlab="Number of Successes", main="PMF of Binomial RV (n=10, p=.3)", 
+      ylim=c(0, 1), frame.plot=FALSE, axes=FALSE)
+axis(1, at=seq(0,10,1), labels=T)
+axis(2, at=seq(0,1,.1), labels=T)
+segments(0:10, rep(0, 11),0:10, dbinom(x=0:10, size=10, prob=.3), 
+         lty=1, col=c(rep("red",4), rep("black", 7)), lwd=2)
+
+## second plot:
+plot(range, probs, type="p", axes=FALSE, pch=19, xlab="Number of Successes", 
+     ylab="Cumulative Probability", main="CMF of Binomial RV (n=10, p=.3)")
+segments(range, probs, range+1, probs, lty=1)##horizontal line
+segments(range+1, probs, range+1, probs2, lty=2, col=c(rep("red",3), rep("black", 7)))##vertical line
+segments(range[1], 0, range[1], probs[1], lty=2, col="red")##horizontal line
+axis(1, at=seq(0,10,1), labels=T)  ##custom X axis
+axis(2, at=seq(0,1,.1), labels=T)  ##custom Y axis
+
+## return to default plot settings
+dev.off()
+```
+
+
+#### prefix "q": the cmf "reversed"  
+
+What if the situation were reversed? Say we knew there was some unknown number of successes, X, such that the probability of obtaining fewer than or equal to X successes in 10 trials was equal to 0.6496 ? How would we find the value of X?
+
+```{r}
+qbinom(p=.6496,size=10,prob=.3)
+```
+
+
+
+# 3. Exercises: Working with discrete random variables
+
+1) What does the code below mean? Interpret the input and output
+```{r}
+set.seed(98)
+rbinom(n=10, size=1, prob=.3)
+rbinom(n=1, size=10, prob=.3)
+```
+$\rightarrow$ 10 draws from a Bernoulli distribution with parameter p=.3  
+$\rightarrow$ 1 draw from a binomial distribution with 10 trials and p=.3
+
+2) Say we are tossing a fair coin 20 times. What is the probability of less than 10 heads?
+```{r}
+pbinom(q=9, size=20, prob=.5)
+```
+
+3) In the same setting, what is the probability of more than 11 heads?
+```{r}
+1 - pbinom(q=11, size=20, prob=.5)
+```
+
+4) What is the probability of exactly 3 heads in 10 coin flips if the probability of a head on a single flip is 0.3?
+```{r}
+dbinom(x=3, size=10, prob=.3)
+```
+
+5) What about the probability of 11 heads in 10 flips?
+```{r}
+dbinom(x=11, size=10, prob=.3)
+```
+
+
+# 4. Continuous Random Variables
+
+The most common continuous distributions you will work with in the methods sequence are:
+
+* Uniform Distribution
+* Normal Distribution
+* Student's t Distribution
+* Gamma Distribution
+* Chi-squared Distribution
+
+For now, we will only deal with the first two. But you will soon become familiar with the other distributions as well.
+
+### The Uniform Distribution
+
+Perhaps one of the easiest distributions to grasp is the **Uniform Distribution**. Random variables that are distributed uniformly exist over some specified interval (or range) and have an equal probability of taking on values within that range. The "unif()" functions help us to work with uniform distributions in R. The "runif()" function lets us take random draws from a uniform distribution. We need two parameters to define the PDF of a uniform distribution: the starting and ending points of the interval.
+
+To make random draws from the uniform distribution, we use **"runif()"**. This function takes three arguments: (1) "n" is the number of draws to take; (2) "min" defines the lower bound of the variable's range; and (3) "max" defines the upper bound. Notice that by default, the function is set to bounds of 0 and 1, a "standard" Uniform . 
+
+
+##### Exercises
+
+1) Take 1,000 draws from a standard uniform distribution and visually examine the results with a histogram. Add a vertical line at the mean of your draws.
+
+```{r}
+set.seed(98)
+draws <- runif(1000)
+hist(draws,ylim=c(0,120))
+abline(v=mean(draws,na.rm=TRUE),col="red")
+```
+
+2) Repeat the same exercise, this time with 100,000 draws. What do you notice?
+
+```{r}
+set.seed(98)
+draws <- runif(100000, min=-1, max=1)
+hist(draws)
+abline(v=mean(draws,na.rm=TRUE),col="red")
+```
+
+3) Now use the "density()" command to plot the PDF of the standard uniform distribution using your 10,000 draws from before.
+
+```{r}
+plot(density(draws), main="PDF of Standard Uniform Distribution")
+abline(v=mean(draws,na.rm=TRUE),col="red")
+```
+
+
+
+### The Normal Distribution
+
+Let's try another example of a random variable with a famous continuous distribution, the **Normal Distribution**.
+
+The pdf of the normal distribution: 
+$$f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}}e^{-\frac{(x - \mu)^2}{2\sigma^2}}$$
+
+The pdf of the standard normal distribution:
+$$f(x) = \frac{1}{\sqrt{2 \pi}}e^{-\frac{x^2}{2}}$$
+
+What parameters do we need to define the PDF of a normal distribution?
+$\mu$ (the mean) and $\sigma$ (the standard deviation). 
+
+Instead of jumping right to the canned functions, let's program and plot a standard normal PDF by hand.
+
+```{r}
+## defining the two key parameters
+mu <- 0
+sigma <- 1 ## (must be positive since it's a measure of distance (or "spread"))
+
+## Sequence of X values
+Z <- seq(from=-10, to=10,by=.001 )
+
+## The famous (standard) normal distribution
+norm.pdf<- (1 / (sqrt(2*pi*sigma^2))) * exp(-((Z-mu)^2)/(2*sigma^2)) 
+
+## plot
+plot(Z, norm.pdf, type="l", frame.plot=FALSE, 
+     main=expression("PDF of Z~" ~  italic(N)(0, 1)))
+```
+
+
+##### Exercises
+
+1) Try getting the same plot using the canned function in R. Which function will you use?
+```{r}
+Z <- seq(from=-10, to=10,by=.001 )
+plot(x=Z,y=dnorm(Z),type="l",
+     main=expression("PDF of Z~" ~ italic(N)(0,1)),ylab="Kernel Density")
+```
+
+2) Suppose we wanted to know the values of Z that correspond to the 2.5th and and 97.5th quantiles of the distribution? Which function should we use?
+```{r}
+criticals <- qnorm(p=c(.025,.975),mean=0,sd=1)
+criticals
+```
+
+3) These are famous quantiles which come in handy for hypothesis testing. Since our Normal distribution has a mean of 0 and a standard deviation of 1, we call this the "Standard Normal" distribution, which is central to hypothesis testing and inference (stay tuned). Visualize these quantiles (e.g., add vertical lines at both critical values or, if you feel fancy, shade the region between both values):
+
+```{r}
+## Plotting the pdf of the standard normal
+plot(x=Z,y=dnorm(Z),type="l",main=expression("PDF of Z~" ~ italic(N)(0,1)),ylab="Kernel Density")
+
+## Adding verticle lines for the 95% C.I.
+abline(v=criticals,lty=2,col="red")
+
+## Shading the area between both vertical lines
+topline <-  dnorm(Z[Z>= criticals[1] & Z<=criticals[2]], mean=0, sd=1)
+bottomline <- rep(0, times=length(topline))
+interval <- seq(from=criticals[1],to=criticals[2], length=length(topline))
+polygon(x=c(interval), y=c(topline), col=rgb(0,.4,.8,0.25), border=NA)
+```
+
+4) What proportion of the distribution is contained in the shaded region?
+```{r}
+pnorm(q=criticals[2], mean=0, sd=1) - pnorm(q=criticals[1], mean=0, sd=1)
+```
+
+
+
+# 5. Working with Random Variables in Real Data---the Central Limit Theorem
+
+### Introduction
+
+While it may be tricky if you are new to statistics, there are a lot of great things about working with known distributions. They have known moments (expected values). We are even familiar with their shapes. Unfortunately, working with observational data---data generated by the world, not the researcher---pretty much never affords us the same luxuries. In research, we examine random variables that often have unknown distributions. But often we can employ some (hopefully) reasonable assumptions and use known distributions to learn from data. 
+
+Let's go back to working with the subset of the 2012 CCES (Cooperative Congressional Election Study), which contains data on 5,000 randomly chosen individuals from the full 2012 CCES file.
+
+```{r, include=F}
+rm(list=ls())
+setwd("~/Dropbox/Math Camp 2014/Math Camp Labs (FINAL)/R labs 2016/")
+```
+
+```{r}
+cces <- read.csv("cces.2012.small.csv",header=TRUE,as.is=TRUE)
+```
+
+Recall that there are three things you should *always* do when you load a new dataset: 
+```{r}
+## check the class
+class(cces)
+
+## check the dimensions
+dim(cces)
+
+## visually inspect the first few rows
+head(cces)
+```
+
+Each row in the dataset corresponds to one voter. We see the data set contains a variable "$obama" which takes a 1 if the respondent said they voted for President Obama, and a 0 if they said they voted for someone else. Let's get started with two quick exercises:
+
+### Exercises
+
+1) What is the mean income of college educated Democrats who voted for President Obama?
+```{r}
+mean(cces$faminc3[cces$obama==1 & cces$dem==1 & cces$BA==1],na.rm=TRUE)
+```
+
+2) How about mean income among Obama voters who are non-Hispanic Black and live in Florida or California?
+```{r}
+mean1 <- mean(cces$faminc3[cces$obama==1 & cces$nhblack==1 &
+                             (cces$state=="Florida"|cces$state=="California")],na.rm=TRUE)
+mean1
+```
+
+
+### A Brief Intro to Bootstrapping
+
+When considering these numbers, we need to keep one fundamental issue in mind: the results we obtained above are only **estimates**. If we were to go out and sample another 5,000 people, we would expect a different result. This means this estimate has uncertainty associated with it. Determining how to characterize this uncertainty is one of the main endeavors of statistical analysis and is central to how we learn from data. We will be getting into the details of how to do this throughout the year, but for now, let's explore this idea with a **simulation**. 
+
+The core issue here is that an estimate is likely to change from sample to sample. We typically cannot go out and conduct many samples, but we can simulate the process using a for loop. Specifically, we can generate a new sample from the data we have by drawing 5,000 observations (the same number of observations in our data set) from our data *with* replacement:
+
+```{r}
+set.seed(58)
+
+## Somebody please walk us through this code
+data.sample <- cces[sample(nrow(cces), size=nrow(cces), replace=TRUE), ] 
+
+head(data.sample)
+mean2 <- mean(data.sample$faminc3[data.sample$obama==1 & data.sample$nhblack==1 & 
+                      (data.sample$state=="Florida" | cces$state=="California") ], na.rm=TRUE)
+out <- rbind(mean1, mean2, diff=mean1-mean2)
+out
+```
+
+Above, we drew only one sample from our data to estimate the mean income among non-hispanic black voters of President Obama in Florida or California. Next, we want to do this repeatedly. That is, to carry on with our simulation, suppose we conducted 3000 such polls, recording the same quantity of interest after each one. We can do this with a for loop.
+
+```{r}
+set.seed(98)
+
+niter <- 3000
+polls <- NA
+
+for (i in 1:niter){
+  data.sample <- cces[sample(nrow(cces), size=nrow(cces), replace=TRUE), ]
+  polls[i] <- mean(data.sample$faminc3[data.sample$obama==1 & data.sample$nhblack==1 & 
+                                         (data.sample$state=="Florida" | cces$state=="California") ], na.rm=TRUE)
+}
+```
+While the code is running, what do we expect to get out of this loop?
+
+Let's say each mean we calculated is a realization of a random variable Z. We don't know the distribution of Z, so as a first step, we can examine it with a histogram.
+
+```{r}
+hist(polls,breaks=20,main="Distribution of Estimates of Household Income",
+     xlab="Estimates of Household Income",freq=FALSE)
+```
+
+We call the distribution of polls the sampling distribution of average household income among Obama voters who satisfy the conditions above. What does this distribution look like?
+
+It looks pretty close to a **Normal Distribution**. But is it actually Normal? We can visually inspect this by overlaying the pdf of a normal distribution with the same mean and sd as the distribution of results. Let's use the "hist()" and "density()" commands to create two plots:
+
+```{r}
+mean.polls <- mean(polls)
+sd.polls <- sd(polls)
+range.polls <- seq(from=min(polls), to=max(polls), length=length(polls)) 
+
+par(mfrow=c(1,2))
+hist(polls,breaks=20,main="Distribution of Estimates of Household Income",
+     xlab="Estimates of Household Income",freq=FALSE, ylim=c(0, 0.06))
+lines(range.polls,dnorm(range.polls,mean=mean.polls,sd=sd.polls),col="red")
+legend("topleft", legend=c("Normal Density"), col=c("red"), lty=1,cex=0.6)
+
+plot(density(polls), main="Distribution of Estimates of Household Income",
+     xlab="Estimates of Household Income", ylim=c(0,0.06))
+lines(range.polls,dnorm(range.polls,mean=mean.polls,sd=sd.polls),col="red")
+legend("topleft", legend=c("Normal Density"), col=c("red"), lty=1,cex=0.6)
+```
+
+```{r, include=F}
+dev.off()
+```
+
+This looks like a very good fit. The reason is that this simulation has just illustrated a foundational theorem of statistics: the **Central Limit Theorem**. In words, the theorem states that distributions of large sample means are approximately Normally distributed *and* centered on the true value of the parameter being estimated. Amazingly, this is true no matter how the data within each sample are generated. You will dive further into this concept in 450A, but consider this an introduction to a very important axiom.
+
+Thus, the Central Limit Theorem tells us that the expected value of a distribution of sample means is the population mean. The mean of the sampling distribution (i.e. mean.polls in this case) is also our best guess for the true average household income among the subset of Obama voters we specified above. So let's calculate this best guess:
+
+```{r}
+mean.polls <- mean(polls)
+mean.polls
+```
+
+The simulation we just did is a process known as **bootstrapping**. The idea of bootstrapping is to simulate the "sampling distribution" of an estimator (in this case, the estimator is the sample mean) as a way of approximating its variability. 
+
+Specifically, we treat the original sample of 5000 voters as the population and repeatedly draw random samples from it with the same size of the original data (with replacement). At each time, we calculate the sample mean and plot the sampling distribution of these sample means. 
+
+
+### Standard Errors and Inference
+
+This simulation actually illustrates the core concept behind statistical inference. We know our initial estimate of the average income of this category of Obama supporters is probably not exactly right because it was based on one sample. We figure that if we took many samples---that is, if we generated the "sampling distribution" of our estiamtor---we would get a different answer each time. It might be very different, it might be only slightly different. These differences across samples imply that our estimates contain **uncertainty**. 
+
+To characterize this uncertainty, we can describe a range of estimates around our best guess of that true value of the parameter. If the range is wide, there is a lot of uncertainty in our estimate, and we may not be able to rule out certain candidate values. If it is small, we have a more precise estimator. 
+
+To characterize the uncertainty associated with this revised estimate (i.e. "mean.polls" in this case), we will introduce the concept of **standard error**, which is the standard deviation of the sampling distribution of an estimator (sample mean "polls" in this case). This is great definition to commit to memory. 
+
+```{r}
+sd(polls)
+```
+
+Another common method of characterizing uncertainty is to calculate the range of values around the mean of the sampling distribution that includes **95%** of the probability mass.
+
+Let's find the values that correspond to the 2.5th and 97.5th percentile of the sampling distribution of "polls", and add two vertical lines of them to the plot respectively.
+```{r}
+?quantile
+lower.bound <- quantile(polls,.025)
+upper.bound <- quantile(polls,.975)
+
+hist(polls, breaks=20, main="Distribution of Estimates of Mean Household Income", 
+     xlab="Mean Household Income", ylab="Probability Density", freq=FALSE,
+     ylim=c(0,0.06))
+lines(range.polls, dnorm(range.polls, mean=mean.polls, sd=sd.polls), col="red" )
+abline(v=quantile(polls, .025), col="blue", lty=2)
+abline(v=quantile(polls, .975), col="blue", lty=2)
+abline(v=mean(polls), col="gold3", lty=3, lwd=2)
+legend("topright", legend=c("Normal Density","mean","95% CI"), 
+       col=c("red","gold3","blue"), lty=c(1,1,2), lwd=c(1,2,1), cex=.8)
+text(x=quantile(polls, .025), y=41, labels=as.character(round(quantile(polls, .025), digits=2) ))
+text(x=quantile(polls, .975), y=41, labels=as.character(round(quantile(polls, .975), digits=2) ))
+text(x=mean(polls), y=52, labels=as.character(round(mean(polls), digits=2)))
+```
+
+The take away here: if we can describe the sampling distribution of an estimator, we can make statements about the uncertainty of our estimates. This will allow for both a more complete reporting of results, as well as formal tests of explicit hypotheses. 
+
