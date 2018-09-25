@@ -1,0 +1,310 @@
+---
+title: 'R HW 3'
+author: "Your name goes here"
+date: 'September 14, 2018'
+output: html_document
+theme: sandstone
+---
+
+# SOLUTIONS
+
+
+### Introduction
+
+We have already encountered cursory examples of ordinary least squares (OLS) regression. It turns out that as long as our data matrix, $X$ is full rank, then the OLS estimator for $\beta$, the vector of slopes of the best-fit line, can be written in matrix form as follows:
+
+$\hat{\beta} = (X'X)^{-1}X'Y$. In words: the inverse of the $X'X$ matrix, multiplied by the transpose of the $X$ matrix, multipled by $Y$.
+
+Typically, $X$ is a matrix of predictor variables that includes a constant (a column of 1's), and $Y$ is a vector of outcomes. The object $(X'X)^{-1}X'Y$ is a $k x 1$ matrix of estimated coefficients---one for each unknown in the model, including the constant. So for example, if we want to estimate the following model:
+
+$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \epsilon$$
+
+where $X_1$ and $X_2$ are both columns in the matrix $X$, $(X'X)^{-1}X'Y$ would return a vector of $k=3$ coefficient estimates: $\hat{\alpha}$, $\hat{\beta}_1$ and $\hat{\beta}_2$ (we use "hats" here to convey that these are estimates and not the true parameter values; an estimate of $\epsilon$, a vector of errors, is not included in this output vector).
+
+This assignment will focus on the mechanics of applying this estimator in R using matrix operations. In short, you are going to write your own OLS function!
+
+To do this, we are going to have you read in a real, uncleaned data set, clean it as needed, and then apply your OLS function to estimate an OLS model. After working through this, much of the mechanics in 450A should seem slightly less scary, or at least have a ring of familiarity when they arrive. This will also give you insight as to what is going on "under the hood" when we use canned OLS functions in R such as lm().
+
+
+
+### Problem 1: Pre-processing data
+
+1) Read in the "commoncontent2012.RData" data, which is the raw 2012 CCES data. Relabel this data frame "dd". Check the dimensions and examine the first few rows of the data. You will notice that all of these variables do not have intuitive names, and some of them contain weird values. So next we will need to pre-process these data.
+
+```{r, include=F}
+setwd("/Users/hanslueders/Dropbox/Math Camp/Math Camp Labs (FINAL)/R Homework 2016/")
+rm(list=ls())
+```
+
+```{r}
+load("commoncontent2012.RData")
+dd <- x
+dim(x)
+```
+
+2) We first want to identify the party of the respondents in these data. Let's make a new variable (i.e., a new column in our data frame) called "dem" that takes a 1 if a respondent self-identified as a Democrat (see pid3), or said they leaned toward the Democratic party (see pid7others) in a follow-up question, and a 0 otherwise. Do the same thing for Republicans using the same two variables. Hint: the functions table() and class() are useful for determining which values a variable contains and what type of vector it is, respectively.
+```{r}
+## What values does pid3 take?
+table(dd$pid3)
+
+## What values does pid7others take? 
+table(dd$pid7others)
+
+## Coding dummy variable for Democrats
+dd$dem <- 0
+dd$dem[dd$pid3 == "Democrat"] <- 1
+dd$dem[dd$pid7others == "Lean Democrat"] <- 1
+
+## Coding dummy variable for Republicans
+dd$rep <- 0
+dd$rep[dd$pid3 == "Republican"] <- 1
+dd$rep[dd$pid7others == "Lean Republican"] <- 1
+```
+
+3) For those labeled  "Skipped" or "Not asked" on pid3, code them as NA. For those labeled "Not sure", "Skipped" or "Not asked" on pid7others, code them as NA as well. How many respondents that identify as Democrats and Republicans, respectively, do you identify in the dataset?
+```{r}
+## Democrats
+dd$dem[dd$pid3 == "Skipped" | dd$pid3 == "Not Asked"] <- NA
+dd$dem[dd$pid7others == "Not Sure" | dd$pid7others == "Skipped" | dd$pid7others == 
+    "Not Asked"] <- NA
+
+## Republicans
+dd$rep[dd$pid3 == "Skipped" | dd$pid3 == "Not Asked"] <- NA
+dd$rep[dd$pid7others == "Not Sure" | dd$pid7others == "Skipped" | dd$pid7others == 
+    "Not Asked"] <- NA
+
+## How many Democrats and Republicans?
+table(dd$dem)
+table(dd$rep)
+```
+
+4) Make a new column in dd, age, that is a numeric equal to the respondent's age in years. Do this using the variable birthyr, which is a factor vector that conveys the respondent's year of birth. You may need to change the class of birthyr in order to accomplish this. Note that this survey was conducted in 2012. What is the mean age of all respondents in the dataset?
+```{r}
+## Class of birthyr is factor:
+class(dd$birthyr)
+
+## Creating a new variable, birthyr2, which is numeric
+dd$birthyr <- as.character(dd$birthyr)
+dd$birthyr <- as.numeric(dd$birthyr)
+
+## Generating the age variable
+dd$age <- 2012 - dd$birthyr
+
+## Mean age
+mean(dd$age, na.rm=T)
+```
+
+5) Create a new column---"female"---that equals 1 if the respondent is a female and 0 if the respondent is a male using the variable "gender". What percent of the respondents is female?
+```{r}
+## What values does the gender variable take?
+table(dd$gender, exclude = NULL)
+
+## Generating the variable "female"
+dd$female <- NA
+dd$female[dd$gender == "Male"] <- 0
+dd$female[dd$gender == "Female"] <- 1
+table(dd$female)
+
+## Percent of respondents that are female
+mean(dd$female)
+```
+
+6) Using the variable educ, create a column, BA, that equals 1 if the respondent has a Bachelor's Degree or higher, and 0 otherwise. Be mindful of the class of the original variable. Make sure BA ends up as numeric. How many respondents hold at least a B.A.?
+```{r}
+## What values does the educ variable take?
+table(dd$educ)
+
+## Creating the BA variable
+educ <- as.character(dd$educ)
+dd$BA <- 0
+dd$BA[educ == "4-year" | educ == "Post-grad"] <- 1
+table(dd$BA)
+```
+
+7) Construct a variable obama, that equals 1 if the respondent voted for President Obama, 0 if they voted for someone else, and NA if the did not vote or did not answer the question or are not sure. Use the variable CC410a. What percent of respondents voted for someone *other than* President Obama?
+```{r}
+## Creating the variable
+dd$obama <- NA
+dd$obama[dd$CC410a == "Mitt Romney (Republican)" | dd$CC410a == "Other"] <- 0
+dd$obama[dd$CC410a == "Barack Obama (Democratic)"] <- 1
+
+## Percent of respondents who did not vote for Obama?
+1 - mean(dd$obama, na.rm=T)
+```
+
+
+### Problem 2: Writing an OLS Function using Matrix Algebra
+
+1) Construct a matrix called X where the columns are: a vector of 1's of the same length as the variables you just created, as well as the dem, rep, female, age, and BA variables---*in that order*. Make sure the column names remain the same after constructing the matrix; label the column of 1's "constant".
+```{r}
+X <- cbind(rep(1, nrow(dd)), dd$dem, dd$rep, dd$female, dd$age, dd$BA)
+colnames(X) <- c("constant", "dem", "rep", "female", "age", "BA")
+```
+
+2) Construct a *matrix* Y that is just one column, obama. Again, make sure the column name remains the same.
+```{r}
+Y <- as.matrix(dd$obama)
+colnames(Y) <- "obama"
+```
+
+3) Use your X and Y matrices to implement the OLS estimator---$(X'X)^{-1}X'Y$---to estimate the unknown parameters (the constant term and the betas) in the following regression:
+
+$$obama = constant + \beta_1\text{dem} + \beta_2\text{rep} + \beta_3\text{female} + \beta_4\text{age}  +  \beta_5\text{ba} +\epsilon$$
+
+```{r}
+## Need to drop incomplete cases
+X.new <- X[!is.na(Y),]
+Y.new <- Y[!is.na(Y)]
+
+## Estimating the parameters
+betas <- solve(t(X.new) %*% X.new) %*% (t(X.new) %*% Y.new)
+betas
+```
+
+4) Using what we know about how to write functions and how to perform matrix operations in R, write a function called "OLS.est" that takes as arguments a data frame, a character vector of the names of independent variables, and a character vector with the name of the dependent variable. Have the function subset the data frame to the variables of interest, compute the OLS estimator $(X'X)^{-1}X'Y$, and return a kx1 matrix of estimated coefficients called "beta.hat". Make sure that by default the function renders the first column of X a constant vector of 1's, and give this column the name "(Intercept)" (the constant is often referred to as the intercept, and it is good to practice working with column names). Note: if an observation (a row) is missing on either an X variable or Y, that entire row cannot be included in the OLS model and must be deleted. Make sure your function accounts for this fact. Also, recall that the first column of the matrix of independent variables should be the constant term. You will have to add it inside the function.
+```{r}
+OLS.est <- function(df, dv.name, iv.names) {
+    dd.temp <- df[, c(iv.names, dv.name)]  ## subset the data frame to the variables you wish to include in the model
+    dd.temp <- na.omit(dd.temp)  ## drop missing values
+    colnames(dd.temp) <- c(iv.names, dv.name)
+    Y <- as.matrix(dd.temp[, dv.name])  ## separate out Y
+    X <- cbind(1, dd.temp[, iv.names])  ## separate out X, adding a constant term
+    colnames(X) <- c("(Intercept)", iv.names)
+    X <- as.matrix(X) ## X has to be a matrix
+    beta.hat <- solve(t(X) %*% X) %*% t(X) %*% Y ## Implementing the OLS estimator
+    results <- list(beta.hat)
+    names(results) <- c("beta.hat")
+    return(results)
+}
+```
+
+
+### Problem 3: Applying your function to actual data
+
+1) Apply your new function to the data frame "dd" (that is, the whole CCES data frame that you pre-processed in Problem 1. Do not alter it any further prior to passing it to the function and have the subsetting to relevant variables occur within the function). Again, estimate the unknown parameters (the constant term and the betas) in the following regression:
+
+$$obama = constant + \beta_1\text{dem} + \beta_2\text{rep} + \beta_3\text{female} + \beta_4\text{age}  +  \beta_5\text{ba} +\epsilon$$
+
+```{r}
+OLS.est(df = dd, dv.name = c("obama"), iv.names = c("dem", "rep", "female", "age", "BA"))
+```
+
+2) Confirm these estimates are correct by estimating the same regression using the lm() function. Use the ? command or search online for how to use this function. Examples abound.
+```{r}
+summary(lm(obama ~ dem + rep + female + age + BA, data=dd))
+```
+
+
+### Problem 4
+
+You will notice that the summary output of the lm() function contained standard errors. These are estimates of the standard deviations that distributions of these coefficients would possess if we took many samples of data and estimated these models many times. In other words, they are estimates of the variability in our estimates of these coefficients given this sample of data. Let's use matrix operations to estimate these standard errors.
+
+1) Revise your OLS.est function to calculate an additional object, a one-column matrix "e" that is equal to $Y - X \hat{\beta}$. This is a vector of residuals, which are estimates of the errors in the model. Still working inside the function, generate a new object which is equal to the sum of the squares of each of the elements in "e", which should be a constant. Call this new object e.2 and make sure it is of class numeric. Have the function return beta.hat and e.2. Since you are returning multiple objects, have the output of the function be a list. Use your function to compute the same regression model as before.
+```{r}
+## Updated function
+OLS.est <- function(df, dv.name, iv.names) {
+    dd.temp <- df[, c(iv.names, dv.name)]  ## subset the data frame to the variables you wish to include in the model
+    dd.temp <- na.omit(dd.temp)  ## drop missing values
+    colnames(dd.temp) <- c(iv.names, dv.name)
+    Y <- as.matrix(dd.temp[, dv.name])  ## separate out Y
+    X <- cbind(1, dd.temp[, iv.names])  ## separate out X, adding a constant term
+    colnames(X) <- c("(Intercept)", iv.names)
+    X <- as.matrix(X) ## X has to be a matrix
+    beta.hat <- solve(t(X) %*% X) %*% t(X) %*% Y ## Implementing the OLS estimator
+    e <- Y - X %*% beta.hat ## Calculating residuals
+    e.2 <- as.numeric(t(e) %*% e) ## Calculating the sum of squared residuals
+    results <- list(beta.hat, e.2) ## output as list
+    names(results) <- c("beta.hat", "e.2")
+    return(results)
+}
+
+## Applying the function as before
+OLS.est(df = dd, dv.name = c("obama"), iv.names = c("dem", "rep", "female", "age", "BA"))
+```
+
+2) Revise the function yet again to output a new $kxk$ matrix, "var.cov", that is equal to $\frac{e.2}{n-k}*(X'X)^{-1}$, where $n$ is the number of observations that were included in the regression, $k$ is the number of estimated parameters, including the constant, and $X$ is the matrix of independent variables included in the regression. 
+```{r}
+## Updated function
+OLS.est <- function(df, dv.name, iv.names) {
+    dd.temp <- df[, c(iv.names, dv.name)]  ## subset the data frame to the variables you wish to include in the model
+    dd.temp <- na.omit(dd.temp)  ## drop missing values
+    colnames(dd.temp) <- c(iv.names, dv.name)
+    Y <- as.matrix(dd.temp[, dv.name])  ## separate out Y
+    X <- cbind(1, dd.temp[, iv.names])  ## separate out X, adding a constant term
+    colnames(X) <- c("(Intercept)", iv.names)
+    X <- as.matrix(X) ## X has to be a matrix
+    beta.hat <- solve(t(X) %*% X) %*% t(X) %*% Y ## Implementing the OLS estimator
+    e <- Y - X %*% beta.hat ## Calculating residuals
+    e.2 <- as.numeric(t(e) %*% e) ## Calculating the sum of squared residuals
+    var.cov <- (e.2/(nrow(X) - ncol(X))) * solve((t(X) %*% X)) ## variance-covariance matrix    
+    results <- list(beta.hat, e.2, var.cov)
+    names(results) <- c("beta.hat", "e.2", "var.cov")
+    return(results)
+}
+
+## Applying the function as before
+OLS.est(df = dd, dv.name = c("obama"), iv.names = c("dem", "rep", "female", "age", "BA"))
+```
+
+3) Revise your function one last time to output an additional object, a vector called "ses", that is equal to the square root of the diagonal elements of var.cov (you may find diag() helpful for this question). So now, the function should output beta.hat, e.2, var.cov and ses in a list. Compare the ses vector to the standard errors estimated by lm() above. Are they the same?
+```{r}
+## Updated function
+OLS.est <- function(df, dv.name, iv.names) {
+    dd.temp <- df[, c(iv.names, dv.name)]  ## subset the data frame to the variables you wish to include in the model
+    dd.temp <- na.omit(dd.temp)  ## drop missing values
+    colnames(dd.temp) <- c(iv.names, dv.name)
+    Y <- as.matrix(dd.temp[, dv.name])  ## separate out Y
+    X <- cbind(1, dd.temp[, iv.names])  ## separate out X, adding a constant term
+    colnames(X) <- c("(Intercept)", iv.names)
+    X <- as.matrix(X) ## X has to be a matrix
+    beta.hat <- solve(t(X) %*% X) %*% t(X) %*% Y ## Implementing the OLS estimator
+    e <- Y - X %*% beta.hat ## Calculating residuals
+    e.2 <- as.numeric(t(e) %*% e) ## Calculating the sum of squared residuals
+    var.cov <- (e.2/(nrow(X) - ncol(X))) * solve((t(X) %*% X)) ## variance-covariance matrix    
+    ses <- sqrt(diag(var.cov)) # computing standard errors
+    results <- list(beta.hat, e.2, var.cov, ses)
+    names(results) <- c("beta.hat", "e.2", "var.cov", "ses")
+    return(results)
+}
+
+## Applying the function as before
+OLS.est(df = dd, dv.name = c("obama"), iv.names = c("dem", "rep", "female", "age", "BA"))
+summary(lm(formula = obama ~ x1 + x2 + x3, data = dd))
+```
+
+
+### BONUS: For your own enjoyment
+
+Note, if you find this daunting, don't worry.  450A will cover this in depth.
+
+1) Interpret the coefficients on BA and female, respectively.
+```{r}
+# There are many sentences that woud be correct, but something like:
+
+# “Holding party, age and gender constant, possessing a 4-year college degree or higher is associated with an increase of about 3.8 percentage points in the probability of voting for Obama, on average.”
+
+# “Holding party, age and education constant, being female is associated with an increase of about 3.5 percentage points in the probability of voting for Obama, on average.”
+
+# Some social scientists would caution you to be careful not to use causal language here like “affects” or “drives” or “leads to” without making very clear the assumptions that would need to hold in order for that assumption to be correct. More on this in 450A and 450B.
+```
+
+2) What is the predicted value of Y (whether or not someone voted for Obama) for an 95-year-old Democrat who is female and went to college? What about a 50-year-old Republican who is male and went to college? Hint: refer back to the equation for the model we estimated, and note that you now have estimated values for the unknown parameters.
+```{r}
+## Store the estimated coefficients in a vector
+coef <- OLS.est(df = dd, dv.name = c("obama"), iv.names = c("dem", "rep", "female", "age", "BA"))$beta.hat
+
+## Probability for the 95-year-old Democrat who is female and went to college:
+coef[1] + 1 * coef[2] + 0 * coef[3] + 1 * coef[4] + 95 * coef[5] + 1 * coef[6]
+
+## Probability for the 50-year-old Republican who is male and went to college:
+coef[1] + 0 * coef[2] + 1 * coef[3] + 0 * coef[4] + 50* coef[5] + 1 * coef[6]
+```
+
+3) For both predictions, do such people exist in the data set? If so, how many?
+```{r}
+## nobody who fulfills the first set of conditions:
+table(dd$obama[dd$dem == 1 & dd$age == 95 & dd$female == 1 & dd$BA == 1])
+
+## 45 people who fulfill the second set of conditions--4 (41) of whom voted (did not vote) for President Obama
+table(dd$obama[dd$rep == 1 & dd$age == 50 & dd$female == 0 & dd$BA == 1])
+```
